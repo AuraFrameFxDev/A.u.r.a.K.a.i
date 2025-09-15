@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.composeCompiler)
     id("org.jetbrains.compose") version "1.8.2"
     id("org.openapi.generator") version "7.15.0"
     
