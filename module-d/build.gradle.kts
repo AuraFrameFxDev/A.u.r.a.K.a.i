@@ -1,7 +1,7 @@
 // GENESIS PROTOCOL - MODULE D
 plugins {
     id("genesis.android.library")
-    alias(libs.plugins.genesis.android.compose)
+    id("genesis.android.compose")
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.jetbrainsCompose)
