@@ -145,10 +145,10 @@ android {
         implementation(libs.bundles.firebase)  // Includes all Firebase SDKs from the versions catalog
 
         // Firebase UI for Firestore (optional)
-        implementation("com.firebaseui:firebase-ui-firestore:8.0.2")
+        implementation("com.firebaseui:firebase-ui-firestore:9.0.0")
 
         // Firebase UI for Auth (optional)
-        implementation("com.firebaseui:firebase-ui-auth:8.0.2")
+        implementation("com.firebaseui:firebase-ui-auth:9.0.0")
 
         // ===== HILT DEPENDENCY INJECTION =====
         implementation(libs.hilt.android)
