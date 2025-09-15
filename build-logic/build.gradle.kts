@@ -42,7 +42,7 @@ dependencies {
     implementation("org.jetbrains.compose:compose-gradle-plugin:1.8.2")
     
     // KSP - Using the correct plugin notation
-    implementation("com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:2.2.20-1.0.20")
+    implementation("com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:2.2.20-2.0.3")
     
     // Add Maven repository for KSP if needed
     repositories {
