@@ -1,7 +1,5 @@
 package dev.aurakai.auraframefx.api.client.infrastructure
 
-import okhttp3.Response
-
 /**
  * Provides an extension to evaluation whether the response is a 1xx code
  */

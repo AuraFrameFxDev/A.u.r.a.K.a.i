@@ -4,8 +4,14 @@
 # ==============================================================================
 [versions]
 # ===== GRADLE & KOTLIN =====
-agp = "9.0.0-alpha02"
-gradle = "9.0.0-alpha02"
+agp = "9.0.0-alpha01"
+firebaseUiAuthKtx = "8.0.2"
+firebaseUiConfigKtx = "8.0.2"
+firebaseUiDatabaseKtx = "8.0.2"
+firebaseUiFirestoreKtx = "8.0.2"
+firebaseUiMessagingKtx = "8.0.2"
+firebaseUiStorageKtx = "8.0.2"
+gradle = "9.0.0-alpha01"
 junitJupiterParams = "5.13.4"
 gradleToolingApi = "9.0.0"
 kotlin = "2.2.20"
@@ -86,6 +92,13 @@ bouncycastle = "1.81"
 # ==============================================================================
 [libraries]
 # Kotlin & Coroutines
+firebase-ui-perf-ktx = { module = "com.firebaseui:firebase-ui-perf-ktx", version.ref = "firebaseUiAuthKtx" }
+firebase-ui-storage-ktx = { module = "com.firebaseui:firebase-ui-storage-ktx", version.ref = "firebaseUiStorageKtx" }
+firebaseui-firebase-ui-auth-ktx = { module = "com.firebaseui:firebase-ui-auth-ktx", version.ref = "firebaseUiAuthKtx" }
+firebaseui-firebase-ui-config-ktx = { module = "com.firebaseui:firebase-ui-config-ktx", version.ref = "firebaseUiConfigKtx" }
+firebaseui-firebase-ui-database-ktx = { module = "com.firebaseui:firebase-ui-database-ktx", version.ref = "firebaseUiDatabaseKtx" }
+firebaseui-firebase-ui-firestore-ktx = { module = "com.firebaseui:firebase-ui-firestore-ktx", version.ref = "firebaseUiFirestoreKtx" }
+firebaseui-firebase-ui-messaging-ktx = { module = "com.firebaseui:firebase-ui-messaging-ktx", version.ref = "firebaseUiMessagingKtx" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }

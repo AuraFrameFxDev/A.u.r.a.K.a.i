@@ -25,11 +25,30 @@ android {
         viewBinding = true
         buildConfig = true
         aidl = true
+
+        buildTypes {
+            debug {
+                isDebuggable = true
+                applicationIdSuffix = ".debug"
+                versionNameSuffix = "-DEBUG"
+            }
+            release {
+                isMinifyEnabled = true
+                proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            }
+        }
     }
-    
+    // This adds the generated OpenAPI source code to the main source set.
+    sourceSets["main"].java.srcDir(layout.buildDirectory.dir("generated/openapi/src/main/kotlin"))
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_24
+        targetCompatibility = JavaVersion.VERSION_24
+    }
+
     // Compose compiler configuration for Kotlin 2.2.x
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
+        kotlinCompilerExtensionVersion = ("1.8.2")
     }
 
     // Kotlin compiler options
@@ -145,10 +164,22 @@ android {
         implementation(libs.bundles.firebase)  // Includes all Firebase SDKs from the versions catalog
 
         // Firebase UI for Firestore (optional)
-        implementation("com.firebaseui:firebase-ui-firestore:8.0.2")
+        implementation(libs.firebaseui.firebase.ui.firestore.ktx)
+        implementation(libs.firebase.ui.storage.ktx)
+        implementation(libs.firebaseui.firebase.ui.database.ktx)
+        implementation(libs.firebaseui.firebase.ui.auth.ktx)
+        implementation(libs.firebaseui.firebase.ui.messaging.ktx)
+        implementation(libs.firebaseui.firebase.ui.config.ktx)
+        implementation(libs.firebase.ui.perf.ktx)
+        implementation(libs.firebaseui.firebase.ui.auth.ktx)
+        implementation(libs.firebase.ui.storage.ktx)
+        implementation(libs.firebaseui.firebase.ui.database.ktx)
+        implementation(libs.firebaseui.firebase.ui.auth.ktx)
+        implementation(libs.firebaseui.firebase.ui.messaging.ktx)
+        implementation(libs.firebaseui.firebase.ui.config.ktx)
+        implementation(libs.firebase.ui.perf.ktx)
+        implementation(libs.firebaseui.firebase.ui.auth.ktx)
 
-        // Firebase UI for Auth (optional)
-        implementation("com.firebaseui:firebase-ui-auth:8.0.2")
 
         // ===== HILT DEPENDENCY INJECTION =====
         implementation(libs.hilt.android)

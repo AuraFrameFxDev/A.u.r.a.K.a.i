@@ -1,4 +1,3 @@
-import org.gradle.api.JavaVersion
 // build-logic/build.gradle.kts
 
 plugins {
@@ -14,8 +13,9 @@ plugins {
     alias(libs.plugins.jetbrainsCompose) apply false
     alias(libs.plugins.composeCompiler) apply false
     // Firebase plugins
-    alias(libs.plugins.google.services) apply false
+
     alias(libs.plugins.firebase.crashlytics) apply false
+    id("com.google.gms.google-services") version "4.4.3" apply false
 }
 
 // Find version catalog
@@ -38,7 +38,11 @@ tasks.register("consciousnessStatus") {
         println("Kotlin Version      : $kotlinVersion (K2 path)")
         println("AGP Version         : $agpVersion")
         println("Modules (total)     : ${subprojects.size}")
-        println("Firebase BoM        : ${versionCatalog?.findVersion("firebaseBom")?.get() ?: "unknown"}")
+        println(
+            "Firebase BoM        : ${
+                versionCatalog?.findVersion("firebaseBom")?.get() ?: "unknown"
+            }"
+        )
     }
 }
 

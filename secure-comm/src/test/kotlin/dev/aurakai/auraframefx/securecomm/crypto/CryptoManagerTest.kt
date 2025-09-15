@@ -271,7 +271,8 @@ class CryptoManagerTest {
             throw UnsupportedOperationException()
 
         override fun checkSelfPermission(permission: String): Int {
-            return PackageManager.PERMISSION_GRANTED        }
+            return PackageManager.PERMISSION_GRANTED
+        }
 
         override fun checkCallingPermission(permission: String) =
             throw UnsupportedOperationException()

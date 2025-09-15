@@ -10,5 +10,6 @@ object StringUtils {
     /**
      * Splits a string into tokens by whitespace (for round-trip tests).
      */
-    fun split(input: String): List<String> = input.split(Regex("""\s+""")).filter { it.isNotEmpty() }
+    fun split(input: String): List<String> =
+        input.split(Regex("""\s+""")).filter { it.isNotEmpty() }
 }

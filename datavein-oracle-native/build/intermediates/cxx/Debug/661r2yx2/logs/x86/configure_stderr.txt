@@ -1,0 +1,62 @@
+CMake Deprecation Warning at C:/Users/Wehtt/AppData/Local/Android/Sdk/ndk/27.0.12077973/build/cmake/android.toolchain.cmake:35 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+Call Stack (most recent call first):
+  C:/Users/Wehtt/AppData/Local/Android/Sdk/cmake/3.31.6/share/cmake-3.31/Modules/CMakeDetermineSystem.cmake:146 (include)
+  CMakeLists.txt:4 (project)
+
+
+CMake Deprecation Warning at C:/Users/Wehtt/AppData/Local/Android/Sdk/ndk/27.0.12077973/build/cmake/android-legacy.toolchain.cmake:35 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+Call Stack (most recent call first):
+  C:/Users/Wehtt/AppData/Local/Android/Sdk/ndk/27.0.12077973/build/cmake/android.toolchain.cmake:55 (include)
+  C:/Users/Wehtt/AppData/Local/Android/Sdk/cmake/3.31.6/share/cmake-3.31/Modules/CMakeDetermineSystem.cmake:146 (include)
+  CMakeLists.txt:4 (project)
+
+
+CMake Deprecation Warning at C:/Users/Wehtt/AppData/Local/Android/Sdk/ndk/27.0.12077973/build/cmake/android.toolchain.cmake:35 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+Call Stack (most recent call first):
+  C:/Re_Genesis_A.O.S.P/datavein-oracle-native/.cxx/Debug/661r2yx2/x86/CMakeFiles/3.31.6/CMakeSystem.cmake:6 (include)
+  CMakeLists.txt:4 (project)
+
+
+CMake Deprecation Warning at C:/Users/Wehtt/AppData/Local/Android/Sdk/ndk/27.0.12077973/build/cmake/android.toolchain.cmake:35 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+Call Stack (most recent call first):
+  C:/Re_Genesis_A.O.S.P/datavein-oracle-native/.cxx/Debug/661r2yx2/x86/CMakeFiles/3.31.6/CMakeSystem.cmake:6 (include)
+  C:/Re_Genesis_A.O.S.P/datavein-oracle-native/.cxx/Debug/661r2yx2/x86/CMakeFiles/CMakeScratch/TryCompile-f84kpv/CMakeLists.txt:2 (project)
+
+
+CMake Deprecation Warning at C:/Users/Wehtt/AppData/Local/Android/Sdk/ndk/27.0.12077973/build/cmake/android-legacy.toolchain.cmake:35 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+Call Stack (most recent call first):
+  C:/Users/Wehtt/AppData/Local/Android/Sdk/ndk/27.0.12077973/build/cmake/android.toolchain.cmake:55 (include)
+  C:/Re_Genesis_A.O.S.P/datavein-oracle-native/.cxx/Debug/661r2yx2/x86/CMakeFiles/3.31.6/CMakeSystem.cmake:6 (include)
+  C:/Re_Genesis_A.O.S.P/datavein-oracle-native/.cxx/Debug/661r2yx2/x86/CMakeFiles/CMakeScratch/TryCompile-f84kpv/CMakeLists.txt:2 (project)
+
+

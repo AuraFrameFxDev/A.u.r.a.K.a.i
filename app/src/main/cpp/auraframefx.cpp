@@ -170,30 +170,30 @@ Java_dev_aurakai_auraframefx_ai_memory_MemoryManager_optimizeAIMemory([[maybe_un
  */
 JNIEXPORT void JNICALL
 Java_dev_aurakai_auraframefx_xposed_GenesisSystemHooks_enableNativeHooks(
-        [[maybe_unused]] JNIEnv *env, jobject /* this */) {
-    LOGI("Enabling native hooks for LSPosed");
+        [[maybe_unused]] JNIEnv * env , jobject /* this */) {
+LOGI("Enabling native hooks for LSPosed") ;
 
 // Initialize LSPosed native hook infrastructure
-    bool hooksEnabled = true;
+bool hooksEnabled = true;
 
 // Set up system hook points
-    LOGI("Setting up Genesis system hook points...");
+LOGI("Setting up Genesis system hook points...") ;
 
 // Enable method hooking capabilities
-    LOGI("Method hooking capabilities enabled");
+LOGI("Method hooking capabilities enabled") ;
 
 // Initialize hook callback system
-    LOGI("Hook callback system initialized");
+LOGI("Hook callback system initialized") ;
 
 // Register Genesis-specific hook handlers
-    LOGI("Genesis hook handlers registered");
+LOGI("Genesis hook handlers registered") ;
 
 // Verify hook system integrity
-    if (hooksEnabled) {
-        LOGI("Native hooks enabled successfully - Genesis system integration active");
-    } else {
-        LOGE("Failed to enable native hooks - system integration limited");
-    }
+if ( hooksEnabled ) {
+LOGI("Native hooks enabled successfully - Genesis system integration active") ;
+} else {
+LOGE("Failed to enable native hooks - system integration limited");
+}
 }
 
 }

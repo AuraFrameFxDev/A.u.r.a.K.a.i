@@ -1,9 +1,8 @@
 package org.example.utilities
 
-import dev.aurakai.auraframefx.utilities.StringUtils
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.example.list.LinkedList
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 /*
 Test library/framework: kotlin.test (Kotlin standard library). These tests are intended to run on the JUnit Platform via Gradle's default Kotlin test integration.

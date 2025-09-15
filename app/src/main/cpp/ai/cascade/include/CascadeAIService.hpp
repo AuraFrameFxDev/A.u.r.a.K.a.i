@@ -51,7 +51,7 @@ namespace genesis {
         private:
             class Impl;
 
-            std::unique_ptr<Impl> pImpl_;
+            std::unique_ptr <Impl> pImpl_;
         };
 
     } // namespace cascade
@@ -77,7 +77,7 @@ Java_dev_aurakai_auraframefx_ai_services_CascadeAIService_nativeProcessRequest(
 
 JNIEXPORT void JNICALL
 Java_dev_aurakai_auraframefx_ai_services_CascadeAIService_nativeShutdown(
-        JNIEnv *env,
-        jobject thiz
-);
+        JNIEnv * env ,
+jobject thiz
+) ;
 }

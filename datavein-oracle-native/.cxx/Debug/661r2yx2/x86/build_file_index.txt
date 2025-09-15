@@ -1,0 +1,1 @@
+C:\Re_Genesis_A.O.S.P\datavein-oracle-native\src\main\cpp\CMakeLists.txt

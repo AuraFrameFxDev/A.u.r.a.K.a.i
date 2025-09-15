@@ -21,18 +21,25 @@ class SecureKeyStoreTest {
 
     @MockK
     lateinit var context: Context
+
     @MockK
     lateinit var sharedPrefs: SharedPreferences
+
     @MockK
     lateinit var editor: SharedPreferences.Editor
+
     @MockK
     lateinit var keyStore: KeyStore
+
     @MockK
     lateinit var secretKeyEntry: KeyStore.SecretKeyEntry
+
     @MockK
     lateinit var secretKey: SecretKey
+
     @MockK
     lateinit var cipher: Cipher
+
     @MockK
     lateinit var keyGenerator: KeyGenerator
 

@@ -1,12 +1,12 @@
 package org.example.utilities
 
 import dev.aurakai.auraframefx.utilities.JoinUtils
-import java.util.LinkedList
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import java.util.LinkedList
 
 /**
  * Tests for JoinUtils.join which concatenates LinkedList elements separated by a single space.

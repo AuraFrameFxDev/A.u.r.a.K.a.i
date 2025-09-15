@@ -126,15 +126,15 @@ class CryptoManager @Inject constructor(
     }
 
     /**
-         * Asynchronously encrypts data with AES-GCM and returns the ciphertext and IV.
-         *
-         * This suspend variant performs the encryption off the caller thread (uses Dispatchers.Default)
-         * to avoid blocking. The returned IV must be supplied to the corresponding decrypt call.
-         *
-         * @param data Plaintext bytes to encrypt.
-         * @param key AES SecretKey used for encryption (expects 128/256-bit AES key).
-         * @return Pair where the first element is the ciphertext and the second is the initialization vector (IV).
-         */
+     * Asynchronously encrypts data with AES-GCM and returns the ciphertext and IV.
+     *
+     * This suspend variant performs the encryption off the caller thread (uses Dispatchers.Default)
+     * to avoid blocking. The returned IV must be supplied to the corresponding decrypt call.
+     *
+     * @param data Plaintext bytes to encrypt.
+     * @param key AES SecretKey used for encryption (expects 128/256-bit AES key).
+     * @return Pair where the first element is the ciphertext and the second is the initialization vector (IV).
+     */
     suspend fun encryptAsync(data: ByteArray, key: SecretKey): Pair<ByteArray, ByteArray> =
         withContext(Dispatchers.Default) {
             val cipher = javax.crypto.Cipher.getInstance("AES/GCM/NoPadding")

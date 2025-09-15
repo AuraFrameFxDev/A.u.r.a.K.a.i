@@ -1,15 +1,15 @@
 package auraframefx.api.client.models
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.animation.AnimatedVisibility
 
 sealed class LockScreenAnimationType {
     object Fade : LockScreenAnimationType()
@@ -35,6 +35,7 @@ fun LockScreenAnimatedContent(
                 content()
             }
         }
+
         is LockScreenAnimationType.Slide -> {
             AnimatedVisibility(
                 visible = visible,
@@ -51,6 +52,7 @@ fun LockScreenAnimatedContent(
                 content()
             }
         }
+
         is LockScreenAnimationType.Zoom -> {
             AnimatedVisibility(
                 visible = visible,

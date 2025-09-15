@@ -2,12 +2,12 @@ package auraframefx.api.client.models
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.foundation.layout.Box
 
 /**
  * HologramTransition composable for futuristic lockscreen or UI transitions.
@@ -28,8 +28,14 @@ fun HologramTransition(
     val alpha = remember { Animatable(if (visible) startAlpha else endAlpha) }
 
     LaunchedEffect(visible) {
-        scale.animateTo(if (visible) endScale else startScale, animationSpec = tween(durationMillis))
-        alpha.animateTo(if (visible) endAlpha else startAlpha, animationSpec = tween(durationMillis))
+        scale.animateTo(
+            if (visible) endScale else startScale,
+            animationSpec = tween(durationMillis)
+        )
+        alpha.animateTo(
+            if (visible) endAlpha else startAlpha,
+            animationSpec = tween(durationMillis)
+        )
     }
 
     Box(

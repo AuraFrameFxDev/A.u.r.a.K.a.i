@@ -1,7 +1,7 @@
 package dev.aurakai.auraframefx.buildlogic
 
-import org.gradle.api.Project
 import com.android.build.api.dsl.ApplicationExtension
+import org.gradle.api.Project
 
 // Data class representing build features
 data class GradleBuildFeatures(

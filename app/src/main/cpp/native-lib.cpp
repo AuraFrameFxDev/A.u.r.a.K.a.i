@@ -32,28 +32,28 @@ extern "C" /**
 JNIEXPORT void JNICALL
 Java_dev_aurakai_auraframefx_ai_services_CascadeAIService_nativeInitialize(
         JNIEnv
-        *env,
-        jclass clazz,
+*env,
+jclass clazz,
         jobject
-        context) {
+context) {
 // Store the JavaVM for later use
-    if (env->
-            GetJavaVM(&g_vm)
-        != JNI_OK) {
-        LOGE("Failed to get JavaVM");
-        return;
-    }
+if (env->
+GetJavaVM(&g_vm)
+!= JNI_OK) {
+LOGE("Failed to get JavaVM");
+return;
+}
 
 // Create a global reference to the context
-    if (context != nullptr) {
-        g_context = env->NewGlobalRef(context);
-        if (g_context == nullptr) {
-            LOGE("Failed to create global reference to context");
-            return;
-        }
-    }
+if (context != nullptr) {
+g_context = env->NewGlobalRef(context);
+if (g_context == nullptr) {
+LOGE("Failed to create global reference to context");
+return;
+}
+}
 
-    LOGI("Native initialization complete");
+LOGI("Native initialization complete");
 }
 
 extern "C" /**
@@ -68,36 +68,36 @@ extern "C" /**
  */
 JNIEXPORT jstring
 JNICALL
-Java_dev_aurakai_auraframefx_ai_services_CascadeAIService_nativeProcessRequest(
-        JNIEnv *env,
+        Java_dev_aurakai_auraframefx_ai_services_CascadeAIService_nativeProcessRequest(
+        JNIEnv * env,
         jclass
-        clazz,
-        jstring request
+clazz,
+jstring request
 ) {
-    if (request == nullptr) {
-        LOGE("Request string is null");
-        return env->NewStringUTF("{'error':'Invalid request'}");
-    }
+if (request == nullptr) {
+LOGE("Request string is null");
+return env->NewStringUTF("{'error':'Invalid request'}");
+}
 
-    const char *requestStr = env->GetStringUTFChars(request, nullptr);
-    if (requestStr == nullptr) {
-        LOGE("Failed to get request string");
-        return env->NewStringUTF("{'error':'Failed to process request'}");
-    }
+const char *requestStr = env->GetStringUTFChars(request, nullptr);
+if (requestStr == nullptr) {
+LOGE("Failed to get request string");
+return env->NewStringUTF("{'error':'Failed to process request'}");
+}
 
 // Process the request (this is where you'd add your actual processing logic)
-    LOGI("Processing request: %s", requestStr);
+LOGI("Processing request: %s", requestStr);
 
 // Example response
-    const char *response = "{'content':'Request processed by native code', 'confidence':0.9}";
+const char *response = "{'content':'Request processed by native code', 'confidence':0.9}";
 
 // Release the string
-    env->
-            ReleaseStringUTFChars(request, requestStr
-    );
+env->
+ReleaseStringUTFChars(request, requestStr
+);
 
-    return env->
-            NewStringUTF(response);
+return env->
+NewStringUTF(response);
 }
 
 extern "C" /**
@@ -109,17 +109,17 @@ extern "C" /**
 JNIEXPORT void JNICALL
 Java_dev_aurakai_auraframefx_ai_services_CascadeAIService_nativeShutdown(
         JNIEnv
-        *env,
-        jclass clazz
+*env,
+jclass clazz
 ) {
-    LOGI("Shutting down native service");
+LOGI("Shutting down native service");
 
 // Clean up global references
-    if (g_context != nullptr) {
-        env->
-                DeleteGlobalRef(g_context);
-        g_context = nullptr;
-    }
+if (g_context != nullptr) {
+env->
+DeleteGlobalRef(g_context);
+g_context = nullptr;
+}
 }
 
 /**
@@ -132,22 +132,22 @@ Java_dev_aurakai_auraframefx_ai_services_CascadeAIService_nativeShutdown(
  */
 JNIEXPORT jint
 JNI_OnLoad(JavaVM
-           *vm,
-           void *reserved
+*vm,
+void *reserved
 ) {
-    JNIEnv *env;
-    if (vm->GetEnv(reinterpret_cast
-                           <void **>(&env), JNI_VERSION_1_6
-    ) != JNI_OK) {
-        return
-                JNI_ERR;
-    }
+JNIEnv *env;
+if (vm->GetEnv(reinterpret_cast
+<void **>(&env), JNI_VERSION_1_6
+) != JNI_OK) {
+return
+JNI_ERR;
+}
 
 // Store the JavaVM for later use
-    g_vm = vm;
+g_vm = vm;
 
-    return
-            JNI_VERSION_1_6;
+return
+JNI_VERSION_1_6;
 }
 
 /**
@@ -156,8 +156,8 @@ JNI_OnLoad(JavaVM
  * Deletes any retained global JNI references (currently g_context) and resets them to nullptr.
  * If the VM cannot provide a JNIEnv for the current thread, the function returns without performing cleanup.
  */
-JNIEXPORT void JNI_OnUnload(JavaVM *vm, void *reserved) {
-    JNIEnv *env;
+JNIEXPORT void JNI_OnUnload(JavaVM * vm, void * reserved) {
+    JNIEnv * env;
     if (vm->GetEnv(reinterpret_cast<void **>(&env), JNI_VERSION_1_6) != JNI_OK) {
         return;
     }

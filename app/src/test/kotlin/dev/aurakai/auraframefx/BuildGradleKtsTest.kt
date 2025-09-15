@@ -57,8 +57,10 @@ class BuildGradleKtsTest {
             "Expected correct namespace"
         )
 
-        val compile = Regex("""compileSdk\s*=\s*(\d+)""").find(script)?.groupValues?.get(1)?.toIntOrNull()
-        val target = Regex("""targetSdk\s*=\s*(\d+)""").find(script)?.groupValues?.get(1)?.toIntOrNull()
+        val compile =
+            Regex("""compileSdk\s*=\s*(\d+)""").find(script)?.groupValues?.get(1)?.toIntOrNull()
+        val target =
+            Regex("""targetSdk\s*=\s*(\d+)""").find(script)?.groupValues?.get(1)?.toIntOrNull()
         val min = Regex("""minSdk\s*=\s*(\d+)""").find(script)?.groupValues?.get(1)?.toIntOrNull()
 
         assertEquals(36, compile, "compileSdk should be 36")
@@ -82,11 +84,15 @@ class BuildGradleKtsTest {
             "Expected versionName = 1.0.0-genesis-alpha"
         )
         assertTrue(
-            Regex("""testInstrumentationRunner\s*=\s*"androidx\.test\.runner\.AndroidJUnitRunner"""").containsMatchIn(script),
+            Regex("""testInstrumentationRunner\s*=\s*"androidx\.test\.runner\.AndroidJUnitRunner"""").containsMatchIn(
+                script
+            ),
             "Expected AndroidJUnitRunner"
         )
         assertTrue(
-            Regex("""vectorDrawables\s*\{[^}]*useSupportLibrary\s*=\s*true""").containsMatchIn(script),
+            Regex("""vectorDrawables\s*\{[^}]*useSupportLibrary\s*=\s*true""").containsMatchIn(
+                script
+            ),
             "Expected vectorDrawables.useSupportLibrary = true"
         )
     }
@@ -95,11 +101,15 @@ class BuildGradleKtsTest {
     @DisplayName("Native build guards exist for NDK and CMake")
     fun nativeBuildGuardsPresent() {
         assertTrue(
-            Regex("""if\s*\(project\.file\("src/main/cpp/CMakeLists\.txt"\)\.exists\(\)\)\s*\{\s*ndk\s*\{""").containsMatchIn(script),
+            Regex("""if\s*\(project\.file\("src/main/cpp/CMakeLists\.txt"\)\.exists\(\)\)\s*\{\s*ndk\s*\{""").containsMatchIn(
+                script
+            ),
             "NDK guard not found in defaultConfig"
         )
         assertTrue(
-            Regex("""externalNativeBuild\s*\{[^}]*cmake\s*\{\s*path\s*=\s*file\("src/main/cpp/CMakeLists\.txt"\)""").containsMatchIn(script),
+            Regex("""externalNativeBuild\s*\{[^}]*cmake\s*\{\s*path\s*=\s*file\("src/main/cpp/CMakeLists\.txt"\)""").containsMatchIn(
+                script
+            ),
             "externalNativeBuild CMake guard not found"
         )
     }
@@ -108,7 +118,9 @@ class BuildGradleKtsTest {
     @DisplayName("Build types: release enables minify/shrink and uses proguard files")
     fun buildTypesConfigured() {
         assertTrue(
-            Regex("""buildTypes\s*\{[^}]*release\s*\{[^}]*isMinifyEnabled\s*=\s*true""").containsMatchIn(script),
+            Regex("""buildTypes\s*\{[^}]*release\s*\{[^}]*isMinifyEnabled\s*=\s*true""").containsMatchIn(
+                script
+            ),
             "Expected release.isMinifyEnabled = true"
         )
         assertTrue(
@@ -116,7 +128,9 @@ class BuildGradleKtsTest {
             "Expected release.isShrinkResources = true"
         )
         assertTrue(
-            Regex("""proguardFiles\([^)]*"proguard-android-optimize\.txt"[^)]*"proguard-rules\.pro"[^)]*\)""").containsMatchIn(script),
+            Regex("""proguardFiles\([^)]*"proguard-android-optimize\.txt"[^)]*"proguard-rules\.pro"[^)]*\)""").containsMatchIn(
+                script
+            ),
             "Expected release proguard files configuration"
         )
         assertTrue(
@@ -146,7 +160,9 @@ class BuildGradleKtsTest {
             "Expected jniLibs.useLegacyPackaging = false"
         )
         assertTrue(
-            Regex("""pickFirsts\s*\+=\s*listOf\("(\*\*/)?libc\+\+_shared\.so",\s*"(\*\*/)?libjsc\.so"\)""").containsMatchIn(script),
+            Regex("""pickFirsts\s*\+=\s*listOf\("(\*\*/)?libc\+\+_shared\.so",\s*"(\*\*/)?libjsc\.so"\)""").containsMatchIn(
+                script
+            ),
             "Expected jniLibs.pickFirsts to include libc++_shared.so and libjsc.so"
         )
     }

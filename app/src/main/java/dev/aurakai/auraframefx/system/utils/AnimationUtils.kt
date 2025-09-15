@@ -13,7 +13,6 @@ import android.view.animation.DecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import android.view.animation.TranslateAnimation
 import androidx.annotation.ColorInt
-import androidx.core.animation.addListener
 import androidx.core.view.ViewCompat
 import kotlin.math.hypot
 import kotlin.math.max

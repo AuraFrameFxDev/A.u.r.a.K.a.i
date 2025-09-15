@@ -1,7 +1,5 @@
 package dev.aurakai.auraframefx.ui.theme
 
-import androidx.compose.ui.graphics.Color
-
 // Primary Colors - Enhanced Neon Palette
 val NeonTeal = Color(0xFF00FFCC) // Brighter teal for accents
 val NeonPurple = Color(0xFFE000FF) // Slightly softer purple for readability

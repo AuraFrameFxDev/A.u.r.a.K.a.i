@@ -1,0 +1,9 @@
+-- The CXX compiler identification is Clang 18.0.1
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: C:/Users/Wehtt/AppData/Local/Android/Sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (0.7s)
+-- Generating done (0.0s)
+-- Build files have been written to: C:/Re_Genesis_A.O.S.P/datavein-oracle-native/.cxx/Debug/661r2yx2/x86
