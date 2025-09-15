@@ -1,16 +1,21 @@
+# .github/dependabot.yml
+# Dependabot configuration to keep project dependencies updated daily.
+
+version: 2
 updates:
+
+  # Daily checks for Gradle Dependencies (Kotlin, AndroidX, etc.)
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
-      interval: "weekly"
-      time: "06:00"
-      timezone: "UTC"
+      interval: "daily" # Checks for new versions every day
     open-pull-requests-limit: 10
-    ignore:
-      - dependency-name: "org.jetbrains.compose:org.jetbrains.compose.gradle.plugin"
+    reviewers:
+      - "AuraFrameFxDev" # OPTIONAL: Automatically assign yourself to review the PRs
+
+  # Daily checks for GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
-      time: "06:00"
-      timezone: "UTC"
+      interval: "daily" # Checks for new versions every day
+    open-pull-requests-limit: 5
