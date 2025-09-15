@@ -280,7 +280,7 @@ testing-android = [
 # ==============================================================================
 [plugins]
 # Firebase plugins (compatible with AGP 8.0+)
-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "2.9.9" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "3.0.6" }
 # Firebase Performance Monitoring is not compatible with latest AGP
 # Consider using Firebase Performance Monitoring v2+ with the new API in the future
 google-services = { id = "com.google.gms.google-services", version = "4.4.3" }
