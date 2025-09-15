@@ -7,7 +7,7 @@ plugins {
     alias(libs.plugins.spotless)
 
     // Jetbrains Compose
-    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.composeCompiler)
 }
 
 group = "dev.aurakai.auraframefx.utilities"
