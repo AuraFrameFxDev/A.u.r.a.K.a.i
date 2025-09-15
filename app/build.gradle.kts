@@ -19,6 +19,7 @@ android {
 
     // Build features
     buildFeatures {
+        compose = true
         dataBinding = true
         viewBinding = true
         buildConfig = true
@@ -44,7 +45,7 @@ android {
 
     defaultConfig {
         applicationId = "dev.aurakai.auraframefx"
-        minSdk = 21
+        minSdk = 34
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
