@@ -40,6 +40,7 @@ dependencies {
     implementation(platform("androidx.compose:compose-bom:2025.09.00"))
     implementation("androidx.compose.runtime:runtime")
     implementation("org.jetbrains.compose:compose-gradle-plugin:1.8.2")
+    implementation("org.jetbrains.kotlin.plugin.compose:org.jetbrains.kotlin.plugin.compose.gradle.plugin:2.2.20")
     
     // KSP - Using the correct plugin notation
     implementation("com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:2.2.20-2.0.3")
