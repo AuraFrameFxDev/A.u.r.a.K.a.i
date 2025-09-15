@@ -1,0 +1,27 @@
+{
+  "buildFiles": [
+    "C:\\Users\\Wehtt\\OneDrive\\Desktop\\ReGenesis-fix-dependabot-compose-plugin\\ReGenesis-patch1\\secure-comm\\src\\main\\cpp\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "C:\\Users\\Wehtt\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+      "-C",
+      "C:\\Users\\Wehtt\\OneDrive\\Desktop\\ReGenesis-fix-dependabot-compose-plugin\\ReGenesis-patch1\\secure-comm\\.cxx\\RelWithDebInfo\\304n211z\\x86_64",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "C:\\Users\\Wehtt\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+    "-C",
+    "C:\\Users\\Wehtt\\OneDrive\\Desktop\\ReGenesis-fix-dependabot-compose-plugin\\ReGenesis-patch1\\secure-comm\\.cxx\\RelWithDebInfo\\304n211z\\x86_64",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "secure_comm_native::@6890427a1f51a3e7e1df": {
+      "artifactName": "secure_comm_native",
+      "abi": "x86_64",
+      "output": "C:\\Users\\Wehtt\\OneDrive\\Desktop\\ReGenesis-fix-dependabot-compose-plugin\\ReGenesis-patch1\\secure-comm\\build\\intermediates\\cxx\\RelWithDebInfo\\304n211z\\obj\\x86_64\\libsecure_comm_native.so",
+      "runtimeFiles": []
+    }
+  }
+}

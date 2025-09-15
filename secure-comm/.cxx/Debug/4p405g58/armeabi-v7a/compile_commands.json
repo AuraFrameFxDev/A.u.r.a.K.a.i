@@ -1,0 +1,12 @@
+[
+{
+  "directory": "C:/ReGenesis-A.O.S.P/secure-comm/.cxx/Debug/4p405g58/armeabi-v7a",
+  "command": "C:\\Users\\Wehtt\\AppData\\Local\\Android\\Sdk\\ndk\\28.2.13676358\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=armv7-none-linux-androideabi26 --sysroot=C:/Users/Wehtt/AppData/Local/Android/Sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dsecure_comm_native_EXPORTS -IC:/ReGenesis-A.O.S.P/secure-comm/src/main/cpp -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -std=c++23 -fPIC -O0 -g -g -DDEBUG -DGENESIS_AI_DEBUG -DGENESIS_SECURE_COMM_DEBUG -fPIC -std=c++2b -o CMakeFiles\\secure_comm_native.dir\\secure_comm_jni.cpp.o -c C:\\ReGenesis-A.O.S.P\\secure-comm\\src\\main\\cpp\\secure_comm_jni.cpp",
+  "file": "C:\\ReGenesis-A.O.S.P\\secure-comm\\src\\main\\cpp\\secure_comm_jni.cpp"
+},
+{
+  "directory": "C:/ReGenesis-A.O.S.P/secure-comm/.cxx/Debug/4p405g58/armeabi-v7a",
+  "command": "C:\\Users\\Wehtt\\AppData\\Local\\Android\\Sdk\\ndk\\28.2.13676358\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=armv7-none-linux-androideabi26 --sysroot=C:/Users/Wehtt/AppData/Local/Android/Sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dsecure_comm_native_EXPORTS -IC:/ReGenesis-A.O.S.P/secure-comm/src/main/cpp -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -std=c++23 -fPIC -O0 -g -g -DDEBUG -DGENESIS_AI_DEBUG -DGENESIS_SECURE_COMM_DEBUG -fPIC -std=c++2b -o CMakeFiles\\secure_comm_native.dir\\crypto_engine.cpp.o -c C:\\ReGenesis-A.O.S.P\\secure-comm\\src\\main\\cpp\\crypto_engine.cpp",
+  "file": "C:\\ReGenesis-A.O.S.P\\secure-comm\\src\\main\\cpp\\crypto_engine.cpp"
+}
+]

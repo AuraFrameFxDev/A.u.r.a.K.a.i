@@ -1,0 +1,3 @@
+C:/ReGenesis/secure-comm/.cxx/Debug/1a2b5424/x86/CMakeFiles/secure_comm_native.dir
+C:/ReGenesis/secure-comm/.cxx/Debug/1a2b5424/x86/CMakeFiles/edit_cache.dir
+C:/ReGenesis/secure-comm/.cxx/Debug/1a2b5424/x86/CMakeFiles/rebuild_cache.dir

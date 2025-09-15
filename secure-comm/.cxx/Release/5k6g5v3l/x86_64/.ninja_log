@@ -1,0 +1,5 @@
+# ninja log v5
+2	4139	7793634633840402	CMakeFiles/secure_comm_native.dir/secure_comm_jni.cpp.o	cfdab0083fe59899
+29	5981	7793634652367794	CMakeFiles/secure_comm_native.dir/crypto_engine.cpp.o	90561f12252d1918
+5989	8461	7793634676735721	C:/ReGenesis-A.O.S.P/secure-comm/build/intermediates/cxx/Release/5k6g5v3l/obj/x86_64/libsecure_comm_native.so	cec7237c0afecfc3
+20	464	7794064229989319	C:/ReGenesis-A.O.S.P/secure-comm/build/intermediates/cxx/Release/5k6g5v3l/obj/x86_64/libsecure_comm_native.so	cec7237c0afecfc3

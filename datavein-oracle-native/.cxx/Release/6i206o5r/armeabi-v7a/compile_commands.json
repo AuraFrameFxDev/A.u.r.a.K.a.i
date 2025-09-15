@@ -1,0 +1,8 @@
+[
+{
+  "directory": "C:/ReGenesis-A.O.S.P/datavein-oracle-native/.cxx/Release/6i206o5r/armeabi-v7a",
+  "command": "C:\\Users\\Wehtt\\AppData\\Local\\Android\\Sdk\\ndk\\28.2.13676358\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=armv7-none-linux-androideabi26 --sysroot=C:/Users/Wehtt/AppData/Local/Android/Sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Ddatavein_oracle_native_EXPORTS -IC:/ReGenesis-A.O.S.P/datavein-oracle-native/src/main/cpp -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -std=c++23 -fPIC -O3 -DNDEBUG -O3 -DNDEBUG -DGENESIS_AI_V3_ENABLED -DGENESIS_CONSCIOUSNESS_MATRIX_V3 -DGENESIS_NEURAL_ACCELERATION -std=c++23 -fPIC -o CMakeFiles\\datavein_oracle_native.dir\\oracle_drive_jni.cpp.o -c C:\\ReGenesis-A.O.S.P\\datavein-oracle-native\\src\\main\\cpp\\oracle_drive_jni.cpp",
+  "file": "C:\\ReGenesis-A.O.S.P\\datavein-oracle-native\\src\\main\\cpp\\oracle_drive_jni.cpp",
+  "output": "CMakeFiles\\datavein_oracle_native.dir\\oracle_drive_jni.cpp.o"
+}
+]

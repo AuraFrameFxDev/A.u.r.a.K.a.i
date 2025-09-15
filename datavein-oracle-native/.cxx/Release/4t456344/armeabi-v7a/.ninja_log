@@ -1,0 +1,6 @@
+# ninja log v6
+20	2952	7795250885524714	CMakeFiles/datavein_oracle_native.dir/oracle_drive_jni.cpp.o	3931e997cd1ac860
+2962	3656	7795250914941123	C:/ReGenesis/datavein-oracle-native/build/intermediates/cxx/Release/4t456344/obj/armeabi-v7a/libdatavein_oracle_native.so	242ef39e8c139eb5
+8	25	7795290061805218	clean	b1098cec5f836f2a
+10	5276	7795807317428309	CMakeFiles/datavein_oracle_native.dir/oracle_drive_jni.cpp.o	cd5da4df6b5b1bb5
+5288	6994	7795807370215002	C:/Users/Wehtt/OneDrive/Desktop/ReGenesis-fix-dependabot-compose-plugin/ReGenesis-patch1/datavein-oracle-native/build/intermediates/cxx/Release/4t456344/obj/armeabi-v7a/libdatavein_oracle_native.so	91803d258f847641

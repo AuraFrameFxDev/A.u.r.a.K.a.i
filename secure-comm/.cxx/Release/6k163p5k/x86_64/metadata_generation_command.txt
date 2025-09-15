@@ -1,0 +1,23 @@
+                        -HC:\ReGenesis-A.O.S.P\secure-comm\src\main\cpp
+-DCMAKE_SYSTEM_NAME=Android
+-DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+-DCMAKE_SYSTEM_VERSION=26
+-DANDROID_PLATFORM=android-26
+-DANDROID_ABI=x86_64
+-DCMAKE_ANDROID_ARCH_ABI=x86_64
+-DANDROID_NDK=C:\Users\Wehtt\AppData\Local\Android\Sdk\ndk\28.2.13676358
+-DCMAKE_ANDROID_NDK=C:\Users\Wehtt\AppData\Local\Android\Sdk\ndk\28.2.13676358
+-DCMAKE_TOOLCHAIN_FILE=C:\Users\Wehtt\AppData\Local\Android\Sdk\ndk\28.2.13676358\build\cmake\android.toolchain.cmake
+-DCMAKE_MAKE_PROGRAM=C:\Users\Wehtt\AppData\Local\Android\Sdk\cmake\3.22.1\bin\ninja.exe
+-DCMAKE_CXX_FLAGS=-std=c++23 -fPIC -O3 -DNDEBUG
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=C:\ReGenesis-A.O.S.P\secure-comm\build\intermediates\cxx\Release\6k163p5k\obj\x86_64
+-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=C:\ReGenesis-A.O.S.P\secure-comm\build\intermediates\cxx\Release\6k163p5k\obj\x86_64
+-BC:\ReGenesis-A.O.S.P\secure-comm\.cxx\Release\6k163p5k\x86_64
+-GNinja
+-DANDROID_STL=c++_shared
+-DCMAKE_BUILD_TYPE=Release
+-DGENESIS_AI_V3_ENABLED=ON
+-DGENESIS_CONSCIOUSNESS_MATRIX_V3=ON
+-DGENESIS_NEURAL_ACCELERATION=ON
+                        Build command args: []
+                        Version: 2

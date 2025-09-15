@@ -1,0 +1,1 @@
+C:\ReGenesis\datavein-oracle-native\build\intermediates\cxx\Release\4t456344\obj\arm64-v8a

@@ -1,0 +1,284 @@
+# ==============================================================================
+# VERSIONS
+# Centralized dependency versions.
+# ==============================================================================
+[versions]
+# ===== GRADLE & KOTLIN =====
+agp = "9.0.0-alpha02"
+gradle = "9.0.0-alpha02"
+junitJupiterParams = "5.13.4"
+gradleToolingApi = "9.0.0"
+kotlin = "2.2.20"
+ksp = "2.2.20-2.0.3"
+desugar_jdk_libs = "2.1.5"
+firebaseBom = "34.2.0"
+compose-plugin = "1.8.2"
+# AndroidX Core
+coreKtx = "1.17.0"
+appcompat = "1.7.1"
+multidex = "2.0.1"
+lifecycle = "2.9.3"
+room = "2.8.0"
+workManager = "2.10.4"
+datastore = "1.1.7"
+securityCrypto = "1.1.0"
+
+junit4 = "4.13.2"
+# Compose
+composeBom = "2025.09.00"
+composeCompiler = "2.2.20"  # Match Kotlin version
+activityCompose = "1.11.0"
+navigationCompose = "2.9.4"
+
+# Dependency Injection (Hilt)
+hilt = "2.57.1"
+hiltNavigationCompose = "1.3.0"
+hiltWork = "1.3.0"
+
+# Networking
+retrofit = "3.0.0"
+okhttp = "5.1.0"
+gson = "2.13.2"
+moshi = "1.15.2"
+
+# Coroutines & Async
+kotlinxCoroutines = "1.10.2"
+
+# UI & Image Loading
+coilCompose = "2.7.0"
+
+# Utilities & Logging
+timber = "5.0.1"
+leakcanary = "2.14" # Added missing version
+commonsIo = "2.20.0"
+commonsCompress = "1.28.0"
+xz = "1.10"
+slf4j = "2.0.17"
+
+# Unit Testing
+junitJupiter = "5.13.4"
+mockk = "1.14.5"
+
+# Android Testing
+androidxTestJunit = "1.3.0"
+espressoCore = "3.7.0"
+uiAutomator = "2.3.0"
+benchmark = "1.4.1"
+
+# Add missing versions
+kotlinxSerialization = "1.9.0"
+kotlinxDatetime = "0.7.1"
+
+# Dokka
+dokka = "2.0.0"
+
+# Spotless
+spotless = "7.2.1"
+
+# Bouncy Castle
+bouncycastle = "1.81"
+
+# Firebase
+
+# ==============================================================================
+# LIBRARIES
+# Dependency coordinates.
+# ==============================================================================
+[libraries]
+# Kotlin & Coroutines
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
+
+# AndroidX Core
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+androidx-multidex = { module = "androidx.multidex:multidex", version.ref = "multidex" }
+androidx-security-crypto = { module = "androidx.security:security-crypto", version.ref = "securityCrypto" }
+desugar-jdk-libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
+
+# AndroidX Lifecycle, Room, WorkManager, Datastore
+androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
+androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workManager" }
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
+androidx-datastore-core = { module = "androidx.datastore:datastore-core", version.ref = "datastore" }
+
+# Compose
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+androidx-compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version = "1.7.8" }
+androidx-compose-runtime = { module = "androidx.compose.runtime:runtime", version = "1.9.1" }
+
+# Dependency Injection (Hilt)
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hiltWork" }
+hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
+hilt-core = { module = "com.google.dagger:hilt-core", version.ref = "hilt" }
+
+# Networking
+retrofit-core = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+retrofit-converter-kotlinx-serialization = { module = "com.squareup.retrofit2:converter-kotlinx-serialization", version.ref = "retrofit" }
+okhttp-core = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+okhttp-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+squareup-moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
+
+# UI & Image Loading
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+
+# Compose Test Dependencies
+androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
+androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+
+# Utilities & Logging
+timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+leakcanary-android = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanary" }
+commons-io = { module = "commons-io:commons-io", version.ref = "commonsIo" }
+commons-compress = { module = "org.apache.commons:commons-compress", version.ref = "commonsCompress" }
+xz = { module = "org.tukaani:xz", version.ref = "xz" }
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
+
+# Unit Testing (JUnit 5 - Jupiter)
+junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junitJupiter" }
+junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junitJupiter" }
+mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
+mockk-agent = { module = "io.mockk:mockk-agent-jvm", version.ref = "mockk" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
+kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
+kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version = "1.13.4" }
+
+# Android Testing
+androidx-test-ext-junit = { module = "androidx.test.ext:junit", version.ref = "androidxTestJunit" }
+androidx-test-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCore" }
+androidx-test-uiautomator = { module = "androidx.test.uiautomator:uiautomator", version.ref = "uiAutomator" }
+# Add this for microbenchmarks
+androidx-benchmark-junit4 = { module = "androidx.benchmark:benchmark-junit4", version.ref = "benchmark" }
+# Add these to your [libraries] section
+
+# Firebase BOM and components
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
+firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx" }
+firebase-perf = { module = "com.google.firebase:firebase-perf-ktx" }
+firebase-auth = { module = "com.google.firebase:firebase-auth-ktx" }
+firebase-firestore = { module = "com.google.firebase:firebase-firestore-ktx" }
+firebase-messaging = { module = "com.google.firebase:firebase-messaging-ktx" }
+firebase-config = { module = "com.google.firebase:firebase-config-ktx" }
+firebase-database = { module = "com.google.firebase:firebase-database-ktx" }
+firebase-storage = { module = "com.google.firebase:firebase-storage-ktx" }
+firebase-performance = { module = "com.google.firebase:firebase-perf-ktx" }
+junit4 = { module = "junit:junit", version.ref = "junit4" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+gradle = { module = "com.android.tools.build:gradle", version.ref = "agp" }
+bcprov-jdk18on = { module = "org.bouncycastle:bcprov-jdk18on", version.ref = "bouncycastle" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+
+# ==============================================================================
+# BUNDLES
+# Groups of dependencies.
+# ==============================================================================
+[bundles]
+# Firebase bundle - includes all Firebase components
+firebase = [
+    "firebase-analytics",
+    "firebase-crashlytics",
+    "firebase-perf",
+    "firebase-auth",
+    "firebase-firestore",
+    "firebase-messaging",
+    "firebase-config",
+    "firebase-database",
+    "firebase-storage"
+]
+compose-ui = [
+    "androidx-compose-ui",
+    "androidx-compose-ui-graphics",
+    "androidx-compose-ui-tooling-preview",
+    "androidx-compose-material3",
+]
+compose-debug = [
+    "androidx-compose-ui-tooling",
+]
+coroutines = [
+    "kotlinx-coroutines-core",
+    "kotlinx-coroutines-android",
+]
+lifecycle = [
+    "androidx-lifecycle-runtime-ktx",
+    "androidx-lifecycle-viewmodel-ktx",
+    "androidx-lifecycle-viewmodel-compose"
+]
+
+
+
+# Network bundle
+network = [
+    "retrofit-core",
+    "retrofit-converter-gson",
+    "okhttp-core",
+    "okhttp-logging-interceptor",
+    "squareup-moshi"
+]
+
+# Compose test dependencies
+compose-test = [
+    "androidx-compose-ui-test-junit4",
+    "androidx-compose-ui-test-manifest"
+]
+room = [
+    "androidx-room-runtime",
+    "androidx-room-ktx"
+]
+# Updated to use JUnit 5
+testing-unit = [
+    "junit-jupiter-api",
+    "junit-jupiter-engine",
+    "mockk-android",
+    "mockk-agent",
+    "kotlinx-coroutines-test",
+]
+testing-android = [
+    "androidx-test-ext-junit",
+    "androidx-test-espresso-core",
+    "androidx-test-uiautomator",
+]
+
+
+# ==============================================================================
+# PLUGINS
+# Gradle plugins.
+# ==============================================================================
+[plugins]
+# Firebase plugins (compatible with AGP 8.0+)
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "2.9.9" }
+# Firebase Performance Monitoring is not compatible with latest AGP
+# Consider using Firebase Performance Monitoring v2+ with the new API in the future
+google-services = { id = "com.google.gms.google-services", version = "4.4.3" }
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+# Compose plugins
+jetbrainsCompose = { id = "org.jetbrains.compose", version = "1.8.2" }
+composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }

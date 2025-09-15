@@ -1,0 +1,3 @@
+C:/Re-Genesis-A.O.S.P/secure-comm/.cxx/Debug/6vy6z3d4/arm64-v8a/CMakeFiles/secure_comm_native.dir
+C:/Re-Genesis-A.O.S.P/secure-comm/.cxx/Debug/6vy6z3d4/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Re-Genesis-A.O.S.P/secure-comm/.cxx/Debug/6vy6z3d4/arm64-v8a/CMakeFiles/rebuild_cache.dir

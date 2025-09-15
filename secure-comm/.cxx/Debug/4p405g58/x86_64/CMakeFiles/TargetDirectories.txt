@@ -1,0 +1,3 @@
+C:/ReGenesis-A.O.S.P/secure-comm/.cxx/Debug/4p405g58/x86_64/CMakeFiles/secure_comm_native.dir
+C:/ReGenesis-A.O.S.P/secure-comm/.cxx/Debug/4p405g58/x86_64/CMakeFiles/edit_cache.dir
+C:/ReGenesis-A.O.S.P/secure-comm/.cxx/Debug/4p405g58/x86_64/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,4 @@
+# ninja log v5
+1	5122	7795807374440364	CMakeFiles/secure_comm_native.dir/secure_comm_jni.cpp.o	e0d60cacddec7416
+29	6092	7795807385853610	CMakeFiles/secure_comm_native.dir/crypto_engine.cpp.o	2d7391a8c5b80549
+6098	7040	7795807390812576	C:/Users/Wehtt/OneDrive/Desktop/ReGenesis-fix-dependabot-compose-plugin/ReGenesis-patch1/secure-comm/build/intermediates/cxx/RelWithDebInfo/304n211z/obj/x86_64/libsecure_comm_native.so	be397af07cd79fa

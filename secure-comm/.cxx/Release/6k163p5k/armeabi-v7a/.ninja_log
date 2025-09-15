@@ -1,0 +1,8 @@
+# ninja log v5
+5	6447	7793913867057218	CMakeFiles/secure_comm_native.dir/secure_comm_jni.cpp.o	93a052c945eebeb3
+23	10039	7793913902544603	CMakeFiles/secure_comm_native.dir/crypto_engine.cpp.o	d997586013fb0104
+10046	11211	7793913914686143	C:/ReGenesis-A.O.S.P/secure-comm/build/intermediates/cxx/Release/6k163p5k/obj/armeabi-v7a/libsecure_comm_native.so	daefd54c01c00b40
+0	177	0	clean	bfff2010d6239e2d
+25	2688	7794012935305685	CMakeFiles/secure_comm_native.dir/secure_comm_jni.cpp.o	93a052c945eebeb3
+12	4047	7794012948964460	CMakeFiles/secure_comm_native.dir/crypto_engine.cpp.o	d997586013fb0104
+4048	4346	7794012951470998	C:/ReGenesis-A.O.S.P/secure-comm/build/intermediates/cxx/Release/6k163p5k/obj/armeabi-v7a/libsecure_comm_native.so	daefd54c01c00b40

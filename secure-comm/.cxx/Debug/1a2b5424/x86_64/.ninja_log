@@ -1,0 +1,13 @@
+# ninja log v5
+9	2880	7795202604488581	CMakeFiles/secure_comm_native.dir/secure_comm_jni.cpp.o	9cee54c5ae6a6f6a
+1	4533	7795202621553755	CMakeFiles/secure_comm_native.dir/crypto_engine.cpp.o	e6bb1063eff4255e
+4541	5811	7795202632201657	C:/ReGenesis/secure-comm/build/intermediates/cxx/Debug/1a2b5424/obj/x86_64/libsecure_comm_native.so	803419699be3fb54
+0	11	0	clean	bfff2010d6239e2d
+0	10	0	clean	bfff2010d6239e2d
+27	2685	7795250850494701	CMakeFiles/secure_comm_native.dir/secure_comm_jni.cpp.o	9cee54c5ae6a6f6a
+14	3921	7795250862049125	CMakeFiles/secure_comm_native.dir/crypto_engine.cpp.o	e6bb1063eff4255e
+3922	4466	7795250867205004	C:/ReGenesis/secure-comm/build/intermediates/cxx/Debug/1a2b5424/obj/x86_64/libsecure_comm_native.so	803419699be3fb54
+0	15	0	clean	bfff2010d6239e2d
+16	5600	7795807330693972	CMakeFiles/secure_comm_native.dir/secure_comm_jni.cpp.o	ac2392900bf36002
+1	6502	7795807337972389	CMakeFiles/secure_comm_native.dir/crypto_engine.cpp.o	ebc9a27d7c5f2a5a
+6509	9156	7795807363717213	C:/Users/Wehtt/OneDrive/Desktop/ReGenesis-fix-dependabot-compose-plugin/ReGenesis-patch1/secure-comm/build/intermediates/cxx/Debug/1a2b5424/obj/x86_64/libsecure_comm_native.so	920f1a7a6ae31043
