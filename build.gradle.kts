@@ -13,9 +13,7 @@ plugins {
     alias(libs.plugins.jetbrainsCompose) apply false
     alias(libs.plugins.composeCompiler) apply false
     // Firebase plugins
-
     alias(libs.plugins.firebase.crashlytics) apply false
-    id("com.google.gms.google-services") version "4.4.3" apply false
 }
 
 // Find version catalog
