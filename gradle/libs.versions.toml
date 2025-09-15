@@ -4,7 +4,7 @@
 # ==============================================================================
 [versions]
 # ===== GRADLE & KOTLIN =====
-agp = "9.0.0-alpha01"
+agp = "9.0.0-alpha05"
 firebaseUiAuthKtx = "8.0.2"
 firebaseUiConfigKtx = "8.0.2"
 firebaseUiDatabaseKtx = "8.0.2"
