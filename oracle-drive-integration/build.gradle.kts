@@ -32,4 +32,5 @@ dependencies {
     implementation(libs.bundles.coroutines)
     // Add other module-specific dependencies here
     implementation(libs.kotlin.stdlib.jdk8)
+
 }

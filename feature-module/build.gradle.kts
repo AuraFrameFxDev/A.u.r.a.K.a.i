@@ -16,13 +16,15 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.plugin.compose")
     alias(libs.plugins.ksp)
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
     // Note: Hilt plugin removed to avoid Android BaseExtension issues, using manual dependencies instead
 }
 
 
 android {
     namespace = "dev.aurakai.auraframefx.feature"
-    compileSdk = 33
+    compileSdk = 36
     compileSdkPreview = "CANARY"
 
     defaultConfig {

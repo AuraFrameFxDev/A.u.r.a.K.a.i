@@ -4,16 +4,15 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.ksp)
+    id ("com.google.gms.google-services")
+    id("com.google.devtools.ksp") version "2.2.20-2.0.3"
     alias(libs.plugins.composeCompiler)
     id("org.jetbrains.compose") version "1.8.2"
     id("org.openapi.generator") version "7.15.0"
-    
     // Firebase plugins
-    alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
-}
 
+}
 android {
     namespace = "dev.aurakai.auraframefx"
     compileSdk = 36
@@ -133,6 +132,17 @@ android {
         implementation(libs.androidx.compose.material3)
         implementation(libs.androidx.navigation.compose)
         implementation(libs.androidx.core.ktx)
+        implementation(platform(libs.firebase.bom))
+        implementation("com.google.firebase:firebase-analytics")
+        implementation("com.google.firebase:firebase-crashlytics")
+        implementation("com.google.firebase:firebase-ai")
+        implementation("com.google.firebase:firebase-auth-ktx")
+        implementation("com.google.firebase:firebase-firestore-ktx")
+        implementation("com.google.firebase:firebase-messaging-ktx")
+        implementation("com.google.firebase:firebase-config-ktx")
+        implementation("com.google.firebase:firebase-perf-ktx")
+        implementation("com.google.firebase:firebase-database-ktx")
+        implementation("com.google.firebase:firebase-storage-ktx")
 
         // Debug implementations
         debugImplementation(libs.bundles.compose.debug)
@@ -158,28 +168,6 @@ android {
 
         // ===== FIREBASE =====
         // Import the Firebase BoM (Bill of Materials)
-        implementation(platform(libs.firebase.bom))
-
-        // Use the Firebase SDKs with the versions specified in the BoM
-        implementation(libs.bundles.firebase)  // Includes all Firebase SDKs from the versions catalog
-
-        // Firebase UI for Firestore (optional)
-        implementation(libs.firebaseui.firebase.ui.firestore.ktx)
-        implementation(libs.firebase.ui.storage.ktx)
-        implementation(libs.firebaseui.firebase.ui.database.ktx)
-        implementation(libs.firebaseui.firebase.ui.auth.ktx)
-        implementation(libs.firebaseui.firebase.ui.messaging.ktx)
-        implementation(libs.firebaseui.firebase.ui.config.ktx)
-        implementation(libs.firebase.ui.perf.ktx)
-        implementation(libs.firebaseui.firebase.ui.auth.ktx)
-        implementation(libs.firebase.ui.storage.ktx)
-        implementation(libs.firebaseui.firebase.ui.database.ktx)
-        implementation(libs.firebaseui.firebase.ui.auth.ktx)
-        implementation(libs.firebaseui.firebase.ui.messaging.ktx)
-        implementation(libs.firebaseui.firebase.ui.config.ktx)
-        implementation(libs.firebase.ui.perf.ktx)
-        implementation(libs.firebaseui.firebase.ui.auth.ktx)
-
 
         // ===== HILT DEPENDENCY INJECTION =====
         implementation(libs.hilt.android)
@@ -211,4 +199,3 @@ android {
         implementation(libs.kotlin.reflect)
 
     }
-
