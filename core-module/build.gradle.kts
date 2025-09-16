@@ -1,7 +1,7 @@
 plugins {
+    kotlin("jvm")
     // JVM library setup
     id("java-library")
-    alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.dokka)
     alias(libs.plugins.spotless)
@@ -11,15 +11,19 @@ group = "dev.aurakai.auraframefx.utilities"
 version = "1.0.0"
 
 // Centralized toolchain version to avoid duplication and drift
-val jdkVersion = 17
+val jdkVersion = 24
 
 java {
     toolchain { languageVersion.set(JavaLanguageVersion.of(jdkVersion)) }
 }
 
+kotlin {
+    jvmToolchain(24)
+}
+
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
     }
 }
 
@@ -42,7 +46,7 @@ dependencies {
     // Testing (JUnit 5)
     testImplementation(platform("org.junit:junit-bom:5.13.4"))
     testImplementation("org.junit.jupiter:junit-jupiter")
-    testImplementation(libs.mockk.android)
+    testImplementation(libs.mockk)
     testRuntimeOnly("org.slf4j:slf4j-simple:2.0.17")
     implementation(libs.kotlin.stdlib.jdk8)
 }

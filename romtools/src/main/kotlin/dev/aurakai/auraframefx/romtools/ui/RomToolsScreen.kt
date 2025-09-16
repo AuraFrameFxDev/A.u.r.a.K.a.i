@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Backup
@@ -46,6 +47,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.aurakai.auraframefx.romtools.RomToolsManager
+import dev.aurakai.auraframefx.romtools.getDisplayName
 
 /**
  * Main ROM Tools screen for Genesis AuraFrameFX.
@@ -317,7 +319,7 @@ private fun OperationProgressCard(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Text(
-                text = operation.operation.getDisplayName(),
+                text = operation.operation?.getDisplayName() ?: "",
                 color = Color(0xFFFF6B35),
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold
@@ -456,8 +458,8 @@ private fun getRomToolsActions(): List<RomToolAction> {
             requiresRoot = true,
             requiresSystem = true
         )
-    )
-}
+    }
+
 
 data class RomToolAction(
     val type: RomActionType,

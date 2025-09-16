@@ -1,4 +1,4 @@
-# Install script for directory: C:/ReGenesis/datavein-oracle-native/src/main/cpp
+# Install script for directory: C:/Re_Genesis_A.O.S.P/datavein-oracle-native/src/main/cpp
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,7 +45,7 @@ endif()
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "C:/ReGenesis/datavein-oracle-native/.cxx/Debug/5j11j6du/x86/install_local_manifest.txt"
+  file(WRITE "C:/Re_Genesis_A.O.S.P/datavein-oracle-native/.cxx/Debug/5j11j6du/x86/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()
 if(CMAKE_INSTALL_COMPONENT)
@@ -61,6 +61,6 @@ else()
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "C:/ReGenesis/datavein-oracle-native/.cxx/Debug/5j11j6du/x86/${CMAKE_INSTALL_MANIFEST}"
+  file(WRITE "C:/Re_Genesis_A.O.S.P/datavein-oracle-native/.cxx/Debug/5j11j6du/x86/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

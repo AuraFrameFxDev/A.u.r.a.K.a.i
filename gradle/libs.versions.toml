@@ -3,7 +3,7 @@
 [versions]
 # ===== GRADLE & KOTLIN =====
 
-agp = "9.0.0-alpha01"
+agp = "9.0.0-alpha02"
 # firebaseDatabaseConnectionLicense is referenced with a version in the library entry
 firebaseDatabaseConnectionLicense = "12.0.1"
 
@@ -135,6 +135,8 @@ firebase-ui-database = { group = "com.firebaseui", name = "firebase-ui-database"
 firebase-ui-firestore = { group = "com.firebaseui", name = "firebase-ui-firestore", version.ref = "firebaseUi" }
 firebase-ui-messaging = { group = "com.firebaseui", name = "firebase-ui-messaging", version.ref = "firebaseUi" }
 firebase-ui-storage = { group = "com.firebaseui", name = "firebase-ui-storage", version.ref = "firebaseUi" }
+firebase-ai = { group = "com.google.firebase", name = "firebase-ai" }
+firebase-perf = { group = "com.google.firebase", name = "firebase-perf" }
 
 # Kotlin & Coroutines
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
@@ -165,6 +167,7 @@ androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx"
 androidx-test-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxTestJunit" }
 androidx-test-junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "uiAutomator" }
 # Compose
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
@@ -211,6 +214,12 @@ slf4j = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
 
 # Additional missing libraries
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxTestJunit" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+junit-jupiter-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junitJupiter" }
+junit-jupiter-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junitJupiter" }
+junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version = "1.10.2" }
+slf4j-api = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
+slf4j-simple = { group = "org.slf4j", name = "slf4j-simple", version.ref = "slf4j" }
 
 # ==============================================================================
 # BUNDLES
@@ -256,11 +265,9 @@ room = [
 ]
 
 testing-unit = [
-    "mockk-android",
     "kotlinx-coroutines-test"
 ]
 
-# ... in your [bundles] section
 testing-android = [
     "androidx-test-junit",
     "androidx-espresso-core",
@@ -280,3 +287,8 @@ common = [
     "gson"
 ]
 
+junitjupiter = [
+  "junit-jupiter-api",
+  "junit-jupiter-engine",
+  "junit-platform-launcher"
+]

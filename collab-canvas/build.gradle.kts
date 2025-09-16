@@ -1,16 +1,14 @@
 // Apply plugins (versions via version catalog)
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt)
+    id("com.google.devtools.ksp")
+    id("genesis.android.library")
+    kotlin("plugin.compose")
 }
 
 android {
     namespace = "dev.aurakai.auraframefx.collabcanvas"
-    compileSdk = 35
-    
+    compileSdk = 36
+
     defaultConfig {
         minSdk = 34
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -22,12 +20,18 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_24
+        targetCompatibility = JavaVersion.VERSION_24
     }
 
     kotlin {
-        jvmToolchain(17)
+        jvmToolchain(24)
+    }
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
     }
 }
 
@@ -46,7 +50,8 @@ dependencies {
     implementation(libs.bundles.compose.ui)
     implementation(libs.androidx.compose.material.icons.extended)
     debugImplementation(libs.bundles.compose.debug)
-    
+    implementation(libs.androidx.compose.ui.tooling.preview)
+
     // Firebase
     implementation(platform(libs.firebase.bom))
     
@@ -76,7 +81,7 @@ dependencies {
 
 tasks.register("collabStatus") {
     group = "genesis"
-    doLast { 
+    doLast {
         println("🎨 COLLAB CANVAS - ${android.namespace} - Ready!")
     }
 }

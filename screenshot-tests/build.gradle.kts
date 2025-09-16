@@ -10,5 +10,15 @@ plugins {
 
 android {
     namespace = "dev.aurakai.screenshottests"
-}
+    compileSdk = 36
 
+    kotlin {
+        jvmToolchain(24)
+    }
+
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
+        }
+    }
+}

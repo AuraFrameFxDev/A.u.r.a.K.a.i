@@ -9,7 +9,7 @@ plugins {
 
 android {
     namespace = "dev.aurakai.auraframefx.oracledriveintegration"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 34
@@ -21,12 +21,18 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_24
+        targetCompatibility = JavaVersion.VERSION_24
     }
 
     kotlin {
-        jvmToolchain(17)
+        jvmToolchain(24)
+    }
+
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
+        }
     }
 }
 
@@ -34,7 +40,7 @@ dependencies {
     // Module dependencies
     implementation(project(":core-module"))
     implementation(project(":secure-comm"))
-    
+
     // Core Android
     implementation(libs.androidx.core.ktx)
     implementation(libs.bundles.lifecycle)
