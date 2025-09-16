@@ -3,7 +3,13 @@ package dev.aurakai.auraframefx.buildlogic
 import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.artifacts.VersionCatalog
+import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.getByType
+
+internal val Project.libs: VersionCatalog
+    get() = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
 /**
  * Compose-enabled Android library configuration
@@ -22,7 +28,7 @@ class AndroidComposeConventionPlugin : Plugin<Project> {
                 }
 
                 composeOptions {
-                    kotlinCompilerExtensionVersion = "1.8.2"
+                    kotlinCompilerExtensionVersion = project.libs.findVersion("compose-compiler-extension").get().toString()
                 }
             }
 
