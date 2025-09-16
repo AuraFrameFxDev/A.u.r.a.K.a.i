@@ -21,7 +21,7 @@ repositories {
 // Dependencies required for the convention plugins themselves.
 dependencies {
     // Core build plugins
-    implementation("com.android.tools.build:gradle:9.0.0-alpha01")
+    implementation("com.android.tools.build:gradle:9.0.0-alpha05")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:2.2.20")
     implementation("com.google.dagger:hilt-android-gradle-plugin:2.57.1")
     implementation("com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:2.2.20-2.0.3")
