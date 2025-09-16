@@ -9,6 +9,14 @@ import org.gradle.kotlin.dsl.dependencies
  * Compose-enabled Android library configuration
  */
 class AndroidComposeConventionPlugin : Plugin<Project> {
+    /**
+     * Configures Compose support for the target Gradle project: enables Compose in the Android extension,
+     * sets the Kotlin compiler extension version to 1.8.2, and adds the Compose BOM plus common Compose
+     * runtime, UI, tooling, material, and test dependencies.
+     *
+     * Assumes the project exposes an "android" extension convertible to CommonExtension; it does not apply
+     * the Kotlin Compose Gradle plugin itself.
+     */
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
