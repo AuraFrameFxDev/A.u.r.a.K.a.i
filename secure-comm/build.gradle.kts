@@ -78,7 +78,7 @@ dependencies {
     implementation(libs.kotlin.stdlib.jdk8)
     
     // Security - BouncyCastle for cryptography
-    implementation("org.bouncycastle:bcprov-jdk18on:1.78.1")
+    implementation("org.bouncycastle:bcprov-jdk18on:1.81")
     
     // Testing
     testImplementation(libs.bundles.testing.unit)
