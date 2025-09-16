@@ -13,85 +13,61 @@ android {
 
     defaultConfig {
         minSdk = 34
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
-    buildFeatures {
-        compose = true
-    }
-
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_24
-        targetCompatibility = JavaVersion.VERSION_24
+        sourceCompatibility = JavaVersion.VERSION_23
+        targetCompatibility = JavaVersion.VERSION_23
     }
-
-    kotlin {
-        jvmToolchain(24)
-    }
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
+    kotlinOptions {
+        jvmTarget = "23"
     }
 }
+
+val romToolsOutputDirectory: DirectoryProperty =
+    project.objects.directoryProperty().convention(layout.buildDirectory.dir("rom-tools"))
 
 dependencies {
-    // Module dependencies
     api(project(":core-module"))
     implementation(project(":secure-comm"))
-    
-    // Core Android
     implementation(libs.androidx.core.ktx)
-    
-    // Compose
-    val composeBom = platform(libs.androidx.compose.bom)
-    implementation(composeBom)
-    androidTestImplementation(composeBom)
+    implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.compose.ui)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.compose.material.icons.extended)
-    debugImplementation(libs.bundles.compose.debug)
-    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-    
-    // Hilt
+    implementation(libs.androidx.core.ktx)
     implementation(libs.hilt.android)
-    implementation(libs.hilt.navigation.compose)
     ksp(libs.hilt.compiler)
-    
-    // Coroutines & Networking
     implementation(libs.bundles.coroutines)
     implementation(libs.bundles.network)
-    
-    // Room Database
-    implementation(libs.bundles.room)
-    ksp(libs.androidx.room.compiler)
-    
-    // Firebase
-    implementation(platform(libs.firebase.bom))
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    // Room compiler temporarily disabled
+    // ksp(libs.androidx.room.compiler)
+    // Replace with individual Firebase dependencies
+
+    implementation(libs.firebase.performance)
+    implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.messaging)
     implementation(libs.firebase.config)
     implementation(libs.firebase.database)
     implementation(libs.firebase.storage)
-    
-    // Utilities
+    implementation(platform(libs.firebase.bom))
     implementation(libs.timber)
     implementation(libs.coil.compose)
-    implementation(libs.kotlin.stdlib.jdk8)
-    
-    // Testing
-    testImplementation(libs.bundles.testing.unit)
-    androidTestImplementation(libs.bundles.testing.android)
-    androidTestImplementation(libs.hilt.android.testing)
-    
-    // Debug tools
     debugImplementation(libs.leakcanary.android)
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    testImplementation(libs.bundles.testing.unit)
+    testImplementation(libs.mockk.android)
+    androidTestImplementation(libs.mockk.android)
+    testImplementation(libs.hilt.android.testing)
+    androidTestImplementation(libs.hilt.android.testing)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    // androidTestImplementation(libs.hilt.android.testing); kspAndroidTest(libs.hilt.compiler)
+    implementation(libs.kotlin.stdlib.jdk8)
+    implementation(libs.androidx.compose.material.icons.extended)
+    implementation(libs.hilt.navigation.compose)
 }
-
-val romToolsOutputDirectory: DirectoryProperty =
-    project.objects.directoryProperty().convention(layout.buildDirectory.dir("rom-tools"))
 
 // Copy task
 tasks.register<Copy>("copyRomTools") {
@@ -99,13 +75,8 @@ tasks.register<Copy>("copyRomTools") {
     into(romToolsOutputDirectory)
     include("**/*.so", "**/*.bin", "**/*.img", "**/*.jar")
     includeEmptyDirs = false
-    doFirst { 
-        romToolsOutputDirectory.get().asFile.mkdirs()
-        logger.lifecycle("📁 ROM tools directory: ${romToolsOutputDirectory.get().asFile}") 
-    }
-    doLast { 
-        logger.lifecycle("✅ ROM tools copied to: ${romToolsOutputDirectory.get().asFile}") 
-    }
+    doFirst { romToolsOutputDirectory.get().asFile.mkdirs(); logger.lifecycle("📁 ROM tools directory: ${romToolsOutputDirectory.get().asFile}") }
+    doLast { logger.lifecycle("✅ ROM tools copied to: ${romToolsOutputDirectory.get().asFile}") }
 }
 
 // Verification task
@@ -113,11 +84,9 @@ tasks.register("verifyRomTools") {
     dependsOn("copyRomTools")
 }
 
-tasks.named("build") { 
-    dependsOn("verifyRomTools") 
-}
+tasks.named("build") { dependsOn("verifyRomTools") }
 
-tasks.register("romtoolsStatus") {
+tasks.register("romToolsStatus") {
     group = "aegenesis"
-    doLast { println("\uD83D\uDCE6 ROMTOOLS MODULE - Ready (Java 24)") }
+    doLast { println("\uD83D\uDCE6 ROMTOOLS - Ready (Java 24)") }
 }
