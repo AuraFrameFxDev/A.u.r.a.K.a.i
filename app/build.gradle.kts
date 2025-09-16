@@ -53,9 +53,7 @@ android {
         jvmToolchain(21)
     }
     
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.8.4"
-    }
+    // composeOptions not needed; managed by kotlin("plugin.compose")
 }
 
 tasks.named("openApiGenerate") {
@@ -101,11 +99,11 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.datastore.core)
     // Compose Material and Material3
-    implementation("androidx.compose.material:material:1.6.7")
-    implementation("androidx.compose.material3:material3:1.2.1")
+    implementation("androidx.compose.material:material:1.9.1")
+    implementation("androidx.compose.material3:material3:1.3.2")
 
     // Yukihookapi for YLog
-    implementation("com.highcapable.yukihookapi:api:1.1.8")
+    implementation("com.highcapable.yukihookapi:api:1.3.1")
 
     // ===== KOTLIN & COROUTINES =====
     implementation(libs.kotlinx.serialization.json)
@@ -113,9 +111,11 @@ dependencies {
     implementation(libs.bundles.coroutines)
 
     // ===== NETWORKING =====
-    implementation(libs.bundles.network)
+    implementation(libs.retrofit.core)
+    implementation(libs.converter.moshi)
     implementation(libs.squareup.moshi)
-
+    // optional: Moshi Kotlin reflection/adapters if used
+    implementation(libs.moshi.kotlin)
 
     // ===== FIREBASE =====
     // Import the Firebase BoM
@@ -148,6 +148,7 @@ dependencies {
     implementation(libs.androidx.security.crypto)
 
     // ===== JACKSON YAML (for OpenAPI Generator compatibility) =====
+
     implementation(libs.jackson.dataformat.yaml)
 
     // ===== CORE LIBRARY DESUGARING =====

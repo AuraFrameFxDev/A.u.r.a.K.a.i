@@ -3,7 +3,7 @@
 [versions]
 # ===== GRADLE & KOTLIN =====
 
-agp = "9.0.0-alpha02"
+agp = "9.0.0-alpha05"
 # firebaseDatabaseConnectionLicense is referenced with a version in the library entry
 converterMoshi = "3.0.0"
 firebaseDatabaseConnectionLicense = "12.0.1"
@@ -51,7 +51,7 @@ moshi = "1.15.2"
 # Coroutines & Async
 kotlinxCoroutines = "1.10.2"
 kotlinxSerialization = "1.9.0"
-kotlinxDatetime = "0.7.1"
+kotlinxDatetime = "0.7.1-0.6.x-compat"
 
 # UI & Image Loading
 coilCompose = "2.7.0"
@@ -212,7 +212,7 @@ androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 junit-jupiter-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junitJupiter" }
 junit-jupiter-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junitJupiter" }
-junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version = "1.10.2" }
+junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version = "1.13.4" }
 slf4j-api = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
 slf4j-simple = { group = "org.slf4j", name = "slf4j-simple", version.ref = "slf4j" }
 junit-bom = { group = "org.junit", name = "junit-bom", version.ref = "junitJupiter" }

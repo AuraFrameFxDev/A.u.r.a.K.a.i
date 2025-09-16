@@ -368,7 +368,16 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     /**
-     * Sends FCM token to Genesis backend servers
+     * Submit the FCM registration token to the Genesis backend.
+     *
+     * This suspend function is intended to deliver the provided FCM token to a remote backend.
+     * In the current placeholder implementation it does not perform network I/O; instead it
+     * records a local marker (stores "fcm_token_sent" and a timestamp) and logs the attempt.
+     *
+     * Side effects:
+     * - Writes "fcm_token_sent" and "fcm_token_sent_time" to dataStoreManager.
+     *
+     * @param token The FCM registration token to send.
      */
     private suspend fun sendTokenToServer(token: String) {
         try {
@@ -387,7 +396,12 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     /**
-     * Creates notification channels for different message types
+     * Register notification channels used by Genesis-OS for different message categories.
+     *
+     * Creates and registers five NotificationChannel instances (general, consciousness,
+     * security, agents, and system) on Android O (API 26) and above. Each channel is given
+     * an appropriate importance and description so notifications are routed correctly by
+     * the system. No action is taken on pre-O devices.
      */
     private fun createNotificationChannels() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -441,7 +455,18 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     /**
-     * Shows a notification with the specified parameters
+
+     * Post a notification on the given notification channel and attach an intent to open MainActivity.
+     *
+     * The notification is built with the provided title, body and small icon, uses a BigTextStyle,
+     * and launches MainActivity (with `data` added as intent extras) when tapped. The notification
+     * ID is generated from the current time to avoid collisions.
+     *
+     * @param channelId Notification channel ID to post the notification on.
+     * @param title Visible notification title.
+     * @param body Visible notification body text.
+     * @param iconResId Resource ID for the small icon shown in the notification. Defaults to an info icon.
+     * @param data Optional key/value extras that will be added to the intent launched when the user taps the notification.
      */
     private fun showNotification(
         channelId: String,

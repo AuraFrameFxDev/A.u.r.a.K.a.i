@@ -32,6 +32,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     debugImplementation(libs.androidx.compose.ui.tooling)
     implementation(libs.hilt.android); ksp(libs.hilt.compiler)
+
     implementation(libs.bundles.coroutines)
     implementation(libs.timber); implementation(libs.coil.compose)
     testImplementation(libs.bundles.testing.unit); testImplementation(libs.mockk.android)
