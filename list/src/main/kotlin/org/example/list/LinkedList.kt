@@ -160,8 +160,26 @@ class LinkedList : List<String> {
         throw UnsupportedOperationException("Not yet implemented")
     }
 
-    override fun listIterator(): ListIterator<String> = listIterator(0)
+    /**
+ * Returns a list iterator over the elements in this list, starting at the beginning.
+ *
+ * The returned iterator starts at index 0 and iterates over a snapshot of the list's elements.
+ *
+ * @return a ListIterator positioned before the first element.
+ */
+override fun listIterator(): ListIterator<String> = listIterator(0)
 
+    /**
+     * Returns a ListIterator over a snapshot of the list starting at the given index.
+     *
+     * The iterator iterates over a stable copy of the list's elements taken at the time
+     * of this call; subsequent modifications to the original list do not affect the iterator.
+     *
+     * @param index start position for the iterator (0..size)
+     * @return a ListIterator<String> positioned at `index`
+     * @throws IndexOutOfBoundsException if `index` is outside 0..size
+     * @throws NoSuchElementException from `next()`/`previous()` when no element is available
+     */
     override fun listIterator(index: Int): ListIterator<String> {
         if (index < 0 || index > size) throw IndexOutOfBoundsException("Index: $index, Size: $size")
         val snapshot = this.toList()
@@ -182,6 +200,17 @@ class LinkedList : List<String> {
         }
     }
 
+    /**
+     * Returns a new list containing the elements in the specified range [fromIndex, toIndex).
+     *
+     * The returned list is a snapshot (new ArrayList) of the elements from this linked list starting
+     * at the zero-based index `fromIndex` (inclusive) up to `toIndex` (exclusive), preserving iteration order.
+     *
+     * @param fromIndex start index (inclusive), zero-based
+     * @param toIndex end index (exclusive), zero-based
+     * @return a new List<String> containing the requested range
+     * @throws IndexOutOfBoundsException if fromIndex < 0, toIndex < fromIndex, or toIndex > size
+     */
     override fun subList(fromIndex: Int, toIndex: Int): List<String> {
         if (fromIndex < 0 || toIndex < fromIndex || toIndex > size) {
             throw IndexOutOfBoundsException("fromIndex=$fromIndex, toIndex=$toIndex, size=$size")

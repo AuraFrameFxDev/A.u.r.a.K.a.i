@@ -11,6 +11,20 @@ import org.jetbrains.kotlin.gradle.dsl.kotlinExtension
  * Standard Android application configuration
  */
 class AndroidApplicationConventionPlugin : Plugin<Project> {
+    /**
+     * Applies Android application and Kotlin Android plugins and configures the Android Application extension
+     * with a standard set of defaults for an application module.
+     *
+     * Configurations performed:
+     * - Applies plugins: "com.android.application" and "org.jetbrains.kotlin.android".
+     * - Sets compileSdk to 36 and defaultConfig (minSdk 34, targetSdk 36, AndroidJUnitRunner, support vector drawables).
+     * - Defines release and debug buildTypes (release: minification + proguard files; debug: debuggable with
+     *   applicationId and version name suffixes).
+     * - Reads the Gradle property `java.toolchain` (defaults to 24) and uses it to set Java compileOptions'
+     *   source/target compatibility and the Kotlin JVM toolchain.
+     * - Enables buildConfig generation, includes Android resources for unit tests, and excludes
+     *   "/META-INF/{AL2.0,LGPL2.1}" from packaging resources.
+     */
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
