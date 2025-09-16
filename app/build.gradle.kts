@@ -1,11 +1,11 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)  // Add Kotlin Compose plugin
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
     id("com.google.gms.google-services")
     id("org.openapi.generator") version "7.15.0"
+    kotlin("plugin.compose") version "2.2.20"
 }
 
 android {
@@ -38,7 +38,7 @@ android {
 
     buildFeatures {
         compose = true
-        dataBinding = true
+        dataBinding = false
         viewBinding = true
         buildConfig = true
         aidl = true
@@ -50,23 +50,24 @@ android {
     }
 
     kotlin {
-        jvmToolchain(24)
-        compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
-            freeCompilerArgs.addAll(
-                "-Xjvm-default=all",
-                "-opt-in=kotlin.RequiresOptIn",
-                "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api"
-            )
-        }
+        jvmToolchain(17)
+    }
+    
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.8.4"
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_24
+        targetCompatibility = JavaVersion.VERSION_24
     }
 }
 
 tasks.named("openApiGenerate") {
     configure<org.openapitools.generator.gradle.plugin.tasks.GenerateTask> {
         generatorName.set("kotlin")
-        // Use the correct file URI for the OpenAPI spec
-        inputSpec.set("file://${project.projectDir}/api/system-api.yml")
+        // Use project-relative path for the OpenAPI spec
+        inputSpec.set("${project.projectDir}/api/system-api.yml")
         outputDir.set(layout.buildDirectory.dir("generated/openapi").get().asFile.absolutePath)
         apiPackage.set("dev.aurakai.auraframefx.openapi.api")
         modelPackage.set("dev.aurakai.auraframefx.openapi.model")
@@ -113,8 +114,7 @@ dependencies {
     // ===== NETWORKING =====
     implementation(libs.bundles.network)
     implementation(libs.squareup.moshi)
-    implementation("com.squareup.moshi:moshi-kotlin:1.15.2")
-    implementation("com.squareup.retrofit2:converter-moshi:3.0.0")
+
 
     // ===== FIREBASE =====
     // Import the Firebase BoM
@@ -147,7 +147,7 @@ dependencies {
     implementation(libs.androidx.security.crypto)
 
     // ===== JACKSON YAML (for OpenAPI Generator compatibility) =====
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.15.3")
+    implementation(libs.jackson.dataformat.yaml)
 
     // ===== CORE LIBRARY DESUGARING =====
     coreLibraryDesugaring(libs.desugar.jdk.libs)

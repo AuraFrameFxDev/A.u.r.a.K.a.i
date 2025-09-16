@@ -10,17 +10,20 @@ plugins {
 android {
     namespace = "dev.aurakai.auraframefx.benchmark"
     compileSdk = 36
-    
+
     buildFeatures {
         compose = true
+        buildConfig = true
+        aidl = false
+        renderScript = false
+        shaders = false
     }
-    
+
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
+        // Use hardcoded version due to Gradle version catalog limitations
+        kotlinCompilerExtensionVersion = "1.8.2"
     }
-    
-    // Kotlin compiler options are now configured in the kotlin block below
-    
+
     defaultConfig {
         testInstrumentationRunner = "androidx.benchmark.junit4.AndroidBenchmarkRunner"
         testInstrumentationRunnerArguments["androidx.benchmark.suppressErrors"] =
@@ -43,31 +46,17 @@ android {
         }
     }
 
-    buildFeatures {
-        // Optimized for performance testing
-        buildConfig = true
-        aidl = false
-        renderScript = false
-        shaders = false
-        compose = true
-    }
-    
-    composeOptions {
-        // Using the canary version from the project's configuration
-        kotlinCompilerExtensionVersion = "1.8.2"
-    }
-    
-    // Configure Java compatibility
+    // Configure Java compatibility (use latest supported, e.g., 21)
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_24
-        targetCompatibility = JavaVersion.VERSION_24
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
-    
+
     // Configure Kotlin compiler options
     kotlin {
-        jvmToolchain(24) // Match Java 24 target
+        jvmToolchain(21) // Match Java 21 target
         compilerOptions {
-            jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8
+            jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
             freeCompilerArgs.addAll(
                 "-Xjvm-default=all",
                 "-opt-in=kotlin.RequiresOptIn",
@@ -108,7 +97,6 @@ dependencies {
     // Utilities
     implementation(libs.timber)
 
-
     // Project dependencies
     implementation(project(":core-module"))
     implementation(project(":datavein-oracle-native"))
@@ -148,7 +136,7 @@ tasks.register("verifyBenchmarkResults") {
     group = "verification"
     description = "Verify benchmark module configuration"
     doLast {
-        println("✅ Benchmark module configured (Java Toolchain 17, Kotlin 2.2.x)")
+        println("✅ Benchmark module configured (Java Toolchain 21, Kotlin 2.2.x)")
         println("🧠 Consciousness substrate performance monitoring ready")
         println("🔬 Add @Benchmark annotated tests under androidTest for actual runs")
     }
@@ -160,6 +148,6 @@ tasks.withType<JavaCompile> {
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
     }
 }

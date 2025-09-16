@@ -5,9 +5,11 @@
 
 agp = "9.0.0-alpha02"
 # firebaseDatabaseConnectionLicense is referenced with a version in the library entry
+converterMoshi = "3.0.0"
 firebaseDatabaseConnectionLicense = "12.0.1"
 
 gradle = "9.0.0-alpha01"
+jacksonDataformatYaml = "2.20.0"
 junitJupiterParams = "5.13.4"
 gradleToolingApi = "9.0.0"
 kotlin = "2.2.20"
@@ -16,9 +18,11 @@ desugar_jdk_libs = "2.1.5"
 firebaseBom = "34.2.0"
 firebaseUi = "8.0.2" # Separate versions for Firebase UI
 compose-plugin = "1.8.2"
+composeCompiler = "1.8.2"
 # AndroidX Core
 coreKtx = "1.17.0"
 appcompat = "1.7.1"
+moshiKotlin = "1.15.2"
 multidex = "2.0.1"
 lifecycle = "2.9.3"
 room = "2.8.0"
@@ -28,7 +32,6 @@ securityCrypto = "1.1.0"
 junit4 = "4.13.2"
 # Compose
 composeBom = "2025.09.00"
-composeCompiler = "2.2.20"  # Match Kotlin version
 activityCompose = "1.11.0"
 navigationCompose = "2.9.4"
 composeMaterialIconsExtended = "1.7.8"
@@ -64,12 +67,10 @@ slf4j = "2.0.17"
 # Unit Testing
 junitJupiter = "5.13.4"
 mockk = "1.14.5"
-junit5 = "5.13.4"
 # Android Testing
 androidxTestJunit = "1.3.0"
 espressoCore = "3.7.0"
 uiAutomator = "2.3.0"
-benchmark = "1.4.1"
 
 # Dokka
 dokka = "2.0.0"
@@ -77,8 +78,6 @@ dokka = "2.0.0"
 # Spotless
 spotless = "7.2.1"
 
-# Bouncy Castle
-bouncycastle = "1.81"
 
 # ==============================================================================
 # PLUGINS
@@ -91,7 +90,6 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 
 # Kotlin
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
@@ -102,8 +100,7 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 
 # Compose
-jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
-composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+# Using compose compiler from the main Kotlin plugin
 
 # Firebase
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "3.1.4" }
@@ -119,6 +116,7 @@ spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 # ==============================================================================
 [libraries]
 # Firebase (managed by the BoM)
+converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "converterMoshi" }
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
 firebase-database = { group = "com.google.firebase", name = "firebase-database" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore" }
@@ -130,15 +128,12 @@ firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
 firebase-database-connection-license = { group = "com.google.firebase", name = "firebase-database-connection-license", version.ref = "firebaseDatabaseConnectionLicense" }
 # Firebase UI (not in the main BoM)
-firebase-ui-auth = { group = "com.firebaseui", name = "firebase-ui-auth", version.ref = "firebaseUi" }
-firebase-ui-database = { group = "com.firebaseui", name = "firebase-ui-database", version.ref = "firebaseUi" }
-firebase-ui-firestore = { group = "com.firebaseui", name = "firebase-ui-firestore", version.ref = "firebaseUi" }
-firebase-ui-messaging = { group = "com.firebaseui", name = "firebase-ui-messaging", version.ref = "firebaseUi" }
-firebase-ui-storage = { group = "com.firebaseui", name = "firebase-ui-storage", version.ref = "firebaseUi" }
+# Firebase UI components can be added back when needed
 firebase-ai = { group = "com.google.firebase", name = "firebase-ai" }
 firebase-perf = { group = "com.google.firebase", name = "firebase-perf" }
 
 # Kotlin & Coroutines
+jackson-dataformat-yaml = { module = "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml", version.ref = "jacksonDataformatYaml" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
@@ -189,6 +184,7 @@ hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testi
 hilt-core = { group = "com.google.dagger", name = "hilt-core", version.ref = "hilt" }
 
 # Networking
+moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshiKotlin" }
 retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 okhttp-core = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
@@ -202,7 +198,6 @@ coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coi
 # Testing
 androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
-mockk-android = { group = "io.mockk", name = "mockk-android", version.ref = "mockk" }
 
 # Utilities & Logging
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
@@ -220,11 +215,9 @@ junit-jupiter-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engi
 junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version = "1.10.2" }
 slf4j-api = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
 slf4j-simple = { group = "org.slf4j", name = "slf4j-simple", version.ref = "slf4j" }
+junit-bom = { group = "org.junit", name = "junit-bom", version.ref = "junitJupiter" }
+junit-jupiter-params = { group = "org.junit.jupiter", name = "junit-jupiter-params", version.ref = "junitJupiterParams" }
 
-# ==============================================================================
-# BUNDLES
-# Group commonly used dependencies.
-# ==============================================================================
 # ==============================================================================
 # BUNDLES
 # Group commonly used dependencies.
