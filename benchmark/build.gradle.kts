@@ -116,15 +116,13 @@ dependencies {
     implementation(project(":oracle-drive-integration"))
 
     // Benchmark testing
-    androidTestImplementation(libs.androidx.benchmark.junit4)
     androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.androidx.test.espresso.core)
-    androidTestImplementation(libs.androidx.test.uiautomator)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.androidx.uiautomator)
 
     // Unit testing
-    testImplementation(libs.junit4)
+    testImplementation(libs.androidx.test.junit4)
     testImplementation(libs.mockk)
-    androidTestImplementation(libs.mockk.android)
 
     // Hilt testing
     testImplementation(libs.hilt.android.testing)
