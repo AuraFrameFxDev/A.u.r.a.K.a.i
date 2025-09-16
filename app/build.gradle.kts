@@ -49,11 +49,10 @@ android {
         targetCompatibility = JavaVersion.VERSION_24
     }
 
-    // Kotlin compiler options
     kotlin {
         jvmToolchain(24)
         compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
             freeCompilerArgs.addAll(
                 "-Xjvm-default=all",
                 "-opt-in=kotlin.RequiresOptIn",
@@ -97,6 +96,7 @@ dependencies {
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
     androidTestImplementation(composeBom)
+    implementation(libs.androidx.appcompat) // Explicitly add AppCompat
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.core.ktx)
@@ -153,8 +153,8 @@ dependencies {
     coreLibraryDesugaring(libs.desugar.jdk.libs)
 
     // ===== XPOSED/LSPosed Integration =====
-    compileOnly(files("../Libs/api-82.jar"))
-    compileOnly(files("../Libs/api-82-sources.jar"))
+    // compileOnly(files("../Libs/api-82.jar"))
+    // compileOnly(files("../Libs/api-82-sources.jar"))
 
     // --- TESTING ---
     testImplementation(libs.bundles.testing.unit)
@@ -168,4 +168,10 @@ dependencies {
 
     implementation(libs.kotlin.stdlib.jdk8)
     implementation(libs.kotlin.reflect)
+}
+
+configurations.all {
+    resolutionStrategy {
+        force("androidx.appcompat:appcompat:1.7.1")
+    }
 }

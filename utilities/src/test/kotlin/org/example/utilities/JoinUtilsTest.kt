@@ -1,6 +1,7 @@
 package org.example.utilities
 
 import dev.aurakai.auraframefx.utilities.JoinUtils
+import org.junit.jupiter.api.Assertions.assertTimeout
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
@@ -84,7 +85,7 @@ class JoinUtilsTest {
         fun `large list joins correctly and does not throw`() {
             val items = (1..1000).map { "v$it" }.toTypedArray()
             val list = linkedListOf(*items)
-            val result = assertDoesNotThrow { JoinUtils.join(list) }
+            val result = assertDoesNotThrow { JoinUtils.join(list) } as String
             val parts = result.split(" ")
             assertEquals(1000, parts.size)
             assertEquals("v1", parts.first())
@@ -187,7 +188,7 @@ class JoinUtilsExtendedTest {
             val out =
                 assertTimeout(java.time.Duration.ofSeconds(2)) {
                     JoinUtils.join(list)
-                }
+                } as String
             val parts = out.split(" ")
             assertEquals(5000, parts.size)
             assertEquals("x1", parts.first())
