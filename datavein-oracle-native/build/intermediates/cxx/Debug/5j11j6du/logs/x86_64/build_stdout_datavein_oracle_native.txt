@@ -1,3 +1,2 @@
 ninja: Entering directory `C:\Re_Genesis_A.O.S.P\datavein-oracle-native\.cxx\Debug\5j11j6du\x86_64'
-[1/2] Building CXX object CMakeFiles/datavein_oracle_native.dir/oracle_drive_jni.cpp.o
-[2/2] Linking CXX shared library C:\Re_Genesis_A.O.S.P\datavein-oracle-native\build\intermediates\cxx\Debug\5j11j6du\obj\x86_64\libdatavein_oracle_native.so
+ninja: no work to do.

@@ -4,6 +4,6 @@
 -- Check for working CXX compiler: C:/Users/Wehtt/AppData/Local/Android/Sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe - skipped
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
--- Configuring done (0.9s)
+-- Configuring done (0.7s)
 -- Generating done (0.0s)
 -- Build files have been written to: C:/Re_Genesis_A.O.S.P/datavein-oracle-native/.cxx/Debug/5j11j6du/x86
