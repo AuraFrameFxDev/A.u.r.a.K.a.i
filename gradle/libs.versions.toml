@@ -56,7 +56,7 @@ uiAutomator = "2.3.0"
 benchmark = "1.4.1"
 # Add missing versions
 kotlinxSerialization = "1.9.0"
-kotlinxDatetime = "0.7.1"
+kotlinxDatetime = "0.7.1-0.6.x-compat"
 # Dokka
 dokka = "2.0.0"
 # Spotless
