@@ -1,10 +1,9 @@
 // ==== GENESIS PROTOCOL - SANDBOX UI ====
 plugins {
-    id("com.android.library") version libs.versions.agp
-    id("org.jetbrains.kotlin.plugin.compose")
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"
+    id("genesis.android.library")
+    id("genesis.android.compose")
     alias(libs.plugins.ksp)
-    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {

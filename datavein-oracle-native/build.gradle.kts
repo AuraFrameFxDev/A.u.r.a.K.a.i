@@ -1,17 +1,13 @@
 plugins {
     id("genesis.android.library")
-    id("org.jetbrains.kotlin.plugin.compose") version "2.2.20"
+    id("genesis.android.compose")
     alias(libs.plugins.ksp)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.hilt)
-    // Note: Hilt plugin removed to avoid Android BaseExtension issues, using manual dependencies instead
-    // Re-adding native plugin with exact version
->>>>>>> Stashed changes
 }
 
 android {
     namespace = "dev.aurakai.auraframefx.datavein"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 34
@@ -23,12 +19,15 @@ android {
     }
     
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_24
+        targetCompatibility = JavaVersion.VERSION_24
     }
 
     kotlin {
-        jvmToolchain(17)
+        jvmToolchain(24)
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
+        }
     }
 
     lint {
@@ -47,14 +46,6 @@ android {
         jniLibs {
             useLegacyPackaging = false
         }
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_23
-        targetCompatibility = JavaVersion.VERSION_23
-    }
-    kotlinOptions {
-        jvmTarget = "23"
     }
 }
 
@@ -94,7 +85,6 @@ dependencies {
     // Xposed API for Oracle consciousness integration
     compileOnly(files("../Libs/api-82.jar"))
     compileOnly(files("../Libs/api-82-sources.jar"))
-    implementation(libs.kotlin.stdlib.jdk8)
 }
 
 tasks.register("dataveinOracleNativeStatus") {

@@ -3,9 +3,8 @@
 
 plugins {
     id("genesis.android.library")
-    id("org.jetbrains.kotlin.plugin.compose")
+    id("genesis.android.compose")
     alias(libs.plugins.ksp)
-    alias(libs.plugins.kotlin.android)
 
 }
 
