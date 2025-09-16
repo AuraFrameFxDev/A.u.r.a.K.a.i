@@ -16,7 +16,12 @@ data class AgentHierarchy(
     val auxiliaryAgents: MutableList<HierarchyAgentConfig> = mutableListOf()
 ) {
     companion object {
-        val MASTER_AGENTS = listOf(
+        /**
+         * List of master agents with their default configurations.
+         * These are the core agents that are always available in the system.
+         */
+        @JvmStatic
+        val MASTER_AGENTS: List<HierarchyAgentConfig> = listOf(
             HierarchyAgentConfig("GENESIS", setOf("coordination", "synthesis"), 1),
             HierarchyAgentConfig("AURA", setOf("creativity", "design"), 2),
             HierarchyAgentConfig("KAI", setOf("security", "analysis"), 2),
@@ -26,7 +31,7 @@ data class AgentHierarchy(
         private val auxiliaryAgents = mutableListOf<HierarchyAgentConfig>()
 
         fun registerAuxiliaryAgent(name: String, capabilities: Set<String>): HierarchyAgentConfig {
-            val config = HierarchyAgentConfig(name, capabilities, 4)
+            val config = HierarchyAgentConfig(name, capabilities, 4,)
             auxiliaryAgents.add(config)
             return config
         }

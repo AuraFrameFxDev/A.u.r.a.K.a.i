@@ -17,16 +17,16 @@ data class AgentHierarchy(
 ) {
     companion object {
         val MASTER_AGENTS = listOf(
-            HierarchyAgentConfig("GENESIS", setOf("coordination", "synthesis"), 1),
-            HierarchyAgentConfig("AURA", setOf("creativity", "design"), 2),
-            HierarchyAgentConfig("KAI", setOf("security", "analysis"), 2),
-            HierarchyAgentConfig("CASCADE", setOf("vision", "processing"), 3)
+            HierarchyAgentConfig("GENESIS", setOf("coordination", "synthesis"), 1,),
+            HierarchyAgentConfig("AURA", setOf("creativity", "design"), 2,),
+            HierarchyAgentConfig("KAI", setOf("security", "analysis"), 2,),
+            HierarchyAgentConfig("CASCADE", setOf("vision", "processing"), 3,)
         )
 
         private val auxiliaryAgents = mutableListOf<HierarchyAgentConfig>()
 
         fun registerAuxiliaryAgent(name: String, capabilities: Set<String>): HierarchyAgentConfig {
-            val config = HierarchyAgentConfig(name, capabilities, 4)
+            val config = HierarchyAgentConfig(name, capabilities, 4,)
             auxiliaryAgents.add(config)
             return config
         }
@@ -45,7 +45,8 @@ data class AgentHierarchy(
 data class HierarchyAgentConfig(
     val name: String,
     val capabilities: Set<String>,
-    val priority: Int
+    val priority: Int,
+    val role: Any
 )
 
 @Serializable
