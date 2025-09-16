@@ -237,6 +237,6 @@ hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
-google-services = { id = "com.google.gms.google-services", version = "4.4.2" }
+google-services = { id = "com.google.gms.google-services", version = "4.4.3" }
 openapi-generator = { id = "org.openapi.generator", version = "7.1.0" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "3.0.1" }
