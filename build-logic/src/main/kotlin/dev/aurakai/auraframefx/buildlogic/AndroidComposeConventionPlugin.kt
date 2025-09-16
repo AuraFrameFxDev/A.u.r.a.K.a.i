@@ -15,6 +15,17 @@ internal val Project.libs: VersionCatalog
  * Compose-enabled Android library configuration
  */
 class AndroidComposeConventionPlugin : Plugin<Project> {
+    /**
+     * Configures a Gradle project for Jetpack Compose and adds common Compose dependencies.
+     *
+     * Enables Compose in the Android extension, sets the Kotlin compiler extension version from the
+     * project's version catalog (libs), and adds the Compose BOM plus typical UI, tooling, and test
+     * dependencies to the project's dependency configurations.
+     *
+     * Note: this function mutates the project's Android extension and dependency configurations.
+     * It uses `project.libs.findVersion("compose-compiler-extension").get()` to resolve the compiler
+     * extension version and will throw if that version entry is not present in the catalog.
+     */
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
