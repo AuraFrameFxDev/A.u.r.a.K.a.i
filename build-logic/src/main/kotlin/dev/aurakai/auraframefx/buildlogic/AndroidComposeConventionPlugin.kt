@@ -9,6 +9,26 @@ import org.gradle.kotlin.dsl.dependencies
  * Compose-enabled Android library configuration
  */
 class AndroidComposeConventionPlugin : Plugin<Project> {
+    /**
+     * Applies Compose conventions to an Android project.
+     *
+     * Configures the project's Android extension to enable Jetpack Compose and set the Kotlin
+     * compiler extension version, and adds a curated set of Compose dependencies (including the
+     * Compose BOM, runtime/UI, material3, tooling, and test artifacts) to the appropriate
+     * configurations.
+     *
+     * Side effects:
+     * - Enables buildFeatures.compose = true.
+     * - Sets composeOptions.kotlinCompilerExtensionVersion = "1.8.2".
+     * - Adds the Compose BOM (androidx.compose:compose-bom:2025.09.00) to `implementation` and
+     *   `androidTestImplementation`, and adds commonly used Compose libraries to `implementation`,
+     *   `debugImplementation`, and `androidTestImplementation`.
+     *
+     * Note:
+     * - This function expects the project to have an "android" extension that can be cast to
+     *   CommonExtension<*, *, *, *, *, *>. If the extension is missing or not compatible, a runtime
+     *   ClassCastException/NoSuchElementException may occur.
+     */
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
