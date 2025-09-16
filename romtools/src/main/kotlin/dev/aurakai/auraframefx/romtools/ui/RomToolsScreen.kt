@@ -302,6 +302,16 @@ private fun InfoRow(label: String, value: String) {
     }
 }
 
+/**
+ * Displays a card showing the current ROM operation name and its progress.
+ *
+ * Renders the operation display name (falls back to empty string when absent), a linear
+ * progress bar using `operation.progress` as a percentage (0–100), and a right-aligned
+ * textual percentage.
+ *
+ * @param operation Current operation state including optional operation type and numeric progress (0–100).
+ * @param modifier Modifier to be applied to the root composable.
+ */
 @Composable
 private fun OperationProgressCard(
     operation: dev.aurakai.auraframefx.romtools.OperationProgress,
@@ -401,7 +411,17 @@ private fun RomToolActionCard(
     }
 }
 
-// Helper functions and data classes
+/**
+     * Returns the static list of available ROM tool actions shown in the UI.
+     *
+     * Each entry describes a ROM-related operation (type, title, description, icon, color)
+     * and the device capabilities required to enable that action (root, bootloader, recovery, system).
+     * The resulting list is used to render actionable cards in the ROM Tools screen; callers should
+     * consult each action's requirement flags together with the device capabilities to determine
+     * whether the action is enabled for the current device.
+     *
+     * @return A list of predefined RomToolAction instances representing the supported ROM tools.
+     */
 private fun getRomToolsActions(): List<RomToolAction> {
     return listOf(
         RomToolAction(
