@@ -1,6 +1,13 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.ksp) // Use alias for ksp, ensure version in toml
+    alias(libs.plugins.composeCompiler) // Jetpack Compose compiler
+    alias(libs.plugins.hilt) // <-- Add this line to apply the Hilt Gradle plugin
+    id("com.google.gms.google-services") // Okay to keep this as id
+    id("org.openapi.generator") version "7.15.0"
+}
     alias(libs.plugins.ksp) // Use alias for ksp, ensure version in toml
     alias(libs.plugins.composeCompiler) // Jetpack Compose compiler
     alias(libs.plugins.hilt) // <-- Add this line to apply the Hilt Gradle plugin
