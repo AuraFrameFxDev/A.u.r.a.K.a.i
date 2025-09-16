@@ -1,2 +1,0 @@
-ninja: Entering directory `C:\Re_Genesis_A.O.S.P\secure-comm\.cxx\Debug\1a2b5424\arm64-v8a'
-ninja: no work to do.

@@ -1,2 +1,0 @@
-ninja: Entering directory `C:\Re_Genesis_A.O.S.P\datavein-oracle-native\.cxx\Debug\5j11j6du\armeabi-v7a'
-ninja: no work to do.

@@ -1,3 +1,0 @@
-dev.aurakai.auraframefx.module.b
-string module_b_debug_name
-string module_b_main_name

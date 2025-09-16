@@ -1,3 +1,0 @@
-dev.aurakai.auraframefx.sandboxui
-string sandbox_ui_debug_name
-string sandbox_ui_main_name
