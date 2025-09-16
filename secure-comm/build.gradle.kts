@@ -80,20 +80,12 @@ dependencies {
     androidTestImplementation(libs.hilt.android.testing)
 }
 
-
 tasks.register("secureStatus") {
     group = "genesis"
-    doLast {
-        println("🔐 SECURE COMM - ${android.namespace} - Ready!")
-    }
-=======
+    doLast { println("🔐 SECURE COMM - ${android.namespace} - Ready!") }
+}
+
 tasks.register("secureCommStatus") {
     group = "aegenesis"
     doLast { println("\uD83D\uDCE6 SECURE COMM MODULE - Ready (Java 24)") }
->>>>>>> Stashed changes
-=======
-tasks.register("secureCommStatus") {
-    group = "aegenesis"
-    doLast { println("\uD83D\uDCE6 SECURE COMM MODULE - Ready (Java 24)") }
->>>>>>> Stashed changes
 }
