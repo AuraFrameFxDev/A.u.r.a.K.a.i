@@ -3,7 +3,7 @@
  */
 package org.example.list
 
-class LinkedList {
+class LinkedList : List<String> {
     private var head: Node? = null
 
     /**
@@ -91,7 +91,7 @@ class LinkedList {
      *
      * @return The current size (number of nodes) in this list.
      */
-    fun size(): Int {
+    fun calculateSize(): Int {
         var size = 0
 
         var it = head
@@ -113,19 +113,113 @@ class LinkedList {
      * @return the string stored at the specified index.
      * @throws IndexOutOfBoundsException if no element exists at the requested index.
      */
-    fun get(idx: Int): String {
-        if (idx < 0) throw IndexOutOfBoundsException("Index: $idx")
+    private fun getNodeAt(idx: Int): Node? {
+        if (idx < 0) return null
         var index = idx
         var it = head
         while (index > 0 && it != null) {
             it = it.next
             index--
         }
-        if (it == null) throw IndexOutOfBoundsException("Index: $idx")
-        return it.data
+        return it
     }
 
     private data class Node(val data: String) {
         var next: Node? = null
+    }
+
+    override val size: Int
+        get() = calculateSize()
+
+    override fun contains(element: String): Boolean {
+        throw UnsupportedOperationException("Not yet implemented")
+    }
+
+    override fun containsAll(elements: Collection<String>): Boolean {
+        throw UnsupportedOperationException("Not yet implemented")
+    }
+
+    override fun get(index: Int): String {
+        val node = getNodeAt(index) ?: throw IndexOutOfBoundsException("Index: $index")
+        return node.data
+    }
+
+    override fun indexOf(element: String): Int {
+        throw UnsupportedOperationException("Not yet implemented")
+    }
+
+    override fun isEmpty(): Boolean {
+        return head == null
+    }
+
+    override fun iterator(): Iterator<String> {
+        throw UnsupportedOperationException("Not yet implemented")
+    }
+
+    override fun lastIndexOf(element: String): Int {
+        throw UnsupportedOperationException("Not yet implemented")
+    }
+
+    override fun listIterator(): ListIterator<String> = listIterator(0)
+
+    override fun listIterator(index: Int): ListIterator<String> {
+        if (index < 0 || index > size) {
+            throw IndexOutOfBoundsException("Index: $index, Size: $size")
+        }
+
+        return object : ListIterator<String> {
+            private var current = head
+            private var currentIndex = 0
+
+            init {
+                repeat(index) {
+                    current = current?.next
+                    currentIndex++
+                }
+            }
+
+            override fun hasNext(): Boolean = currentIndex < size
+            override fun hasPrevious(): Boolean = currentIndex > 0
+            override fun nextIndex(): Int = currentIndex
+            override fun previousIndex(): Int = currentIndex - 1
+
+            override fun next(): String {
+                if (!hasNext()) throw NoSuchElementException()
+                val value = current?.data ?: throw NoSuchElementException()
+                current = current?.next
+                currentIndex++
+                return value
+            }
+
+            override fun previous(): String {
+                if (!hasPrevious()) throw NoSuchElementException()
+                currentIndex--
+                current = head
+                repeat(currentIndex) { current = current?.next }
+                return current?.data ?: throw NoSuchElementException()
+            }
+
+            override fun add(element: String) = throw UnsupportedOperationException()
+            override fun remove() = throw UnsupportedOperationException()
+            override fun set(element: String) = throw UnsupportedOperationException()
+        }
+    }
+
+    override fun subList(fromIndex: Int, toIndex: Int): List<String> {
+        if (fromIndex < 0 || toIndex > size || fromIndex > toIndex) {
+            throw IndexOutOfBoundsException("fromIndex: $fromIndex, toIndex: $toIndex, size: $size")
+        }
+
+        val result = mutableListOf<String>()
+        var current = head
+
+        repeat(fromIndex) { current = current?.next }
+        repeat(toIndex - fromIndex) {
+            current?.let {
+                result.add(it.data)
+                current = it.next
+            }
+        }
+        return result
     }
 }
