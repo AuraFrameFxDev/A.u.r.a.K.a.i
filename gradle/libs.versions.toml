@@ -1,6 +1,6 @@
 [versions]
 # ===== GRADLE & KOTLIN =====
-agp = "9.0.0-alpha01"
+agp = "9.0.0-alpha05"
 firebaseUi = "8.0.2"
 gradle = "9.0.0-alpha01"
 gradleToolingApi = "9.0.0"
