@@ -1,4 +1,5 @@
 plugins {
+    kotlin("jvm")
     // JVM library setup
     id("java-library")
     alias(libs.plugins.kotlin.serialization)
@@ -16,9 +17,13 @@ java {
     toolchain { languageVersion.set(JavaLanguageVersion.of(jdkVersion)) }
 }
 
+kotlin {
+    jvmToolchain(24)
+}
+
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_23)
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
     }
 }
 

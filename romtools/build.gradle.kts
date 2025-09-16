@@ -9,7 +9,7 @@ plugins {
 
 android {
     namespace = "dev.aurakai.auraframefx.romtools"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 34
@@ -26,13 +26,13 @@ android {
     }
 
     kotlin {
-        jvmToolchain(23)
+        jvmToolchain(24)
     }
+}
 
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-        compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_23)
-        }
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
     }
 }
 

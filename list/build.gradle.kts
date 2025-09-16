@@ -1,4 +1,5 @@
 plugins {
+    kotlin("jvm")
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.dokka)
     alias(libs.plugins.spotless)
@@ -11,6 +12,16 @@ version = "1.0.0"
 
 java {
     toolchain { languageVersion = JavaLanguageVersion.of(24) }
+}
+
+kotlin {
+    jvmToolchain(24)
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
+    }
 }
 
 dependencies {
@@ -28,12 +39,6 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation(libs.mockk)
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_23)
-    }
 }
 
 tasks.test {

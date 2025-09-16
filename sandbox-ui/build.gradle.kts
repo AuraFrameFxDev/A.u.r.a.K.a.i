@@ -10,8 +10,8 @@ plugins {
 
 android {
     namespace = "dev.aurakai.auraframefx.sandboxui"
-    compileSdk = 35
-    
+    compileSdk = 36
+
     defaultConfig {
         minSdk = 34
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -27,12 +27,12 @@ android {
     }
 
     kotlin {
-        jvmToolchain(23)
+        jvmToolchain(24)
     }
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_23)
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
         }
     }
 }
@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.compose.material.icons.extended)
+    implementation("androidx.compose.ui:ui-tooling-preview:1.6.0")
     debugImplementation(libs.bundles.compose.debug)
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     

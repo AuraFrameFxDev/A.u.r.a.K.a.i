@@ -1,5 +1,86 @@
-/.gradle/
-/build/
-/local.properties
-.DS_Store
+# .gitignore for Re_Genesis_A.O.S.P multi-module Android/Kotlin project
+
+# Gradle
+.gradle/
+# build/ # <-- Allow generated files by not ignoring build outputs
+!*/src/main/assets/
+!*/src/main/res/
+!*/src/main/so/
+!*/src/main/jniLibs/
+
+# Local configuration
+local.properties
+*.iml
 .idea/
+.DS_Store
+*.swp
+*.swo
+*.log
+*.tmp
+
+# Android Studio
+captures/
+.cxx/
+.externalNativeBuild/
+
+# Build outputs
+# **/build/ # <-- Allow generated files by not ignoring build outputs
+# **/out/ # <-- Allow generated files by not ignoring build outputs
+
+# Generated files
+# *.apk # <-- Allow generated files
+# *.ap_* # <-- Allow generated files
+# *.aab # <-- Allow generated files
+# *.dex # <-- Allow generated files
+# *.class # <-- Allow generated files
+# *.jar # <-- Allow generated files
+# *.war # <-- Allow generated files
+# *.ear # <-- Allow generated files
+# *.hprof # <-- Allow generated files
+
+# Keystore files
+*.jks
+*.keystore
+
+# Crashlytics/Firebase
+crashlytics-build.properties
+fabric.properties
+
+# Test reports
+**/test-results/
+**/reports/
+
+# Misc
+*.orig
+*.rej
+
+# OS-specific
+Thumbs.db
+Desktop.ini
+
+# VSCode
+.vscode/
+
+# JetBrains Rider
+.idea/
+*.sln
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Python virtualenv
+venv/
+ENV/
+.env
+
+# Node
+node_modules/
+
+# Libs
+Libs/*.jar
+Libs/*.aar
+
+# Ignore secrets
+**/google-services.json
+**/auraframefx-firebase-adminsdk-*.json

@@ -12,7 +12,7 @@ plugins {
 
 android {
     namespace = "dev.aurakai.auraframefx.securecomm"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 34
@@ -29,12 +29,12 @@ android {
     }
 
     kotlin {
-        jvmToolchain(23)
+        jvmToolchain(24)
     }
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_23)
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
         }
     }
     
@@ -51,7 +51,7 @@ dependencies {
     implementation(project(":core-module"))
     
     // Core Android
-    implementation(libs.androidx.core.ktx)
+    implementation("androidx.core:core-ktx:1.12.0")
     implementation(libs.androidx.work.runtime.ktx)
     
     // Hilt

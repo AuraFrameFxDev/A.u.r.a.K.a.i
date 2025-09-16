@@ -3,7 +3,7 @@
 [versions]
 # ===== GRADLE & KOTLIN =====
 
-agp = "9.0.0-alpha01"
+agp = "9.0.0-alpha02"
 # firebaseDatabaseConnectionLicense is referenced with a version in the library entry
 firebaseDatabaseConnectionLicense = "12.0.1"
 

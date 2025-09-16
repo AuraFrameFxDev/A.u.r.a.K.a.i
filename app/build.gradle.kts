@@ -44,13 +44,13 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_23
-        targetCompatibility = JavaVersion.VERSION_23
+        sourceCompatibility = JavaVersion.VERSION_24
+        targetCompatibility = JavaVersion.VERSION_24
     }
 
     // Kotlin compiler options
     kotlin {
-        jvmToolchain(17)
+        jvmToolchain(24)
         compilerOptions {
             jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
             freeCompilerArgs.addAll(
@@ -134,6 +134,9 @@ dependencies {
 
     // ===== SECURITY =====
     implementation(libs.androidx.security.crypto)
+
+    // ===== JACKSON YAML (for OpenAPI Generator compatibility) =====
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.15.3")
 
     // ===== CORE LIBRARY DESUGARING =====
     coreLibraryDesugaring(libs.desugar.jdk.libs)

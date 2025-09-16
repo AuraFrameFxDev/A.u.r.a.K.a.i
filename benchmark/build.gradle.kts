@@ -157,3 +157,9 @@ tasks.register("verifyBenchmarkResults") {
 tasks.withType<JavaCompile> {
     options.compilerArgs.add("-Xlint:-deprecation")
 }
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
+    }
+}
