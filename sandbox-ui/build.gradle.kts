@@ -1,49 +1,78 @@
 // ==== GENESIS PROTOCOL - SANDBOX UI ====
 plugins {
-    id("com.android.library") version libs.versions.agp
-    id("org.jetbrains.kotlin.plugin.compose")
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"
-    alias(libs.plugins.ksp)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
     namespace = "dev.aurakai.auraframefx.sandboxui"
-    compileSdk = 36
-    defaultConfig { minSdk = 34 }
-    buildFeatures { compose = true }
+    compileSdk = 35
+    
+    defaultConfig {
+        minSdk = 34
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+    
+    buildFeatures { 
+        compose = true 
+    }
+    
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_24
-        targetCompatibility = JavaVersion.VERSION_24
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlin {
+        jvmToolchain(17)
     }
 }
 
 dependencies {
+    // Module dependencies
     api(project(":core-module"))
+    
+    // Core Android
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.bundles.lifecycle)
+    
+    // Compose
+    val composeBom = platform(libs.androidx.compose.bom)
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
     implementation(libs.bundles.compose.ui)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.compose.material.icons.extended)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    debugImplementation(libs.androidx.compose.ui.tooling)
-    implementation(libs.hilt.android); ksp(libs.hilt.compiler)
+    debugImplementation(libs.bundles.compose.debug)
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    
+    // Hilt
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    
+    // Coroutines
     implementation(libs.bundles.coroutines)
-    implementation(libs.timber); implementation(libs.coil.compose)
-    testImplementation(libs.bundles.testing.unit); testImplementation(libs.mockk.android)
-    androidTestImplementation(libs.mockk.android)
-    testImplementation(libs.hilt.android.testing); kspTest(libs.hilt.compiler)
-    androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.androidx.test.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.hilt.android.testing); kspAndroidTest(libs.hilt.compiler)
+    
+    // Utilities
+    implementation(libs.timber)
+    implementation(libs.coil.compose)
     implementation(libs.kotlin.stdlib.jdk8)
+    
+    // Testing
+    testImplementation(libs.bundles.testing.unit)
+    androidTestImplementation(libs.bundles.testing.android)
+    androidTestImplementation(libs.hilt.android.testing)
+    kspTest(libs.hilt.compiler)
+    kspAndroidTest(libs.hilt.compiler)
 }
 
 tasks.register("sandboxStatus") {
-    group = "aegenesis"; doLast { println("🧪 SANDBOX UI - Ready (Java 24)") }
+    group = "genesis"
+    doLast { 
+        println("🧪 SANDBOX UI - ${android.namespace} - Ready!") 
+    }
 }

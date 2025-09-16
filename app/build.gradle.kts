@@ -4,68 +4,22 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id ("com.google.gms.google-services")
-    id("com.google.devtools.ksp") version "2.2.20-2.0.3"
-    alias(libs.plugins.composeCompiler)
-    id("org.jetbrains.compose") version "1.8.2"
-    id("org.openapi.generator") version "7.15.0"
-    // Firebase plugins
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.jetbrains.compose)
+    alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
-
+    id("org.openapi.generator") version "7.15.0"
 }
+
 android {
     namespace = "dev.aurakai.auraframefx"
-    compileSdk = 36
-
-    // Build features
-    buildFeatures {
-        compose = true
-        dataBinding = true
-        viewBinding = true
-        buildConfig = true
-        aidl = true
-
-        buildTypes {
-            debug {
-                isDebuggable = true
-                applicationIdSuffix = ".debug"
-                versionNameSuffix = "-DEBUG"
-            }
-            release {
-                isMinifyEnabled = true
-                proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            }
-        }
-    }
-    // This adds the generated OpenAPI source code to the main source set.
-    sourceSets["main"].java.srcDir(layout.buildDirectory.dir("generated/openapi/src/main/kotlin"))
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_24
-        targetCompatibility = JavaVersion.VERSION_24
-    }
-
-    // Compose compiler configuration for Kotlin 2.2.x
-    composeOptions {
-        kotlinCompilerExtensionVersion = ("1.8.2")
-    }
-
-    // Kotlin compiler options
-    kotlin {
-        jvmToolchain(24)
-        compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
-            freeCompilerArgs.addAll(
-                "-Xjvm-default=all",
-                "-opt-in=kotlin.RequiresOptIn"
-            )
-        }
-    }
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "dev.aurakai.auraframefx"
         minSdk = 34
-        targetSdk = 36
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -75,6 +29,15 @@ android {
         }
     }
 
+    // Build features
+    buildFeatures {
+        compose = true
+        dataBinding = true
+        viewBinding = true
+        buildConfig = true
+        aidl = true
+    }
+
     // Build types
     buildTypes {
         debug {
@@ -82,120 +45,117 @@ android {
             applicationIdSuffix = ".debug"
             versionNameSuffix = "-DEBUG"
         }
+        release {
+            isMinifyEnabled = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
     }
 
+    // This adds the generated OpenAPI source code to the main source set.
     sourceSets["main"].java.srcDir(layout.buildDirectory.dir("generated/openapi/src/main/kotlin"))
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    }
 
-    tasks.openApiGenerate {
-        generatorName.set("kotlin")
-        // Use the correct file URI for the OpenAPI spec
-        inputSpec.set("file:///C:/Users/Wehtt/OneDrive/Desktop/ReGenesis-fix-dependabot-compose-plugin/ReGenesis-patch1/app/api/system-api.yml")
-        outputDir.set(layout.buildDirectory.dir("generated/openapi").get().asFile.absolutePath)
-        apiPackage.set("dev.aurakai.auraframefx.openapi.api")
-        modelPackage.set("dev.aurakai.auraframefx.openapi.model")
-        invokerPackage.set("dev.aurakai.auraframefx.openapi.invoker")
-        configOptions.set(
-            mapOf(
-                "dateLibrary" to "java8",
-                "library" to "jvm-ktor"
-            )
+    // Kotlin compiler options
+    kotlin {
+        jvmToolchain(17)
+    }
+}
+
+tasks.openApiGenerate {
+    generatorName.set("kotlin")
+    // Use the correct file URI for the OpenAPI spec
+    inputSpec.set("${project.projectDir}/api/system-api.yml")
+    outputDir.set(layout.buildDirectory.dir("generated/openapi").get().asFile.absolutePath)
+    apiPackage.set("dev.aurakai.auraframefx.openapi.api")
+    modelPackage.set("dev.aurakai.auraframefx.openapi.model")
+    invokerPackage.set("dev.aurakai.auraframefx.openapi.invoker")
+    configOptions.set(
+        mapOf(
+            "dateLibrary" to "java8",
+            "library" to "jvm-ktor"
         )
-    }
+    )
+}
 
-    dependencies {
-        // ===== MODULE DEPENDENCIES =====
-        implementation(project(":core-module"))
-        implementation(project(":feature-module"))
-        implementation(project(":oracle-drive-integration"))
-        implementation(project(":romtools"))  // Temporarily disabled - Hilt/KSP issues
-        implementation(project(":secure-comm"))
-        implementation(project(":collab-canvas"))  // Temporarily disabled - YukiHookAPI issues
-        implementation(project(":colorblendr"))
-        implementation(project(":sandbox-ui"))  // Temporarily disabled - Compose compilation issues
-        implementation(project(":datavein-oracle-native"))
+dependencies {
+    // ===== MODULE DEPENDENCIES =====
+    implementation(project(":core-module"))
+    implementation(project(":feature-module"))
+    implementation(project(":oracle-drive-integration"))
+    implementation(project(":romtools"))
+    implementation(project(":secure-comm"))
+    implementation(project(":collab-canvas"))
+    implementation(project(":colorblendr"))
+    implementation(project(":sandbox-ui"))
+    implementation(project(":datavein-oracle-native"))
 
-        // ===== ANDROIDX & COMPOSE =====
-        val composeBom = platform(libs.androidx.compose.bom)
-        implementation(composeBom)
-        androidTestImplementation(composeBom)
+    // Compose & AndroidX
+    val composeBom = platform(libs.androidx.compose.bom)
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
+    
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.bundles.compose.ui)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.bundles.lifecycle)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.datastore.core)
+    implementation(libs.bundles.room)
+    
+    // Compose Debug
+    debugImplementation(libs.bundles.compose.debug)
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
 
-        // Core Compose dependencies
-        implementation(libs.androidx.activity.compose)
-        implementation(libs.androidx.compose.ui)
-        implementation(libs.androidx.compose.ui.tooling.preview)
-        implementation(libs.androidx.compose.material3)
-        implementation(libs.androidx.navigation.compose)
-        implementation(libs.androidx.core.ktx)
-        implementation(platform(libs.firebase.bom))
-        implementation("com.google.firebase:firebase-analytics")
-        implementation("com.google.firebase:firebase-crashlytics")
-        implementation("com.google.firebase:firebase-ai")
-        implementation("com.google.firebase:firebase-auth-ktx")
-        implementation("com.google.firebase:firebase-firestore-ktx")
-        implementation("com.google.firebase:firebase-messaging-ktx")
-        implementation("com.google.firebase:firebase-config-ktx")
-        implementation("com.google.firebase:firebase-perf-ktx")
-        implementation("com.google.firebase:firebase-database-ktx")
-        implementation("com.google.firebase:firebase-storage-ktx")
+    // Hilt
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 
-        // Debug implementations
-        debugImplementation(libs.bundles.compose.debug)
-        debugImplementation(libs.androidx.compose.ui.test.manifest)
+    // Networking & Serialization
+    implementation(libs.bundles.network)
+    implementation(libs.gson)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.datetime)
+    implementation(libs.bundles.coroutines)
 
-        // ===== LIFECYCLE =====
-        implementation(libs.bundles.lifecycle)
+    // Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.messaging)
+    implementation(libs.firebase.config)
+    implementation(libs.firebase.database)
+    implementation(libs.firebase.storage)
+    implementation(libs.firebase.database.connection.license)
 
-        // ===== DATABASE - ROOM =====
-        implementation(libs.bundles.room)
+    // Utilities & Logging
+    implementation(libs.timber)
+    implementation(libs.coil.compose)
+    implementation(libs.androidx.security.crypto)
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
 
-        // ===== DATASTORE =====
-        implementation(libs.androidx.datastore.preferences)
-        implementation(libs.androidx.datastore.core)
+    // Testing
+    testImplementation(libs.bundles.testing.unit)
+    androidTestImplementation(libs.bundles.testing.android)
+    androidTestImplementation(libs.hilt.android.testing)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 
-        // ===== KOTLIN & COROUTINES =====
-        implementation(libs.kotlinx.serialization.json)
-        implementation(libs.kotlinx.datetime)
-        implementation(libs.bundles.coroutines)
+    // Debugging
+    debugImplementation(libs.leakcanary.android)
 
-        // ===== NETWORKING =====
-        implementation(libs.bundles.network)
+    // XPOSED/LSPosed Integration
+    compileOnly(files("../Libs/api-82.jar"))
+    compileOnly(files("../Libs/api-82-sources.jar"))
 
-        // ===== FIREBASE =====
-        // Import the Firebase BoM (Bill of Materials)
-
-        // ===== HILT DEPENDENCY INJECTION =====
-        implementation(libs.hilt.android)
-        ksp(libs.hilt.compiler)
-
-        // ===== UTILITIES =====
-        implementation(libs.timber)
-        implementation(libs.coil.compose)
-
-        // ===== SECURITY =====
-        implementation(libs.androidx.security.crypto)
-
-        // ===== CORE LIBRARY DESUGARING =====
-        coreLibraryDesugaring(libs.desugar.jdk.libs)
-
-        // ===== XPOSED/LSPosed Integration =====
-        compileOnly(files("../Libs/api-82.jar"))
-        compileOnly(files("../Libs/api-82-sources.jar"))
-
-        // --- TESTING ---
-        testImplementation(libs.bundles.testing.unit)
-        androidTestImplementation(libs.bundles.testing.android)
-        androidTestImplementation(platform(libs.androidx.compose.bom))
-        androidTestImplementation(libs.hilt.android.testing) // For Hilt in Android tests
-
-        // --- DEBUGGING ---
-        debugImplementation(libs.leakcanary.android)
-        implementation(libs.kotlin.stdlib.jdk8)
-        implementation(libs.kotlin.reflect)
-
-    }
+    // Kotlin libs
+    implementation(libs.kotlin.stdlib.jdk8)
+    implementation(libs.kotlin.reflect)
+}

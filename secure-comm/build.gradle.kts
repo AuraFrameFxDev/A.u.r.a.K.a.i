@@ -2,18 +2,34 @@
 // Security module using convention plugins
 
 plugins {
-    id("genesis.android.library")
-    id("org.jetbrains.kotlin.plugin.compose")
-    alias(libs.plugins.ksp)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
     namespace = "dev.aurakai.auraframefx.securecomm"
-    
+    compileSdk = 35
+
     defaultConfig {
         minSdk = 34
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+        compose = true
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlin {
+        jvmToolchain(17)
     }
     
     externalNativeBuild {
@@ -25,40 +41,51 @@ android {
 }
 
 dependencies {
+    // Module dependencies
     implementation(project(":core-module"))
-    implementation(libs.hilt.android)
+    
+    // Core Android
     implementation(libs.androidx.core.ktx)
-    ksp(libs.hilt.compiler)
-    implementation(libs.hilt.work)
     implementation(libs.androidx.work.runtime.ktx)
-    implementation(libs.kotlinx.serialization.json)
+    
+    // Hilt
+    implementation(libs.hilt.android)
+    implementation(libs.hilt.work)
+    ksp(libs.hilt.compiler)
+    
+    // Coroutines & Networking
     implementation(libs.bundles.coroutines)
     implementation(libs.bundles.network)
+    implementation(libs.kotlinx.serialization.json)
+    
+    // Firebase
     implementation(platform(libs.firebase.bom))
-
-    implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.messaging)
     implementation(libs.firebase.config)
     implementation(libs.firebase.database)
     implementation(libs.firebase.storage)
+    
+    // Utilities
     implementation(libs.timber)
     implementation(libs.coil.compose)
-
-    // Security - BouncyCastle for cryptography
-    implementation(libs.bcprov.jdk18on)
-    
-    // Add other module-specific dependencies here
     implementation(libs.kotlin.stdlib.jdk8)
-
-    // Test dependencies
-    testImplementation(libs.junit4)
-    testImplementation(libs.kotlin.test.junit)
-    testImplementation(libs.junit.jupiter.api)
-    testImplementation(libs.junit.jupiter.engine)
-    testImplementation(libs.mockk.android)
-    testImplementation(libs.mockk.agent)
+    
+    // Security - BouncyCastle for cryptography
+    implementation("org.bouncycastle:bcprov-jdk18on:1.78.1")
+    
+    // Testing
+    testImplementation(libs.bundles.testing.unit)
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.13.4")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.13.4")
     testImplementation(libs.kotlinx.coroutines.test)
-    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.bundles.testing.android)
     androidTestImplementation(libs.hilt.android.testing)
+}
+
+tasks.register("secureStatus") {
+    group = "genesis"
+    doLast {
+        println("🔐 SECURE COMM - ${android.namespace} - Ready!")
+    }
 }

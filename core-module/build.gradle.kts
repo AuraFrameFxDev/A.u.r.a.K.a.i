@@ -1,23 +1,26 @@
 plugins {
     // JVM library setup
     id("java-library")
-    kotlin("jvm")
-    alias(libs.plugins.kotlin.serialization) version "2.2.20"
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.dokka)
     alias(libs.plugins.spotless)
-
-    // Jetbrains Compose
-    alias(libs.plugins.composeCompiler)
 }
 
 group = "dev.aurakai.auraframefx.utilities"
 version = "1.0.0"
 
 // Centralized toolchain version to avoid duplication and drift
-val jdkVersion = 24
+val jdkVersion = 17
 
 java {
     toolchain { languageVersion.set(JavaLanguageVersion.of(jdkVersion)) }
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+    }
 }
 
 dependencies {
@@ -34,13 +37,13 @@ dependencies {
     implementation(libs.xz)
 
     // Logging API only (do not bind implementation at runtime for libraries)
-    implementation(libs.slf4j.api)
+    implementation(libs.slf4j)
 
     // Testing (JUnit 5)
-    testImplementation(libs.junit.jupiter.api)
-    testRuntimeOnly(libs.junit.jupiter.engine)
-    testImplementation(libs.mockk)
-    testRuntimeOnly(libs.slf4j.simple)
+    testImplementation(platform("org.junit:junit-bom:5.13.4"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation(libs.mockk.android)
+    testRuntimeOnly("org.slf4j:slf4j-simple:2.0.17")
     implementation(libs.kotlin.stdlib.jdk8)
 }
 

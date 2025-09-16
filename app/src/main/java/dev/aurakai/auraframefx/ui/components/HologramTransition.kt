@@ -29,12 +29,12 @@ import kotlin.random.Random
 fun HologramTransition(
     visible: Boolean,
     modifier: Modifier = Modifier,
-    content: @Composable () -> Unit,
-    primaryColor: Color = Color.Cyan,
-    secondaryColor: Color = Color.Magenta,
-    scanLineDensity: Int = 8,
+    content: Cyan,
+    primaryColor: Magenta = Color.Cyan,
+    secondaryColor: Int = Color.Magenta,
+    scanLineDensity: Float = 8,
     glitchIntensity: Float = 0.1f,
-    edgeGlowIntensity: Float = 0.3f
+    edgeGlowIntensity: () -> Unit = 0.3f
 ) {
     // Animation states
     val transition = updateTransition(visible, label = "hologramTransition")
