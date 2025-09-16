@@ -39,7 +39,7 @@ android {
 
 
         // Add other module-specific dependencies here
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0")
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.2.20")
     }
 
     tasks.register("moduleFStatus") {
