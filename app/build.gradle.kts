@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp) // Use alias for ksp, ensure version in toml
     alias(libs.plugins.composeCompiler) // Jetpack Compose compiler
+    alias(libs.plugins.hilt) // <-- Add this line to apply the Hilt Gradle plugin
     id("com.google.gms.google-services") // Okay to keep this as id
     id("org.openapi.generator") version "7.15.0"
 }
@@ -111,6 +112,9 @@ dependencies {
 
     // ===== NETWORKING =====
     implementation(libs.bundles.network)
+    implementation(libs.squareup.moshi)
+    implementation("com.squareup.moshi:moshi-kotlin:1.15.2")
+    implementation("com.squareup.retrofit2:converter-moshi:3.0.0")
 
     // ===== FIREBASE =====
     // Import the Firebase BoM
@@ -126,6 +130,10 @@ dependencies {
     implementation(libs.firebase.perf)
     implementation(libs.firebase.database)
     implementation(libs.firebase.storage)
+
+    // ===== WORKMANAGER & HILT WORKER =====
+    implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.hilt.work)
 
     // ===== HILT DEPENDENCY INJECTION =====
     implementation(libs.hilt.android)

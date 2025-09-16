@@ -3,3 +3,7 @@
 16	8138	7797093155581576	CMakeFiles/secure_comm_native.dir/crypto_engine.cpp.o	ef5d0882f90ce01b
 8145	9036	7797093161887014	C:/Re_Genesis_A.O.S.P/secure-comm/build/intermediates/cxx/RelWithDebInfo/304n211z/obj/x86/libsecure_comm_native.so	8f7523acf21bb9dc
 0	19	0	clean	bfff2010d6239e2d
+19	5171	7797101866456996	CMakeFiles/secure_comm_native.dir/secure_comm_jni.cpp.o	d5ce49402b988831
+31	8037	7797101892820129	CMakeFiles/secure_comm_native.dir/crypto_engine.cpp.o	ef5d0882f90ce01b
+8038	9422	7797101907121796	C:/Re_Genesis_A.O.S.P/secure-comm/build/intermediates/cxx/RelWithDebInfo/304n211z/obj/x86/libsecure_comm_native.so	8f7523acf21bb9dc
+0	103	0	clean	bfff2010d6239e2d
