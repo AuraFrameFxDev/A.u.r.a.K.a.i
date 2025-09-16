@@ -1,20 +1,8 @@
 plugins {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.kotlin.serialization)
+    id("genesis.android.library")
     alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt)
-=======
-    id("com.android.library")
-    alias(libs.plugins.ksp)
->>>>>>> Stashed changes
-=======
-    id("com.android.library")
-    alias(libs.plugins.ksp)
->>>>>>> Stashed changes
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"
+    alias(libs.plugins.composeCompiler)
 }
 
 android {
@@ -31,26 +19,8 @@ android {
     }
 
     compileOptions {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-
-    kotlin {
-        jvmToolchain(17)
-=======
-=======
->>>>>>> Stashed changes
-        sourceCompatibility = JavaVersion.VERSION_23
-        targetCompatibility = JavaVersion.VERSION_23
-    }
-    kotlinOptions {
-        jvmTarget = "23"
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+        sourceCompatibility = JavaVersion.VERSION_24
+        targetCompatibility = JavaVersion.VERSION_24
     }
 }
 
@@ -58,14 +28,14 @@ dependencies {
     // Module dependencies
     implementation(project(":core-module"))
     implementation(project(":secure-comm"))
-    
+
     // Core Android
     implementation(libs.androidx.core.ktx)
     implementation(libs.bundles.lifecycle)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.datastore.core)
     implementation(libs.androidx.security.crypto)
-    
+
     // Compose
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
@@ -75,23 +45,23 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     debugImplementation(libs.bundles.compose.debug)
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-    
+
     // Room Database
     implementation(libs.bundles.room)
     ksp(libs.androidx.room.compiler)
-    
+
     // Hilt
     implementation(libs.hilt.android)
     implementation(libs.hilt.work)
     ksp(libs.hilt.compiler)
-    
+
     // Coroutines & Networking
     implementation(libs.bundles.coroutines)
     implementation(libs.bundles.network)
     implementation(libs.gson)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.datetime)
-    
+
     // Firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.firestore)
@@ -100,39 +70,29 @@ dependencies {
     implementation(libs.firebase.database)
     implementation(libs.firebase.storage)
     implementation(libs.firebase.database.connection.license)
-    
+
     // Utilities
     implementation(libs.timber)
     implementation(libs.coil.compose)
     implementation(libs.kotlin.stdlib.jdk8)
     implementation(libs.kotlin.reflect)
-    
+
     // Desugaring
     coreLibraryDesugaring(libs.desugar.jdk.libs)
-    
+
     // Testing
     testImplementation(libs.bundles.testing.unit)
     androidTestImplementation(libs.bundles.testing.android)
     androidTestImplementation(libs.hilt.android.testing)
-    
+
     // Debug tools
     debugImplementation(libs.leakcanary.android)
-    
+
     // External libraries
     compileOnly(files("../Libs/api-82.jar"))
     compileOnly(files("../Libs/api-82-sources.jar"))
 }
 
-tasks.register("oracleStatus") {
-    group = "genesis"
-    doLast {
-        println("🔮 ORACLE DRIVE INTEGRATION - ${android.namespace} - Ready!")
-    }
-}
-
-tasks.register("oracleDriveIntegrationStatus") {
-    group = "aegenesis"
-    doLast { println("\uD83D\uDCE6 ORACLE DRIVE INTEGRATION - Ready (Java 24)") }
 }
 
 tasks.register("oracleDriveIntegrationStatus") {

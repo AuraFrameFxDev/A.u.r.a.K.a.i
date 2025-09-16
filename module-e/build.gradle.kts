@@ -7,19 +7,19 @@ plugins {
 
 android {
     namespace = "dev.aurakai.auraframefx.module.e"
-<<<<<<< Updated upstream
+
     compileSdk = 36
 
     defaultConfig {
         minSdk = 34
-=======
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_23
         targetCompatibility = JavaVersion.VERSION_23
     }
     kotlinOptions {
         jvmTarget = "23"
->>>>>>> Stashed changes
+
     }
 
     compileOptions {
@@ -29,7 +29,7 @@ android {
     kotlinOptions {
         jvmTarget = "23"
     }
-<<<<<<< Updated upstream
+
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         compilerOptions {
@@ -50,11 +50,9 @@ android {
         implementation(libs.kotlin.stdlib.jdk8)
     }
 
-    tasks.register("moduleEStatus") {
-        group = "aegenesis"
-        doLast { println("📦 MODULE E - Ready (Java 24)") }
-    }
-=======
+tasks.register("moduleEStatus") {
+    group = "aegenesis"
+    doLast { println("📦 MODULE E - Ready (Java 24)") }
 }
 
 dependencies {

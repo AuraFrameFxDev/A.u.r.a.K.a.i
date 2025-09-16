@@ -1,20 +1,9 @@
 plugins {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    alias(libs.plugins.android.library)
+    id("com.android.library") version libs.versions.agp
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"
+    alias(libs.plugins.ksp)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt)
-=======
-    id("com.android.library")
-    alias(libs.plugins.ksp)
->>>>>>> Stashed changes
-=======
-    id("com.android.library")
-    alias(libs.plugins.ksp)
->>>>>>> Stashed changes
+    alias(libs.plugins.composeCompiler)
 }
 
 android {
@@ -30,27 +19,13 @@ android {
         compose = true
     }
 
-    compileOptions {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
 
-    kotlin {
-        jvmToolchain(17)
-=======
-=======
->>>>>>> Stashed changes
         sourceCompatibility = JavaVersion.VERSION_23
         targetCompatibility = JavaVersion.VERSION_23
     }
     kotlinOptions {
         jvmTarget = "23"
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+
     }
 }
 
@@ -58,10 +33,10 @@ dependencies {
     // Module dependencies
     api(project(":core-module"))
     implementation(project(":secure-comm"))
-    
+
     // Core Android
     implementation(libs.androidx.core.ktx)
-    
+
     // Compose
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
@@ -72,20 +47,20 @@ dependencies {
     implementation(libs.androidx.compose.material.icons.extended)
     debugImplementation(libs.bundles.compose.debug)
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-    
+
     // Hilt
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
     ksp(libs.hilt.compiler)
-    
+
     // Coroutines & Networking
     implementation(libs.bundles.coroutines)
     implementation(libs.bundles.network)
-    
+
     // Room Database
     implementation(libs.bundles.room)
     ksp(libs.androidx.room.compiler)
-    
+
     // Firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.firestore)
@@ -93,17 +68,17 @@ dependencies {
     implementation(libs.firebase.config)
     implementation(libs.firebase.database)
     implementation(libs.firebase.storage)
-    
+
     // Utilities
     implementation(libs.timber)
     implementation(libs.coil.compose)
     implementation(libs.kotlin.stdlib.jdk8)
-    
+
     // Testing
     testImplementation(libs.bundles.testing.unit)
     androidTestImplementation(libs.bundles.testing.android)
     androidTestImplementation(libs.hilt.android.testing)
-    
+
     // Debug tools
     debugImplementation(libs.leakcanary.android)
 }
@@ -117,12 +92,12 @@ tasks.register<Copy>("copyRomTools") {
     into(romToolsOutputDirectory)
     include("**/*.so", "**/*.bin", "**/*.img", "**/*.jar")
     includeEmptyDirs = false
-    doFirst { 
+    doFirst {
         romToolsOutputDirectory.get().asFile.mkdirs()
-        logger.lifecycle("📁 ROM tools directory: ${romToolsOutputDirectory.get().asFile}") 
+        logger.lifecycle("📁 ROM tools directory: ${romToolsOutputDirectory.get().asFile}")
     }
-    doLast { 
-        logger.lifecycle("✅ ROM tools copied to: ${romToolsOutputDirectory.get().asFile}") 
+    doLast {
+        logger.lifecycle("✅ ROM tools copied to: ${romToolsOutputDirectory.get().asFile}")
     }
 }
 
@@ -131,27 +106,11 @@ tasks.register("verifyRomTools") {
     dependsOn("copyRomTools")
 }
 
-<<<<<<< Updated upstream
-tasks.named("build") { 
-    dependsOn("verifyRomTools") 
+
+tasks.named("build") {
+    dependsOn("verifyRomTools")
 }
 
-<<<<<<< Updated upstream
 tasks.register("romStatus") {
-    group = "genesis"
-    doLast { 
-        println("🛠️ ROM TOOLS - ${android.namespace} - Ready!") 
-    }
-=======
-tasks.register("romToolsStatus") {
-    group = "aegenesis"
-    doLast { println("\uD83D\uDCE6 ROMTOOLS - Ready (Java 24)") }
->>>>>>> Stashed changes
-=======
-tasks.named("build") { dependsOn("verifyRomTools") }
-
-tasks.register("romToolsStatus") {
-    group = "aegenesis"
-    doLast { println("\uD83D\uDCE6 ROMTOOLS - Ready (Java 24)") }
->>>>>>> Stashed changes
+    group = "aegenesis"; doLast { println("🛠️ ROM TOOLS - Ready (Java 24)") }
 }

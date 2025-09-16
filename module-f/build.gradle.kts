@@ -11,14 +11,14 @@ android {
 
     defaultConfig {
         minSdk = 34
-=======
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_23
         targetCompatibility = JavaVersion.VERSION_23
     }
     kotlinOptions {
         jvmTarget = "23"
->>>>>>> Stashed changes
+
     }
 
     compileOptions {
@@ -28,7 +28,7 @@ android {
     kotlinOptions {
         jvmTarget = "23"
     }
-<<<<<<< Updated upstream
+
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         compilerOptions {
@@ -45,11 +45,17 @@ android {
         implementation(libs.hilt.android)
         ksp(libs.hilt.compiler)
 
+    // Add other module-specific dependencies here
+    implementation(libs.kotlin.stdlib.jdk8)
+}
 
         // Add other module-specific dependencies here
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0")
     }
 
+tasks.register("moduleFStatus") {
+    group = "aegenesis"
+    doLast { println("\uD83D\uDCE6 MODULE F - Ready (Java 24)") }
     tasks.register("moduleFStatus") {
         group = "aegenesis"
         doLast { println("📦 MODULE F - Ready (Java 24)") }
@@ -72,8 +78,6 @@ dependencies {
 tasks.register("moduleFStatus") {
     group = "aegenesis"
     doLast { println("\uD83D\uDCE6 MODULE F - Ready (Java 24)") }
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+
+
 }
