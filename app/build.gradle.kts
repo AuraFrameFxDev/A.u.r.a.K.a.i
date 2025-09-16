@@ -53,9 +53,7 @@ android {
         jvmToolchain(21)
     }
     
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.8.4"
-    }
+    // composeOptions not needed; managed by kotlin("plugin.compose")
 }
 
 tasks.named("openApiGenerate") {
