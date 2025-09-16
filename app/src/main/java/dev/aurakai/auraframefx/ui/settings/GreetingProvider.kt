@@ -6,9 +6,9 @@ import javax.inject.Singleton
 @Singleton
 class GreetingProvider @Inject constructor() {
     /**
- * Returns the provider's greeting string.
+ * Returns the constant greeting used by the settings UI.
  *
- * @return The greeting literal "A.u.r.a.K.a.i".
+ * @return The greeting string "A.u.r.a.K.a.i".
  */
 fun getGreeting(): String = "A.u.r.a.K.a.i"
 }

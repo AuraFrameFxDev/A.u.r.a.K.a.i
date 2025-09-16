@@ -112,16 +112,14 @@ class CascadeAIService @Inject constructor(
     }
 
     /**
-     * Determines which AI agents should run for a given invoke request.
+     * Selects which AI agents should participate for a given invoke request.
      *
-     * Examines the request message (case-insensitive) and priority to pick a set of agents:
-     * - Always includes Genesis.
-     * - Adds Aura when emotional content is detected.
-     * - Adds Kai when security-related content is detected.
-     * - Adds Cascade for complex queries or when the request priority is high.
-     * - Adds DataveinConstructor for technical content.
+     * Evaluates the request message (case-insensitive) and its priority to choose a set of agents:
+     * Genesis is always included. Aura is added for emotional content, Kai for security-related
+     * content, Cascade for complex queries or when priority is high, and DataveinConstructor for
+     * technical content. The returned list is deduplicated and sorted.
      *
-     * @param request The incoming invoke request whose message and priority are evaluated.
+     * @param request The invoke request whose message and priority are evaluated.
      * @return A sorted list of unique AgentType values selected for the cascade.
      */
     private fun selectAgentsForRequest(request: AgentInvokeRequest): List<AgentType> {
