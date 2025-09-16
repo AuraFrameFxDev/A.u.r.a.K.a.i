@@ -85,11 +85,9 @@ class LinkedList : List<String> {
     }
 
     /**
-     * Returns the number of elements in the list.
+     * Returns the number of elements in this linked list.
      *
-     * Traverses the linked list from the head and counts nodes.
-     *
-     * @return The current size (number of nodes) in this list.
+     * @return The number of elements currently stored in the list.
      */
     fun calculateSize(): Int {
         var size = 0
@@ -104,14 +102,13 @@ class LinkedList : List<String> {
     }
 
     /**
-     * Returns the element at the given 0-based index in the list.
+     * Returns the node at the specified 0-based index, or null if the index is negative or out of range.
      *
-     * If `idx` is negative it is treated as 0 (the head element). Throws
-     * IndexOutOfBoundsException when the index is out of range or the list is empty.
+     * Traverses from the list head advancing `idx` steps. If `idx` is negative, or the list is shorter than
+     * `idx + 1` elements, this function returns null.
      *
-     * @param idx 0-based position of the element to retrieve.
-     * @return the string stored at the specified index.
-     * @throws IndexOutOfBoundsException if no element exists at the requested index.
+     * @param idx 0-based index of the node to retrieve.
+     * @return the Node at the given index, or null when `idx` < 0 or no such node exists.
      */
     private fun getNodeAt(idx: Int): Node? {
         if (idx < 0) return null
@@ -131,31 +128,87 @@ class LinkedList : List<String> {
     override val size: Int
         get() = calculateSize()
 
+    /**
+     * Returns true if this list contains the specified element.
+     *
+     * The comparison is case-sensitive and uses String equality.
+     *
+     * @param element element to search for
+     * @return `true` if the element is present in the list, `false` otherwise
+     */
     override fun contains(element: String): Boolean {
         throw UnsupportedOperationException("Not yet implemented")
     }
 
+    /**
+     * Returns true if this list contains all elements in the specified collection.
+     *
+     * The check is performed using element equality (case-sensitive for strings). An empty
+     * `elements` collection always returns `true`.
+     *
+     * @param elements Collection of strings to test for membership in this list.
+     * @return `true` if every element in `elements` is contained in this list; `false` otherwise.
+     */
     override fun containsAll(elements: Collection<String>): Boolean {
         throw UnsupportedOperationException("Not yet implemented")
     }
 
+    /**
+     * Returns the element at the specified zero-based index.
+     *
+     * @param index The zero-based position of the element to retrieve.
+     * @return The string stored at the given index.
+     * @throws IndexOutOfBoundsException If the index is negative or not less than the list size.
+     */
     override fun get(index: Int): String {
         val node = getNodeAt(index) ?: throw IndexOutOfBoundsException("Index: $index")
         return node.data
     }
 
+    /**
+     * Returns the index of the first occurrence of the specified element in this list, or -1 if the list does not contain the element.
+     *
+     * The search is case-sensitive and uses equality of strings. Currently not implemented.
+     *
+     * @throws UnsupportedOperationException Always thrown until this method is implemented.
+     */
     override fun indexOf(element: String): Int {
         throw UnsupportedOperationException("Not yet implemented")
     }
 
+    /**
+     * Returns true if the list contains no elements.
+     *
+     * @return `true` when the list is empty (i.e., `head == null`), otherwise `false`.
+     */
     override fun isEmpty(): Boolean {
         return head == null
     }
 
+    /**
+     * Returns an iterator over the elements in this list.
+     *
+     * Currently not implemented; calling this function will always throw an exception.
+     *
+     * @return an Iterator over the list's elements
+     * @throws UnsupportedOperationException always thrown by this implementation
+     */
     override fun iterator(): Iterator<String> {
         throw UnsupportedOperationException("Not yet implemented")
     }
 
+    /**
+     * Returns the index of the last occurrence of [element] in the list.
+     *
+     * Currently not implemented and will always throw [UnsupportedOperationException].
+     *
+     * Intended behavior when implemented: return the zero-based index of the last
+     * element that is equal to [element] (case-sensitive). If the element is not
+     * found, return -1.
+     *
+     * @param element The element to search for (case-sensitive).
+     * @throws UnsupportedOperationException Always thrown until this method is implemented.
+     */
     override fun lastIndexOf(element: String): Int {
         throw UnsupportedOperationException("Not yet implemented")
     }
@@ -185,18 +238,52 @@ override fun listIterator(): ListIterator<String> = listIterator(0)
         val snapshot = this.toList()
         return object : ListIterator<String> {
             private var pos = index
-            override fun hasNext(): Boolean = pos < snapshot.size
+            /**
+ * Returns true if the iterator has more elements.
+ *
+ * @return true when the current position is before the end of the snapshot.
+ */
+override fun hasNext(): Boolean = pos < snapshot.size
+            /**
+             * Returns the next element in the iterator and advances the position by one.
+             *
+             * @return the next `String` from the iterator snapshot.
+             * @throws NoSuchElementException if there are no more elements (i.e., `hasNext()` is false).
+             */
             override fun next(): String {
                 if (!hasNext()) throw NoSuchElementException()
                 return snapshot[pos++]
             }
-            override fun hasPrevious(): Boolean = pos > 0
+            /**
+ * Returns true if there is a previous element (i.e., the iterator is not at the start).
+ *
+ * @return true if a call to `previous()` would succeed.
+ */
+override fun hasPrevious(): Boolean = pos > 0
+            /**
+             * Returns the previous element from the iterator's snapshot and moves the cursor one position toward the start.
+             *
+             * @return the previous element.
+             * @throws NoSuchElementException if the iterator has no previous element.
+             */
             override fun previous(): String {
                 if (!hasPrevious()) throw NoSuchElementException()
                 return snapshot[--pos]
             }
-            override fun nextIndex(): Int = pos
-            override fun previousIndex(): Int = pos - 1
+            /**
+ * Returns the index of the element that would be returned by a subsequent `next()` call.
+ *
+ * For the snapshot-based list iterator this is the current cursor position (`pos`), in the range `0..size`.
+ *
+ * @return the next element's index (equal to the cursor position)
+ */
+override fun nextIndex(): Int = pos
+            /**
+ * Returns the index of the element that would be returned by a subsequent call to `previous()`.
+ *
+ * @return the previous element's index, or -1 if the iterator is at the beginning of the list.
+ */
+override fun previousIndex(): Int = pos - 1
         }
     }
 
