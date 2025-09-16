@@ -2,7 +2,7 @@ package AeGenesis.ai
 
 import AeGenesis.ai.AuraAIServiceInterface
 import AeGenesis.ai.config.AIConfig
-import AeGenesis.network.AuraApiService
+import dev.aurakai.auraframefx.network.AuraApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber

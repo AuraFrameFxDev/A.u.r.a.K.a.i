@@ -1,19 +1,19 @@
 {
   "buildFiles": [
-    "C:\\ReGenesis\\secure-comm\\src\\main\\cpp\\CMakeLists.txt"
+    "C:\\Re_Genesis_A.O.S.P\\secure-comm\\src\\main\\cpp\\CMakeLists.txt"
   ],
   "cleanCommandsComponents": [
     [
       "C:\\Users\\Wehtt\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
       "-C",
-      "C:\\ReGenesis\\secure-comm\\.cxx\\RelWithDebInfo\\304n211z\\x86",
+      "C:\\Re_Genesis_A.O.S.P\\secure-comm\\.cxx\\RelWithDebInfo\\304n211z\\x86",
       "clean"
     ]
   ],
   "buildTargetsCommandComponents": [
     "C:\\Users\\Wehtt\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
     "-C",
-    "C:\\ReGenesis\\secure-comm\\.cxx\\RelWithDebInfo\\304n211z\\x86",
+    "C:\\Re_Genesis_A.O.S.P\\secure-comm\\.cxx\\RelWithDebInfo\\304n211z\\x86",
     "{LIST_OF_TARGETS_TO_BUILD}"
   ],
   "libraries": {
@@ -21,7 +21,7 @@
       "toolchain": "toolchain",
       "abi": "x86",
       "artifactName": "secure_comm_native",
-      "output": "C:\\ReGenesis\\secure-comm\\build\\intermediates\\cxx\\RelWithDebInfo\\304n211z\\obj\\x86\\libsecure_comm_native.so",
+      "output": "C:\\Re_Genesis_A.O.S.P\\secure-comm\\build\\intermediates\\cxx\\RelWithDebInfo\\304n211z\\obj\\x86\\libsecure_comm_native.so",
       "runtimeFiles": []
     }
   },

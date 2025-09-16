@@ -311,6 +311,7 @@ private fun InfoRow(label: String, value: String) {
  *
  * @param operation Current operation state including optional operation type and numeric progress (0–100).
  * @param modifier Modifier to be applied to the root composable.
+
  */
 @Composable
 private fun OperationProgressCard(
@@ -422,6 +423,15 @@ private fun RomToolActionCard(
      *
      * @return A list of predefined RomToolAction instances representing the supported ROM tools.
      */
+ * Returns the predefined list of ROM tool actions displayed in the UI.
+ 
+ * Each returned RomToolAction describes an available operation (type, title, description,
+ * icon, color) and the device capability requirements (requiresRoot, requiresBootloader,
+ * requiresRecovery, requiresSystem) used by the UI to determine whether the action is enabled.
+ *
+ * @return A list of RomToolAction values for: Flash Custom ROM, Create NANDroid Backup,
+ * Restore Backup, Unlock Bootloader, Install Custom Recovery, and Genesis AI Optimizations.
+ */
 private fun getRomToolsActions(): List<RomToolAction> {
     return listOf(
         RomToolAction(
@@ -476,9 +486,13 @@ private fun getRomToolsActions(): List<RomToolAction> {
             icon = Icons.Default.Psychology,
             color = Color(0xFF00E676),
             requiresRoot = true,
-            requiresSystem = true
+            requiresSystem = true,
+            requiresRecovery = true,
+            requiresBootloader = true
         )
-    }
+    )
+}
+
 
 
 data class RomToolAction(

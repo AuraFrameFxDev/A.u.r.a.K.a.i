@@ -1,10 +1,12 @@
 plugins {
-    kotlin("jvm")
     // JVM library setup
     id("java-library")
-    alias(libs.plugins.kotlin.serialization)
+    kotlin("jvm")
+    alias(libs.plugins.kotlin.serialization) version "2.2.20"
     alias(libs.plugins.dokka)
     alias(libs.plugins.spotless)
+
+    // Jetbrains Compose
 }
 
 group = "dev.aurakai.auraframefx.utilities"
@@ -21,9 +23,10 @@ kotlin {
     jvmToolchain(24)
 }
 
+// Ensure Kotlin JVM target is set
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_23)
     }
 }
 
@@ -41,13 +44,14 @@ dependencies {
     implementation(libs.xz)
 
     // Logging API only (do not bind implementation at runtime for libraries)
-    implementation(libs.slf4j)
+    implementation(libs.slf4j.api)
 
     // Testing (JUnit 5)
-    testImplementation(platform("org.junit:junit-bom:5.13.4"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation(platform(libs.junit.bom))
+    testImplementation(libs.junit.jupiter.params)
+    testRuntimeOnly(libs.junit.jupiter.engine)
     testImplementation(libs.mockk)
-    testRuntimeOnly("org.slf4j:slf4j-simple:2.0.17")
+    testRuntimeOnly(libs.slf4j.simple)
     implementation(libs.kotlin.stdlib.jdk8)
 }
 

@@ -1,10 +1,11 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.ksp) // Use alias for ksp, ensure version in toml
-    alias(libs.plugins.composeCompiler) // Jetpack Compose compiler
-    id("com.google.gms.google-services") // Okay to keep this as id
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
+    id("com.google.gms.google-services")
     id("org.openapi.generator") version "7.15.0"
+    kotlin("plugin.compose") version "2.2.20"
 }
 
 android {
@@ -37,44 +38,40 @@ android {
 
     buildFeatures {
         compose = true
-        dataBinding = true
+        dataBinding = false
         viewBinding = true
         buildConfig = true
         aidl = true
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_24
-        targetCompatibility = JavaVersion.VERSION_24
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 
-    // Kotlin compiler options
     kotlin {
-        jvmToolchain(24)
-        compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
-            freeCompilerArgs.addAll(
-                "-Xjvm-default=all",
-                "-opt-in=kotlin.RequiresOptIn",
-                "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api"
-            )
-        }
+        jvmToolchain(21)
     }
+    
+    // composeOptions not needed; managed by kotlin("plugin.compose")
 }
 
-tasks.openApiGenerate {
-    generatorName.set("kotlin")
-    inputSpec.set("file:///C:/Users/Wehtt/OneDrive/Desktop/ReGenesis-fix-dependabot-compose-plugin/ReGenesis-patch1/app/api/system-api.yml")
-    outputDir.set(layout.buildDirectory.dir("generated/openapi").get().asFile.absolutePath)
-    apiPackage.set("dev.aurakai.auraframefx.openapi.api")
-    modelPackage.set("dev.aurakai.auraframefx.openapi.model")
-    invokerPackage.set("dev.aurakai.auraframefx.openapi.invoker")
-    configOptions.set(
-        mapOf(
-            "dateLibrary" to "java8",
-            "library" to "jvm-ktor"
+tasks.named("openApiGenerate") {
+    configure<org.openapitools.generator.gradle.plugin.tasks.GenerateTask> {
+        generatorName.set("kotlin")
+        // Use project-relative path for the OpenAPI spec
+        inputSpec.set("${project.projectDir}/api/system-api.yml")
+        outputDir.set(layout.buildDirectory.dir("generated/openapi").get().asFile.absolutePath)
+        apiPackage.set("dev.aurakai.auraframefx.openapi.api")
+        modelPackage.set("dev.aurakai.auraframefx.openapi.model")
+        invokerPackage.set("dev.aurakai.auraframefx.openapi.invoker")
+        configOptions.set(
+            mapOf(
+                "dateLibrary" to "java8",
+                "library" to "jvm-ktor"
+            )
         )
-    )
+    }
 }
 
 dependencies {
@@ -93,6 +90,7 @@ dependencies {
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
     androidTestImplementation(composeBom)
+    implementation(libs.androidx.appcompat) // Explicitly add AppCompat
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.core.ktx)
@@ -100,6 +98,12 @@ dependencies {
     implementation(libs.bundles.room)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.datastore.core)
+    // Compose Material and Material3
+    implementation("androidx.compose.material:material:1.6.7")
+    implementation("androidx.compose.material3:material3:1.2.1")
+
+    // Yukihookapi for YLog
+    implementation("com.highcapable.yukihookapi:api:1.1.8")
 
     // ===== KOTLIN & COROUTINES =====
     implementation(libs.kotlinx.serialization.json)
@@ -107,7 +111,11 @@ dependencies {
     implementation(libs.bundles.coroutines)
 
     // ===== NETWORKING =====
-    implementation(libs.bundles.network)
+    implementation(libs.retrofit.core)
+    implementation(libs.converter.moshi)
+    implementation(libs.squareup.moshi)
+    // optional: Moshi Kotlin reflection/adapters if used
+    implementation(libs.moshi.kotlin)
 
     // ===== FIREBASE =====
     // Import the Firebase BoM
@@ -124,6 +132,10 @@ dependencies {
     implementation(libs.firebase.database)
     implementation(libs.firebase.storage)
 
+    // ===== WORKMANAGER & HILT WORKER =====
+    implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.hilt.work)
+
     // ===== HILT DEPENDENCY INJECTION =====
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
@@ -136,14 +148,14 @@ dependencies {
     implementation(libs.androidx.security.crypto)
 
     // ===== JACKSON YAML (for OpenAPI Generator compatibility) =====
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.15.3")
+    implementation(libs.jackson.dataformat.yaml)
 
     // ===== CORE LIBRARY DESUGARING =====
     coreLibraryDesugaring(libs.desugar.jdk.libs)
 
     // ===== XPOSED/LSPosed Integration =====
-    compileOnly(files("../Libs/api-82.jar"))
-    compileOnly(files("../Libs/api-82-sources.jar"))
+    // compileOnly(files("../Libs/api-82.jar"))
+    // compileOnly(files("../Libs/api-82-sources.jar"))
 
     // --- TESTING ---
     testImplementation(libs.bundles.testing.unit)
@@ -157,4 +169,10 @@ dependencies {
 
     implementation(libs.kotlin.stdlib.jdk8)
     implementation(libs.kotlin.reflect)
+}
+
+configurations.all {
+    resolutionStrategy {
+        force("androidx.appcompat:appcompat:1.7.1")
+    }
 }

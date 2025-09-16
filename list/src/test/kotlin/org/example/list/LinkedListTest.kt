@@ -10,7 +10,7 @@ class LinkedListTest {
     @Test
     fun testConstructor() {
         val list = LinkedList()
-        assertEquals(0, list.size())
+        assertEquals(0, list.size)
     }
 
     @Test
@@ -18,11 +18,11 @@ class LinkedListTest {
         val list = LinkedList()
 
         list.add("one")
-        assertEquals(1, list.size())
+        assertEquals(1, list.size)
         assertEquals("one", list.get(0))
 
         list.add("two")
-        assertEquals(2, list.size())
+        assertEquals(2, list.size)
         assertEquals("two", list.get(1))
     }
 
@@ -34,11 +34,11 @@ class LinkedListTest {
         list.add("two")
         assertTrue(list.remove("one"))
 
-        assertEquals(1, list.size())
+        assertEquals(1, list.size)
         assertEquals("two", list.get(0))
 
         assertTrue(list.remove("two"))
-        assertEquals(0, list.size())
+        assertEquals(0, list.size)
     }
 
     @Test
@@ -48,7 +48,7 @@ class LinkedListTest {
         list.add("one")
         list.add("two")
         assertFalse(list.remove("three"))
-        assertEquals(2, list.size())
+        assertEquals(2, list.size)
     }
 }
 
@@ -91,7 +91,7 @@ class LinkedListEdgeCasesTest {
     fun removeFromEmptyReturnsFalse() {
         val list = LinkedList()
         assertFalse(list.remove("ghost"))
-        assertEquals(0, list.size())
+        assertEquals(0, list.size)
     }
 
     @Test
@@ -103,7 +103,7 @@ class LinkedListEdgeCasesTest {
 
         val removed = list.remove("one")
         assertTrue(removed)
-        assertEquals(2, list.size())
+        assertEquals(2, list.size)
         assertEquals("two", list.get(0))
         assertEquals("three", list.get(1))
     }
@@ -116,7 +116,7 @@ class LinkedListEdgeCasesTest {
         list.add("three")
 
         assertTrue(list.remove("three"))
-        assertEquals(2, list.size())
+        assertEquals(2, list.size)
         assertEquals("one", list.get(0))
         assertEquals("two", list.get(1))
         assertThrows(IndexOutOfBoundsException::class.java) { list.get(2) }
@@ -130,7 +130,7 @@ class LinkedListEdgeCasesTest {
         list.add("three")
 
         assertTrue(list.remove("two"))
-        assertEquals(2, list.size())
+        assertEquals(2, list.size)
         assertEquals("one", list.get(0))
         assertEquals("three", list.get(1))
     }
@@ -144,7 +144,7 @@ class LinkedListEdgeCasesTest {
         list.add("tail")
 
         assertTrue(list.remove("dup"))
-        assertEquals(3, list.size())
+        assertEquals(3, list.size)
         // First "dup" removed; remaining order should be stable
         assertEquals("keep", list.get(0))
         assertEquals("dup", list.get(1))
@@ -159,7 +159,7 @@ class LinkedListEdgeCasesTest {
 
         assertTrue(list.remove("two"))
         assertFalse(list.remove("two"))
-        assertEquals(1, list.size())
+        assertEquals(1, list.size)
         assertEquals("one", list.get(0))
     }
 
@@ -169,7 +169,7 @@ class LinkedListEdgeCasesTest {
         for (i in 0 until 100) {
             list.add(i.toString())
         }
-        assertEquals(100, list.size())
+        assertEquals(100, list.size)
         assertEquals("0", list.get(0))
         assertEquals("50", list.get(50))
         assertEquals("99", list.get(99))
@@ -186,7 +186,7 @@ class LinkedListEdgeCasesTest {
         assertTrue(list.remove("a")) // remove head
         assertTrue(list.remove("c")) // remove middle from [b, c, d] -> [b, d]
 
-        assertEquals(2, list.size())
+        assertEquals(2, list.size)
         assertEquals("b", list.get(0))
         assertEquals("d", list.get(1))
         assertThrows(IndexOutOfBoundsException::class.java) { list.get(2) }
@@ -205,10 +205,10 @@ class LinkedListEdgeCasesTest {
             // keep removing until no "x" remains
         }
 
-        assertEquals(2, list.size())
+        assertEquals(2, list.size)
         assertEquals("y", list.get(0))
         assertEquals("z", list.get(1))
-        for (i in 0 until list.size()) {
+        for (i in 0 until list.size) {
             assertNotEquals("x", list.get(i))
         }
     }
