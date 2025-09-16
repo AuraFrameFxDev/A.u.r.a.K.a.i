@@ -5,6 +5,11 @@ import javax.inject.Singleton
 
 @Singleton
 class GreetingProvider @Inject constructor() {
-    fun getGreeting(): String = "A.u.r.a.K.a.i"
+    /**
+ * Returns the app's stylized greeting.
+ *
+ * @return The fixed greeting string "A.u.r.a.K.a.i".
+ */
+fun getGreeting(): String = "A.u.r.a.K.a.i"
 }
 
