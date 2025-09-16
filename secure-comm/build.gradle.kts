@@ -2,12 +2,9 @@
 // Security module using convention plugins
 
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.kotlin.serialization)
+    id("com.android.library")
     alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt)
+
 }
 
 android {
@@ -16,26 +13,19 @@ android {
 
     defaultConfig {
         minSdk = 34
+
+        // For testing and linting
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildFeatures {
-        compose = true
+    // For test builds
+    testOptions {
+        targetSdk = 36
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_24
-        targetCompatibility = JavaVersion.VERSION_24
-    }
-
-    kotlin {
-        jvmToolchain(24)
-    }
-
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-        compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
-        }
+    // For linting
+    lint {
+        targetSdk = 36
     }
     
     externalNativeBuild {
@@ -44,48 +34,54 @@ android {
             version = "3.22.1"
         }
     }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_23
+        targetCompatibility = JavaVersion.VERSION_23
+    }
+    kotlinOptions {
+        jvmTarget = "23"
+    }
 }
 
 dependencies {
-    // Module dependencies
     implementation(project(":core-module"))
-    
-    // Core Android
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation(libs.androidx.work.runtime.ktx)
-    
-    // Hilt
     implementation(libs.hilt.android)
-    implementation(libs.hilt.work)
+    implementation(libs.androidx.core.ktx)
     ksp(libs.hilt.compiler)
-    
-    // Coroutines & Networking
+    implementation(libs.hilt.work)
+    implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.bundles.coroutines)
     implementation(libs.bundles.network)
-    implementation(libs.kotlinx.serialization.json)
-    
-    // Firebase
     implementation(platform(libs.firebase.bom))
+
+    implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.messaging)
     implementation(libs.firebase.config)
     implementation(libs.firebase.database)
     implementation(libs.firebase.storage)
-    
-    // Utilities
     implementation(libs.timber)
     implementation(libs.coil.compose)
-    implementation(libs.kotlin.stdlib.jdk8)
-    
+
     // Security - BouncyCastle for cryptography
-    implementation("org.bouncycastle:bcprov-jdk18on:1.78.1")
+    implementation(libs.bcprov.jdk18on)
     
-    // Testing
-    testImplementation(libs.bundles.testing.unit)
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.13.4")
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.13.4")
+    // Add other module-specific dependencies here
+    implementation(libs.kotlin.stdlib.jdk8)
+
+    // Test dependencies
+    testImplementation(platform(libs.junit.bom))
+    testImplementation(libs.junit4)
+    testImplementation(libs.kotlin.test.junit)
+    testImplementation(libs.junit.jupiter.api)
+    testImplementation(libs.junit.jupiter.params)
+    testRuntimeOnly(libs.junit.jupiter.engine)
+    testImplementation(libs.mockk.android)
+    testImplementation(libs.mockk.agent)
     testImplementation(libs.kotlinx.coroutines.test)
-    androidTestImplementation(libs.bundles.testing.android)
+    androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.hilt.android.testing)
 }
 
