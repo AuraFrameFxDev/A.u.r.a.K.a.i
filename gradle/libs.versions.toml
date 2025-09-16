@@ -15,7 +15,7 @@ ksp = "2.2.20-2.0.3"
 desugar_jdk_libs = "2.1.5"
 firebaseBom = "34.2.0"
 firebaseUi = "8.0.2" # Separate versions for Firebase UI
-compose-plugin = "1.8.2"
+compose-plugin = "1.10.0+dev2952"
 # AndroidX Core
 coreKtx = "1.17.0"
 appcompat = "1.7.1"
