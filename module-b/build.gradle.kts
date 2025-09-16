@@ -64,8 +64,6 @@ dependencies {
 }
 
 tasks.register("moduleBStatus") {
-    group = "genesis"
-    doLast { 
-        println("📦 MODULE B - ${android.namespace} - Ready!") 
-    }
+    group = "aegenesis"
+    doLast { println("\uD83D\uDCE6 MODULE B - Ready (Java 24)") }
 }

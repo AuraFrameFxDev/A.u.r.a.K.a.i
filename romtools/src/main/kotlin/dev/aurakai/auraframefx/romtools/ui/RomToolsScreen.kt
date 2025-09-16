@@ -456,9 +456,13 @@ private fun getRomToolsActions(): List<RomToolAction> {
             icon = Icons.Default.Psychology,
             color = Color(0xFF00E676),
             requiresRoot = true,
-            requiresSystem = true
+            requiresSystem = true,
+            requiresRecovery = true,
+            requiresBootloader = true
         )
-    }
+    )
+}
+
 
 
 data class RomToolAction(

@@ -77,9 +77,7 @@ dependencies {
     kspAndroidTest(libs.hilt.compiler)
 }
 
-tasks.register("sandboxStatus") {
-    group = "genesis"
-    doLast { 
-        println("🧪 SANDBOX UI - ${android.namespace} - Ready!") 
-    }
+tasks.register("sandboxUiStatus") {
+    group = "aegenesis"
+    doLast { println("\uD83D\uDCE6 SANDBOX UI MODULE - Ready (Java 24)") }
 }

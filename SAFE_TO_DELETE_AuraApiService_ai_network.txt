@@ -1,0 +1,4 @@
+# This file is a marker that the duplicate AuraApiService interface in ai/network was found to be unused and is safe to delete.
+# See workspace search results: no code references dev.aurakai.auraframefx.ai.network.AuraApiService, and all usages point to dev.aurakai.auraframefx.network.AuraApiService.
+# Safe to delete: app/src/main/java/dev/aurakai/auraframefx/ai/network/AuraApiService.kt
+
