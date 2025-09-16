@@ -100,6 +100,13 @@ dependencies {
     implementation(libs.bundles.room)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.datastore.core)
+    // Compose Material and Material3
+    implementation("androidx.compose.material:material:1.6.7")
+    implementation("androidx.compose.material3:material3:1.2.1")
+
+    // Yukihookapi for YLog
+    implementation("com.highcapable.yukihookapi:api:1.1.8")
+    implementation("com.highcapable.yukihookapi:core:1.1.8")
 
     // ===== KOTLIN & COROUTINES =====
     implementation(libs.kotlinx.serialization.json)
