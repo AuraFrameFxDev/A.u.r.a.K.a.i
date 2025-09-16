@@ -1,21 +1,30 @@
 // GENESIS PROTOCOL - MODULE C
 plugins {
+<<<<<<< Updated upstream
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+=======
+    id("com.android.library")
+>>>>>>> Stashed changes
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
 }
 
 android {
     namespace = "dev.aurakai.auraframefx.module.c"
+<<<<<<< Updated upstream
     compileSdk = 35
+=======
+    compileSdk = 36
+>>>>>>> Stashed changes
     
     defaultConfig {
         minSdk = 34
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     
+<<<<<<< Updated upstream
     buildFeatures {
         compose = true
     }
@@ -62,4 +71,28 @@ tasks.register("moduleCStatus") {
     doLast { 
         println("📦 MODULE C - ${android.namespace} - Ready!") 
     }
+=======
+    // For test builds
+    testOptions {
+        targetSdk = 36
+    }
+    
+    // For linting
+    lint {
+        targetSdk = 36
+    }
+    
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_23
+        targetCompatibility = JavaVersion.VERSION_23
+    }
+    kotlinOptions {
+        jvmTarget = "23"
+    }
+}
+
+tasks.register("moduleCStatus") {
+    group = "aegenesis"
+    doLast { println("\uD83D\uDCE6 MODULE C - Ready (Java 24)") }
+>>>>>>> Stashed changes
 }

@@ -1,25 +1,48 @@
 // GENESIS PROTOCOL - MODULE A
 plugins {
+<<<<<<< Updated upstream
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+=======
+    id("com.android.library")
+>>>>>>> Stashed changes
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
 }
 
 android {
     namespace = "dev.aurakai.auraframefx.module.a"
+<<<<<<< Updated upstream
     compileSdk = 35
     
+=======
+    compileSdk = 36
+
+>>>>>>> Stashed changes
     defaultConfig {
         minSdk = 34
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+<<<<<<< Updated upstream
     
     buildFeatures {
         compose = true
     }
     
+=======
+
+    // For test builds
+    testOptions {
+        targetSdk = 36
+    }
+
+    // For linting
+    lint {
+        targetSdk = 36
+    }
+
+>>>>>>> Stashed changes
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -27,6 +50,9 @@ android {
 
     kotlin {
         jvmToolchain(17)
+    }
+    kotlinOptions {
+        jvmTarget = "23"
     }
 }
 
@@ -36,6 +62,7 @@ dependencies {
     
     // Core Android
     implementation(libs.androidx.core.ktx)
+<<<<<<< Updated upstream
     implementation(libs.bundles.lifecycle)
     
     // Compose
@@ -49,6 +76,14 @@ dependencies {
     ksp(libs.hilt.compiler)
     
     // Utilities
+=======
+
+    // Hilt
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+
+    // Add other module-specific dependencies here
+>>>>>>> Stashed changes
     implementation(libs.kotlin.stdlib.jdk8)
     
     // Testing
@@ -58,8 +93,13 @@ dependencies {
 }
 
 tasks.register("moduleAStatus") {
+<<<<<<< Updated upstream
     group = "genesis"
     doLast { 
         println("📦 MODULE A - ${android.namespace} - Ready!") 
     }
+=======
+    group = "aegenesis"
+    doLast { println("\uD83D\uDCE6 MODULE A - Ready (Java 24)") }
+>>>>>>> Stashed changes
 }

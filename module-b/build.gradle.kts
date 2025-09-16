@@ -1,21 +1,30 @@
 // GENESIS PROTOCOL - MODULE B
 plugins {
+<<<<<<< Updated upstream
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+=======
+    id("com.android.library")
+>>>>>>> Stashed changes
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
 }
 
 android {
     namespace = "dev.aurakai.auraframefx.module.b"
+<<<<<<< Updated upstream
     compileSdk = 35
+=======
+    compileSdk = 36
+>>>>>>> Stashed changes
     
     defaultConfig {
         minSdk = 34
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     
+<<<<<<< Updated upstream
     buildFeatures {
         compose = true
     }
@@ -27,6 +36,24 @@ android {
 
     kotlin {
         jvmToolchain(17)
+=======
+    // For test builds
+    testOptions {
+        targetSdk = 36
+    }
+    
+    // For linting
+    lint {
+        targetSdk = 36
+    }
+    
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_23
+        targetCompatibility = JavaVersion.VERSION_23
+    }
+    kotlinOptions {
+        jvmTarget = "23"
+>>>>>>> Stashed changes
     }
 }
 
@@ -58,8 +85,13 @@ dependencies {
 }
 
 tasks.register("moduleBStatus") {
+<<<<<<< Updated upstream
     group = "genesis"
     doLast { 
         println("📦 MODULE B - ${android.namespace} - Ready!") 
     }
+=======
+    group = "aegenesis"
+    doLast { println("\uD83D\uDCE6 MODULE B - Ready (Java 24)") }
+>>>>>>> Stashed changes
 }

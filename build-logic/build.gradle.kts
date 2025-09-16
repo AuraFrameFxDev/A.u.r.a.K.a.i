@@ -1,6 +1,7 @@
+// build-logic/build.gradle.kts
+
 plugins {
     `kotlin-dsl`
-    `kotlin-dsl-precompiled-script-plugins`
 }
 
 repositories {
@@ -19,57 +20,36 @@ repositories {
 
 // Dependencies required for the convention plugins themselves.
 dependencies {
-    // Kotlin
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:2.2.20")
-    
-    // Android Gradle Plugin
-    implementation("com.android.tools.build:gradle:9.0.0-alpha05")
-    
-    // AGP APIs for plugins
-    implementation("com.android.tools.build:gradle-api:9.0.0-alpha05")
-    
-    // Hilt
-    implementation("com.google.dagger:hilt-android-gradle-plugin:2.57.1")
-    
-    // Testing
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.13.4")
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.13.4")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.13.4")
-    
-    // Compose
-    implementation(platform("androidx.compose:compose-bom:2025.09.00"))
-    implementation("androidx.compose.runtime:runtime")
-    implementation("org.jetbrains.kotlin.plugin.compose:org.jetbrains.kotlin.plugin.compose.gradle.plugin:2.2.20")
-    
-    // KSP - Using the correct plugin notation
-    implementation("com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:2.2.20-2.0.3")
-    
-    // Add Maven repository for KSP if needed
-    repositories {
-        google()
-        mavenCentral()
-    }
-    
-    // Kotlin DSL
+    implementation(libs.android.gradle
+    implementation(libs.kotlin.gradle.plugin)
+    implementation(libs.hilt.android.gradle.plugin)
+    implementation(libs.ksp.gradle.plugin)
+    implementation(libs.compose.gradle.plugin)
     implementation(gradleApi())
-    implementation(localGroovy())
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.runtime)
+    implementation(libs.junit.jupiter.api)
+    implementation(libs.junit.jupiter.params)
+    implementation(libs.kotlinx.coroutines.test)
+    implementation(libs.mockk.android))
+
 }
 
 gradlePlugin {
     plugins {
-            register("androidApplication") {
-                id = "genesis.android.application"
-                implementationClass =
-                    "dev.aurakai.auraframefx.buildlogic.AndroidApplicationConventionPlugin"
-            }
-            register("androidLibrary") {
-                id = "genesis.android.library"
-                implementationClass = "GenesisAndroidLibraryPlugin"
-            }
-            register("androidCompose") {
-                id = "genesis.android.compose"
-                implementationClass = "dev.aurakai.auraframefx.buildlogic.GenesisAndroidComposePlugin"
-            }
+        register("androidApplication") {
+            id = "genesis.android.application"
+            implementationClass =
+                "dev.aurakai.auraframefx.buildlogic.AndroidApplicationConventionPlugin"
+        }
+        register("androidLibrary") {
+            id = "genesis.android.library"
+            implementationClass = "dev.aurakai.auraframefx.buildlogic.AndroidLibraryConventionPlugin" // Corrected name
+        }
+        register("androidCompose") {
+            id = "genesis.android.compose"
+            implementationClass = "dev.aurakai.auraframefx.buildlogic.AndroidComposeConventionPlugin" // Corrected name
         }
     }
-
+}
+includeBuild("build-logic")

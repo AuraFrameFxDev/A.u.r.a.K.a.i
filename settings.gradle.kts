@@ -1,3 +1,8 @@
+// In settings.gradle.kts
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
+
 pluginManagement {
     repositories {
         gradlePluginPortal()
@@ -29,9 +34,6 @@ dependencyResolutionManagement {
     }
 }
 
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
-
 rootProject.name = "ReGenesis"
 
 include(
@@ -57,4 +59,6 @@ include(
     ":list",
     ":utilities"
 )
+
 includeBuild("build-logic")
+

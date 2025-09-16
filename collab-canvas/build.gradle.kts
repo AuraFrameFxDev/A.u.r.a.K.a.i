@@ -1,5 +1,6 @@
 // Apply plugins (versions via version catalog)
 plugins {
+<<<<<<< Updated upstream
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
@@ -10,15 +11,42 @@ plugins {
 android {
     namespace = "dev.aurakai.auraframefx.collabcanvas"
     compileSdk = 35
+=======
+
+}1
+
+android {
+    namespace = "dev.aurakai.auraframefx.collabcanvas"
+    compileSdk = 36
+>>>>>>> Stashed changes
     
     defaultConfig {
         minSdk = 34
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+<<<<<<< Updated upstream
+=======
+    }
+    
+    // For test builds
+    testOptions {
+        targetSdk = 36
+    }
+    
+    // For linting
+    lint {
+        targetSdk = 36
+>>>>>>> Stashed changes
     }
     
     buildFeatures {
         buildConfig = true
-        compose = true
+        // compose = true  // Removed as per user's request to handle compose separately
+    }
+    
+    // Compose options
+    id("com.android.library")
+    alias(libs.plugins.ksp) composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
     }
 
     compileOptions {

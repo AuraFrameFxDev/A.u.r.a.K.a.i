@@ -2,25 +2,61 @@
 // Color utility and theming module
 
 plugins {
+<<<<<<< Updated upstream
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+=======
+    id("com.android.library")
+    alias(libs.plugins.ksp)
+    // Note: Hilt plugin removed to avoid Android BaseExtension issues, using manual dependencies instead
+>>>>>>> Stashed changes
 }
 
 android {
     namespace = "dev.aurakai.auraframefx.colorblendr"
+<<<<<<< Updated upstream
     compileSdk = 35
+=======
+    compileSdk = 36
+>>>>>>> Stashed changes
     
     defaultConfig {
         minSdk = 34
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+<<<<<<< Updated upstream
+=======
+    }
+    
+    // For test builds
+    testOptions {
+        targetSdk = 36
+    }
+    
+    // For linting
+    lint {
+        targetSdk = 36
+>>>>>>> Stashed changes
     }
     
     buildFeatures {
         buildConfig = true
-        compose = true
+        // compose = true  // Removed as per user's request to handle compose separately
+    }
+    
+    // Compose options
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_23
+        targetCompatibility = JavaVersion.VERSION_23
+    }
+    kotlinOptions {
+        jvmTarget = "23"
     }
 
     compileOptions {
@@ -68,4 +104,9 @@ tasks.register("colorStatus") {
     doLast { 
         println("🌈 COLORBLENDR - ${android.namespace} - Ready!")
     }
+}
+
+tasks.register("colorblendrStatus") {
+    group = "aegenesis"
+    doLast { println("\uD83D\uDCE6 COLORBLENDR MODULE - Ready (Java 24)") }
 }

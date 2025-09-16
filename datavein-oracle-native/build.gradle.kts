@@ -1,9 +1,16 @@
 plugins {
+<<<<<<< Updated upstream
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+=======
+    id("com.android.library")
+    alias(libs.plugins.ksp)
+    // Note: Hilt plugin removed to avoid Android BaseExtension issues, using manual dependencies instead
+    // Re-adding native plugin with exact version
+>>>>>>> Stashed changes
 }
 
 android {
@@ -45,6 +52,14 @@ android {
         jniLibs {
             useLegacyPackaging = false
         }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_23
+        targetCompatibility = JavaVersion.VERSION_23
+    }
+    kotlinOptions {
+        jvmTarget = "23"
     }
 }
 
@@ -91,4 +106,9 @@ tasks.register("dataveinStatus") {
     doLast {
         println("📊 DATAVEIN ORACLE NATIVE - ${android.namespace} - Ready!")
     }
+}
+
+tasks.register("dataveinOracleNativeStatus") {
+    group = "aegenesis"
+    doLast { println("\uD83D\uDCE6 DATAVEIN ORACLE NATIVE - Ready (Java 24)") }
 }

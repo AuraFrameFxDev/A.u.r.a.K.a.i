@@ -43,7 +43,9 @@ dependencies {
     implementation(libs.slf4j.api)
 
     // Testing (JUnit 5)
+    testImplementation(platform(libs.junit.bom))
     testImplementation(libs.junit.jupiter.api)
+    testImplementation(libs.junit.jupiter.params)
     testRuntimeOnly(libs.junit.jupiter.engine)
     testRuntimeOnly(libs.junit.platform.launcher)
     testImplementation(libs.mockk)
@@ -53,6 +55,15 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
 }
 
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions.jvmTarget = "23"
+}
+
 tasks.test {
     useJUnitPlatform()
+}
+
+tasks.register("utilitiesStatus") {
+    group = "aegenesis"
+    doLast { println("\uD83D\uDCE6 UTILITIES MODULE - Ready (Java 24)") }
 }
