@@ -1,14 +1,13 @@
 plugins {
-    id("com.android.library") version libs.versions.agp
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"
+    id("genesis.android.library")
+    id("genesis.android.compose")
     alias(libs.plugins.ksp)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
     namespace = "dev.aurakai.auraframefx.romtools"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 34
@@ -19,13 +18,16 @@ android {
         compose = true
     }
 
-
-        sourceCompatibility = JavaVersion.VERSION_23
-        targetCompatibility = JavaVersion.VERSION_23
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_24
+        targetCompatibility = JavaVersion.VERSION_24
     }
-    kotlinOptions {
-        jvmTarget = "23"
 
+    kotlin {
+        jvmToolchain(24)
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
+        }
     }
 }
 

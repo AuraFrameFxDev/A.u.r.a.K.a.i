@@ -13,7 +13,6 @@ class GenesisAndroidComposePlugin : Plugin<Project> {
         with(target) {
             // Apply the Android and Compose compiler plugins
             pluginManager.apply(LibraryPlugin::class)
-            pluginManager.apply("org.jetbrains.kotlin.plugin.compose")
 
             // Configure Android extension
             configure<com.android.build.gradle.LibraryExtension> {

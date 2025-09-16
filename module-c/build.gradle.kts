@@ -1,6 +1,7 @@
 // GENESIS PROTOCOL - MODULE C
 plugins {
-    id("com.android.library")
+    id("genesis.android.library")
+    id("genesis.android.compose")
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
 }

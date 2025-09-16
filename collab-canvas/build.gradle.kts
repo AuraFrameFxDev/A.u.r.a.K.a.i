@@ -1,15 +1,15 @@
 // Apply plugins (versions via version catalog)
 plugins {
     id("genesis.android.library")
-    id("org.jetbrains.kotlin.plugin.compose")
+    id("genesis.android.compose")
     alias(libs.plugins.ksp)
-    alias(libs.plugins.kotlin.android)
     // Note: Hilt plugin removed to avoid Android BaseExtension issues, using manual dependencies instead
 }
 
 android {
-    namespace = "dev.aurakai.auraframefx.collabcanvas" +
-            defaultConfig {
+    namespace = "dev.aurakai.auraframefx.collabcanvas"
+
+    defaultConfig {
         minSdk = 34
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -26,14 +26,10 @@ android {
     
     buildFeatures {
         buildConfig = true
-        // compose = true  // Removed as per user's request to handle compose separately
+        compose = true
     }
 
-    // Compose options
-    id("com.android.library")
-    alias(libs.plugins.ksp) composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
-    }
+    // Compose options are handled by the convention plugin
 }
 
 dependencies {

@@ -1,15 +1,14 @@
 // GENESIS PROTOCOL - MODULE E
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
+    id("genesis.android.library")
+    id("genesis.android.compose")
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
 }
 
 android {
     namespace = "dev.aurakai.auraframefx.module.e"
-    compileSdk = 35
+    compileSdk = 36
     
     defaultConfig {
         minSdk = 34
@@ -21,12 +20,12 @@ android {
     }
     
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_24
+        targetCompatibility = JavaVersion.VERSION_24
     }
 
     kotlin {
-        jvmToolchain(17)
+        jvmToolchain(24)
     }
 }
 
