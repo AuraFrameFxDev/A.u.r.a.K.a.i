@@ -21,7 +21,7 @@ repositories {
 // Dependencies required for the convention plugins themselves.
 dependencies {
     // Core build plugins
-    implementation("com.android.tools.build:gradle:9.0.0-alpha05")
+    implementation("com.android.tools.build:gradle:9.0.0-alpha01")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:2.2.20")
     implementation("com.google.dagger:hilt-android-gradle-plugin:2.57.1")
     implementation("com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:2.2.20-2.0.3")
@@ -31,10 +31,10 @@ dependencies {
     implementation(gradleApi())
     
     // Testing libraries for the plugins themselves
-    implementation("org.junit.jupiter:junit-jupiter-api:5.13.4")
-    implementation("org.junit.jupiter:junit-jupiter-params:5.13.4")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
-    implementation("io.mockk:mockk:1.14.5")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.13.4")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.13.4")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
+    testImplementation("io.mockk:mockk:1.14.5")
 }
 
 gradlePlugin {

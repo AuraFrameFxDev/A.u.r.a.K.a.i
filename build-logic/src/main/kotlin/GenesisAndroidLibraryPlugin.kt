@@ -55,9 +55,6 @@ class GenesisAndroidLibraryPlugin : Plugin<Project> {
                 compose = true
             }
 
-            composeOptions {
-                kotlinCompilerExtensionVersion = project.libs.findVersion("composeCompiler").get().toString()
-            }
 
             packaging {
                 resources {

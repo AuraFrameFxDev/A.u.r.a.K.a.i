@@ -5,14 +5,27 @@ plugins {
     id("genesis.android.library")
     id("genesis.android.compose")
     alias(libs.plugins.ksp)
-
 }
 
 android {
     namespace = "dev.aurakai.auraframefx.securecomm"
+    compileSdk = 36
     
     defaultConfig {
         minSdk = 34
+
+        // For testing and linting
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    // For test builds
+    testOptions {
+        targetSdk = 36
+    }
+
+    // For linting
+    lint {
+        targetSdk = 36
     }
     
     externalNativeBuild {
@@ -23,26 +36,28 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_23
-        targetCompatibility = JavaVersion.VERSION_23
+        sourceCompatibility = JavaVersion.VERSION_24
+        targetCompatibility = JavaVersion.VERSION_24
     }
-    kotlinOptions {
-        jvmTarget = "23"
+
+    kotlin {
+        jvmToolchain(24)
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
+        }
     }
 }
 
 dependencies {
     implementation(project(":core-module"))
     implementation(libs.hilt.android)
-    implementation(libs.hilt.work)
+    implementation(libs.androidx.core.ktx)
     ksp(libs.hilt.compiler)
-
-    // Coroutines & Networking
+    implementation(libs.hilt.work)
+    implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.bundles.coroutines)
     implementation(libs.bundles.network)
-    implementation(libs.kotlinx.serialization.json)
-
-    // Firebase
     implementation(platform(libs.firebase.bom))
 
     implementation(libs.firebase.auth)
@@ -51,19 +66,14 @@ dependencies {
     implementation(libs.firebase.config)
     implementation(libs.firebase.database)
     implementation(libs.firebase.storage)
-
-    // Utilities
     implementation(libs.timber)
     implementation(libs.coil.compose)
-    implementation(libs.kotlin.stdlib.jdk8)
 
     // Security - BouncyCastle for cryptography
-    implementation("org.bouncycastle:bcprov-jdk18on:1.81")
+    implementation(libs.bcprov.jdk18on)
     
-    // Testing
-    testImplementation(libs.bundles.testing.unit)
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.13.4")
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.13.4")
+    // Add other module-specific dependencies here
+    implementation(libs.kotlin.stdlib.jdk8)
 
     // Test dependencies
     testImplementation(platform(libs.junit.bom))
@@ -75,13 +85,8 @@ dependencies {
     testImplementation(libs.mockk.android)
     testImplementation(libs.mockk.agent)
     testImplementation(libs.kotlinx.coroutines.test)
-    androidTestImplementation(libs.bundles.testing.android)
+    androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.hilt.android.testing)
-}
-
-tasks.register("secureStatus") {
-    group = "genesis"
-    doLast { println("🔐 SECURE COMM - ${android.namespace} - Ready!") }
 }
 
 tasks.register("secureCommStatus") {

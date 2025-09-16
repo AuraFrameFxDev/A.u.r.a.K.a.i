@@ -71,7 +71,7 @@ android {
 
 tasks.named<org.openapi.generator.gradle.OpenApiGeneratorTask>("openApiGenerate") {
     generatorName.set("kotlin")
-    inputSpec.set("file:///C:/Users/Wehtt/OneDrive/Desktop/ReGenesis-fix-dependabot-compose-plugin/ReGenesis-patch1/app/api/system-api.yml")
+    inputSpec.set(file("${project.projectDir}/api/system-api.yml").path)
     outputDir.set(layout.buildDirectory.dir("generated/openapi").get().asFile.absolutePath)
     apiPackage.set("dev.aurakai.auraframefx.openapi.api")
     modelPackage.set("dev.aurakai.auraframefx.openapi.model")
@@ -119,7 +119,7 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics)
-    implementation(libs.firebase.vertexai)
+    implementation(libs.firebase.ai)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.messaging)
@@ -131,6 +131,8 @@ dependencies {
     // ===== HILT DEPENDENCY INJECTION =====
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+    kspAndroidTest(libs.hilt.compiler)
+    kspTest(libs.hilt.compiler)
 
     // ===== UTILITIES =====
     implementation(libs.timber)

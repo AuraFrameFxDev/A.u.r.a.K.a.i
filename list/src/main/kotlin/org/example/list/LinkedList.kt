@@ -163,62 +163,36 @@ class LinkedList : List<String> {
     override fun listIterator(): ListIterator<String> = listIterator(0)
 
     override fun listIterator(index: Int): ListIterator<String> {
-        if (index < 0 || index > size) {
-            throw IndexOutOfBoundsException("Index: $index, Size: $size")
-        }
-
+        if (index < 0 || index > size) throw IndexOutOfBoundsException("Index: $index, Size: $size")
+        val snapshot = this.toList()
         return object : ListIterator<String> {
-            private var current = head
-            private var currentIndex = 0
-
-            init {
-                repeat(index) {
-                    current = current?.next
-                    currentIndex++
-                }
-            }
-
-            override fun hasNext(): Boolean = currentIndex < size
-            override fun hasPrevious(): Boolean = currentIndex > 0
-            override fun nextIndex(): Int = currentIndex
-            override fun previousIndex(): Int = currentIndex - 1
-
+            private var pos = index
+            override fun hasNext(): Boolean = pos < snapshot.size
             override fun next(): String {
                 if (!hasNext()) throw NoSuchElementException()
-                val value = current?.data ?: throw NoSuchElementException()
-                current = current?.next
-                currentIndex++
-                return value
+                return snapshot[pos++]
             }
-
+            override fun hasPrevious(): Boolean = pos > 0
             override fun previous(): String {
                 if (!hasPrevious()) throw NoSuchElementException()
-                currentIndex--
-                current = head
-                repeat(currentIndex) { current = current?.next }
-                return current?.data ?: throw NoSuchElementException()
+                return snapshot[--pos]
             }
-
-            override fun add(element: String) = throw UnsupportedOperationException()
-            override fun remove() = throw UnsupportedOperationException()
-            override fun set(element: String) = throw UnsupportedOperationException()
+            override fun nextIndex(): Int = pos
+            override fun previousIndex(): Int = pos - 1
         }
     }
 
     override fun subList(fromIndex: Int, toIndex: Int): List<String> {
-        if (fromIndex < 0 || toIndex > size || fromIndex > toIndex) {
-            throw IndexOutOfBoundsException("fromIndex: $fromIndex, toIndex: $toIndex, size: $size")
+        if (fromIndex < 0 || toIndex < fromIndex || toIndex > size) {
+            throw IndexOutOfBoundsException("fromIndex=$fromIndex, toIndex=$toIndex, size=$size")
         }
-
-        val result = mutableListOf<String>()
-        var current = head
-
-        repeat(fromIndex) { current = current?.next }
-        repeat(toIndex - fromIndex) {
-            current?.let {
-                result.add(it.data)
-                current = it.next
-            }
+        val result = ArrayList<String>(toIndex - fromIndex)
+        var i = 0
+        var it = head
+        while (i < toIndex && it != null) {
+            if (i >= fromIndex) result.add(it.data)
+            it = it.next
+            i++
         }
         return result
     }

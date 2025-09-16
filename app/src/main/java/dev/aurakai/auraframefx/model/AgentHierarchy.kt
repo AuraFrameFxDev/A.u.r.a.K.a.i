@@ -11,22 +11,30 @@ data class AgentMessage(
 )
 
 @Serializable
+enum class AgentRole {
+    MASTER,
+    SECONDARY,
+    TERTIARY,
+    AUXILIARY
+}
+
+@Serializable
 data class AgentHierarchy(
     val masterAgents: List<HierarchyAgentConfig>,
     val auxiliaryAgents: MutableList<HierarchyAgentConfig> = mutableListOf()
 ) {
     companion object {
         val MASTER_AGENTS = listOf(
-            HierarchyAgentConfig("GENESIS", setOf("coordination", "synthesis"), 1),
-            HierarchyAgentConfig("AURA", setOf("creativity", "design"), 2),
-            HierarchyAgentConfig("KAI", setOf("security", "analysis"), 2),
-            HierarchyAgentConfig("CASCADE", setOf("vision", "processing"), 3)
+            HierarchyAgentConfig("GENESIS", setOf("coordination", "synthesis"), 1, AgentRole.MASTER),
+            HierarchyAgentConfig("AURA", setOf("creativity", "design"), 2, AgentRole.SECONDARY),
+            HierarchyAgentConfig("KAI", setOf("security", "analysis"), 2, AgentRole.SECONDARY),
+            HierarchyAgentConfig("CASCADE", setOf("vision", "processing"), 3, AgentRole.TERTIARY)
         )
 
         private val auxiliaryAgents = mutableListOf<HierarchyAgentConfig>()
 
         fun registerAuxiliaryAgent(name: String, capabilities: Set<String>): HierarchyAgentConfig {
-            val config = HierarchyAgentConfig(name, capabilities, 4)
+            val config = HierarchyAgentConfig(name, capabilities, 4, AgentRole.AUXILIARY)
             auxiliaryAgents.add(config)
             return config
         }
@@ -45,7 +53,8 @@ data class AgentHierarchy(
 data class HierarchyAgentConfig(
     val name: String,
     val capabilities: Set<String>,
-    val priority: Int
+    val priority: Int,
+    val role: AgentRole
 )
 
 @Serializable

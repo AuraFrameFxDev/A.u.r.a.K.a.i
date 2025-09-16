@@ -15,20 +15,21 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
         with(target) {
             with(pluginManager) {
                 apply("com.android.library")
-                apply("org.jetbrains.kotlin.android")
             }
 
             extensions.configure<LibraryExtension> {
-                compileSdk = 35
+                compileSdk = 36
 
                 defaultConfig {
                     minSdk = 34
                     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
                 }
 
+                val toolchain = providers.gradleProperty("java.toolchain").orElse("24").get().toInt()
+                val javaVer = JavaVersion.toVersion(toolchain)
                 compileOptions {
-                    sourceCompatibility = JavaVersion.VERSION_17
-                    targetCompatibility = JavaVersion.VERSION_17
+                    sourceCompatibility = javaVer
+                    targetCompatibility = javaVer
                 }
 
                 buildFeatures {
@@ -48,7 +49,9 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                 }
             }
 
-            kotlinExtension.jvmToolchain(17)
+            kotlinExtension.jvmToolchain(
+                providers.gradleProperty("java.toolchain").orElse("24").get().toInt()
+            )
         }
     }
 }
