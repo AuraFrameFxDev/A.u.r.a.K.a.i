@@ -22,6 +22,7 @@ junit4 = "4.13.2"
 # Compose
 composeBom = "2025.09.00"
 composeCompiler = "2.2.20"
+compose-compiler-extension = "2.2.20"
 activityCompose = "1.11.0"
 navigationCompose = "2.9.4"
 composeMaterialIconsExtended = "1.7.8"
