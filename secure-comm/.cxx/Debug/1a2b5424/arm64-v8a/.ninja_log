@@ -14,3 +14,8 @@
 149	5969	7797132012359878	CMakeFiles/secure_comm_native.dir/secure_comm_jni.cpp.o	26f0601ab6d81520
 213	8053	7797132033380977	CMakeFiles/secure_comm_native.dir/crypto_engine.cpp.o	b96ec9787ca373c0
 8054	10322	7797132045634312	C:/Re_Genesis_A.O.S.P/secure-comm/build/intermediates/cxx/Debug/1a2b5424/obj/arm64-v8a/libsecure_comm_native.so	1a2afc5153737780
+0	158	0	clean	bfff2010d6239e2d
+0	14	0	clean	bfff2010d6239e2d
+15	3040	7797299934066428	CMakeFiles/secure_comm_native.dir/secure_comm_jni.cpp.o	26f0601ab6d81520
+25	3370	7797299937072617	CMakeFiles/secure_comm_native.dir/crypto_engine.cpp.o	b96ec9787ca373c0
+3371	3720	7797299940280587	C:/Re_Genesis_A.O.S.P/secure-comm/build/intermediates/cxx/Debug/1a2b5424/obj/arm64-v8a/libsecure_comm_native.so	1a2afc5153737780

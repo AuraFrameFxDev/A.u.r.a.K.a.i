@@ -2,7 +2,9 @@
 
 # Gradle
 .gradle/
-# build/ # <-- Allow generated files by not ignoring build outputs
+build/
+
+# Module resources to keep versioned
 !*/src/main/assets/
 !*/src/main/res/
 !*/src/main/so/

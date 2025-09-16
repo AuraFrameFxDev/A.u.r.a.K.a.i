@@ -1,11 +1,11 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.ksp) // Use alias for ksp, ensure version in toml
-    alias(libs.plugins.composeCompiler) // Jetpack Compose compiler
-    alias(libs.plugins.hilt) // <-- Add this line to apply the Hilt Gradle plugin
-    id("com.google.gms.google-services") // Okay to keep this as id
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
+    id("com.google.gms.google-services")
     id("org.openapi.generator") version "7.15.0"
+    kotlin("plugin.compose") version "2.2.20"
 }
 
 android {
@@ -38,35 +38,29 @@ android {
 
     buildFeatures {
         compose = true
-        dataBinding = true
+        dataBinding = false
         viewBinding = true
         buildConfig = true
         aidl = true
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_24
-        targetCompatibility = JavaVersion.VERSION_24
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 
     kotlin {
-        jvmToolchain(24)
-        compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
-            freeCompilerArgs.addAll(
-                "-Xjvm-default=all",
-                "-opt-in=kotlin.RequiresOptIn",
-                "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api"
-            )
-        }
+        jvmToolchain(21)
     }
+    
+    // composeOptions not needed; managed by kotlin("plugin.compose")
 }
 
 tasks.named("openApiGenerate") {
     configure<org.openapitools.generator.gradle.plugin.tasks.GenerateTask> {
         generatorName.set("kotlin")
-        // Use the correct file URI for the OpenAPI spec
-        inputSpec.set("file://${project.projectDir}/api/system-api.yml")
+        // Use project-relative path for the OpenAPI spec
+        inputSpec.set("${project.projectDir}/api/system-api.yml")
         outputDir.set(layout.buildDirectory.dir("generated/openapi").get().asFile.absolutePath)
         apiPackage.set("dev.aurakai.auraframefx.openapi.api")
         modelPackage.set("dev.aurakai.auraframefx.openapi.model")
@@ -104,6 +98,12 @@ dependencies {
     implementation(libs.bundles.room)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.datastore.core)
+    // Compose Material and Material3
+    implementation("androidx.compose.material:material:1.9.1")
+    implementation("androidx.compose.material3:material3:1.3.2")
+
+    // Yukihookapi for YLog
+    implementation("com.highcapable.yukihookapi:api:1.3.1")
 
     // ===== KOTLIN & COROUTINES =====
     implementation(libs.kotlinx.serialization.json)
@@ -111,10 +111,11 @@ dependencies {
     implementation(libs.bundles.coroutines)
 
     // ===== NETWORKING =====
-    implementation(libs.bundles.network)
+    implementation(libs.retrofit.core)
+    implementation(libs.converter.moshi)
     implementation(libs.squareup.moshi)
-    implementation("com.squareup.moshi:moshi-kotlin:1.15.2")
-    implementation("com.squareup.retrofit2:converter-moshi:3.0.0")
+    // optional: Moshi Kotlin reflection/adapters if used
+    implementation(libs.moshi.kotlin)
 
     // ===== FIREBASE =====
     // Import the Firebase BoM
@@ -147,7 +148,8 @@ dependencies {
     implementation(libs.androidx.security.crypto)
 
     // ===== JACKSON YAML (for OpenAPI Generator compatibility) =====
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.20.0")
+
+    implementation(libs.jackson.dataformat.yaml)
 
     // ===== CORE LIBRARY DESUGARING =====
     coreLibraryDesugaring(libs.desugar.jdk.libs)

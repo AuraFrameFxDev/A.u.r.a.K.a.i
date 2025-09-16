@@ -1,5 +1,10 @@
 package dev.aurakai.auraframefx.romtools
 
+/**
+ * Returns a user-facing display label for this RomOperation.
+ *
+ * @return A short human-readable string describing the operation (e.g. "Flashing ROM", "Completed").
+
 fun RomOperation.getDisplayName(): String = when (this) {
     RomOperation.VERIFYING_ROM -> "Verifying ROM"
     RomOperation.CREATING_BACKUP -> "Creating Backup"

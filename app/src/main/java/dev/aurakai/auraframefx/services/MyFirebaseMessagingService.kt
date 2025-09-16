@@ -396,11 +396,12 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     /**
-     * Create notification channels for Genesis-OS message categories.
+     * Register notification channels used by Genesis-OS for different message categories.
      *
-     * On Android O (API 26) and above this registers five channels (general, consciousness,
-     * security, agents, system) with appropriate importance levels and descriptions.
-     * No-op on earlier Android versions.
+     * Creates and registers five NotificationChannel instances (general, consciousness,
+     * security, agents, and system) on Android O (API 26) and above. Each channel is given
+     * an appropriate importance and description so notifications are routed correctly by
+     * the system. No action is taken on pre-O devices.
      */
     private fun createNotificationChannels() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -454,18 +455,18 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     /**
-     * Build and post a notification to the given notification channel.
+
+     * Post a notification on the given notification channel and attach an intent to open MainActivity.
      *
-     * The provided `data` map is attached as intent extras to the notification's
-     * tap action (MainActivity). A unique notification ID is generated from the
-     * current system time. Uses a default info icon when `iconResId` is not set.
+     * The notification is built with the provided title, body and small icon, uses a BigTextStyle,
+     * and launches MainActivity (with `data` added as intent extras) when tapped. The notification
+     * ID is generated from the current time to avoid collisions.
      *
      * @param channelId Notification channel ID to post the notification on.
-     * @param title Notification title shown to the user.
-     * @param body Notification body text; displayed and used for expanded text.
-     * @param iconResId Resource ID for the small icon shown with the notification.
-     *                  Defaults to `android.R.drawable.ic_dialog_info`.
-     * @param data Optional key/value payload attached as extras to the launched activity.
+     * @param title Visible notification title.
+     * @param body Visible notification body text.
+     * @param iconResId Resource ID for the small icon shown in the notification. Defaults to an info icon.
+     * @param data Optional key/value extras that will be added to the intent launched when the user taps the notification.
      */
     private fun showNotification(
         channelId: String,
