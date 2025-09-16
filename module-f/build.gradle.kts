@@ -44,6 +44,6 @@ android {
 
     tasks.register("moduleFStatus") {
         group = "aegenesis"
-        doLast { println("📦 MODULE F - Ready (Java 24)") }
+        doLast { println("\uD83D\uDCE6 MODULE F - Ready (Java 24)") }
     }
 }

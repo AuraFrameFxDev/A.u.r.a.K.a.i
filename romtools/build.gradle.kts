@@ -117,9 +117,7 @@ tasks.named("build") {
     dependsOn("verifyRomTools") 
 }
 
-tasks.register("romStatus") {
-    group = "genesis"
-    doLast { 
-        println("🛠️ ROM TOOLS - ${android.namespace} - Ready!") 
-    }
+tasks.register("romtoolsStatus") {
+    group = "aegenesis"
+    doLast { println("\uD83D\uDCE6 ROMTOOLS MODULE - Ready (Java 24)") }
 }

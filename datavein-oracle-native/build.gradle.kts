@@ -92,9 +92,7 @@ dependencies {
     compileOnly(files("../Libs/api-82-sources.jar"))
 }
 
-tasks.register("dataveinStatus") {
-    group = "genesis"
-    doLast {
-        println("📊 DATAVEIN ORACLE NATIVE - ${android.namespace} - Ready!")
-    }
+tasks.register("dataveinOracleNativeStatus") {
+    group = "aegenesis"
+    doLast { println("\uD83D\uDCE6 DATAVEIN ORACLE NATIVE MODULE - Ready (Java 24)") }
 }

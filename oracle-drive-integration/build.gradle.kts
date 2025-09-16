@@ -105,9 +105,7 @@ dependencies {
     compileOnly(files("../Libs/api-82-sources.jar"))
 }
 
-tasks.register("oracleStatus") {
-    group = "genesis"
-    doLast {
-        println("🔮 ORACLE DRIVE INTEGRATION - ${android.namespace} - Ready!")
-    }
+tasks.register("oracleDriveIntegrationStatus") {
+    group = "aegenesis"
+    doLast { println("\uD83D\uDCE6 ORACLE DRIVE INTEGRATION MODULE - Ready (Java 24)") }
 }

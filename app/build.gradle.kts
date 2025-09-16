@@ -62,19 +62,22 @@ android {
     }
 }
 
-tasks.openApiGenerate {
-    generatorName.set("kotlin")
-    inputSpec.set("file:///C:/Users/Wehtt/OneDrive/Desktop/ReGenesis-fix-dependabot-compose-plugin/ReGenesis-patch1/app/api/system-api.yml")
-    outputDir.set(layout.buildDirectory.dir("generated/openapi").get().asFile.absolutePath)
-    apiPackage.set("dev.aurakai.auraframefx.openapi.api")
-    modelPackage.set("dev.aurakai.auraframefx.openapi.model")
-    invokerPackage.set("dev.aurakai.auraframefx.openapi.invoker")
-    configOptions.set(
-        mapOf(
-            "dateLibrary" to "java8",
-            "library" to "jvm-ktor"
+tasks.named("openApiGenerate") {
+    configure<org.openapitools.generator.gradle.plugin.tasks.GenerateTask> {
+        generatorName.set("kotlin")
+        // Use the correct file URI for the OpenAPI spec
+        inputSpec.set("file://${project.projectDir}/api/system-api.yml")
+        outputDir.set(layout.buildDirectory.dir("generated/openapi").get().asFile.absolutePath)
+        apiPackage.set("dev.aurakai.auraframefx.openapi.api")
+        modelPackage.set("dev.aurakai.auraframefx.openapi.model")
+        invokerPackage.set("dev.aurakai.auraframefx.openapi.invoker")
+        configOptions.set(
+            mapOf(
+                "dateLibrary" to "java8",
+                "library" to "jvm-ktor"
+            )
         )
-    )
+    }
 }
 
 dependencies {

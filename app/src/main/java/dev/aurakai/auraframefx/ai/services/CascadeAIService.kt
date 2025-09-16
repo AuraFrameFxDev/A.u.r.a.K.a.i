@@ -13,6 +13,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.random.Random
 
 /**
  * Response data class for cascade AI processing
@@ -24,15 +25,7 @@ data class CascadeResponse(
     val confidence: Float? = null,
     val timestamp: String,
     val metadata: Map<String, String> = emptyMap()
-) {
-    fun copy(
-        agent: String = this.agent,
-        response: String = this.response,
-        confidence: Float? = this.confidence,
-        timestamp: String = this.timestamp,
-        metadata: Map<String, String> = this.metadata
-    ) = CascadeResponse(agent, response, confidence, timestamp, metadata)
-}
+)
 
 /**
  * CascadeAIService - Advanced AI orchestration service that coordinates multiple AI agents
@@ -50,7 +43,7 @@ data class CascadeResponse(
  */
 @Singleton
 class CascadeAIService @Inject constructor(
-    @ApplicationContext private val context: Context
+    @param:ApplicationContext private val context: Context
 ) {
 
     companion object {
@@ -133,7 +126,7 @@ class CascadeAIService @Inject constructor(
      */
     private fun selectAgentsForRequest(request: AgentInvokeRequest): List<AgentType> {
         val message = request.message.lowercase()
-        val context = request.context
+        request.context
         val priority = request.priority
 
         val selectedAgents = mutableSetOf<AgentType>()
@@ -192,6 +185,7 @@ class CascadeAIService @Inject constructor(
             AgentType.AuraShield -> processWithAuraShield(request, cascadeContext)
             AgentType.GenKitMaster -> processWithGenKitMaster(request, cascadeContext)
             AgentType.DataveinConstructor -> processWithDataveinConstructor(request, cascadeContext)
+            else -> throw IllegalArgumentException("Unhandled agent type: $agentType")
         }
     }
 
@@ -945,7 +939,8 @@ class CascadeAIService @Inject constructor(
      * @return A Float in the range 0.7..0.95 representing generation potential.
      */
     private fun calculateGenerationPotential(message: String): Float {
-        return (0.7f..0.95f).random()
+        // Generate a random float between 0.7 and 0.95
+        return 0.7f + Random.nextFloat() * (0.95f - 0.7f)
     }
 
     /**

@@ -100,9 +100,7 @@ dependencies {
     debugImplementation(libs.leakcanary.android)
 }
 
-tasks.register("featureStatus") {
-    group = "genesis"
-    doLast { 
-        println("🚀 FEATURE MODULE - ${android.namespace} - Ready!")
-    }
+tasks.register("featureModuleStatus") {
+    group = "aegenesis"
+    doLast { println("\uD83D\uDCE6 FEATURE MODULE - Ready (Java 24)") }
 }
