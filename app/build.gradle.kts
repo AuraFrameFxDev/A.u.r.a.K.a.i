@@ -99,7 +99,7 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.datastore.core)
     // Compose Material and Material3
-    implementation("androidx.compose.material:material:1.6.7")
+    implementation("androidx.compose.material:material:1.9.1")
     implementation("androidx.compose.material3:material3:1.2.1")
 
     // Yukihookapi for YLog
