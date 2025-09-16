@@ -1,0 +1,16 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Re_Genesis_A.O.S.P\screenshot-tests\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest5797927309933318248.xml:2:13-83
+INJECTED from C:\Re_Genesis_A.O.S.P\screenshot-tests\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest5797927309933318248.xml:2:13-83
+	package
+		INJECTED from C:\Re_Genesis_A.O.S.P\screenshot-tests\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest5797927309933318248.xml
+	xmlns:android
+		ADDED from C:\Re_Genesis_A.O.S.P\screenshot-tests\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest5797927309933318248.xml:2:23-81
+uses-sdk
+INJECTED from C:\Re_Genesis_A.O.S.P\screenshot-tests\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest5797927309933318248.xml reason: use-sdk injection requested
+INJECTED from C:\Re_Genesis_A.O.S.P\screenshot-tests\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest5797927309933318248.xml
+INJECTED from C:\Re_Genesis_A.O.S.P\screenshot-tests\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest5797927309933318248.xml
+	android:targetSdkVersion
+		INJECTED from C:\Re_Genesis_A.O.S.P\screenshot-tests\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest5797927309933318248.xml
+	android:minSdkVersion
+		INJECTED from C:\Re_Genesis_A.O.S.P\screenshot-tests\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest5797927309933318248.xml

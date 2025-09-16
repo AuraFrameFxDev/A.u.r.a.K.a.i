@@ -1,0 +1,14 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Re_Genesis_A.O.S.P\module-a\src\main\AndroidManifest.xml:2:1-4:12
+INJECTED from C:\Re_Genesis_A.O.S.P\module-a\src\main\AndroidManifest.xml:2:1-4:12
+	package
+		INJECTED from C:\Re_Genesis_A.O.S.P\module-a\src\main\AndroidManifest.xml
+uses-sdk
+INJECTED from C:\Re_Genesis_A.O.S.P\module-a\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Re_Genesis_A.O.S.P\module-a\src\main\AndroidManifest.xml
+INJECTED from C:\Re_Genesis_A.O.S.P\module-a\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from C:\Re_Genesis_A.O.S.P\module-a\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Re_Genesis_A.O.S.P\module-a\src\main\AndroidManifest.xml
