@@ -303,14 +303,15 @@ private fun InfoRow(label: String, value: String) {
 }
 
 /**
- * Displays a card showing the current operation's display name and a linear progress indicator.
+ * Displays a card showing the current ROM operation name and its progress.
  *
- * Shows the operation name (falls back to an empty string if the operation display name is null),
- * a progress bar driven by `operation.progress` (interpreted as a percentage, converted to 0.0–1.0),
- * and a right-aligned percentage text.
+ * Renders the operation display name (falls back to empty string when absent), a linear
+ * progress bar using `operation.progress` as a percentage (0–100), and a right-aligned
+ * textual percentage.
  *
- * @param operation The OperationProgress model containing the nullable operation descriptor and numeric progress (0–100).
- * @param modifier Optional Compose [Modifier] applied to the card.
+ * @param operation Current operation state including optional operation type and numeric progress (0–100).
+ * @param modifier Modifier to be applied to the root composable.
+
  */
 @Composable
 private fun OperationProgressCard(
@@ -412,8 +413,18 @@ private fun RomToolActionCard(
 }
 
 /**
+     * Returns the static list of available ROM tool actions shown in the UI.
+     *
+     * Each entry describes a ROM-related operation (type, title, description, icon, color)
+     * and the device capabilities required to enable that action (root, bootloader, recovery, system).
+     * The resulting list is used to render actionable cards in the ROM Tools screen; callers should
+     * consult each action's requirement flags together with the device capabilities to determine
+     * whether the action is enabled for the current device.
+     *
+     * @return A list of predefined RomToolAction instances representing the supported ROM tools.
+     */
  * Returns the predefined list of ROM tool actions displayed in the UI.
- *
+ 
  * Each returned RomToolAction describes an available operation (type, title, description,
  * icon, color) and the device capability requirements (requiresRoot, requiresBootloader,
  * requiresRecovery, requiresSystem) used by the UI to determine whether the action is enabled.

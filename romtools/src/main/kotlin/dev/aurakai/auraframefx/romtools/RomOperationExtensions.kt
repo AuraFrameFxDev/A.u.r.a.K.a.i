@@ -1,12 +1,10 @@
 package dev.aurakai.auraframefx.romtools
 
 /**
- * Returns a human-readable display string for the RomOperation value.
+ * Returns a user-facing display label for this RomOperation.
  *
- * Maps each RomOperation enum constant to a concise label suitable for UI display (e.g. `VERIFYING_ROM` -> "Verifying ROM").
- *
- * @return A short, user-facing string describing the operation.
- */
+ * @return A short human-readable string describing the operation (e.g. "Flashing ROM", "Completed").
+
 fun RomOperation.getDisplayName(): String = when (this) {
     RomOperation.VERIFYING_ROM -> "Verifying ROM"
     RomOperation.CREATING_BACKUP -> "Creating Backup"
