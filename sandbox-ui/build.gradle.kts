@@ -53,7 +53,7 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.compose.material.icons.extended)
-    implementation("androidx.compose.ui:ui-tooling-preview:1.6.0")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.9.1")
     debugImplementation(libs.bundles.compose.debug)
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     
