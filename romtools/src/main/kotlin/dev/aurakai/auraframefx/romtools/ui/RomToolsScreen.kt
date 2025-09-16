@@ -282,6 +282,15 @@ private fun CapabilityRow(label: String, hasCapability: Boolean) {
     }
 }
 
+/**
+ * Displays a single label/value pair in a full-width row.
+ *
+ * The label is shown on the left (muted color, followed by a colon) and the value on the right
+ * (bright color, medium weight). The row uses a space-between arrangement to separate the two.
+ *
+ * @param label The field label to display (will have a trailing colon).
+ * @param value The corresponding value to display on the right.
+ */
 @Composable
 private fun InfoRow(label: String, value: String) {
     Row(
@@ -353,6 +362,18 @@ private fun OperationProgressCard(
     }
 }
 
+/**
+ * A card representing a single ROM tool action with title, description and icon.
+ *
+ * Displays the given action's icon, title and description. Visuals (icon tint and text colors)
+ * reflect the `isEnabled` state; when disabled a lock icon is shown and the card appears muted.
+ *
+ * @param action The RomToolAction describing the action to display (title, description, icon, color).
+ * @param isEnabled When true the card appears active and is clickable; when false it is visually disabled
+ *                  and shows a lock affordance.
+ * @param onClick Callback invoked when the card is clicked.
+ * @param modifier Modifier for layout adjustments.
+ */
 @Composable
 private fun RomToolActionCard(
     action: RomToolAction,
