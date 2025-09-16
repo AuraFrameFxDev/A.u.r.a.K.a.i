@@ -11,7 +11,7 @@ group = "dev.aurakai.auraframefx.utilities"
 version = "1.0.0"
 
 // Centralized toolchain version to avoid duplication and drift
-val jdkVersion = 17
+val jdkVersion = 24
 
 java {
     toolchain { languageVersion.set(JavaLanguageVersion.of(jdkVersion)) }

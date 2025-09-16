@@ -24,8 +24,8 @@ class GenesisAndroidComposePlugin : Plugin<Project> {
                 }
 
                 compileOptions {
-                    sourceCompatibility = JavaVersion.VERSION_17
-                    targetCompatibility = JavaVersion.VERSION_17
+            sourceCompatibility = JavaVersion.VERSION_24
+            targetCompatibility = JavaVersion.VERSION_24
                 }
 
                 defaultConfig {
@@ -36,7 +36,7 @@ class GenesisAndroidComposePlugin : Plugin<Project> {
             // Configure Kotlin options
             tasks.withType(KotlinCompile::class).configureEach {
                 compilerOptions {
-                    jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+                    jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
                     freeCompilerArgs.addAll(
                         "-Xjvm-default=all",
                         "-opt-in=kotlin.RequiresOptIn"

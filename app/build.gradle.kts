@@ -44,15 +44,15 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_24
+        targetCompatibility = JavaVersion.VERSION_24
     }
 
     // Kotlin compiler options
     kotlin {
         jvmToolchain(24) // Java toolchain 24
         compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_23) // JVM target 23
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24) // JVM target 24
             freeCompilerArgs.addAll(
                 "-Xjvm-default=all",
                 "-opt-in=kotlin.RequiresOptIn",
