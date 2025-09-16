@@ -1,77 +1,65 @@
-// GENESIS PROTOCOL - MODULES A-F
-// Module E
+// GENESIS PROTOCOL - MODULE E
 plugins {
-    id("com.android.library")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
     namespace = "dev.aurakai.auraframefx.module.e"
-
-    compileSdk = 36
-
+    compileSdk = 35
+    
     defaultConfig {
         minSdk = 34
-
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+    
+    buildFeatures {
+        compose = true
+    }
+    
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_23
-        targetCompatibility = JavaVersion.VERSION_23
-    }
-    kotlinOptions {
-        jvmTarget = "23"
-
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_23
-        targetCompatibility = JavaVersion.VERSION_23
+    kotlin {
+        jvmToolchain(17)
     }
-    kotlinOptions {
-        jvmTarget = "23"
-    }
-
-
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-        compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_23)
-        }
-    }
-
-
-    dependencies {
-        implementation(project(":core-module"))
-        implementation(libs.androidx.core.ktx)
-
-        // Hilt
-        implementation(libs.hilt.android)
-        ksp(libs.hilt.compiler)
-
-        // Add other module-specific dependencies here
-        implementation(libs.kotlin.stdlib.jdk8)
-    }
-
-tasks.register("moduleEStatus") {
-    group = "aegenesis"
-    doLast { println("📦 MODULE E - Ready (Java 24)") }
 }
 
 dependencies {
+    // Module dependencies
     implementation(project(":core-module"))
+    
+    // Core Android
     implementation(libs.androidx.core.ktx)
-
+    implementation(libs.bundles.lifecycle)
+    
+    // Compose
+    val composeBom = platform(libs.androidx.compose.bom)
+    implementation(composeBom)
+    implementation(libs.bundles.compose.ui)
+    debugImplementation(libs.bundles.compose.debug)
+    
     // Hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
-
-    // Add other module-specific dependencies here
+    
+    // Utilities
     implementation(libs.kotlin.stdlib.jdk8)
+    
+    // Testing
+    testImplementation(libs.bundles.testing.unit)
+    androidTestImplementation(libs.bundles.testing.android)
+    androidTestImplementation(libs.hilt.android.testing)
 }
 
 tasks.register("moduleEStatus") {
-    group = "aegenesis"
-    doLast { println("\uD83D\uDCE6 MODULE E - Ready (Java 24)") }
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+    group = "genesis"
+    doLast { 
+        println("📦 MODULE E - ${android.namespace} - Ready!") 
+    }
 }

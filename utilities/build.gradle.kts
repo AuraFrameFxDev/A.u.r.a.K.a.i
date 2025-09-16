@@ -1,30 +1,25 @@
 plugins {
     // JVM library setup
     id("java-library")
-    kotlin("jvm")
-
-    // Additional tooling
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.dokka)
     alias(libs.plugins.spotless)
 }
-
 
 group = "dev.aurakai.auraframefx.utilities"
 version = "1.0.0"
 
 // Centralized toolchain version
-val jdkVersion = 24
+val jdkVersion = 17
 
 java {
     toolchain { languageVersion.set(JavaLanguageVersion.of(jdkVersion)) }
 }
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_23)
-    }
-}
 
+kotlin {
+    jvmToolchain(17)
+}
 
 dependencies {
     // Module dependency (utilities depends on list)
@@ -40,23 +35,17 @@ dependencies {
     implementation(libs.xz)
 
     // Logging API only (no binding at library runtime)
-    implementation(libs.slf4j.api)
+    implementation(libs.slf4j)
+
+    // Kotlin Standard Library
+    implementation(libs.kotlin.stdlib.jdk8)
 
     // Testing (JUnit 5)
-    testImplementation(platform(libs.junit.bom))
-    testImplementation(libs.junit.jupiter.api)
-    testImplementation(libs.junit.jupiter.params)
-    testRuntimeOnly(libs.junit.jupiter.engine)
-    testRuntimeOnly(libs.junit.platform.launcher)
-    testImplementation(libs.mockk)
-    testImplementation(kotlin("stdlib"))
-    // Bind a simple logger only during tests
-    testRuntimeOnly(libs.slf4j.simple)
-    implementation(kotlin("stdlib-jdk8"))
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions.jvmTarget = "23"
+    testImplementation(platform("org.junit:junit-bom:5.13.4"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation(libs.mockk.android)
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testRuntimeOnly("org.slf4j:slf4j-simple:2.0.17")
 }
 
 tasks.test {
@@ -64,6 +53,8 @@ tasks.test {
 }
 
 tasks.register("utilitiesStatus") {
-    group = "aegenesis"
-    doLast { println("\uD83D\uDCE6 UTILITIES MODULE - Ready (Java 24)") }
+    group = "genesis"
+    doLast { 
+        println("📦 UTILITIES MODULE - Ready!") 
+    }
 }
