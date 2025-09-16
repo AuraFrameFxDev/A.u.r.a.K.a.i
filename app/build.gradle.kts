@@ -106,7 +106,6 @@ dependencies {
 
     // Yukihookapi for YLog
     implementation("com.highcapable.yukihookapi:api:1.1.8")
-    implementation("com.highcapable.yukihookapi:core:1.1.8")
 
     // ===== KOTLIN & COROUTINES =====
     implementation(libs.kotlinx.serialization.json)
