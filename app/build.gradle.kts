@@ -147,7 +147,7 @@ dependencies {
     implementation(libs.androidx.security.crypto)
 
     // ===== JACKSON YAML (for OpenAPI Generator compatibility) =====
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.15.3")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.20.0")
 
     // ===== CORE LIBRARY DESUGARING =====
     coreLibraryDesugaring(libs.desugar.jdk.libs)
