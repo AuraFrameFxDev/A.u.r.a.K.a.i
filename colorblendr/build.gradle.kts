@@ -51,23 +51,6 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
 }
 
-tasks.register("colorStatus") {
-    group = "genesis"
-    doLast {
-        println("🌈 COLORBLENDR - ${android.namespace} - Ready!")
-    }
-}
-
-tasks.register("colorblendrStatus") {
-    group = "aegenesis"
-    doLast { println("\uD83D\uDCE6 COLORBLENDR MODULE - Ready (Java 24)") }
-}
-
-tasks.register("colorblendrStatus") {
-    group = "aegenesis"
-    doLast { println("\uD83D\uDCE6 COLORBLENDR MODULE - Ready (Java 24)") }
-}
-
 tasks.register("colorblendrStatus") {
     group = "aegenesis"
     doLast { println("\uD83D\uDCE6 COLORBLENDR MODULE - Ready (Java 24)") }

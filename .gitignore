@@ -1,5 +1,33 @@
-/.gradle/
+# Gradle
+.gradle/
+build/
 /build/
-/local.properties
+**/build/
+**/out/
+
+# Local files
+local.properties
+
+# IDE files
 .DS_Store
 .idea/
+
+# Generated files
+*.apk
+*.ap_*
+*.aab
+*.dex
+*.class
+*.jar
+*.war
+*.ear
+*.hprof
+
+# Native build artifacts
+**/intermediates/**
+**/.cxx/
+**/cxx/**/logs/**
+**/compile_commands.json
+**/CMakeFiles/
+**/CMakeCache.txt
+**/.ninja_log

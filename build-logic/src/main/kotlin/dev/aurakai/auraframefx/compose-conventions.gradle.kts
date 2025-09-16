@@ -7,9 +7,6 @@ android {
         compose = true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = "2.2.20"
-    }
 
     defaultConfig {
         minSdk = 34

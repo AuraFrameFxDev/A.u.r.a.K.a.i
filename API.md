@@ -426,6 +426,16 @@ class UserRepository @Inject constructor(
     private val userDao: UserDao,
     private val networkService: NetworkService
 ) : Repository<User, UserId> {
+
+    override suspend fun findById(id: UserId): User? {
+        return userDao.findById(id.value) ?: run {
+            val networkUser = networkService.getUser(id)
+            networkUser?.let { userDao.insert(it.toEntity()) }
+            networkUser
+        }
+    }
+
+    // ... other implementations
 }
 
 // Extension mapping functions
@@ -446,18 +456,6 @@ fun User.toEntity(): UserEntity {
         name = this.name,
         // ...
     )
-}
-=======
-    
-    override suspend fun findById(id: UserId): User? {
-        return userDao.findById(id.value) ?: run {
-            val networkUser = networkService.getUser(id)
-            networkUser?.let { userDao.insert(it) }
-            networkUser
-        }
-    }
-    
-    // ... other implementations
 }
 ```
 

@@ -45,9 +45,11 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                     }
                 }
 
+                val toolchain = providers.gradleProperty("java.toolchain").orElse("24").get().toInt()
+                val javaVer = JavaVersion.toVersion(toolchain)
                 compileOptions {
-                    sourceCompatibility = JavaVersion.VERSION_17
-                    targetCompatibility = JavaVersion.VERSION_17
+                    sourceCompatibility = javaVer
+                    targetCompatibility = javaVer
                 }
 
                 buildFeatures {
@@ -67,7 +69,9 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 }
             }
 
-            kotlinExtension.jvmToolchain(17)
+            kotlinExtension.jvmToolchain(
+                providers.gradleProperty("java.toolchain").orElse("24").get().toInt()
+            )
         }
     }
 }

@@ -9,14 +9,6 @@ import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 class GenesisAndroidComposePlugin : Plugin<Project> {
-    /**
-     * Applies configuration to the target Gradle project to make it an Android Library module
-     * with Jetpack Compose enabled.
-     *
-     * Enables Compose build features, sets the Compose compiler extension version, Java source/target
-     * compatibility, and the module minSdk. Configures Kotlin compilation JVM target and common
-     * compiler arguments, and adds Compose dependencies (Compose BOM and typical Compose libraries).
-     */
     override fun apply(target: Project) {
         with(target) {
             // Apply the Android and Compose compiler plugins
@@ -26,9 +18,6 @@ class GenesisAndroidComposePlugin : Plugin<Project> {
             configure<com.android.build.gradle.LibraryExtension> {
                 buildFeatures.compose = true
 
-                composeOptions {
-                    kotlinCompilerExtensionVersion = "2.2.20"
-                }
 
                 compileOptions {
             sourceCompatibility = JavaVersion.VERSION_24
