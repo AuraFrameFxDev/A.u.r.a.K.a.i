@@ -18,11 +18,14 @@ java {
 }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     compilerOptions {
         jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
     }
 =======
+=======
+>>>>>>> Stashed changes
 kotlin {
     jvmToolchain(24)
 }
@@ -30,6 +33,9 @@ kotlin {
 // Ensure Kotlin JVM target is set
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions.jvmTarget = "23"
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 }
 
@@ -51,11 +57,14 @@ dependencies {
 
     // Testing (JUnit 5)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     testImplementation(platform("org.junit:junit-bom:5.13.4"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation(libs.mockk.android)
     testRuntimeOnly("org.slf4j:slf4j-simple:2.0.17")
 =======
+=======
+>>>>>>> Stashed changes
     testImplementation(platform(libs.junit.bom))
     testImplementation(libs.junit.jupiter.api)
     testImplementation(libs.junit.jupiter.params)

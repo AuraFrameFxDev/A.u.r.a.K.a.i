@@ -1,9 +1,13 @@
 // GENESIS PROTOCOL - MODULE D
 plugins {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+=======
+    id("com.android.library")
+>>>>>>> Stashed changes
 =======
     id("com.android.library")
 >>>>>>> Stashed changes
@@ -14,7 +18,11 @@ plugins {
 android {
     namespace = "dev.aurakai.auraframefx.module.d"
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     compileSdk = 35
+=======
+    compileSdk = 36
+>>>>>>> Stashed changes
 =======
     compileSdk = 36
 >>>>>>> Stashed changes
@@ -24,6 +32,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
     buildFeatures {
         compose = true
@@ -39,6 +48,8 @@ android {
     }
 }
 =======
+=======
+>>>>>>> Stashed changes
     // For test builds
     testOptions {
         targetSdk = 36
@@ -56,6 +67,9 @@ android {
     kotlinOptions {
         jvmTarget = "23"
     }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
 dependencies {
@@ -94,5 +108,8 @@ tasks.register("moduleDStatus") {
 =======
     group = "aegenesis"
     doLast { println("\uD83D\uDCE6 MODULE D - Ready (Java 24)") }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 }

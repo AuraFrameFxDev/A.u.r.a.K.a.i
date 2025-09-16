@@ -1,6 +1,7 @@
 // Apply plugins (versions via version catalog)
 plugins {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
@@ -19,12 +20,23 @@ android {
     namespace = "dev.aurakai.auraframefx.collabcanvas"
     compileSdk = 36
 >>>>>>> Stashed changes
+=======
+
+}1
+
+android {
+    namespace = "dev.aurakai.auraframefx.collabcanvas"
+    compileSdk = 36
+>>>>>>> Stashed changes
     
     defaultConfig {
         minSdk = 34
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
     }
     
     // For test builds
@@ -35,6 +47,9 @@ android {
     // For linting
     lint {
         targetSdk = 36
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     }
     
@@ -47,6 +62,7 @@ android {
     id("com.android.library")
     alias(libs.plugins.ksp) composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
+<<<<<<< Updated upstream
     }
 
     compileOptions {
@@ -56,6 +72,8 @@ android {
 
     kotlin {
         jvmToolchain(17)
+=======
+>>>>>>> Stashed changes
     }
 }
 

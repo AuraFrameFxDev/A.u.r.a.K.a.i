@@ -1,9 +1,13 @@
 // GENESIS PROTOCOL - MODULE A
 plugins {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+=======
+    id("com.android.library")
+>>>>>>> Stashed changes
 =======
     id("com.android.library")
 >>>>>>> Stashed changes
@@ -14,8 +18,13 @@ plugins {
 android {
     namespace = "dev.aurakai.auraframefx.module.a"
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     compileSdk = 35
     
+=======
+    compileSdk = 36
+
+>>>>>>> Stashed changes
 =======
     compileSdk = 36
 
@@ -25,12 +34,15 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     
     buildFeatures {
         compose = true
     }
     
 =======
+=======
+>>>>>>> Stashed changes
 
     // For test builds
     testOptions {
@@ -42,6 +54,9 @@ android {
         targetSdk = 36
     }
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -54,6 +69,9 @@ android {
     kotlinOptions {
         jvmTarget = "23"
     }
+    kotlinOptions {
+        jvmTarget = "23"
+    }
 }
 
 dependencies {
@@ -62,6 +80,7 @@ dependencies {
     
     // Core Android
     implementation(libs.androidx.core.ktx)
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
     implementation(libs.bundles.lifecycle)
     
@@ -81,6 +100,12 @@ dependencies {
     // Hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+=======
+
+    // Hilt
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+>>>>>>> Stashed changes
 
     // Add other module-specific dependencies here
 >>>>>>> Stashed changes
@@ -101,5 +126,8 @@ tasks.register("moduleAStatus") {
 =======
     group = "aegenesis"
     doLast { println("\uD83D\uDCE6 MODULE A - Ready (Java 24)") }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 }

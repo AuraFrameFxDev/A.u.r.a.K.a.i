@@ -3,12 +3,15 @@
 
 plugins {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
 =======
+=======
+>>>>>>> Stashed changes
     id("com.android.library")
     alias(libs.plugins.ksp)
     // Note: Hilt plugin removed to avoid Android BaseExtension issues, using manual dependencies instead
@@ -18,7 +21,11 @@ plugins {
 android {
     namespace = "dev.aurakai.auraframefx.colorblendr"
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     compileSdk = 35
+=======
+    compileSdk = 36
+>>>>>>> Stashed changes
 =======
     compileSdk = 36
 >>>>>>> Stashed changes
@@ -27,7 +34,10 @@ android {
         minSdk = 34
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
     }
     
     // For test builds
@@ -38,6 +48,9 @@ android {
     // For linting
     lint {
         targetSdk = 36
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     }
     
@@ -57,6 +70,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = "23"
+<<<<<<< Updated upstream
     }
 
     compileOptions {
@@ -66,6 +80,8 @@ android {
 
     kotlin {
         jvmToolchain(17)
+=======
+>>>>>>> Stashed changes
     }
 }
 
@@ -104,6 +120,11 @@ tasks.register("colorStatus") {
     doLast { 
         println("🌈 COLORBLENDR - ${android.namespace} - Ready!")
     }
+}
+
+tasks.register("colorblendrStatus") {
+    group = "aegenesis"
+    doLast { println("\uD83D\uDCE6 COLORBLENDR MODULE - Ready (Java 24)") }
 }
 
 tasks.register("colorblendrStatus") {

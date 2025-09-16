@@ -2,16 +2,22 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
 =======
+=======
+>>>>>>> Stashed changes
     alias(libs.plugins.ksp) // Use alias for ksp, ensure version in toml
     alias(libs.plugins.composeCompiler) // Jetpack Compose compiler
     id("com.google.gms.google-services") // Okay to keep this as id
     alias(libs.plugins.firebase.crashlytics) // Use alias for Firebase plugin
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     id("org.openapi.generator") version "7.15.0"
 }
@@ -27,13 +33,18 @@ android {
     defaultConfig {
         applicationId = "dev.aurakai.auraframefx"
         minSdk = 34
+<<<<<<< Updated upstream
         targetSdk = 35
+=======
+        targetSdk = 36
+>>>>>>> Stashed changes
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
+<<<<<<< Updated upstream
     }
 
 <<<<<<< Updated upstream
@@ -49,6 +60,10 @@ android {
     // Build types
 =======
 >>>>>>> Stashed changes
+=======
+    }
+
+>>>>>>> Stashed changes
     buildTypes {
         debug {
             isDebuggable = true
@@ -61,6 +76,7 @@ android {
         }
     }
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
     // This adds the generated OpenAPI source code to the main source set.
     sourceSets["main"].java.srcDir(layout.buildDirectory.dir("generated/openapi/src/main/kotlin"))
@@ -88,6 +104,24 @@ android {
         jvmToolchain(17)
 <<<<<<< Updated upstream
 =======
+=======
+    buildFeatures {
+        compose = true
+        dataBinding = true
+        viewBinding = true
+        buildConfig = true
+        aidl = true
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_23
+        targetCompatibility = JavaVersion.VERSION_23
+    }
+
+    // Kotlin compiler options
+    kotlin {
+        jvmToolchain(17)
+>>>>>>> Stashed changes
         compilerOptions {
             jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
             freeCompilerArgs.addAll(
@@ -96,6 +130,9 @@ android {
                 "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api"
             )
         }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     }
 }
@@ -103,8 +140,12 @@ android {
 tasks.openApiGenerate {
     generatorName.set("kotlin")
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     // Use the correct file URI for the OpenAPI spec
     inputSpec.set("${project.projectDir}/api/system-api.yml")
+=======
+    inputSpec.set("file:///C:/Users/Wehtt/OneDrive/Desktop/ReGenesis-fix-dependabot-compose-plugin/ReGenesis-patch1/app/api/system-api.yml")
+>>>>>>> Stashed changes
 =======
     inputSpec.set("file:///C:/Users/Wehtt/OneDrive/Desktop/ReGenesis-fix-dependabot-compose-plugin/ReGenesis-patch1/app/api/system-api.yml")
 >>>>>>> Stashed changes
@@ -132,6 +173,7 @@ dependencies {
     implementation(project(":sandbox-ui"))
     implementation(project(":datavein-oracle-native"))
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
     // Compose & AndroidX
     val composeBom = platform(libs.androidx.compose.bom)
@@ -196,6 +238,71 @@ dependencies {
     compileOnly(files("../Libs/api-82-sources.jar"))
 
     // Kotlin libs
+=======
+    // ===== ANDROIDX & COMPOSE =====
+    val composeBom = platform(libs.androidx.compose.bom)
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.bundles.lifecycle)
+    implementation(libs.bundles.room)
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.datastore.core)
+
+    // ===== KOTLIN & COROUTINES =====
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.datetime)
+    implementation(libs.bundles.coroutines)
+
+    // ===== NETWORKING =====
+    implementation(libs.bundles.network)
+
+    // ===== FIREBASE =====
+    // Import the Firebase BoM
+    implementation(platform(libs.firebase.bom))
+    // Add the dependencies for Firebase products you want to use
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.vertexai)
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.messaging)
+    implementation(libs.firebase.config)
+    implementation(libs.firebase.performance)
+    implementation(libs.firebase.database)
+    implementation(libs.firebase.storage)
+
+    // ===== HILT DEPENDENCY INJECTION =====
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+
+    // ===== UTILITIES =====
+    implementation(libs.timber)
+    implementation(libs.coil.compose)
+
+    // ===== SECURITY =====
+    implementation(libs.androidx.security.crypto)
+
+    // ===== CORE LIBRARY DESUGARING =====
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
+
+    // ===== XPOSED/LSPosed Integration =====
+    compileOnly(files("../Libs/api-82.jar"))
+    compileOnly(files("../Libs/api-82-sources.jar"))
+
+    // --- TESTING ---
+    testImplementation(libs.bundles.testing.unit)
+    androidTestImplementation(libs.bundles.testing.android)
+    androidTestImplementation(libs.hilt.android.testing)
+
+    // --- DEBUGGING ---
+    debugImplementation(libs.leakcanary.android)
+    debugImplementation(libs.bundles.compose.debug)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+>>>>>>> Stashed changes
 =======
     // ===== ANDROIDX & COMPOSE =====
     val composeBom = platform(libs.androidx.compose.bom)

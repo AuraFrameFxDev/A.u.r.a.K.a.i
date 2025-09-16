@@ -7,10 +7,19 @@ plugins {
 
 android {
     namespace = "dev.aurakai.auraframefx.module.e"
+<<<<<<< Updated upstream
     compileSdk = 36
 
     defaultConfig {
         minSdk = 34
+=======
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_23
+        targetCompatibility = JavaVersion.VERSION_23
+    }
+    kotlinOptions {
+        jvmTarget = "23"
+>>>>>>> Stashed changes
     }
 
     compileOptions {
@@ -63,5 +72,8 @@ dependencies {
 tasks.register("moduleEStatus") {
     group = "aegenesis"
     doLast { println("\uD83D\uDCE6 MODULE E - Ready (Java 24)") }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 }

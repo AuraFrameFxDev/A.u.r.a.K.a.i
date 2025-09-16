@@ -1,12 +1,17 @@
 // ==== GENESIS PROTOCOL - SANDBOX UI ====
 plugins {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+=======
+    id("com.android.library")
+    alias(libs.plugins.ksp)
+>>>>>>> Stashed changes
 =======
     id("com.android.library")
     alias(libs.plugins.ksp)
@@ -28,6 +33,7 @@ android {
     
     compileOptions {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
@@ -35,11 +41,16 @@ android {
     kotlin {
         jvmToolchain(17)
 =======
+=======
+>>>>>>> Stashed changes
         sourceCompatibility = JavaVersion.VERSION_23
         targetCompatibility = JavaVersion.VERSION_23
     }
     kotlinOptions {
         jvmTarget = "23"
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     }
 }
@@ -85,10 +96,15 @@ dependencies {
 
 tasks.register("sandboxStatus") {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     group = "genesis"
     doLast { 
         println("🧪 SANDBOX UI - ${android.namespace} - Ready!") 
     }
+=======
+    group = "aegenesis"
+    doLast { println("\uD83D\uDCE6 SANDBOX UI - Ready (Java 24)") }
+>>>>>>> Stashed changes
 =======
     group = "aegenesis"
     doLast { println("\uD83D\uDCE6 SANDBOX UI - Ready (Java 24)") }

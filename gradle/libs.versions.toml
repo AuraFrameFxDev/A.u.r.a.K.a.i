@@ -1,4 +1,5 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 # ALL VERSIONS ARE ACCURATE AS OF 2025-09-15#
 # ==============================================================================
 [versions]
@@ -8,6 +9,12 @@ agp = "9.0.0-alpha01"
 # firebaseDatabaseConnectionLicense is referenced with a version in the library entry
 firebaseDatabaseConnectionLicense = "12.0.1"
 
+=======
+[versions]
+# ===== GRADLE & KOTLIN =====
+agp = "9.0.0-alpha01"
+firebaseUi = "8.0.2"
+>>>>>>> Stashed changes
 =======
 [versions]
 # ===== GRADLE & KOTLIN =====
@@ -40,7 +47,10 @@ navigationCompose = "2.9.4"
 composeMaterialIconsExtended = "1.7.8"
 composeRuntime = "1.9.1"
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 # Dependency Injection (Hilt)
@@ -55,9 +65,12 @@ moshi = "1.15.2"
 # Coroutines & Async
 kotlinxCoroutines = "1.10.2"
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 kotlinxSerialization = "1.9.0"
 kotlinxDatetime = "0.7.1"
 
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 # UI & Image Loading
@@ -73,7 +86,10 @@ slf4j = "2.0.17"
 junitJupiter = "5.13.4"
 mockk = "1.14.5"
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 junit5 = "5.13.4"
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 # Android Testing
@@ -82,7 +98,13 @@ espressoCore = "3.7.0"
 uiAutomator = "2.3.0"
 benchmark = "1.4.1"
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
+=======
+# Add missing versions
+kotlinxSerialization = "1.9.0"
+kotlinxDatetime = "0.7.1"
+>>>>>>> Stashed changes
 =======
 # Add missing versions
 kotlinxSerialization = "1.9.0"
@@ -94,6 +116,7 @@ dokka = "2.0.0"
 spotless = "7.2.1"
 # Bouncy Castle
 bouncycastle = "1.81"
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 
 # ==============================================================================
@@ -133,6 +156,9 @@ spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 =======
 junitJupiterApi = "5.13.4"
 >>>>>>> Stashed changes
+=======
+junitJupiterApi = "5.13.4"
+>>>>>>> Stashed changes
 # LIBRARIES
 # Dependency coordinates.
 # ==============================================================================
@@ -148,7 +174,13 @@ firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 firebase-database-connection-license = { group = "com.google.firebase", name = "firebase-database-connection-license", version.ref = "firebaseDatabaseConnectionLicense" }
+=======
+firebase-perf = { group = "com.google.firebase", name = "firebase-perf" }
+firebase-vertexai = { group = "com.google.firebase", name = "firebase-vertexai" }
+
+>>>>>>> Stashed changes
 =======
 firebase-perf = { group = "com.google.firebase", name = "firebase-perf" }
 firebase-vertexai = { group = "com.google.firebase", name = "firebase-vertexai" }
@@ -161,6 +193,10 @@ firebase-ui-firestore = { group = "com.firebaseui", name = "firebase-ui-firestor
 firebase-ui-messaging = { group = "com.firebaseui", name = "firebase-ui-messaging", version.ref = "firebaseUi" }
 firebase-ui-storage = { group = "com.firebaseui", name = "firebase-ui-storage", version.ref = "firebaseUi" }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+firebase-ui-perf = { group = "com.firebaseui", name = "firebase-ui-perf", version.ref = "firebaseUi" }
+>>>>>>> Stashed changes
 =======
 firebase-ui-perf = { group = "com.firebaseui", name = "firebase-ui-perf", version.ref = "firebaseUi" }
 >>>>>>> Stashed changes
@@ -183,7 +219,10 @@ desugar-jdk-libs = { group = "com.android.tools", name = "desugar_jdk_libs", ver
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 androidx-datastore-core = { group = "androidx.datastore", name = "datastore-core", version.ref = "datastore" }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 androidx-test-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxTestJunit" }
 androidx-test-junit4 = { group = "androidx.test.ext", name = "junit4", version.ref = "androidxTestJunit" }
 androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -196,6 +235,9 @@ androidx-room-runtime = { group = "androidx.room", name = "room-runtime", versio
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "workManager" }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
 # AndroidX Lifecycle, Room, WorkManager
@@ -233,6 +275,10 @@ hilt-core = { group = "com.google.dagger", name = "hilt-core", version.ref = "hi
 retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+retrofit-converter-kotlinx-serialization = { group = "com.squareup.retrofit2", name = "converter-kotlinx-serialization", version.ref = "retrofit" }
+>>>>>>> Stashed changes
 =======
 retrofit-converter-kotlinx-serialization = { group = "com.squareup.retrofit2", name = "converter-kotlinx-serialization", version.ref = "retrofit" }
 >>>>>>> Stashed changes
@@ -244,11 +290,20 @@ squareup-moshi = { group = "com.squareup.moshi", name = "moshi", version.ref = "
 # UI & Image Loading
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coilCompose" }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 # Testing
 androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 mockk-android = { group = "io.mockk", name = "mockk-android", version.ref = "mockk" }
+=======
+
+# Testing
+androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+mockk-android = { group = "io.mockk", name = "mockk-android", version.ref = "mockk" }
+
+>>>>>>> Stashed changes
 =======
 
 # Testing
@@ -266,9 +321,12 @@ commons-compress = { group = "org.apache.commons", name = "commons-compress", ve
 xz = { group = "org.tukaani", name = "xz", version.ref = "xz" }
 slf4j = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 # Additional missing libraries
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxTestJunit" }
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 
@@ -276,10 +334,13 @@ androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version
 # BUNDLES
 # Group commonly used dependencies.
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 # ==============================================================================
 # ==============================================================================
 # BUNDLES
 # Group commonly used dependencies.
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 # ==============================================================================
@@ -324,6 +385,7 @@ testing-unit = [
 ]
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 # ... in your [bundles] section
 testing-android = [
     "androidx-test-junit",
@@ -332,6 +394,14 @@ testing-android = [
 ]
 
 
+=======
+testing-android = [
+    "androidx-test-junit",
+    "androidx-test-junit4",
+    "androidx-test-espresso-core"
+]
+
+>>>>>>> Stashed changes
 =======
 testing-android = [
     "androidx-test-junit",
@@ -352,6 +422,9 @@ common = [
     "gson"
 ]
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes

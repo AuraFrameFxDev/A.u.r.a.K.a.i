@@ -3,6 +3,7 @@
 
 plugins {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
@@ -10,6 +11,8 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
 =======
+=======
+>>>>>>> Stashed changes
     id("com.android.library")
     alias(libs.plugins.ksp)
 
@@ -18,6 +21,7 @@ plugins {
 
 android {
     namespace = "dev.aurakai.auraframefx.securecomm"
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
     compileSdk = 35
 
@@ -38,6 +42,8 @@ android {
     kotlin {
         jvmToolchain(17)
 =======
+=======
+>>>>>>> Stashed changes
     compileSdk = 36
     
     defaultConfig {
@@ -55,6 +61,9 @@ android {
     // For linting
     lint {
         targetSdk = 36
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     }
     
@@ -131,11 +140,17 @@ dependencies {
 }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 tasks.register("secureStatus") {
     group = "genesis"
     doLast {
         println("🔐 SECURE COMM - ${android.namespace} - Ready!")
     }
+=======
+tasks.register("secureCommStatus") {
+    group = "aegenesis"
+    doLast { println("\uD83D\uDCE6 SECURE COMM MODULE - Ready (Java 24)") }
+>>>>>>> Stashed changes
 =======
 tasks.register("secureCommStatus") {
     group = "aegenesis"

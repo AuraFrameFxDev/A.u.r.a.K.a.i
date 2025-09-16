@@ -1,11 +1,16 @@
 plugins {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+=======
+    id("com.android.library")
+    alias(libs.plugins.ksp)
+>>>>>>> Stashed changes
 =======
     id("com.android.library")
     alias(libs.plugins.ksp)
@@ -27,6 +32,7 @@ android {
 
     compileOptions {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
@@ -34,11 +40,16 @@ android {
     kotlin {
         jvmToolchain(17)
 =======
+=======
+>>>>>>> Stashed changes
         sourceCompatibility = JavaVersion.VERSION_23
         targetCompatibility = JavaVersion.VERSION_23
     }
     kotlinOptions {
         jvmTarget = "23"
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     }
 }
@@ -120,6 +131,7 @@ tasks.register("verifyRomTools") {
     dependsOn("copyRomTools")
 }
 
+<<<<<<< Updated upstream
 tasks.named("build") { 
     dependsOn("verifyRomTools") 
 }
@@ -131,6 +143,13 @@ tasks.register("romStatus") {
         println("🛠️ ROM TOOLS - ${android.namespace} - Ready!") 
     }
 =======
+tasks.register("romToolsStatus") {
+    group = "aegenesis"
+    doLast { println("\uD83D\uDCE6 ROMTOOLS - Ready (Java 24)") }
+>>>>>>> Stashed changes
+=======
+tasks.named("build") { dependsOn("verifyRomTools") }
+
 tasks.register("romToolsStatus") {
     group = "aegenesis"
     doLast { println("\uD83D\uDCE6 ROMTOOLS - Ready (Java 24)") }

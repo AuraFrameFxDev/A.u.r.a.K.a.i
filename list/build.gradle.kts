@@ -54,14 +54,24 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions.jvmTarget = "23"
 }
 
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions.jvmTarget = "23"
+}
+
 tasks.test {
     useJUnitPlatform()
 }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 
 tasks.register("listStatus") {
     group = "aegenesis"
     doLast { println("\uD83D\uDCE6 LIST MODULE - Ready (Java 24)") }
 }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes

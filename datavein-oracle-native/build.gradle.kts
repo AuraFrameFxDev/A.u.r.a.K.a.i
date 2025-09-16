@@ -1,11 +1,14 @@
 plugins {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
 =======
+=======
+>>>>>>> Stashed changes
     id("com.android.library")
     alias(libs.plugins.ksp)
     // Note: Hilt plugin removed to avoid Android BaseExtension issues, using manual dependencies instead
@@ -106,6 +109,11 @@ tasks.register("dataveinStatus") {
     doLast {
         println("📊 DATAVEIN ORACLE NATIVE - ${android.namespace} - Ready!")
     }
+}
+
+tasks.register("dataveinOracleNativeStatus") {
+    group = "aegenesis"
+    doLast { println("\uD83D\uDCE6 DATAVEIN ORACLE NATIVE - Ready (Java 24)") }
 }
 
 tasks.register("dataveinOracleNativeStatus") {
