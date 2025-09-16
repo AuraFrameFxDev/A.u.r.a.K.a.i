@@ -201,14 +201,19 @@ override fun listIterator(): ListIterator<String> = listIterator(0)
     }
 
     /**
+    /**
      * Returns a new list containing the elements in the specified range [fromIndex, toIndex).
      *
      * The returned list is a snapshot (new ArrayList) of the elements from this linked list starting
      * at the zero-based index `fromIndex` (inclusive) up to `toIndex` (exclusive), preserving iteration order.
      *
+     * Note: Unlike the standard [List.subList], which returns a view of the original list,
+     * this implementation returns a snapshot copy. Modifications to the returned list do not affect
+     * the original linked list, and vice versa.
+     *
      * @param fromIndex start index (inclusive), zero-based
      * @param toIndex end index (exclusive), zero-based
-     * @return a new List<String> containing the requested range
+     * @return a new List<String> containing the requested range (snapshot copy, not a view)
      * @throws IndexOutOfBoundsException if fromIndex < 0, toIndex < fromIndex, or toIndex > size
      */
     override fun subList(fromIndex: Int, toIndex: Int): List<String> {
