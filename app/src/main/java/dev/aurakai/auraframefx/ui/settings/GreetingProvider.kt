@@ -6,7 +6,7 @@ import javax.inject.Singleton
 @Singleton
 class GreetingProvider @Inject constructor() {
     /**
- * Returns the provider's greeting string.
+ * Returns the provider's greeting.
  *
  * @return The greeting literal "A.u.r.a.K.a.i".
  */
