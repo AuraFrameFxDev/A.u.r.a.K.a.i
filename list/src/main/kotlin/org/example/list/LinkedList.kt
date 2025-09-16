@@ -102,8 +102,21 @@ class LinkedList : List<String> {
             return size
         }
 
-    override fun isEmpty(): Boolean = head == null
+    /**
+ * Returns true if the list contains no elements.
+ *
+ * @return `true` when the list is empty (head is null), otherwise `false`.
+ */
+override fun isEmpty(): Boolean = head == null
 
+    /**
+     * Checks whether the list contains the given string.
+     *
+     * Performs a case-sensitive search for `element` by traversing the linked list.
+     *
+     * @param element The string to search for.
+     * @return `true` if an element equal to `element` is present, otherwise `false`.
+     */
     override fun contains(element: String): Boolean {
         var it = head
         while (it != null) {
@@ -113,6 +126,14 @@ class LinkedList : List<String> {
         return false
     }
 
+    /**
+     * Returns an iterator over the list's elements from head to tail.
+     *
+     * The iterator yields each element's String value in turn. Calling `next()` advances
+     * the iterator and throws [NoSuchElementException] if no elements remain.
+     *
+     * @return an [Iterator] that traverses the list from the current head to the end
+     */
     override fun iterator(): Iterator<String> = object : Iterator<String> {
         private var current = head
         override fun hasNext() = current != null
@@ -123,6 +144,14 @@ class LinkedList : List<String> {
         }
     }
 
+    /**
+     * Returns true if this list contains every element in the given collection.
+     *
+     * Performs a containment check for each element in `elements`; returns false on the first missing element.
+     *
+     * @param elements collection of elements to check for membership in this list
+     * @return `true` if all elements are present, `false` otherwise
+     */
     override fun containsAll(elements: Collection<String>): Boolean {
         for (e in elements) {
             if (!contains(e)) return false
@@ -131,14 +160,11 @@ class LinkedList : List<String> {
     }
 
     /**
-     * Returns the element at the given 0-based index in the list.
-     *
-     * If `idx` is negative it is treated as 0 (the head element). Throws
-     * IndexOutOfBoundsException when the index is out of range or the list is empty.
+     * Returns the element at the specified 0-based index.
      *
      * @param index 0-based position of the element to retrieve.
      * @return the string stored at the specified index.
-     * @throws IndexOutOfBoundsException if no element exists at the requested index.
+     * @throws IndexOutOfBoundsException if `index` is negative or greater than or equal to the list size.
      */
     override fun get(index: Int): String {
         if (index < 0) throw IndexOutOfBoundsException("Index: $index")
@@ -152,6 +178,14 @@ class LinkedList : List<String> {
         return it.data
     }
 
+    /**
+     * Returns the zero-based index of the first occurrence of [element] in the list.
+     *
+     * The comparison is case-sensitive. Returns -1 if the element is not present.
+     *
+     * @param element The string to search for.
+     * @return The index of the first matching element, or -1 if none is found.
+     */
     override fun indexOf(element: String): Int {
         var idx = 0
         var it = head
@@ -163,6 +197,14 @@ class LinkedList : List<String> {
         return -1
     }
 
+    /**
+     * Returns the index of the last occurrence of the given element in the list, or `-1` if not found.
+     *
+     * The index is 0-based. Comparison uses exact string equality (case-sensitive).
+     *
+     * @param element The element to search for.
+     * @return The last index of `element`, or `-1` when the element is not present.
+     */
     override fun lastIndexOf(element: String): Int {
         var idx = 0
         var lastIdx = -1
@@ -175,14 +217,48 @@ class LinkedList : List<String> {
         return lastIdx
     }
 
+    /**
+     * Returns a bidirectional iterator over the list starting at the beginning.
+     *
+     * Currently not implemented — calling this function will throw [NotImplementedError].
+     * When implemented, it should return a `ListIterator<String>` that iterates over the list
+     * from index 0 (supports `hasNext`/`next` and `hasPrevious`/`previous` with correct indices).
+     *
+     * @return a `ListIterator<String>` positioned before the first element.
+     * @throws NotImplementedError always, until implemented.
+     */
     override fun listIterator(): ListIterator<String> {
         TODO("Not yet implemented")
     }
 
+    /**
+     * Returns a bidirectional iterator over the list elements, positioned at the given zero-based index.
+     *
+     * The iterator's next() will return the element at `index` (if `index < size`) and previous() will
+     * return the element immediately before that position. Valid `index` values are 0..size inclusive;
+     * an index equal to `size` produces an iterator at the end of the list.
+     *
+     * @param index zero-based start position for the returned iterator (0..size)
+     * @return a ListIterator positioned at `index`
+     * @throws IndexOutOfBoundsException if `index` is outside the range 0..size
+     */
     override fun listIterator(index: Int): ListIterator<String> {
         TODO("Not yet implemented")
     }
 
+    /**
+     * Returns a view of the portion of this list between the specified fromIndex (inclusive)
+     * and toIndex (exclusive).
+     *
+     * The returned list is backed by this list, so non-structural changes in the sublist
+     * (if supported by implementation) should be reflected in the original list and vice versa.
+     *
+     * @param fromIndex start index, inclusive.
+     * @param toIndex end index, exclusive.
+     * @return a list containing the elements in the specified range.
+     * @throws IndexOutOfBoundsException if either index is out of range (fromIndex < 0 || toIndex > size).
+     * @throws IllegalArgumentException if fromIndex > toIndex.
+     */
     override fun subList(
         fromIndex: Int,
         toIndex: Int

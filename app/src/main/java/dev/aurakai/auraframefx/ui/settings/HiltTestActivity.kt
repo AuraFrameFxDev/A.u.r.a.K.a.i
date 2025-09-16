@@ -11,11 +11,11 @@ class HiltTestActivity : AppCompatActivity() {
     @Inject lateinit var greetingProvider: GreetingProvider
 
     /**
-     * Called when the activity is created; logs a debug message with the greeting provided by the injected GreetingProvider.
+     * Logs a debug message with the greeting from the injected `GreetingProvider` when the activity is created.
      *
-     * Requires Hilt to have injected `greetingProvider` before this is called — accessing it otherwise will cause a runtime failure.
+     * Hilt must inject `greetingProvider` before this method is invoked; accessing it otherwise will cause a runtime crash.
      *
-     * @param savedInstanceState Standard Android saved instance state passed to `super.onCreate`.
+     * @param savedInstanceState The activity's previously saved state, forwarded to `super.onCreate`.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
