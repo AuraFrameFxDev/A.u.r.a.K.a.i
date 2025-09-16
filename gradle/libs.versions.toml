@@ -48,7 +48,7 @@ moshi = "1.15.2"
 # Coroutines & Async
 kotlinxCoroutines = "1.10.2"
 kotlinxSerialization = "1.9.0"
-kotlinxDatetime = "0.7.1"
+kotlinxDatetime = "0.7.1-0.6.x-compat"
 
 # UI & Image Loading
 coilCompose = "2.7.0"
