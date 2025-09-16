@@ -163,7 +163,7 @@ class LinkedList : List<String> {
     override fun listIterator(): ListIterator<String> = listIterator(0)
 
     override fun listIterator(index: Int): ListIterator<String> {
-        if (index < 0 || index > size) throw IndexOutOfBoundsException("Index: $index")
+        if (index < 0 || index > size) throw IndexOutOfBoundsException("Index: $index, Size: $size")
         val snapshot = this.toList()
         return object : ListIterator<String> {
             private var pos = index
