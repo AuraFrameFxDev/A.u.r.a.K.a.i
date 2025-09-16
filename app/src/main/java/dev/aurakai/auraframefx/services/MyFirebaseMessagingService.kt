@@ -368,7 +368,16 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     /**
-     * Sends FCM token to Genesis backend servers
+     * Submit the FCM registration token to the Genesis backend.
+     *
+     * This suspend function is intended to deliver the provided FCM token to a remote backend.
+     * In the current placeholder implementation it does not perform network I/O; instead it
+     * records a local marker (stores "fcm_token_sent" and a timestamp) and logs the attempt.
+     *
+     * Side effects:
+     * - Writes "fcm_token_sent" and "fcm_token_sent_time" to dataStoreManager.
+     *
+     * @param token The FCM registration token to send.
      */
     private suspend fun sendTokenToServer(token: String) {
         try {
@@ -446,6 +455,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     /**
+
      * Post a notification on the given notification channel and attach an intent to open MainActivity.
      *
      * The notification is built with the provided title, body and small icon, uses a BigTextStyle,

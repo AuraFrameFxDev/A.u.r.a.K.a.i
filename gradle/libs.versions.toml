@@ -3,7 +3,7 @@
 [versions]
 # ===== GRADLE & KOTLIN =====
 
-agp = "9.0.0-alpha02"
+agp = "9.0.0-alpha05"
 # firebaseDatabaseConnectionLicense is referenced with a version in the library entry
 converterMoshi = "3.0.0"
 firebaseDatabaseConnectionLicense = "12.0.1"
