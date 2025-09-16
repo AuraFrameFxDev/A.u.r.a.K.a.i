@@ -302,6 +302,16 @@ private fun InfoRow(label: String, value: String) {
     }
 }
 
+/**
+ * Displays a card showing the current operation's display name and a linear progress indicator.
+ *
+ * Shows the operation name (falls back to an empty string if the operation display name is null),
+ * a progress bar driven by `operation.progress` (interpreted as a percentage, converted to 0.0–1.0),
+ * and a right-aligned percentage text.
+ *
+ * @param operation The OperationProgress model containing the nullable operation descriptor and numeric progress (0–100).
+ * @param modifier Optional Compose [Modifier] applied to the card.
+ */
 @Composable
 private fun OperationProgressCard(
     operation: dev.aurakai.auraframefx.romtools.OperationProgress,
@@ -401,7 +411,16 @@ private fun RomToolActionCard(
     }
 }
 
-// Helper functions and data classes
+/**
+ * Returns the predefined list of ROM tool actions displayed in the UI.
+ *
+ * Each returned RomToolAction describes an available operation (type, title, description,
+ * icon, color) and the device capability requirements (requiresRoot, requiresBootloader,
+ * requiresRecovery, requiresSystem) used by the UI to determine whether the action is enabled.
+ *
+ * @return A list of RomToolAction values for: Flash Custom ROM, Create NANDroid Backup,
+ * Restore Backup, Unlock Bootloader, Install Custom Recovery, and Genesis AI Optimizations.
+ */
 private fun getRomToolsActions(): List<RomToolAction> {
     return listOf(
         RomToolAction(
