@@ -11,6 +11,22 @@ import org.jetbrains.kotlin.gradle.dsl.kotlinExtension
  * Standard Android library configuration for all Genesis Protocol modules
  */
 class AndroidLibraryConventionPlugin : Plugin<Project> {
+    /**
+     * Applies the Android library convention to the given Gradle project.
+     *
+     * Configures the project with the `com.android.library` plugin and sets standard library
+     * defaults used across Genesis Protocol modules:
+     * - compileSdk = 36
+     * - defaultConfig: minSdk = 34, testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+     * - Java toolchain and compileOptions driven by the Gradle property `java.toolchain` (defaults to 24)
+     *   and applied to both sourceCompatibility and targetCompatibility
+     * - Kotlin JVM toolchain set from the same `java.toolchain` property
+     * - Enables BuildConfig generation
+     * - Includes Android resources in unit tests
+     * - Excludes license META-INF resources (`AL2.0`, `LGPL2.1`) from packaging
+     *
+     * @param target The Gradle project to configure.
+     */
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {

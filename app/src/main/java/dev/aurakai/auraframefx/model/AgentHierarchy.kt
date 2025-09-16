@@ -33,6 +33,16 @@ data class AgentHierarchy(
 
         private val auxiliaryAgents = mutableListOf<HierarchyAgentConfig>()
 
+        /**
+         * Creates and registers a new auxiliary agent configuration.
+         *
+         * The new HierarchyAgentConfig is created with priority 4 and role AgentRole.AUXILIARY,
+         * added to the internal auxiliary agents list, and returned.
+         *
+         * @param name Display name of the auxiliary agent.
+         * @param capabilities Set of capability identifiers describing what the agent can do.
+         * @return The created HierarchyAgentConfig instance that was registered.
+         */
         fun registerAuxiliaryAgent(name: String, capabilities: Set<String>): HierarchyAgentConfig {
             val config = HierarchyAgentConfig(name, capabilities, 4, AgentRole.AUXILIARY)
             auxiliaryAgents.add(config)
