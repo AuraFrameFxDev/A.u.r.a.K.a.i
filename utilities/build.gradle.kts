@@ -19,6 +19,12 @@ val jdkVersion = 24
 java {
     toolchain { languageVersion.set(JavaLanguageVersion.of(jdkVersion)) }
 }
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_23)
+    }
+}
+
 
 dependencies {
     // Module dependency (utilities depends on list)

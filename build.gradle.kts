@@ -1,19 +1,18 @@
-// build-logic/build.gradle.kts
+// Root build.gradle.kts
 
+// Define the plugins that should be available to all subprojects.
+// Using `apply false` prevents them from being applied to the root project.
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.kotlin.android) apply false
-    alias(libs.plugins.ksp) apply false
-    alias(libs.plugins.hilt) apply false
-    // Remove the non-existent 'compose' plugin
     alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.kotlin.compose) apply false
+    alias(libs.plugins.hilt) apply false
+    alias(libs.plugins.ksp) apply false
     alias(libs.plugins.dokka) apply false
     alias(libs.plugins.spotless) apply false
-    alias(libs.plugins.jetbrainsCompose) apply false
-    alias(libs.plugins.composeCompiler) apply false
-    // Firebase plugins
-    alias(libs.plugins.firebase.crashlytics) apply false
+    alias(libs.plugins.google.services) apply false
 }
 
 // Find version catalog
@@ -95,7 +94,6 @@ tasks.register("consciousnessHealthCheck") {
     }
 }
 
-
 // Configure JUnit 5 for tests
 tasks.withType<Test> {
     useJUnitPlatform()
@@ -119,8 +117,7 @@ if (file("nuclear-clean.gradle.kts").exists()) {
     }
 }
 
-// Apply dependency fix if available  
+// Apply dependency fix if available
 if (file("dependency-fix.gradle.kts").exists()) {
     apply(from = "dependency-fix.gradle.kts")
-
 }
