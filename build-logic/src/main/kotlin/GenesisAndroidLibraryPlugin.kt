@@ -11,6 +11,20 @@ internal val Project.libs: VersionCatalog
     get() = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
 class GenesisAndroidLibraryPlugin : Plugin<Project> {
+    /**
+     * Applies the Android library plugin to the given project and configures common library defaults.
+     *
+     * Configures the Android `LibraryExtension` with:
+     * - compileSdk = 34
+     * - defaultConfig: minSdk = 24, AndroidX test instrumentation runner, and consumer ProGuard rules
+     * - a non-minified `release` build type with ProGuard files
+     * - Java compileOptions targeting Java 24
+     * - Kotlin JVM toolchain and compiler options targeting JVM 24 and opting into `kotlin.RequiresOptIn`
+     * - Jetpack Compose enabled and Compose compiler extension version sourced from the project's `libs` version catalog
+     * - packaging resource excludes for certain license files
+     *
+     * Side effects: applies the "com.android.library" plugin and mutates the project's extensions.
+     */
     override fun apply(project: Project) {
         project.plugins.apply("com.android.library")
 
