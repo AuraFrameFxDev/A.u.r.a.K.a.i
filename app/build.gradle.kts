@@ -113,9 +113,11 @@ dependencies {
     implementation(libs.bundles.coroutines)
 
     // ===== NETWORKING =====
-    implementation(libs.bundles.network)
+    implementation(libs.retrofit.core)
+    implementation(libs.converter.moshi)
     implementation(libs.squareup.moshi)
-
+    // optional: Moshi Kotlin reflection/adapters if used
+    implementation(libs.moshi.kotlin)
 
     // ===== FIREBASE =====
     // Import the Firebase BoM
