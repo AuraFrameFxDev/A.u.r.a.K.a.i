@@ -155,6 +155,7 @@ coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coi
 androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 mockk-android = { group = "io.mockk", name = "mockk-android", version.ref = "mockk" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 
 
 # Utilities & Logging
@@ -205,7 +206,7 @@ room = [
 ]
 
 testing-unit = [
-    "mockk-android",
+    "mockk",
     "kotlinx-coroutines-test"
 ]
 

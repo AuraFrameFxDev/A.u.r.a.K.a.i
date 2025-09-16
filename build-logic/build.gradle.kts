@@ -34,7 +34,7 @@ dependencies {
     implementation("org.junit.jupiter:junit-jupiter-api:5.13.4")
     implementation("org.junit.jupiter:junit-jupiter-params:5.13.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
-    implementation("io.mockk:mockk-android:1.14.5")
+    implementation("io.mockk:mockk:1.14.5")
 }
 
 gradlePlugin {
