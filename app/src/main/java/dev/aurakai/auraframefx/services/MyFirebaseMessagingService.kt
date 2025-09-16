@@ -387,7 +387,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     /**
-     * Creates notification channels for different message types
+     * Create notification channels for Genesis-OS message categories.
+     *
+     * On Android O (API 26) and above this registers five channels (general, consciousness,
+     * security, agents, system) with appropriate importance levels and descriptions.
+     * No-op on earlier Android versions.
      */
     private fun createNotificationChannels() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -441,7 +445,18 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     /**
-     * Shows a notification with the specified parameters
+     * Build and post a notification to the given notification channel.
+     *
+     * The provided `data` map is attached as intent extras to the notification's
+     * tap action (MainActivity). A unique notification ID is generated from the
+     * current system time. Uses a default info icon when `iconResId` is not set.
+     *
+     * @param channelId Notification channel ID to post the notification on.
+     * @param title Notification title shown to the user.
+     * @param body Notification body text; displayed and used for expanded text.
+     * @param iconResId Resource ID for the small icon shown with the notification.
+     *                  Defaults to `android.R.drawable.ic_dialog_info`.
+     * @param data Optional key/value payload attached as extras to the launched activity.
      */
     private fun showNotification(
         channelId: String,
