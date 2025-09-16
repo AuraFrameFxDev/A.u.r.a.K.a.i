@@ -2,13 +2,17 @@ import com.android.build.gradle.LibraryExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.artifacts.VersionCatalog
+import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
+
+internal val Project.libs: VersionCatalog
+    get() = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
 class GenesisAndroidLibraryPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         project.plugins.apply("com.android.library")
-        project.plugins.apply("org.jetbrains.kotlin.android")
 
         // Apply common Android library configuration here
         project.extensions.configure<LibraryExtension>("android") {
@@ -52,7 +56,7 @@ class GenesisAndroidLibraryPlugin : Plugin<Project> {
             }
 
             composeOptions {
-                kotlinCompilerExtensionVersion = "1.6.8"
+                kotlinCompilerExtensionVersion = project.libs.findVersion("composeCompiler").get().toString()
             }
 
             packaging {

@@ -1,9 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     id ("com.google.gms.google-services")
     alias(libs.plugins.ksp)
-    alias(libs.plugins.composeCompiler)
+    id("genesis.android.compose")
     alias(libs.plugins.openapi.generator)
     alias(libs.plugins.firebase.crashlytics)
 }
