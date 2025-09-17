@@ -13,7 +13,6 @@ pluginManagement {
     plugins {
         id("com.android.application") version "9.0.0-alpha02"
         id("com.android.library") version "9.0.0-alpha02"
-        id("org.jetbrains.kotlin.android") version "1.9.23"
         id("org.jetbrains.compose") version "1.6.10"
         id("com.google.devtools.ksp") version "1.9.23-1.0.20"
         id("com.google.firebase.crashlytics") version "3.0.1"
