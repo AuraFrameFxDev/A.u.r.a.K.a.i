@@ -36,8 +36,8 @@ data class AgentHierarchy(
         /**
          * Create and register a new auxiliary agent configuration.
          *
-         * The created HierarchyAgentConfig will have priority 4 and role [AgentRole.AUXILIARY],
-         * is appended to the companion object's auxiliary agent registry, and is returned.
+         * The created HierarchyAgentConfig has priority 4 and role [AgentRole.AUXILIARY], is appended
+         * to the companion object's auxiliary agent registry, and returned.
          *
          * @param name Human-readable name for the auxiliary agent.
          * @param capabilities Set of capability identifiers describing the agent's abilities.

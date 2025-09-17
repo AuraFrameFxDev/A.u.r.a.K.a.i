@@ -79,6 +79,26 @@ import kotlin.random.Random
  * @param glitchIntensity Strength of randomized glitch transforms and noise (0 = none, higher values increase distortion and artifact count).
  * @param edgeGlowIntensity Value (treated as a float multiplier) that scales edge glow opacity.
  */
+/**
+ * Renders composable content with an animated holographic overlay (scan lines, grid, edge glows,
+ * corner brackets) that fades in/out based on visibility.
+ *
+ * The overlay is drawn on top of `content` and includes:
+ * - a fade transition driven by `visible`,
+ * - continuously animating scan lines,
+ * - an optional glitch/transform and random noise controlled by `glitchIntensity`,
+ * - an edge glow whose strength is scaled by `edgeGlowIntensity`,
+ * - a faint background grid and corner brackets.
+ *
+ * @param visible Controls whether the hologram overlay is shown; drives the show/hide fade animation.
+ * @param modifier Layout modifier applied to the container.
+ * @param content The composable content rendered beneath the holographic overlay.
+ * @param primaryColor Base color used for glows, grid lines, brackets, and noise accents.
+ * @param secondaryColor Color used for scan lines and secondary accents.
+ * @param scanLineDensity Vertical density of scan lines (larger values = more lines).
+ * @param glitchIntensity Strength of glitch transforms and noise (0 = disabled; larger values increase effect).
+ * @param edgeGlowIntensity Scalar multiplier (typically 0..1) that modulates the alpha of edge glow rendering.
+ */
 @Composable
 fun HologramTransition(
     visible: Boolean,
