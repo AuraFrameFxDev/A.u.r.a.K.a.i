@@ -15,10 +15,7 @@ plugins {
     alias(libs.plugins.google.services) apply false
 }
 
-// Find version catalog
-val versionCatalog = extensions
-    .findByType<VersionCatalogsExtension>()
-    ?.named("libs")
+
 
 // === BASIC PROJECT INFO ===
 
