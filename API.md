@@ -457,6 +457,18 @@ fun User.toEntity(): UserEntity {
         // ...
     )
 }
+=======
+    
+    override suspend fun findById(id: UserId): User? {
+        return userDao.findById(id.value) ?: run {
+            val networkUser = networkService.getUser(id)
+            networkUser?.let { userDao.insert(it) }
+            networkUser
+        }
+    }
+    
+    // ... other implementations
+}
 ```
 
 ### State Management
@@ -569,11 +581,7 @@ class NetworkManager @Inject constructor(
         }
     }
 }
-## 🔧 Utilities API
 
-### Extensions
-
-```kotlin
 // String extensions
 fun String.isValidEmail(): Boolean {
     return android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()

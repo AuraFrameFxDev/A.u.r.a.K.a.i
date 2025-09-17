@@ -8,9 +8,24 @@ plugins {
 
 android {
     namespace = "dev.aurakai.auraframefx.module.b"
+    compileSdk = 35
+    
+    defaultConfig {
+        minSdk = 34
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+    
+    buildFeatures {
+        compose = true
+    }
+    
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_24
-        targetCompatibility = JavaVersion.VERSION_24
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlin {
+        jvmToolchain(17)
     }
 }
 
@@ -49,4 +64,6 @@ tasks.register("moduleBStatus") {
 
     group = "aegenesis"
     doLast { println("📦 MODULE B - Ready (Java 24)") }
+    group = "aegenesis"
+    doLast { println("\uD83D\uDCE6 MODULE B - Ready (Java 24)") }
 }

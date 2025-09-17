@@ -8,8 +8,6 @@ plugins {
 
 android {
     namespace = "dev.aurakai.auraframefx.module.c"
-
-
     compileSdk = 36
 
     defaultConfig {
@@ -23,12 +21,18 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_24
-        targetCompatibility = JavaVersion.VERSION_24
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlin {
+        jvmToolchain(24)
     }
 }
 
 tasks.register("moduleCStatus") {
-    group = "aegenesis"
-    doLast { println("📦 MODULE C - Ready (Java 24)") }
+    group = "genesis"
+    doLast { 
+        println("📦 MODULE C - ${android.namespace} - Ready!") 
+    }
 }

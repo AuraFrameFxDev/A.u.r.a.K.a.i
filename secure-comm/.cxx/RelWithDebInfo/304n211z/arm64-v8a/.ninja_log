@@ -1,4 +1,18 @@
 # ninja log v5
-1	4937	7795807363967929	CMakeFiles/secure_comm_native.dir/secure_comm_jni.cpp.o	b2acfe0c7a83752d
-10	6601	7795807379245665	CMakeFiles/secure_comm_native.dir/crypto_engine.cpp.o	4cd095cdc75b6e1c
-6607	7589	7795807389716624	C:/Users/Wehtt/OneDrive/Desktop/ReGenesis-fix-dependabot-compose-plugin/ReGenesis-patch1/secure-comm/build/intermediates/cxx/RelWithDebInfo/304n211z/obj/arm64-v8a/libsecure_comm_native.so	4dead8435ac8eb9c
+2	6510	7797093132414042	CMakeFiles/secure_comm_native.dir/secure_comm_jni.cpp.o	b8df01e1ad24dc0f
+9	8407	7797093153031538	CMakeFiles/secure_comm_native.dir/crypto_engine.cpp.o	b5992710bd825e2d
+8413	9841	7797093164806021	C:/Re_Genesis_A.O.S.P/secure-comm/build/intermediates/cxx/RelWithDebInfo/304n211z/obj/arm64-v8a/libsecure_comm_native.so	3329b6b8451237a4
+0	26	0	clean	bfff2010d6239e2d
+42	5641	7797101870354468	CMakeFiles/secure_comm_native.dir/secure_comm_jni.cpp.o	b8df01e1ad24dc0f
+15	8180	7797101894467644	CMakeFiles/secure_comm_native.dir/crypto_engine.cpp.o	b5992710bd825e2d
+8181	9483	7797101906767916	C:/Re_Genesis_A.O.S.P/secure-comm/build/intermediates/cxx/RelWithDebInfo/304n211z/obj/arm64-v8a/libsecure_comm_native.so	3329b6b8451237a4
+1	24	0	clean	bfff2010d6239e2d
+15	4066	7797115127986118	CMakeFiles/secure_comm_native.dir/secure_comm_jni.cpp.o	b8df01e1ad24dc0f
+57	5593	7797115143565193	CMakeFiles/secure_comm_native.dir/crypto_engine.cpp.o	b5992710bd825e2d
+5594	5876	7797115146032245	C:/Re_Genesis_A.O.S.P/secure-comm/build/intermediates/cxx/RelWithDebInfo/304n211z/obj/arm64-v8a/libsecure_comm_native.so	3329b6b8451237a4
+1	22	0	clean	bfff2010d6239e2d
+28	4597	7797132018232070	CMakeFiles/secure_comm_native.dir/secure_comm_jni.cpp.o	b8df01e1ad24dc0f
+60	8709	7797132059243554	CMakeFiles/secure_comm_native.dir/crypto_engine.cpp.o	b5992710bd825e2d
+8711	9438	7797132064612016	C:/Re_Genesis_A.O.S.P/secure-comm/build/intermediates/cxx/RelWithDebInfo/304n211z/obj/arm64-v8a/libsecure_comm_native.so	3329b6b8451237a4
+0	162	0	clean	bfff2010d6239e2d
+0	13	0	clean	bfff2010d6239e2d

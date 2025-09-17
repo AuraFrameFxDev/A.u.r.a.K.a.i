@@ -1,15 +1,20 @@
 plugins {
     alias(libs.plugins.android.application)
     id ("com.google.gms.google-services")
+    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
     id("genesis.android.compose")
-    alias(libs.plugins.openapi.generator)
     alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.hilt)
+    id("com.google.gms.google-services")
+    id("org.openapi.generator") version "7.15.0"
+    kotlin("plugin.compose") version "2.2.20"
 }
 
 android {
     namespace = "dev.aurakai.auraframefx"
     compileSdk = 36 // Use consistent API level
+
 
     defaultConfig {
         applicationId = "dev.aurakai.auraframefx"
@@ -37,51 +42,45 @@ android {
 
     buildFeatures {
         compose = true
-        dataBinding = true
+        dataBinding = false
         viewBinding = true
         buildConfig = true
         aidl = true
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_24
-        targetCompatibility = JavaVersion.VERSION_24
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 
-    // Kotlin compiler options
     kotlin {
-        jvmToolchain(24) // Java toolchain 24
-        compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24) // JVM target 24
-            freeCompilerArgs.addAll(
-                "-Xjvm-default=all",
-                "-opt-in=kotlin.RequiresOptIn",
-                "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
-                "-opt-in=androidx.compose.animation.ExperimentalAnimationApi",
-                "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
-                "-opt-in=androidx.compose.material.ExperimentalMaterialApi",
-                "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi"
-            )
-        }
+        jvmToolchain(21)
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.8.4"
     }
 
     // Source set for generated OpenAPI
     sourceSets["main"].java.srcDir(layout.buildDirectory.dir("generated/openapi/src/main/kotlin"))
 }
 
-tasks.named<org.openapi.generator.gradle.OpenApiGeneratorTask>("openApiGenerate") {
-    generatorName.set("kotlin")
-    inputSpec.set(file("${project.projectDir}/api/system-api.yml").path)
-    outputDir.set(layout.buildDirectory.dir("generated/openapi").get().asFile.absolutePath)
-    apiPackage.set("dev.aurakai.auraframefx.openapi.api")
-    modelPackage.set("dev.aurakai.auraframefx.openapi.model")
-    invokerPackage.set("dev.aurakai.auraframefx.openapi.invoker")
-    configOptions.set(
-        mapOf(
-            "dateLibrary" to "java8",
-            "library" to "jvm-ktor"
+tasks.named("openApiGenerate") {
+    configure<org.openapitools.generator.gradle.plugin.tasks.GenerateTask> {
+        generatorName.set("kotlin")
+        // Use project-relative path for the OpenAPI spec
+        inputSpec.set("${project.projectDir}/api/system-api.yml")
+        outputDir.set(layout.buildDirectory.dir("generated/openapi").get().asFile.absolutePath)
+        apiPackage.set("dev.aurakai.auraframefx.openapi.api")
+        modelPackage.set("dev.aurakai.auraframefx.openapi.model")
+        invokerPackage.set("dev.aurakai.auraframefx.openapi.invoker")
+        configOptions.set(
+            mapOf(
+                "dateLibrary" to "java8",
+                "library" to "jvm-ktor"
+            )
         )
-    )
+    }
 }
 
 dependencies {
@@ -97,8 +96,10 @@ dependencies {
     implementation(project(":datavein-oracle-native"))
 
     // ===== ANDROIDX & COMPOSE =====
-    implementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(platform(libs.androidx.compose.bom))
+    val composeBom = platform(libs.androidx.compose.bom)
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
+    implementation(libs.androidx.appcompat) // Explicitly add AppCompat
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.core.ktx)
@@ -106,17 +107,21 @@ dependencies {
     implementation(libs.bundles.room)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.datastore.core)
+    // Compose Material and Material3
+    implementation("androidx.compose.material:material:1.6.7")
+    implementation("androidx.compose.material3:material3:1.2.1")
+
+    // Yukihookapi for YLog
+    implementation("com.highcapable.yukihookapi:api:1.1.8")
 
     // ===== KOTLIN & COROUTINES =====
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.datetime)
     implementation(libs.bundles.coroutines)
 
-    // ===== NETWORKING =====
-    implementation(libs.bundles.network)
-
-    // ===== FIREBASE =====
+    // Firebase
     implementation(platform(libs.firebase.bom))
+    // Add the dependencies for Firebase products you want to use
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics)
     implementation(libs.firebase.ai)
@@ -128,6 +133,10 @@ dependencies {
     implementation(libs.firebase.database)
     implementation(libs.firebase.storage)
 
+    // ===== WORKMANAGER & HILT WORKER =====
+    implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.hilt.work)
+    // ===== UTILITIES =====
     // ===== HILT DEPENDENCY INJECTION =====
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
@@ -137,10 +146,12 @@ dependencies {
     // ===== UTILITIES =====
     implementation(libs.timber)
     implementation(libs.coil.compose)
-    implementation(libs.gson)
 
     // ===== SECURITY =====
     implementation(libs.androidx.security.crypto)
+
+    // ===== JACKSON YAML (for OpenAPI Generator compatibility) =====
+    implementation(libs.jackson.dataformat.yaml)
 
     // ===== CORE LIBRARY DESUGARING =====
     coreLibraryDesugaring(libs.desugar.jdk.libs)
@@ -157,7 +168,13 @@ dependencies {
     // --- DEBUGGING ---
     debugImplementation(libs.leakcanary.android)
     debugImplementation(libs.bundles.compose.debug)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
+
     implementation(libs.kotlin.stdlib.jdk8)
     implementation(libs.kotlin.reflect)
+}
+
+configurations.all {
+    resolutionStrategy {
+        force("androidx.appcompat:appcompat:1.7.1")
+    }
 }

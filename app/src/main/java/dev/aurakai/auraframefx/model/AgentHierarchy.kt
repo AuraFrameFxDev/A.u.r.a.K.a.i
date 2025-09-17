@@ -44,7 +44,7 @@ data class AgentHierarchy(
          * @return The created HierarchyAgentConfig instance that was registered.
          */
         fun registerAuxiliaryAgent(name: String, capabilities: Set<String>): HierarchyAgentConfig {
-            val config = HierarchyAgentConfig(name, capabilities, 4, AgentRole.AUXILIARY)
+            val config = HierarchyAgentConfig(name, capabilities, 4)
             auxiliaryAgents.add(config)
             return config
         }

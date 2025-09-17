@@ -7,17 +7,30 @@ plugins {
 android {
     namespace = "dev.aurakai.auraframefx.sandboxui"
     compileSdk = 36
-    defaultConfig { minSdk = 34 }
-    buildFeatures { compose = true }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_23
-        targetCompatibility = JavaVersion.VERSION_23
+
+    defaultConfig {
+        minSdk = 34
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-    kotlinOptions {
-        jvmTarget = "23"
+    
+    buildFeatures { 
+        compose = true 
+    }
+    
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlin {
+        jvmToolchain(24)
     }
 }
-
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
+    }
+}
 dependencies {
     api(project(":core-module"))
     implementation(libs.androidx.core.ktx)
@@ -32,6 +45,15 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     debugImplementation(libs.androidx.compose.ui.tooling)
     implementation(libs.hilt.android); ksp(libs.hilt.compiler)
+    implementation("androidx.compose.ui:ui-tooling-preview:1.6.0")
+    debugImplementation(libs.bundles.compose.debug)
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+
+    // Hilt
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+
+    // Coroutines
     implementation(libs.bundles.coroutines)
     implementation(libs.timber); implementation(libs.coil.compose)
     testImplementation(libs.bundles.testing.unit); testImplementation(libs.mockk.android)

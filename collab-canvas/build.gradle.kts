@@ -1,13 +1,16 @@
 // Apply plugins (versions via version catalog)
 plugins {
-    id("genesis.android.library")
-    id("genesis.android.compose")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
-    // Note: Hilt plugin removed to avoid Android BaseExtension issues, using manual dependencies instead
+    alias(libs.plugins.hilt)
 }
 
 android {
     namespace = "dev.aurakai.auraframefx.collabcanvas"
+
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 34
@@ -23,13 +26,20 @@ android {
     lint {
         targetSdk = 36
     }
-    
+
     buildFeatures {
         buildConfig = true
         compose = true
     }
 
-    // Compose options are handled by the convention plugin
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlin {
+        jvmToolchain(24)
+    }
 }
 
 dependencies {
@@ -47,7 +57,7 @@ dependencies {
     implementation(libs.bundles.compose.ui)
     implementation(libs.androidx.compose.material.icons.extended)
     debugImplementation(libs.bundles.compose.debug)
-
+    
     // Firebase
     implementation(platform(libs.firebase.bom))
 

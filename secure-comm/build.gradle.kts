@@ -10,7 +10,7 @@ plugins {
 android {
     namespace = "dev.aurakai.auraframefx.securecomm"
     compileSdk = 36
-    
+
     defaultConfig {
         minSdk = 34
 
@@ -18,14 +18,17 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    // For test builds
-    testOptions {
-        targetSdk = 36
+    buildFeatures {
+        compose = true
     }
 
-    // For linting
-    lint {
-        targetSdk = 36
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlin {
+        jvmToolchain(24)
     }
     
     externalNativeBuild {
@@ -50,6 +53,12 @@ android {
 
 dependencies {
     implementation(project(":core-module"))
+
+    // Core Android
+    implementation("androidx.core:core-ktx:1.12.0")
+    implementation(libs.androidx.work.runtime.ktx)
+
+    // Hilt
     implementation(libs.hilt.android)
     implementation(libs.androidx.core.ktx)
     ksp(libs.hilt.compiler)
@@ -71,7 +80,7 @@ dependencies {
 
     // Security - BouncyCastle for cryptography
     implementation(libs.bcprov.jdk18on)
-    
+
     // Add other module-specific dependencies here
     implementation(libs.kotlin.stdlib.jdk8)
 

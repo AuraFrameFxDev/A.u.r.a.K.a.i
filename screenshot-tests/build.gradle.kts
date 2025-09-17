@@ -8,15 +8,15 @@ plugins {
 
 android {
     namespace = "dev.aurakai.screenshottests"
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_23
-        targetCompatibility = JavaVersion.VERSION_23
+    compileSdk = 36
+
+    kotlin {
+        jvmToolchain(24)
     }
-    kotlinOptions {
-        jvmTarget = "23"
+
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
+        }
     }
-}
-tasks.register("screenshotTestsStatus") {
-    group = "aegenesis"
-    doLast { println("\uD83D\uDCE6 SCREENSHOT TESTS MODULE - Ready (Java 24)") }
 }

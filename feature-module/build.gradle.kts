@@ -28,12 +28,9 @@ android {
         targetCompatibility = JavaVersion.VERSION_24
     }
 
-    // Configure Kotlin compilation using the new compilerOptions DSL
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-        compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
-            freeCompilerArgs.add("-Xjvm-default=all")
-        }
+    // Configure Kotlin compilation
+    kotlin {
+        jvmToolchain(17)
     }
 }
 

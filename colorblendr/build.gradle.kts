@@ -10,6 +10,7 @@ plugins {
 
 android {
     namespace = "dev.aurakai.auraframefx.colorblendr"
+    compileSdk = 35
     
     defaultConfig {
         minSdk = 34
@@ -18,6 +19,15 @@ android {
     buildFeatures {
         buildConfig = true
         compose = true
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlin {
+        jvmToolchain(17)
     }
 }
 
