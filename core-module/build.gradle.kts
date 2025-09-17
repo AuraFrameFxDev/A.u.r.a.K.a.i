@@ -7,9 +7,6 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.dokka)
     alias(libs.plugins.spotless)
-    
-    // Custom plugins
-    id("genesis.android.library")
 }
 
 group = "dev.aurakai.auraframefx.utilities"
@@ -48,7 +45,7 @@ dependencies {
     testImplementation(libs.junit.jupiter.api)
     testImplementation(libs.junit.jupiter.params)
     testRuntimeOnly(libs.junit.jupiter.engine)
-    testImplementation(libs.mockk.android)
+    testImplementation(libs.mockk)
     testRuntimeOnly(libs.slf4j.simple)
 }
 
