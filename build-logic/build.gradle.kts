@@ -2,41 +2,47 @@
 
 plugins {
     `kotlin-dsl`
+    // Don't apply the Hilt plugin here, we'll use it from the version catalog
+}
+
+// Configure the Hilt Gradle plugin
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    
+    dependencies {
+        // This makes the Hilt Gradle plugin available in the buildscript classpath
+        classpath("com.google.dagger:hilt-android-gradle-plugin:2.57.1")
+    }
 }
 
 repositories {
     google()
     mavenCentral()
     gradlePluginPortal()
-    maven {
-        url = uri("https://repo.gradle.org/gradle/libs-releases")
-        name = "Gradle Releases"
-    }
-    maven {
-        url = uri("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-        name = "JetBrains Compose Dev"
-    }
+    maven { url = uri("https://repo1.maven.org/maven2") } // For OpenAPI Generator
 }
 
-// Dependencies required for the convention plugins themselves.
+// Dependencies required for writing the convention plugins themselves.
 dependencies {
-    // Core build plugins
-    implementation("com.android.tools.build:gradle:9.0.0-alpha01")
+    // These allow you to use the Android and Kotlin DSL in your plugin classes.
+    implementation("com.android.tools.build:gradle:9.0.0-alpha02")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:2.2.20")
+    implementation("com.google.gms:google-services:4.4.3")
+
+    // Hilt
     implementation("com.google.dagger:hilt-android-gradle-plugin:2.57.1")
+
+    // KSP
     implementation("com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:2.2.20-2.0.3")
-    implementation("org.jetbrains.compose:compose-gradle-plugin:1.8.2")
-    
-    // Gradle API
-    implementation(gradleApi())
-    
-    // Testing libraries for the plugins themselves
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.13.4")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.13.4")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
-    testImplementation("io.mockk:mockk:1.14.5")
+
+    // Compile-only dependencies (build-time only)
+    compileOnly("org.openapitools:openapi-generator-gradle-plugin:7.15.0")
 }
 
+// Register your custom convention plugins
 gradlePlugin {
     plugins {
         register("androidApplication") {
@@ -52,7 +58,7 @@ gradlePlugin {
             implementationClass = "dev.aurakai.auraframefx.buildlogic.AndroidComposeConventionPlugin"
         }
         register("androidHilt") {
-            id = "genesis.android.hilt"
+            id = "genesis.android.dagger.hilt"
             implementationClass = "dev.aurakai.auraframefx.buildlogic.AndroidHiltConventionPlugin"
         }
         register("androidNative") {

@@ -4,16 +4,17 @@
 plugins {
     id("genesis.android.library")
     id("genesis.android.compose")
-    alias(libs.plugins.ksp)
-    // Note: Hilt plugin removed to avoid Android BaseExtension issues, using manual dependencies instead
+    alias(libs.plugins.hilt)
+    kotlin("kapt")
 }
 
 android {
     namespace = "dev.aurakai.auraframefx.colorblendr"
-    compileSdk = 35
+    compileSdk = 36
     
     defaultConfig {
         minSdk = 34
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     
     buildFeatures {
@@ -22,12 +23,16 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_24
+        targetCompatibility = JavaVersion.VERSION_24
     }
 
+    kotlinOptions {
+        jvmTarget = "24"
+    }
+    
     kotlin {
-        jvmToolchain(17)
+        jvmToolchain(24)
     }
 }
 
@@ -41,13 +46,20 @@ dependencies {
     implementation(libs.bundles.lifecycle)
 
     // Compose
-    val composeBom = platform(libs.androidx.compose.bom)
-    implementation(composeBom)
-    androidTestImplementation(composeBom)
+    implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.compose.ui)
     debugImplementation(libs.bundles.compose.debug)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
 
     // Hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+    
+    // Testing
+    testImplementation(libs.junit.jupiter.api)
+    testRuntimeOnly(libs.junit.jupiter.engine)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.test.espresso.core)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     

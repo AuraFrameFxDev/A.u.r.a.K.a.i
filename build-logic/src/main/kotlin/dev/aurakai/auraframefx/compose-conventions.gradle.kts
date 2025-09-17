@@ -1,27 +1,24 @@
+package dev.aurakai.auraframefx
+
+import com.android.build.gradle.LibraryExtension
+
 plugins {
     id("com.android.library")
 }
 
-android {
-    buildFeatures {
-        compose = true
-    }
-
-
-    defaultConfig {
-        minSdk = 34
-    }
-
+extensions.configure<LibraryExtension>("android") {
+    buildFeatures.compose = true
     compileOptions {
-            sourceCompatibility = JavaVersion.VERSION_24
-            targetCompatibility = JavaVersion.VERSION_24
+        sourceCompatibility = JavaVersion.VERSION_21 // AGP 9.x supports up to Java 21
+        targetCompatibility = JavaVersion.VERSION_21
     }
+}
 
-    kotlin {
-        jvmToolchain(24)
-        compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
-            freeCompilerArgs.addAll(
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
+        freeCompilerArgs.addAll(
+            listOf(
                 "-Xjvm-default=all",
                 "-opt-in=kotlin.RequiresOptIn",
                 "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
@@ -30,24 +27,18 @@ android {
                 "-opt-in=androidx.compose.material.ExperimentalMaterialApi",
                 "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi"
             )
-        }
+        )
     }
 }
 
 dependencies {
     val composeBom = platform("androidx.compose:compose-bom:2025.09.00")
-    "implementation"(composeBom)
-    "androidTestImplementation"(composeBom)
-
-    // Core Compose dependencies
-    "implementation"("androidx.activity:activity-compose:1.11.0")
-    "implementation"("androidx.compose.ui:ui")
-    "implementation"("androidx.compose.ui:ui-tooling-preview")
-    "implementation"("androidx.compose.material3:material3")
-    "implementation"("androidx.navigation:navigation-compose:2.9.4")
-    "implementation"("androidx.core:core-ktx:1.17.0")
-
-    // Debug implementations
-    "debugImplementation"("androidx.compose.ui:ui-tooling")
-    "debugImplementation"("androidx.compose.ui:ui-test-manifest")
+    add("implementation", composeBom)
+    add("androidTestImplementation", composeBom)
+    add("implementation", "androidx.compose.ui:ui-tooling-preview")
+    add("implementation", "androidx.compose.material3:material3")
+    add("implementation", "androidx.navigation:navigation-compose:2.9.4")
+    add("implementation", "androidx.core:core-ktx:1.17.0")
+    add("debugImplementation", "androidx.compose.ui:ui-tooling")
+    add("debugImplementation", "androidx.compose.ui:ui-test-manifest")
 }

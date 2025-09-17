@@ -5,58 +5,41 @@ import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
-import org.jetbrains.kotlin.gradle.dsl.kotlinExtension
+import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 /**
- * Standard Android library configuration for all Genesis Protocol modules
+ * Standard Android library configuration for all Genesis Protocol modules.
  */
 class AndroidLibraryConventionPlugin : Plugin<Project> {
-    /**
-     * Applies the Android library convention to the given Gradle project.
-     *
-     * Configures the project with the `com.android.library` plugin and sets standard library
-     * defaults used across Genesis Protocol modules:
-     * - compileSdk = 36
-     * - defaultConfig: minSdk = 34, testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-     * - Java toolchain and compileOptions driven by the Gradle property `java.toolchain` (defaults to 24)
-     *   and applied to both sourceCompatibility and targetCompatibility
-     * - Kotlin JVM toolchain set from the same `java.toolchain` property
-     * - Enables BuildConfig generation
-     * - Includes Android resources in unit tests
-     * - Excludes license META-INF resources (`AL2.0`, `LGPL2.1`) from packaging
-     *
-     * @param target The Gradle project to configure.
-     */
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
                 apply("com.android.library")
+                apply("org.jetbrains.kotlin.android")
             }
 
             extensions.configure<LibraryExtension> {
                 compileSdk = 36
-
                 defaultConfig {
                     minSdk = 34
                     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
                 }
 
-                val toolchain = providers.gradleProperty("java.toolchain").orElse("24").get().toInt()
-                val javaVer = JavaVersion.toVersion(toolchain)
+                // Use a standard Java version (17) supported by Android.
+                // jvmToolchain will set both source/target compatibility automatically.
+                configure<KotlinAndroidProjectExtension> {
+                    jvmToolchain(17)
+                }
+
+                // You can keep compileOptions for explicit versions, but jvmToolchain is preferred.
                 compileOptions {
-                    sourceCompatibility = javaVer
-                    targetCompatibility = javaVer
+                    sourceCompatibility = JavaVersion.VERSION_24
+                    targetCompatibility = JavaVersion.VERSION_24
                 }
 
-                buildFeatures {
-                    buildConfig = true
-                }
-
-                testOptions {
-                    unitTests {
-                        isIncludeAndroidResources = true
-                    }
-                }
+                // BuildConfig generation is enabled by default in recent AGP versions.
+                // testOptions { unitTests { isIncludeAndroidResources = true } } is deprecated.
 
                 packaging {
                     resources {
@@ -64,10 +47,6 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                     }
                 }
             }
-
-            kotlinExtension.jvmToolchain(
-                providers.gradleProperty("java.toolchain").orElse("24").get().toInt()
-            )
         }
     }
 }

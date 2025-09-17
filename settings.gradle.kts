@@ -1,65 +1,69 @@
-// In settings.gradle.kts
+// settings.gradle.kts
 
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
-
+// Centralize repositories for plugins
 pluginManagement {
     repositories {
-        gradlePluginPortal()
         google()
         mavenCentral()
-        maven { url = uri("https://s01.oss.sonatype.org/content/repositories/releases/") }
-        maven { url = uri("https://s01.oss.sonatype.org/content/groups/public/") }
+        gradlePluginPortal()
+        maven { url = uri("https://repo.gradle.org/gradle/libs-releases") }
+        maven { url = uri("https://maven.pkg.jetbrains.space/public/p/compose/dev") }
+        maven { url = uri("https://repo1.maven.org/maven2") } // For OpenAPI Generator
     }
-    plugins {
-        id("com.android.application") version "9.0.0-alpha05" apply false
-        id("com.android.library") version "9.0.0-alpha05" apply false
-        id("org.jetbrains.kotlin.android") version "2.2.20" apply false
-        id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
-        id("com.google.gms.google-services") version "4.4.3" apply false
-        id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin") version("2.0.1") apply false
-        id("org.lsposed.lsparanoid") version("1.0.0") apply false
+    
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.namespace == "org.openapitools" && requested.id.name == "openapi-generator") {
+                useModule("org.openapitools:openapi-generator-gradle-plugin:${requested.version}")
+            }
+        }
     }
 }
 
+// Centralize repositories for project dependencies
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
-        maven { url = uri("https://androidx.dev/storage/compose-compiler/repository/") }
-        maven { url = uri("https://maven.pkg.jetbrains.space/public/p/compose/dev") }
-        maven { url = uri("https://s01.oss.sonatype.org/content/repositories/releases/") }
-        maven { url = uri("https://s01.oss.sonatype.org/content/groups/public/") }
         maven { url = uri("https://jitpack.io") }
+    }
+    versionCatalogs {
+        create("libs") {
+            from(files("gradle/libs.versions.toml"))
+        }
     }
 }
 
+// Enable modern Gradle features
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 rootProject.name = "ReGenesis"
 
+// Include the build-logic module as a composite build
+includeBuild("build-logic")
+
+// Include all of your app and library modules
 include(
     ":app",
     ":core-module",
     ":feature-module",
-    ":datavein-oracle-native",
-    ":oracle-drive-integration",
-    ":secure-comm",
-    ":sandbox-ui",
+    ":benchmark",
     ":collab-canvas",
     ":colorblendr",
+    ":datavein-oracle-native",
+    ":oracle-drive-integration",
     ":romtools",
+    ":secure-comm",
     ":module-a",
     ":module-b",
     ":module-c",
     ":module-d",
     ":module-e",
     ":module-f",
-    ":benchmark",
+    ":sandbox-ui",
     ":screenshot-tests",
-    ":jvm-test",
+    ":utilities",
     ":list",
-    ":utilities"
+    ":jvm-test"
 )
-
-includeBuild("build-logic")
-

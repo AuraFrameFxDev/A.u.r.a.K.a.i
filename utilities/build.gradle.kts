@@ -1,3 +1,7 @@
+import org.gradle.accessors.dm.LibrariesForLibs
+
+val libs = the<LibrariesForLibs>()
+
 plugins {
     // JVM library setup
     id("java-library")
@@ -58,6 +62,8 @@ dependencies {
     // Bind a simple logger only during tests
     testRuntimeOnly(libs.slf4j.simple)
     implementation(kotlin("stdlib-jdk8"))
+    implementation(libs.yukihookapi)
+    implementation(libs.lsposed.api)
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {

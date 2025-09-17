@@ -5,18 +5,17 @@ import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
-import org.jetbrains.kotlin.gradle.dsl.kotlinExtension
 
 /**
  * Standard Android application configuration
  */
 class AndroidApplicationConventionPlugin : Plugin<Project> {
     /**
-     * Applies Android application and Kotlin Android plugins and configures the Android Application extension
+     * Applies Android application plugin and configures the Android Application extension
      * with a standard set of defaults for an application module.
      *
      * Configurations performed:
-     * - Applies plugins: "com.android.application" and "org.jetbrains.kotlin.android".
+     * - Applies plugin: "com.android.application"
      * - Sets compileSdk to 36 and defaultConfig (minSdk 34, targetSdk 36, AndroidJUnitRunner, support vector drawables).
      * - Defines release and debug buildTypes (release: minification + proguard files; debug: debuggable with
      *   applicationId and version name suffixes).
@@ -27,10 +26,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
      */
     override fun apply(target: Project) {
         with(target) {
-            with(pluginManager) {
-                apply("com.android.application")
-                apply("org.jetbrains.kotlin.android")
-            }
+            pluginManager.apply("com.android.application")
 
             extensions.configure<ApplicationExtension> {
                 compileSdk = 36
@@ -83,9 +79,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 }
             }
 
-            kotlinExtension.jvmToolchain(
-                providers.gradleProperty("java.toolchain").orElse("24").get().toInt()
-            )
+            // JVM toolchain is configured in the Android block's compileOptions
         }
     }
 }

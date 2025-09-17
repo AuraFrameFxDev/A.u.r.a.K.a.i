@@ -5,7 +5,8 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.*
-import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
+
+// Kotlin Android plugin is now included with AGP 9.0+
 
 internal val Project.libs: VersionCatalog
     get() = extensions.getByType<VersionCatalogsExtension>().named("libs")
@@ -51,24 +52,23 @@ class GenesisAndroidLibraryPlugin : Plugin<Project> {
                 sourceCompatibility = JavaVersion.VERSION_24
                 targetCompatibility = JavaVersion.VERSION_24
             }
-
             // Configure Kotlin options
-            project.extensions.configure<KotlinAndroidProjectExtension> {
+            (this as org.gradle.api.plugins.ExtensionAware).extensions.configure<org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension> {
                 jvmToolchain(24)
-                compilerOptions {
-                    jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
-                    freeCompilerArgs.addAll(
-                        "-opt-in=kotlin.RequiresOptIn"
-                    )
+                
+                sourceSets.all {
+                    languageSettings {
+                        optIn("kotlin.RequiresOptIn")
+                    }
                 }
             }
 
             // Configure Compose
             buildFeatures {
                 compose = true
+
+
             }
-
-
             packaging {
                 resources {
                     excludes += "/META-INF/{AL2.0,LGPL2.1}"

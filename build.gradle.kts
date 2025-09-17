@@ -1,17 +1,4 @@
-// Root build.gradle.kts
 
-// Define the plugins that should be available to all subprojects.
-// Using `apply false` prevents them from being applied to the root project.
-plugins {
-    alias(libs.plugins.android.application) apply false
-    alias(libs.plugins.android.library) apply false
-    alias(libs.plugins.kotlin.serialization) apply false
-    alias(libs.plugins.hilt) apply false
-    alias(libs.plugins.ksp) apply false
-    alias(libs.plugins.dokka) apply false
-    alias(libs.plugins.spotless) apply false
-    alias(libs.plugins.google.services) apply false
-}
 
 // Find version catalog
 val versionCatalog = extensions

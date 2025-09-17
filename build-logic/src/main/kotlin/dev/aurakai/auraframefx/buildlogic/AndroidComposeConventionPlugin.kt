@@ -1,12 +1,14 @@
 package dev.aurakai.auraframefx.buildlogic
 
 import com.android.build.api.dsl.CommonExtension
+import com.android.build.gradle.BaseExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.withType
 
 internal val Project.libs: VersionCatalog
     get() = extensions.getByType<VersionCatalogsExtension>().named("libs")
@@ -15,25 +17,21 @@ internal val Project.libs: VersionCatalog
  * Compose-enabled Android library configuration
  */
 class AndroidComposeConventionPlugin : Plugin<Project> {
-    /**
-     * Applies the Android Compose convention to the given Gradle project.
-     *
-     * When the project's `com.android.base` plugin is present, enables Jetpack Compose
-     * in the Android extension (sets `buildFeatures.compose = true`) and adds a set of
-     * Compose dependencies, including the Compose BOM (androidx.compose:compose-bom:2025.09.00)
-     * and common UI, material, tooling, and test artifacts.
-     *
-     * Side effects:
-     * - Modifies the Android `CommonExtension` of the project.
-     * - Adds implementation, debugImplementation, and androidTestImplementation dependencies.
-     */
     override fun apply(target: Project) {
         with(target) {
-            plugins.withId("com.android.base") {
-                val extension = extensions.getByName("android") as CommonExtension<*, *, *, *, *, *>
-                extension.apply {
-                    buildFeatures { compose = true }
+            pluginManager.withPlugin("com.android.base") {
+                val androidExtension = extensions.getByName("android")
+                if (androidExtension is BaseExtension) {
+                    // Enable Compose
+                    androidExtension.buildFeatures.compose = true
+                    
+                    // Configure Compose options
+                    androidExtension.composeOptions {
+                        kotlinCompilerExtensionVersion = "1.5.1" // This should match your Kotlin version
+                    }
                 }
+                
+                // Add Compose dependencies
                 dependencies {
                     val bom = platform("androidx.compose:compose-bom:2025.09.00")
                     add("implementation", bom)

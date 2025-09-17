@@ -1,31 +1,39 @@
 plugins {
-    // JVM library setup
+    // Core plugins
     id("java-library")
-    kotlin("jvm")
-    alias(libs.plugins.kotlin.serialization) version "2.2.20"
+    kotlin("jvm") version libs.versions.kotlin.get()
+    
+    // Version catalog plugins
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.dokka)
     alias(libs.plugins.spotless)
-
-    // Jetbrains Compose
+    
+    // Custom plugins
+    id("genesis.android.library")
 }
 
 group = "dev.aurakai.auraframefx.utilities"
 version = "1.0.0"
 
 // Centralized toolchain version to avoid duplication and drift
-kotlin {
-    jvmToolchain(24)
-
 java {
-    toolchain { languageVersion.set(JavaLanguageVersion.of(jdkVersion)) }
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(24))
+    }
 }
 
 dependencies {
     // Module dependency
     api(project(":list"))
 
-    // Concurrency and serialization
-    implementation(libs.bundles.coroutines)
+    // Kotlin Standard Library
+    implementation(libs.kotlin.stdlib.jdk8)
+    
+    // Concurrency and coroutines
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+    
+    // Serialization
     implementation(libs.kotlinx.serialization.json)
 
     // File operations and compression
@@ -33,16 +41,19 @@ dependencies {
     implementation(libs.commons.compress)
     implementation(libs.xz)
 
-    // Logging API only (do not bind implementation at runtime for libraries)
+    // Logging
     implementation(libs.slf4j.api)
-    testImplementation(platform(libs.junit.bom))
+    
+    // Testing
+    testImplementation(libs.junit.jupiter.api)
     testImplementation(libs.junit.jupiter.params)
     testRuntimeOnly(libs.junit.jupiter.engine)
-    testImplementation(libs.mockk)
+    testImplementation(libs.mockk.android)
     testRuntimeOnly(libs.slf4j.simple)
-    implementation(libs.kotlin.stdlib.jdk8)
 }
 
 tasks.test {
     useJUnitPlatform()
+}
+}
 

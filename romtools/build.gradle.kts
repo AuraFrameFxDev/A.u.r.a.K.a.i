@@ -1,3 +1,7 @@
+import org.gradle.accessors.dm.LibrariesForLibs
+
+val libs = the<LibrariesForLibs>()
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -74,6 +78,8 @@ dependencies {
     implementation(libs.kotlin.stdlib.jdk8)
     implementation(libs.androidx.compose.material.icons.extended)
     implementation(libs.hilt.navigation.compose)
+    implementation(libs.yukihookapi)
+    implementation(libs.lsposed.api)
 }
 
 // Copy task
