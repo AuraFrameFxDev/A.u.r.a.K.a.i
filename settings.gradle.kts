@@ -10,7 +10,13 @@ pluginManagement {
         maven { url = uri("https://maven.pkg.jetbrains.space/public/p/compose/dev") }
         maven { url = uri("https://repo1.maven.org/maven2") } // For OpenAPI Generator
     }
-    
+    plugins {
+        id("com.android.application") version "8.3.0"
+        id("org.jetbrains.kotlin.android") version "1.9.23"
+        id("org.jetbrains.kotlin.plugin.compose") version "1.9.23"
+        id("com.google.devtools.ksp") version "1.9.23-1.0.20"
+        id("com.google.firebase.crashlytics") version "3.0.1"
+    }
     resolutionStrategy {
         eachPlugin {
             if (requested.id.namespace == "org.openapitools" && requested.id.name == "openapi-generator") {
