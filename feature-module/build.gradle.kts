@@ -2,8 +2,9 @@
 // Primary feature module using convention plugins
 
 plugins {
-    id("genesis.android.library")
-    id("genesis.android.compose")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ksp)
 }
 

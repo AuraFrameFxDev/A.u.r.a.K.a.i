@@ -1,17 +1,16 @@
 plugins {
-    // Core Android application plugin must be first
-    alias(libs.plugins.kotlin.android)
-    id("genesis.android.application")
-    // Then apply other core plugins
-    id("genesis.android.compose")
-    id("com.google.gms.google-services") version "4.4.3" apply false
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.compose.compiler)
+    id("com.google.gms.google-services")
+    alias(libs.plugins.google.firebase.crashlytics)
+    alias(libs.plugins.google.firebase.firebase.perf)
 
     // External plugins
     id("org.openapi.generator") version "7.15.0"
 
     // Kotlin plugins
     kotlin("plugin.serialization") version "2.2.20"
-    kotlin("plugin.compose") version "2.2.20"
 }
 
 android {

@@ -18,6 +18,8 @@ composeCompiler = "2.2.20"
 googledaggerhilt = "2.57.1"
 # Firebase
 firebaseBom = "34.2.0"
+googleFirebaseCrashlytics = "2.9.9"
+googleFirebaseFirebasePerf = "1.4.2"
 compose-plugin = "2.2.20"
 
 # AndroidX Core
@@ -252,12 +254,12 @@ compose-ui = [
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version = "2.2.20" }
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version = "2.2.20" }
 ksp = { id = "com.google.devtools.ksp", version = "2.2.20-2.0.3" }
 google-services = { id = "com.google.gms.google-services", version = "4.4.3" }
-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "2.9.9" }
-firebase-perf = { id = "com.google.firebase.firebase-perf", version = "1.4.2" }
+google-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "googleFirebaseCrashlytics" }
+google-firebase-firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "googleFirebaseFirebasePerf" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "googledaggerhilt" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
