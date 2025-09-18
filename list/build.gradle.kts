@@ -1,52 +1,75 @@
- import org.gradle.accessors.dm.LibrariesForLibs
-import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.gradle.accessors.dm.LibrariesForLibs
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    `kotlin-dsl`
+    // Apply convention plugins
+    id("genesis.android.library")
+    id("genesis.android.compose")
+    id("genesis.android.dagger.hilt")
+
+    // KSP for annotation processing
     alias(libs.plugins.ksp)
+
+    // Code formatting
     id("com.diffplug.spotless") version "7.2.1"
-    kotlin("plugin.serialization") version "2.0.0"
+
+    // Kotlin plugins
 }
 
 val libs = the<LibrariesForLibs>()
 
-group = "dev.aurakai.auraframefx.list"
-version = "1.0.0"
+android {
+    namespace = "dev.aurakai.auraframefx.list"
 
-// Configure Kotlin Multiplatform
-configure<KotlinMultiplatformExtension> {
-    jvmToolchain(24)
-    
-    jvm {
-        compilations.all {
-            compileTaskProvider.configure {
-                compilerOptions {
-                    jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
-                    freeCompilerArgs.addAll(
-                        "-Xjvm-default=all",
-                        "-opt-in=kotlin.RequiresOptIn"
-                    )
-                }
-            }
+    // Configure Java toolchain
+    compileSdk = 34
+
+    defaultConfig {
+        minSdk = 24
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_24
+        targetCompatibility = JavaVersion.VERSION_24
+    }
+
+    kotlin {
+        jvmToolchain(24) // Ensuring Kotlin compiles with JDK 24
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)  // Changed to JVM 17 for compatibility
+            freeCompilerArgs.addAll(
+                listOf(
+                    "-Xjvm-default=all",
+                    "-opt-in=kotlin.RequiresOptIn"
+                )
+            )
         }
     }
-}
 
-// Configure KSP
-ksp {
-    // Add any KSP-specific configurations here
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
+    }
 }
 
 dependencies {
     // Kotlin Standard Library
-    implementation(kotlin("stdlib-jdk8"))
+    implementation(libs.kotlin.stdlib.jdk8)
     implementation(libs.kotlinx.serialization.json)
-    
+    implementation(libs.kotlinx.serialization.core)
+
     // Coroutines
     implementation(libs.kotlinx.coroutines.core)
-    
-    // Hilt for JVM
+    implementation(libs.kotlinx.coroutines.android)
 
+    // Hilt for dependency injection
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 
     // Testing
     testImplementation(platform(libs.junit.bom))
@@ -55,16 +78,32 @@ dependencies {
     testImplementation(kotlin("test"))
     testRuntimeOnly(libs.junit.jupiter.engine)
     testRuntimeOnly(libs.junit.platform.launcher)
-    
+
     // Logging for tests
     testRuntimeOnly(libs.slf4j.simple)
 }
 
-tasks.test {
+tasks.withType<Test> {
     useJUnitPlatform()
 }
 
+// Status task for CI/CD visibility
 tasks.register("listStatus") {
     group = "aegenesis"
     doLast { println("\uD83D\uDCE6 LIST MODULE - Ready (Java 24)") }
+}
+
+// Configure Spotless for code formatting
+spotless {
+    kotlin {
+        target("**/*.kt")
+        ktlint()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+
+    kotlinGradle {
+        target("*.gradle.kts")
+        ktlint()
+    }
 }

@@ -24,13 +24,13 @@ android {
 
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_24
-        targetCompatibility = JavaVersion.VERSION_24
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     java {
         toolchain {
-            languageVersion.set(JavaLanguageVersion.of(24))
+            languageVersion.set(JavaLanguageVersion.of(17))
         }
     }
 }

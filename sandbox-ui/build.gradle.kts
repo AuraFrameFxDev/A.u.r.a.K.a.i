@@ -22,12 +22,18 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_24
-        targetCompatibility = JavaVersion.VERSION_24
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     java {
         toolchain {
-            languageVersion = JavaLanguageVersion.of(24) // Specify your desired Java version here
+            languageVersion = JavaLanguageVersion.of(17) // Specify your desired Java version here
+        }
+    }
+    // Set Kotlin JVM target using tasks.withType
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
         }
     }
 
@@ -84,7 +90,7 @@ android {
 
     tasks.register("sandboxStatus") {
         group = "aegenesis"
-        doLast { println("\uD83D\uDCE6 SANDBOX UI - Ready (Java 24)") }
+        doLast { println("\uD83D\uDCE6 SANDBOX UI - Ready (Java 17)") }
     }
 }
 dependencies {
