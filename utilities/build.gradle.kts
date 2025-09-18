@@ -37,9 +37,6 @@ dependencies {
     implementation(libs.slf4j.api)
 
     // Hilt for JVM
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
-
     // Testing
     testImplementation(platform(libs.junit.bom))
     testImplementation(libs.junit.jupiter.api)
