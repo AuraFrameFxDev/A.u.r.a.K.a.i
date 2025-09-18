@@ -321,7 +321,15 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     /**
-     * Processes collaboration request messages
+     * Handle an incoming collaboration request message.
+     *
+     * Reads required fields from the provided data map, persists a record in memory,
+     * and posts a collaboration notification.
+     *
+     * @param data Map containing the collaboration payload. Required keys:
+     *             - "request_type": type of collaboration request
+     *             - "requester_id": identifier of the requester
+     *             - "collaboration_data": opaque payload or details for the request
      */
     private suspend fun processCollaborationRequest(data: Map<String, String>) {
         val requestType = data["request_type"] ?: return
@@ -341,12 +349,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     /**
-     * Called when Firebase refreshes the device registration token.
+     * Handle a refreshed FCM registration token.
      *
-     * Stores the new token locally and in-memory, and forwards it to the backend.
-     * The work runs asynchronously on the service's IO coroutine scope; failures are caught and logged.
+     * Persists the provided token to local storage and the in-memory store, then asynchronously forwards it to the backend. Execution runs on the service IO coroutine scope; failures are caught and logged.
      *
-     * @param token The new FCM registration token to persist and send to the server.
+     * @param token The new FCM registration token. Treated as sensitive — persisted locally, kept in memory for runtime access, and sent to the configured backend endpoint.
      */
     override fun onNewToken(token: String) {
         Timber.d("FCM token refreshed: ${token.take(20)}...")
@@ -457,17 +464,17 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     /**
-
-     * Post a notification on the given notification channel and attach an intent to open MainActivity.
+     * Post a notification on the specified channel that opens MainActivity when tapped.
      *
-     * The notification is built with the provided title, body and small icon, uses a BigTextStyle,
-     * and launches MainActivity (with `data` added as intent extras) when tapped. The notification
-     * ID is generated from the current time to avoid collisions.
+     * Builds a notification with the given title, body, and small icon using BigTextStyle,
+     * attaches an intent to launch MainActivity with `data` added as extras, and posts it
+     * to the provided notification channel. The notification ID is generated from the
+     * current system time to minimize collisions.
      *
      * @param channelId Notification channel ID to post the notification on.
      * @param title Visible notification title.
      * @param body Visible notification body text.
-     * @param iconResId Resource ID for the small icon shown in the notification. Defaults to an info icon.
+     * @param iconResId Resource ID for the small icon shown in the notification. Defaults to `android.R.drawable.ic_dialog_info`.
      * @param data Optional key/value extras that will be added to the intent launched when the user taps the notification.
      */
     private fun showNotification(

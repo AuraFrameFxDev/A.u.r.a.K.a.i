@@ -261,6 +261,16 @@ private fun DeviceCapabilitiesCard(
     }
 }
 
+/**
+ * Displays a single labeled capability row with a right-aligned check or cancel icon.
+ *
+ * Shows the provided `label` on the left and a green check icon when `hasCapability` is true,
+ * otherwise a red cancel icon when false. Intended for compactly representing boolean device
+ * capabilities in a list.
+ *
+ * @param label Short descriptive text for the capability (e.g., "Root Access").
+ * @param hasCapability True when the capability is present; false when absent.
+ */
 @Composable
 private fun CapabilityRow(label: String, hasCapability: Boolean) {
     Row(
@@ -283,13 +293,12 @@ private fun CapabilityRow(label: String, hasCapability: Boolean) {
 }
 
 /**
- * Displays a single labeled piece of information in a horizontal row.
+ * Shows a compact horizontal key–value row with a dimmed label on the left and an emphasized value on the right.
  *
- * The `label` is shown on the left in a dimmed style and the `value` is shown on the right with
- * normal emphasis. Designed for compact key–value pairs (e.g., "Device: Pixel 6").
+ * Useful for brief informational pairs (e.g., "Device: Pixel 6").
  *
- * @param label Left-side label text (shown with reduced emphasis).
- * @param value Right-side value text (shown with normal emphasis).
+ * @param label Left-side label text (rendered with reduced emphasis).
+ * @param value Right-side value text (rendered with normal emphasis).
  */
 @Composable
 private fun InfoRow(label: String, value: String) {
@@ -312,12 +321,12 @@ private fun InfoRow(label: String, value: String) {
 }
 
 /**
- * Shows a card with the current ROM operation name and its progress.
+ * Displays a card showing the current ROM operation's name and progress.
  *
- * The card displays the operation's display name (or an empty string if absent),
- * a linear progress bar driven by `operation.progress` interpreted as a percentage
- * in the 0–100 range, and a right-aligned textual percentage (rounded to an
- * integer for display).
+ * Shows the operation display name (or an empty title when absent), a linear
+ * progress bar driven by `operation.progress` where the value is treated as a
+ * percentage in the 0–100 range and converted to a 0–1 progress fraction, and
+ * a right-aligned integer percentage label (e.g., "42%").
  *
  * @param operation Current operation state containing an optional operation type and a numeric progress (0–100).
  * @param modifier Modifier applied to the root composable.

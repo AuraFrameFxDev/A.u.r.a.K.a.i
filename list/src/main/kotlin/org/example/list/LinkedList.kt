@@ -229,14 +229,13 @@ override fun hasNext() = current != null
     }
 
     /**
-     * Returns a bidirectional iterator over the list starting at the beginning.
+     * Returns a bidirectional iterator positioned before the first element.
      *
-     * Currently not implemented — calling this function will throw [NotImplementedError].
-     * When implemented, it should return a `ListIterator<String>` that iterates over the list
-     * from index 0 (supports `hasNext`/`next` and `hasPrevious`/`previous` with correct indices).
+     * Not implemented — this function currently throws [NotImplementedError]. When implemented it
+     * will return a `ListIterator<String>` that iterates the list from index 0 and supports
+     * `hasNext`/`next` and `hasPrevious`/`previous`.
      *
-     * @return a `ListIterator<String>` positioned before the first element.
-     * @throws NotImplementedError always, until implemented.
+     * @throws NotImplementedError always until implemented.
      */
     override fun listIterator(): ListIterator<String> {
         TODO("Not yet implemented")
@@ -261,14 +260,18 @@ override fun hasNext() = current != null
      * Returns a view of the portion of this list between the specified fromIndex (inclusive)
      * and toIndex (exclusive).
      *
-     * The returned list is backed by this list, so non-structural changes in the sublist
-     * (if supported by implementation) should be reflected in the original list and vice versa.
+     * The expected behavior is the standard List.subList semantics: the returned list is a view
+     * of the specified range and (in a fully implemented version) structural changes to the
+     * sublist would be reflected in the backing list and vice versa.
      *
-     * @param fromIndex start index, inclusive.
-     * @param toIndex end index, exclusive.
-     * @return a list containing the elements in the specified range.
-     * @throws IndexOutOfBoundsException if either index is out of range (fromIndex < 0 || toIndex > size).
-     * @throws IllegalArgumentException if fromIndex > toIndex.
+     * Currently not implemented — calling this function will throw NotImplementedError.
+     *
+     * @param fromIndex start index (inclusive)
+     * @param toIndex end index (exclusive)
+     * @return a list containing the elements in the specified range (if implemented)
+     * @throws NotImplementedError always, until this method is implemented
+     * @throws IndexOutOfBoundsException if either index is out of range (fromIndex < 0 || toIndex > size)
+     * @throws IllegalArgumentException if fromIndex > toIndex
      */
     override fun subList(
         fromIndex: Int,
