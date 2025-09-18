@@ -212,7 +212,7 @@ android {
         // XPOSED/LSPosed Integration
         compileOnly(files("../Libs/api-82.jar"))
         compileOnly(files("../Libs/api-82-sources.jar"))
-        implementation("androidx.datastore:datastore-preferences:1.0.0")
+        implementation("androidx.datastore:datastore-preferences:1.1.7")
 
         // Coroutines / serialization / datetime
         implementation(libs.kotlinx.serialization.json)
