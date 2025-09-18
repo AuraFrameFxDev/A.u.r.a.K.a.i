@@ -85,9 +85,9 @@ dokka = "2.0.0"
 spotless = "7.2.1"
 bouncycastle = "1.81"
 
-# YukiHookAPI and LSPosed API (CORRECTED)
+# YukiHookAPI and LSPosed API
 yukihook-api = "1.3.1"
-lsposed-api = "1.1.0"  # Updated to a version available on JitPack
+lsposed-api = "1.9.2"  # Latest stable version
 
 [libraries]
 # Firebase (managed by the BoM)
@@ -102,10 +102,9 @@ firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
 firebase-ai = { group = "com.google.firebase", name = "firebase-ai" }
 
-# YukiHookAPI and LSPosed API (CORRECTED)
-yukihook-api = { module = "com.highcapable.yukihookapi:api", version.ref = "yukihook-api" }
-yukihook-ksp = { module = "com.highcapable.yukihookapi:ksp-xposed", version.ref = "yukihook-api" }
-# Using a different LSPosed API version that's available on JitPack
+# YukiHookAPI and LSPosed API
+yukihook-api = { module = "com.github.HighCapable.YukiHookAPI:api", version.ref = "yukihook-api" }
+yukihook-ksp = { module = "com.github.HighCapable.YukiHookAPI:ksp-xposed", version.ref = "yukihook-api" }
 lsposed-api = { module = "com.github.LSPosed:LSPosed-API", version.ref = "lsposed-api" }
 
 # Firebase UI (not in the main BoM)

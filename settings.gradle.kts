@@ -1,4 +1,4 @@
-// settings.gradle.kts - UPDATED VERSION
+// settings.gradle.kts - Optimized Repository Configuration
 pluginManagement {
     repositories {
         google()
@@ -6,10 +6,8 @@ pluginManagement {
         gradlePluginPortal()
         maven { url = uri("https://repo.gradle.org/gradle/libs-releases") }
         maven { url = uri("https://maven.pkg.jetbrains.space/public/p/compose/dev") }
-        maven { url = uri("https://repo1.maven.org/maven2") }
-        // 🔥 ADD THESE CRITICAL REPOSITORIES 🔥
-        maven { url = uri("https://api.xposed.info/") }        // For YukiHookAPI
-        maven { url = uri("https://jitpack.io") }               // For LSPosed
+        maven { url = uri("https://api.xposed.info/") }  // For YukiHookAPI
+        maven { url = uri("https://jitpack.io") }         // For LSPosed
     }
 }
 
@@ -19,10 +17,8 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        // 🔥 ADD THESE CRITICAL REPOSITORIES HERE TOO 🔥
-        maven { url = uri("https://api.xposed.info/") }        // For YukiHookAPI
-        maven { url = uri("https://jitpack.io") }               // For LSPosed
-        maven { url = uri("https://repo.maven.apache.org/maven2/") } // Additional Maven
+        maven { url = uri("https://api.xposed.info/") }  // For YukiHookAPI
+        maven { url = uri("https://jitpack.io") }         // For LSPosed
     }
 }
 

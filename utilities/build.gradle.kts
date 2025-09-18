@@ -30,17 +30,9 @@ dependencies {
     implementation(libs.slf4j.api)
     implementation(libs.hilt.android)
 
-    // YukiHook and LSPosed dependencies
-    implementation(libs.yukihook.api) {
-        exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib")
-    }
-    implementation(libs.lsposed.api) {
-        exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib")
-    }
-    
-    // Add explicit Kotlin stdlib to avoid version conflicts
+    // Kotlin stdlib and coroutines
     implementation(kotlin("stdlib-jdk8"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
+    implementation(libs.kotlinx.coroutines.core)
 
     // Testing dependencies (keep as-is)
     testImplementation(libs.junit.jupiter.api)
