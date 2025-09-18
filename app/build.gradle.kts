@@ -1,6 +1,3 @@
-import com.android.build.api.dsl.ApplicationExtension
-import com.android.build.api.dsl.CommonExtension
-import org.gradle.api.JavaVersion
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -257,6 +254,5 @@ android {
         debugImplementation(libs.androidx.compose.ui.test.manifest)
         implementation(libs.kotlin.stdlib.jdk8)
         implementation(libs.kotlin.reflect)
-        coreLibraryDesugaring(libs.desugar.jdk.libs)
     }
 }

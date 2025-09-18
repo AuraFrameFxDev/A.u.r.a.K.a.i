@@ -1,8 +1,8 @@
 plugins {
     `kotlin-dsl`
     alias(libs.plugins.ksp)
-    alias(libs.plugins.spotless)
     kotlin("plugin.serialization") version libs.versions.kotlin.get()
+    id("com.diffplug.spotless") version "6.25.0"
 }
 
 val libs = the<org.gradle.accessors.dm.LibrariesForLibs>()
@@ -17,16 +17,6 @@ java {
     }
 }
 
-// Configure Kotlin compilation
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
-        freeCompilerArgs = freeCompilerArgs + listOf(
-            "-Xjvm-default=all",
-            "-opt-in=kotlin.RequiresOptIn"
-        )
-    }
-}
 
 // Configure test tasks
 tasks.withType<Test> {
@@ -40,7 +30,7 @@ tasks.withType<Test> {
 spotless {
     kotlin {
         target("**/*.kt")
-        ktlint(libs.versions.ktlint.get())
+        ktlint("1.2.1") // Hardcoded ktlint version; update as needed
             .editorConfigOverride(
                 mapOf(
                     "indent_size" to "4",
@@ -50,7 +40,7 @@ spotless {
     }
     kotlinGradle {
         target("*.gradle.kts")
-        ktlint(libs.versions.ktlint.get())
+        ktlint("1.2.1") // Hardcoded ktlint version; update as needed
     }
 }
 
