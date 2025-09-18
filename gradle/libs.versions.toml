@@ -3,26 +3,26 @@
 # =========================
 [versions]
 # Build Tools
-agp = "8.7.0"
+agp = "9.0.0-alpha02"
 
 # Kotlin
-kotlin = "2.0.0"
-ksp = "2.0.0-1.0.21"
+kotlin = "2.2.20"
+ksp = "2.2.20-2.0.3"
 kotlinxDatetime = "0.7.1"
-kotlinGradlePlugin = { strictly = "2.0.0" }
+kotlinGradlePlugin = { strictly = "2.2.20" }
 
 # AndroidX
 coreKtx = "1.17.0"
 appcompat = "1.7.1"
-lifecycle = "2.9.4"
+lifecycle = "2.9.3"
 room = "2.8.0"
-datastore = "1.1.7"
+androidx-datastore = "1.1.7"
 securityCrypto = "1.1.0"
 multidex = "2.0.1"
 
 # Compose
 composeBom = "2025.09.00"
-composeCompiler = "1.8.2"
+composeCompiler = "2.2.20"
 activityCompose = "1.11.0"
 navigationCompose = "2.8.2"
 composeGradlePlugin = "1.8.2"
@@ -73,6 +73,9 @@ junitPlatformLauncher = "1.13.4"
 junitPlatformCommon = "1.13.4"
 junitPlatformEngine = "1.13.4"
 junit5 = "5.13.4"
+junit4 = "4.13.2"
+spotless = "6.25.0"
+ktlint = "0.50.0"
 # JSON
 gson = "2.13.2"
 timber = "5.0.1"
@@ -128,7 +131,7 @@ kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-cor
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
-kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
+datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlin-stdlib-jdk8 = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version.ref = "kotlin" }
 kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect", version.ref = "kotlin" }
 
@@ -137,8 +140,8 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-multidex = { group = "androidx.multidex", name = "multidex", version.ref = "multidex" }
 androidx-security-crypto = { group = "androidx.security", name = "security-crypto", version.ref = "securityCrypto" }
-androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
-androidx-datastore-core = { group = "androidx.datastore", name = "datastore-core", version.ref = "datastore" }
+androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "androidx-datastore" }
+androidx-datastore-core = { group = "androidx.datastore", name = "datastore-core", version.ref = "androidx-datastore" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle" }
@@ -186,6 +189,7 @@ junit-jupiter-params = { group = "org.junit.jupiter", name = "junit-jupiter-para
 junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version.ref = "junitPlatformLauncher" }
 
 # Legacy JUnit 4 (for compatibility if needed)
+junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
 
 # Kotlin Test
 kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
@@ -285,3 +289,4 @@ google-services = { id = "com.google.gms.google-services", version.ref = "google
 google-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "googleFirebaseCrashlytics" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
