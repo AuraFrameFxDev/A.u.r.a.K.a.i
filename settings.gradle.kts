@@ -1,5 +1,7 @@
-// settings.gradle.kts - Optimized Repository Configuration
 pluginManagement {
+    plugins {
+        id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
+    }
     repositories {
         google()
         mavenCentral()
@@ -13,7 +15,7 @@ pluginManagement {
 }
 
 plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
+    id("org.gradle.toolchains.foojay-resolver-convention")
 }
 
 // Centralize repositories for project dependencies
