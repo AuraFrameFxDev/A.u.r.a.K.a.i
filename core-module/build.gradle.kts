@@ -52,6 +52,7 @@ android {
         implementation(libs.kotlinx.coroutines.core)
         implementation(libs.kotlinx.coroutines.android)
         implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlin.reflect)
         implementation(libs.commons.io)
         implementation(libs.commons.compress)
         implementation(libs.xz)
