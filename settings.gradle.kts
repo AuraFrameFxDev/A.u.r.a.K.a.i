@@ -8,6 +8,7 @@ pluginManagement {
         maven { url = uri("https://maven.pkg.jetbrains.space/public/p/compose/dev") }
         maven { url = uri("https://api.xposed.info/") }  // For YukiHookAPI
         maven { url = uri("https://jitpack.io") }         // For LSPosed
+        maven { url = uri("https://maven.google.com") }   // For AndroidX dependencies
     }
 }
 
@@ -19,6 +20,18 @@ dependencyResolutionManagement {
         mavenCentral()
         maven { url = uri("https://api.xposed.info/") }  // For YukiHookAPI
         maven { url = uri("https://jitpack.io") }         // For LSPosed
+        maven { url = uri("https://maven.google.com") }   // For AndroidX dependencies
+        
+        // Explicitly declare JitPack repository with content filter
+        exclusiveContent {
+            forRepository {
+                maven { url = uri("https://jitpack.io") }
+            }
+            filter {
+                includeGroup("com.github.HighCapable.YukiHookAPI")
+                includeGroup("com.github.LSPosed")
+            }
+        }
     }
 }
 

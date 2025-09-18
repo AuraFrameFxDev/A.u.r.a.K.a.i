@@ -1,10 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ksp)
     alias(libs.plugins.google.services)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.jetbrains.kotlin.android)
 }
 
 android {
@@ -12,10 +12,12 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        testInstrumentationRunner = "androidx.benchmark.junit4.AndroidBenchmarkRunner"
+        testInstrumentationRunner = "androidx.benchmark.macro.junit4.AndroidBenchmarkRunner"
         testInstrumentationRunnerArguments["androidx.benchmark.suppressErrors"] =
-            "EMULATOR,LOW_BATTERY,DEBUGGABLE"
-        testInstrumentationRunnerArguments["android.experimental.self-instrumenting"] = "true"
+            "EMULATOR,LOW_BATTERY,DEBUGGABLE,UNLOCKED"
+        testInstrumentationRunnerArguments["androidx.benchmark.suppressError"] = "LOW_BATTERY,DEBUGGABLE,UNLOCKED"
+        testInstrumentationRunnerArguments["androidx.benchmark.profiling.mode"] = "MethodTracing"
+        testInstrumentationRunnerArguments["androidx.benchmark.suppressErrors"] = "LOW_BATTERY,DEBUGGABLE,UNLOCKED"
         minSdk = 34
     }
 
@@ -68,15 +70,27 @@ android {
         implementation(project(":datavein-oracle-native"))
         implementation(project(":secure-comm"))
         implementation(project(":oracle-drive-integration"))
-        androidTestImplementation(libs.androidx.benchmark.junit4)
-        androidTestImplementation(libs.androidx.espresso.core)
+        // Benchmark dependencies
+        androidTestImplementation("androidx.benchmark:benchmark-macro-junit4:1.2.4")
+        androidTestImplementation("androidx.benchmark:benchmark-junit4:1.2.4")
+        
+        // Testing dependencies
+        androidTestImplementation(libs.androidx.test.ext.junit)
+        androidTestImplementation(libs.androidx.test.runner)
+        androidTestImplementation(libs.androidx.test.rules)
         androidTestImplementation(libs.androidx.test.uiautomator)
-        testImplementation(libs.junit4)
-        testImplementation(libs.mockk)
-        androidTestImplementation(libs.mockk.android)
-        testImplementation(libs.hilt.android.testing)
+        
+        // Hilt testing
         androidTestImplementation(libs.hilt.android.testing)
         kspAndroidTest(libs.hilt.compiler)
+        
+        // Mocking
+        testImplementation(libs.mockk)
+        androidTestImplementation(libs.mockk.android)
+        
+        // JUnit 4 for tests
+        testImplementation("junit:junit:4.13.2")
+        androidTestImplementation("junit:junit:4.13.2")
         implementation(libs.kotlin.stdlib.jdk8)
         implementation(libs.kotlinx.serialization.json)
     }

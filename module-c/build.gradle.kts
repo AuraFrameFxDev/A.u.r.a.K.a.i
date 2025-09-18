@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.hilt)
     id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.jetbrains.kotlin.android)
 }
 
 android {
@@ -27,13 +28,16 @@ android {
         targetCompatibility = JavaVersion.VERSION_24
     }
 
-    kotlin {
-        jvmToolchain(24)
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(24))
+        }
     }
 }
 
 dependencies {
     implementation(libs.hilt.android)
+    implementation(libs.androidx.core.ktx)
     ksp(libs.hilt.compiler)
     // Add other dependencies as needed
 }

@@ -1,15 +1,26 @@
 plugins {
+    // Android and Kotlin plugins first
     alias(libs.plugins.android.application)
-    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    
+    // Compose plugins
+    alias(libs.plugins.kotlin.compose)
+    
+    // Hilt
+    alias(libs.plugins.hilt)
+    
+    // Google services
     alias(libs.plugins.google.services)
     alias(libs.plugins.google.firebase.crashlytics)
-    alias(libs.plugins.hilt)
+    
+    // KSP for annotation processing
     alias(libs.plugins.ksp)
+    
     // External plugins
     id("org.openapi.generator") version "7.15.0"
-
-    // Kotlin plugins
-    kotlin("plugin.serialization") version "2.2.20"
+    
+    // Kotlin serialization
+    kotlin("plugin.serialization") version "2.0.0"
 }
 
 android {
@@ -31,6 +42,10 @@ android {
         viewBinding = true
         aidl = true
     }
+    
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
+    }
 
     // Java 24 + JVM target 23
     compileOptions {
@@ -48,8 +63,10 @@ android {
 }
 
 // At the root of the script (outside android { })
-kotlin {
-    jvmToolchain(24)
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(24))
+    }
 }
 
 tasks.named<org.openapitools.generator.gradle.plugin.tasks.GenerateTask>("openApiGenerate") {

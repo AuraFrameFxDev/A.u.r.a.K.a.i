@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.hilt)
     id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.jetbrains.kotlin.android)
 }
 
 android {
@@ -21,18 +22,15 @@ android {
         compose = true
     }
 
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_24
         targetCompatibility = JavaVersion.VERSION_24
     }
 
-    kotlin {
-        jvmToolchain(24)
-    }
-
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-        compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(24))
         }
     }
 }

@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.hilt)
     kotlin("plugin.serialization") version libs.versions.kotlin.get()
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.jetbrains.kotlin.android)
 }
 
 android {
@@ -85,4 +86,7 @@ android {
         group = "aegenesis"
         doLast { println("\uD83D\uDCE6 SANDBOX UI - Ready (Java 24)") }
     }
+}
+dependencies {
+    implementation(libs.androidx.core.ktx)
 }

@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.hilt)
     id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.jetbrains.kotlin.android)
 }
 
 android {
@@ -26,21 +27,21 @@ android {
         targetCompatibility = JavaVersion.VERSION_24
     }
 
-    kotlin {
-        jvmToolchain(24)
-    }
+ java {
+     toolchain {
+         languageVersion.set(JavaLanguageVersion.of(24))
+     }
+ }
 }
 
 dependencies {
     implementation(project(":core-module"))
-    implementation(libs.androidx.core.ktx)
-    
+    implementation("androidx.core:core-ktx:1.17.0")
     // Hilt
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
-    
+    implementation("com.google.dagger:hilt-android:2.57.1")
+    ksp("com.google.dagger:hilt-compiler:2.57.1")
     // Add other module-specific dependencies here
-    implementation(libs.kotlin.stdlib.jdk8)
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.2.20")
 }
 
 tasks.register("moduleAStatus") {

@@ -4,6 +4,7 @@ plugins {
     id("com.android.library")
     alias(libs.plugins.ksp)
     id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"
+    alias(libs.plugins.jetbrains.kotlin.android)
 }
 
 android {
@@ -15,4 +16,7 @@ android {
             languageVersion = JavaLanguageVersion.of(24)
         }
     }
+}
+dependencies {
+    implementation(libs.androidx.core.ktx)
 }

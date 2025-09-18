@@ -2,11 +2,11 @@
 // Color utility and theming module
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)  // 🔥 CRITICAL: Add Compose Compiler Plugin
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.google.firebase.crashlytics)
+    alias(libs.plugins.jetbrains.kotlin.android)
 
 }
 
@@ -54,13 +54,16 @@ dependencies {
     androidTestImplementation(platform(libs.androidx.compose.bom))
 
     // Testing
-    testImplementation(libs.junit4)
+    testImplementation("junit:junit:4.13.2")
     testImplementation(libs.mockk)
     testImplementation(kotlin("test"))
 
     // Android Testing
     androidTestImplementation(libs.mockk.android)
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test:runner:1.5.2")
+    androidTestImplementation("androidx.test:rules:1.5.0")
 
     // Hilt Testing
     testImplementation(libs.hilt.android.testing)

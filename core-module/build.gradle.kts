@@ -1,12 +1,12 @@
 // core-module/build.gradle.kts - COMPLETE FIX
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)  // ✅ This is already correct
     alias(libs.plugins.google.services)
     alias(libs.plugins.google.firebase.crashlytics)
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.jetbrains.kotlin.android)
 }
 
 android {
@@ -34,6 +34,9 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+    kotlinOptions {
+        jvmTarget = "17"
+    }
     java {
         toolchain {
             languageVersion = JavaLanguageVersion.of(24)
@@ -60,4 +63,7 @@ android {
         testRuntimeOnly(libs.junit.jupiter.engine)
         testImplementation(libs.mockk)
     }
+}
+dependencies {
+    implementation(libs.androidx.core.ktx)
 }
