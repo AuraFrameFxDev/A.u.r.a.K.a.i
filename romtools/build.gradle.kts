@@ -1,9 +1,11 @@
 plugins {
-    id("com.android.application") version "9.0.0-alpha02"
-    id("org.jetbrains.kotlin.android") version "2.2.20"
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"
-    id("com.google.devtools.ksp") version "2.2.20-2.0.3"
-    id("com.google.dagger.hilt.android") version "2.57.1"
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.google.firebase.crashlytics)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -15,82 +17,141 @@ android {
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_24
-        targetCompatibility = JavaVersion.VERSION_23
+        targetCompatibility = JavaVersion.VERSION_24
     }
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(24)
+        }
 
-    kotlin {
-        jvmToolchain(24)
+        buildFeatures {
+            compose = true
+            buildConfig = true
+
+
+            val romToolsOutputDirectory: DirectoryProperty =
+                project.objects.directoryProperty()
+                    .convention(layout.buildDirectory.dir("rom-tools"))
+        }
+        dependencies {
+            implementation(libs.androidx.core.ktx)
+            // Compose
+            implementation(platform(libs.androidx.compose.bom))
+            implementation(libs.androidx.compose.ui)
+            implementation(libs.androidx.compose.ui.graphics)
+            implementation(libs.androidx.compose.ui.tooling.preview)
+            implementation(libs.androidx.compose.material3)
+            implementation(libs.androidx.activity.compose)
+            implementation(libs.androidx.navigation.compose)
+            debugImplementation(libs.androidx.compose.ui.tooling)
+            debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+            // AndroidX core
+            implementation(libs.androidx.appcompat)
+            implementation(libs.androidx.multidex)
+            implementation(libs.androidx.security.crypto)
+
+            // Lifecycle / Room / Work
+            implementation(libs.bundles.lifecycle)
+            implementation(libs.bundles.room)
+            implementation(libs.androidx.datastore.preferences)
+            implementation(libs.androidx.datastore.core)
+
+            // Coroutines / serialization / datetime
+            implementation(libs.bundles.coroutines)
+            implementation(libs.kotlinx.serialization.json)
+            implementation(libs.kotlinx.datetime)
+
+            // ===== NETWORKING =====
+            implementation(libs.bundles.network)
+
+            // ===== FIREBASE =====
+            implementation(platform(libs.firebase.bom))
+            implementation(libs.firebase.analytics)
+            implementation(libs.firebase.auth)
+            implementation(libs.firebase.firestore)
+            implementation(libs.firebase.database)
+            implementation(libs.firebase.storage)
+            implementation(libs.firebase.config)
+            implementation(libs.firebase.messaging)
+            implementation(libs.firebase.crashlytics)
+
+            // FirebaseUI (optional) - assuming these are what you mean by firebase.auth, etc again
+            implementation(libs.firebase.auth)
+            implementation(libs.firebase.database)
+            implementation(libs.firebase.firestore)
+            implementation(libs.firebase.storage)
+
+            // ===== HILT DEPENDENCY INJECTION =====
+            implementation(libs.hilt.android)
+            ksp(libs.hilt.compiler)
+            implementation(libs.hilt.work)
+
+            // Images / utils
+            implementation(libs.coil.compose)
+            implementation(libs.timber)
+
+            // Debug tools
+            debugImplementation(libs.leakcanary.android)
+            debugImplementation(libs.bundles.compose.debug)
+            debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+            // YukiHook / LSPosed
+            implementation(libs.yukihook.api)
+            ksp(libs.yukihook.ksp)
+            implementation(libs.lsposed.api)
+
+            // Testing
+            testImplementation(libs.junit4)
+            testImplementation(libs.mockk)
+            testImplementation(kotlin("test"))
+
+            // Android Testing
+            androidTestImplementation(libs.mockk.android)
+
+            androidTestImplementation(platform(libs.androidx.compose.bom))
+            androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+
+            // Hilt
+            implementation(libs.hilt.android)
+            ksp(libs.hilt.compiler)
+            implementation(libs.hilt.work)
+
+
+            // Testing
+            testImplementation(libs.mockk.android)
+            androidTestImplementation(libs.mockk.android)
+
+
+            // Copy task
+            val romToolsOutputDirectory: Provider<Directory> = layout.buildDirectory.dir("intermediates/romtools")
+
+// Now, within your tasks.register<Copy>("copyRomTools") block:
+            tasks.register<Copy>("copyRomTools") {
+                from("src/main/resources")
+                into(romToolsOutputDirectory) // Correctly uses the Provider<Directory>
+                include("**/*.so", "**/*.bin", "**/*.img", "**/*.jar")
+                includeEmptyDirs = false
+                doFirst {
+                    // Access the actual File object safely when the task executes
+                    romToolsOutputDirectory.get().asFile.mkdirs()
+                    logger.lifecycle("📁 ROM tools directory: ${romToolsOutputDirectory.get().asFile}")
+                }
+                doLast { logger.lifecycle("✅ ROM tools copied to: ${romToolsOutputDirectory.get().asFile}") }
+            }
+
+            // Verification task
+            tasks.register("verifyRomTools") {
+                dependsOn("copyRomTools")
+            }
+
+            tasks.named("build") { dependsOn("verifyRomTools") }
+
+            tasks.register("romToolsStatus") {
+                group = "aegenesis"
+                doLast { println("\uD83D\uDCE6 ROMTOOLS - Ready (Java 24)") }
+            }
+        }
     }
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
-    }
-}
-
-val romToolsOutputDirectory: DirectoryProperty =
-    project.objects.directoryProperty().convention(layout.buildDirectory.dir("rom-tools"))
-
-dependencies {
-    api(project(":core-module"))
-    implementation(project(":secure-comm"))
-    implementation("androidx.core:core-ktx:1.17.0")
-    implementation(platform("androidx.compose:compose-bom:2025.09.00"))
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.activity:activity-compose:1.11.0")
-    implementation("androidx.navigation:navigation-compose:2.9.4")
-    implementation("com.google.dagger:hilt-android:2.57.1")
-    ksp("com.google.dagger:hilt-compiler:2.57.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
-    implementation("com.squareup.retrofit2:retrofit:2.12.0")
-    implementation("com.squareup.okhttp3:okhttp:5.1.0")
-    implementation("androidx.room:room-runtime:2.8.0")
-    implementation("androidx.room:room-ktx:2.8.0")
-    // Room compiler temporarily disabled
-    // ksp("androidx.room:room-compiler:2.8.0")
-    implementation("com.google.firebase:firebase-perf")
-    implementation("com.google.firebase:firebase-auth")
-    implementation("com.google.firebase:firebase-firestore")
-    implementation("com.google.firebase:firebase-messaging")
-    implementation("com.google.firebase:firebase-config")
-    implementation("com.google.firebase:firebase-database")
-    implementation("com.google.firebase:firebase-storage")
-    implementation(platform("com.google.firebase:firebase-bom:34.2.0"))
-    implementation("com.jakewharton.timber:timber:5.0.1")
-    implementation("io.coil-kt:coil-compose:2.7.0")
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.14")
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    testImplementation("io.mockk:mockk-android:1.14.5")
-    androidTestImplementation("io.mockk:mockk-android:1.14.5")
-    testImplementation("com.google.dagger:hilt-android-testing:2.57.1")
-    androidTestImplementation("com.google.dagger:hilt-android-testing:2.57.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2025.09.00"))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.2.20")
-    implementation("androidx.compose.material:material-icons-extended:1.7.8")
-    implementation("androidx.hilt:hilt-navigation-compose:1.3.0")
-    implementation("dev.rikka.yukihookapi:yukihookapi:1.1.23")
-    implementation("org.lsposed.api:api:1.0.0")
-}
-
-// Copy task
-tasks.register<Copy>("copyRomTools") {
-    from("src/main/resources")
-    into(romToolsOutputDirectory)
-    include("**/*.so", "**/*.bin", "**/*.img", "**/*.jar")
-    includeEmptyDirs = false
-    doFirst { romToolsOutputDirectory.get().asFile.mkdirs(); logger.lifecycle("📁 ROM tools directory: ${romToolsOutputDirectory.get().asFile}") }
-    doLast { logger.lifecycle("✅ ROM tools copied to: ${romToolsOutputDirectory.get().asFile}") }
-}
-
-// Verification task
-tasks.register("verifyRomTools") {
-    dependsOn("copyRomTools")
-}
-
-tasks.named("build") { dependsOn("verifyRomTools") }
-
-tasks.register("romToolsStatus") {
-    group = "aegenesis"
-    doLast { println("\uD83D\uDCE6 ROMTOOLS - Ready (Java 24)") }
-}

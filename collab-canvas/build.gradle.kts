@@ -21,11 +21,6 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    // For test builds
-    testOptions {
-        targetSdk = 36
-    }
-
     // For linting
     lint {
         targetSdk = 36
@@ -67,7 +62,6 @@ android {
                 // Testing
                 testImplementation(libs.junit.jupiter.api)
                 testRuntimeOnly(libs.junit.jupiter.engine)
-                androidTestImplementation(libs.androidx.test.junit)
                 androidTestImplementation(libs.androidx.espresso.core)
                 androidTestImplementation(platform(libs.androidx.compose.bom))
                 androidTestImplementation(libs.androidx.compose.ui.test.junit4)

@@ -4,10 +4,10 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.compose.compiler)  // CRITICAL: Add Compose Compiler Plugin
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.google.firebase.crashlytics)
-
 }
 
 android {

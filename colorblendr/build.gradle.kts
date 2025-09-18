@@ -1,15 +1,13 @@
 // ==== GENESIS PROTOCOL - COLORBLENDR MODULE ====
 // Color utility and theming module
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.google.services)
-    alias(libs.plugins.google.firebase.crashlytics)
+    alias(libs.plugins.compose.compiler)  // 🔥 CRITICAL: Add Compose Compiler Plugin
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
-    // ...
+    alias(libs.plugins.google.firebase.crashlytics)
+
 }
 
 android {
@@ -23,7 +21,6 @@ android {
 
     buildFeatures {
         buildConfig = true
-        compose = true
     }
 
     compileOptions {
@@ -31,50 +28,53 @@ android {
         targetCompatibility = JavaVersion.VERSION_24
     }
 
+    // Modern toolchain configuration
     java {
         toolchain {
             languageVersion = JavaLanguageVersion.of(24)
-
-            dependencies {
-                // Module dependencies
-                implementation(project(":core-module"))
-
-                // Core Android
-                implementation(libs.androidx.core.ktx)
-                implementation(libs.androidx.appcompat)
-                implementation(libs.bundles.lifecycle)
-                implementation(libs.hilt.android)
-
-                // Compose
-                implementation(platform(libs.androidx.compose.bom))
-                implementation(libs.bundles.compose.ui)
-                debugImplementation(libs.bundles.compose.debug)
-                androidTestImplementation(platform(libs.androidx.compose.bom))
-
-                // Hilt
-                implementation(libs.hilt.android)
-                ksp(libs.hilt.compiler)
-
-                // Testing
-                testImplementation(libs.junit.jupiter.api)
-                testRuntimeOnly(libs.junit.jupiter.engine)
-                androidTestImplementation(libs.androidx.test.junit)
-                androidTestImplementation(libs.androidx.espresso.core)
-
-                // Utilities
-                implementation(libs.timber)
-                implementation(libs.kotlin.stdlib.jdk8)
-
-                // Testing
-                testImplementation(libs.bundles.testing.unit)
-                androidTestImplementation(libs.bundles.testing.android)
-                androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-            }
-
-            tasks.register("colorblendrStatus") {
-                group = "aegenesis"
-                doLast { println("\uD83D\uDCE6 COLORBLENDR MODULE - Ready (Java 24)") }
-            }
         }
     }
+}
+
+dependencies {
+    // Module dependencies
+    implementation(project(":core-module"))
+
+    // Core Android
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.bundles.lifecycle)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+
+    // Compose
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.bundles.compose.ui)
+    debugImplementation(libs.bundles.compose.debug)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+
+    // Testing
+    testImplementation(libs.junit4)
+    testImplementation(libs.mockk)
+    testImplementation(kotlin("test"))
+
+    // Android Testing
+    androidTestImplementation(libs.mockk.android)
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+
+    // Hilt Testing
+    testImplementation(libs.hilt.android.testing)
+    kspTest(libs.hilt.compiler)
+    androidTestImplementation(libs.hilt.android.testing)
+    kspAndroidTest(libs.hilt.compiler)
+
+    // Utilities
+    implementation(libs.timber)
+    implementation(libs.kotlin.stdlib.jdk8)
+}
+
+// Move the tasks registration block outside the dependencies block
+tasks.register("colorblendrStatus") {
+    group = "aegenesis"
+    doLast { println("\uD83D\uDCE6 COLORBLENDR MODULE - Ready (Java 24)") }
 }
