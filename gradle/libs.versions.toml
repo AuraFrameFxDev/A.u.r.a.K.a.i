@@ -56,7 +56,7 @@ moshi = "1.15.2"
 # Async
 kotlinxCoroutines = "1.10.2"
 kotlinxSerialization = "1.9.0"
-kotlinxDatetime = "0.7.1"
+kotlinxDatetime = "0.7.1-0.6.x-compat"
 
 # UI / images
 coil = "2.7.0"
