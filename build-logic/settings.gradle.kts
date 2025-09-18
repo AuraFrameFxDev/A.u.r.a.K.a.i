@@ -1,26 +1,3 @@
-Skip to main contentAccessibility help
-Accessibility feedback
-AI Mode
-All
-Videos
-Short videos
-Shopping
-More
-
-
-
-foojay resolver convention plugin setup and latest version multi module
-The Foojay Resolver Convention plugin (version 1.0.0) should be applied in your multi-module project's root settings.gradle(.kts) file. This makes it available to all subprojects and enables automatic JDK provisioning using the Foojay DiscoAPI. 
-Latest version and requirements
-The current latest version of the foojay-resolver-convention plugin is 1.0.0. To use this version, your project must meet the following requirements: 
-Gradle version: 7.6 or later
-Java version: 17 or later 
-Setup for a multi-module project
-Follow these steps to set up the plugin in your Gradle multi-module project.
-1. Apply the plugin in settings.gradle.kts
-Add the plugin to the plugin block in your root settings.gradle.kts file. 
-settings.gradle.kts 
-kotlin
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
