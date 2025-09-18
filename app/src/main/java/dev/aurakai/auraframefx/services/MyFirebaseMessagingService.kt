@@ -321,7 +321,16 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     /**
-     * Processes collaboration request messages
+     * Handle an incoming collaboration request payload.
+     *
+     * Expects the provided map to contain the keys `"request_type"`, `"requester_id"`, and `"collaboration_data"`.
+     * If any key is missing the function returns immediately. When all values are present it:
+     * - Persists a timestamped collaboration request entry to the memory manager.
+     * - Posts a collaboration notification for the user/agents.
+     *
+     * This is a suspend function and performs I/O via the memory manager and notification helpers.
+     *
+     * @param data Map containing the collaboration request payload; required keys: `request_type`, `requester_id`, `collaboration_data`.
      */
     private suspend fun processCollaborationRequest(data: Map<String, String>) {
         val requestType = data["request_type"] ?: return
@@ -373,13 +382,12 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     /**
-     * Sends the FCM registration token to the Genesis backend.
+     * Report the FCM registration token to the Genesis backend.
      *
-     * Currently a placeholder: no network I/O is performed. Instead it records local markers
-     * ("fcm_token_sent" and "fcm_token_sent_time") in the DataStore and logs the attempt.
-     * This is a suspend function and failures are caught and logged; it does not propagate exceptions.
-     *
-     * @param token FCM registration token to report.
+     * This is currently a placeholder — no network I/O is performed. Instead the function
+     * records local markers ("fcm_token_sent" = "true" and "fcm_token_sent_time") in the DataStore
+     * and logs the attempt. The function is suspendable, catches and logs any exceptions, and
+     * does not propagate errors to the caller.
      */
     private suspend fun sendTokenToServer(token: String) {
         try {

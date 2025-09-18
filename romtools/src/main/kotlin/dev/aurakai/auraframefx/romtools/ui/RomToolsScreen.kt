@@ -261,6 +261,14 @@ private fun DeviceCapabilitiesCard(
     }
 }
 
+/**
+ * Displays a single capability row with a left-aligned label and a right-aligned status icon.
+ *
+ * Shows a green check icon when the capability is present and a red cancel icon when absent.
+ *
+ * @param label Human-readable name of the capability.
+ * @param hasCapability True if the capability is available; controls which status icon is shown.
+ */
 @Composable
 private fun CapabilityRow(label: String, hasCapability: Boolean) {
     Row(
@@ -312,15 +320,14 @@ private fun InfoRow(label: String, value: String) {
 }
 
 /**
- * Shows a card with the current ROM operation name and its progress.
+ * Displays a card showing the current ROM operation's name and progress.
  *
- * The card displays the operation's display name (or an empty string if absent),
- * a linear progress bar driven by `operation.progress` interpreted as a percentage
- * in the 0–100 range, and a right-aligned textual percentage (rounded to an
- * integer for display).
+ * The title shows the operation's display name (empty when absent). A linear
+ * progress bar reflects `operation.progress` mapped from 0–100 to 0–1 for the
+ * indicator, and a right-aligned text shows the progress percentage as an
+ * integer followed by `%`.
  *
  * @param operation Current operation state containing an optional operation type and a numeric progress (0–100).
- * @param modifier Modifier applied to the root composable.
  */
 @Composable
 private fun OperationProgressCard(

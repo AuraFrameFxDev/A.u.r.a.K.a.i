@@ -33,7 +33,7 @@ data class AgentHierarchy(
         /**
          * Create and register a new auxiliary agent configuration with priority 4.
          *
-         * The new configuration is appended to the companion object's internal auxiliaryAgents list.
+         * The created config is appended to the companion object's internal auxiliaryAgents list and returned.
          *
          * @param name Human-readable identifier for the auxiliary agent.
          * @param capabilities Set of capability names describing the agent's abilities.

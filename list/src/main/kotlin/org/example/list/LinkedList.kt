@@ -143,10 +143,10 @@ override fun isEmpty(): Boolean = head == null
  */
 override fun hasNext() = current != null
         /**
-         * Returns the next element in the iteration and advances the iterator.
+         * Returns the next element in the iteration and advances the iterator position by one.
          *
-         * @return the next String element.
-         * @throws NoSuchElementException if the iteration has no more elements.
+         * @return the next String in the list.
+         * @throws NoSuchElementException if there are no remaining elements.
          */
         override fun next(): String {
             val data = current?.data ?: throw NoSuchElementException()
