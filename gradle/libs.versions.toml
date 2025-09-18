@@ -56,7 +56,7 @@ androidxTestCore = "1.5.0"
 androidxTestRunner = "1.5.2"
 androidxTestRules = "1.5.0"
 androidxTestJunit = "1.2.0"
-espressoCore = "3.5.1"
+espressoCore = "3.7.0"
 uiAutomator = "2.3.0"
 benchmarkJunit4 = "1.2.0"
 
