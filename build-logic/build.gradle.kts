@@ -2,14 +2,6 @@
 
 plugins {
     `kotlin-dsl`
-    id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
-}
-
-repositories {
-    google()
-    mavenCentral()
-    gradlePluginPortal()
-    maven { url = uri("https://repo1.maven.org/maven2") } // For OpenAPI Generator
 }
 
 // Dependencies required for writing the convention plugins themselves.
