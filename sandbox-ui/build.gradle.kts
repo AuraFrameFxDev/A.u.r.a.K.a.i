@@ -70,7 +70,6 @@ android {
         implementation(libs.timber); implementation(libs.coil.compose)
         // Testing
         // Testing
-        testImplementation(libs.junit4)
         testImplementation(libs.mockk)
         testImplementation(kotlin("test"))
 
