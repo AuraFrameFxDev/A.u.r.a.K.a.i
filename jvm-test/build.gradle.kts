@@ -8,11 +8,11 @@ version = "1.0.0"
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(24))
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
 
 tasks.register("jvmTestStatus") {
     group = "aegenesis"
-    doLast { println("\uD83D\uDCE6 JVM TEST MODULE - Ready (Java 24)") }
+    doLast { println("\uD83D\uDCE6 JVM TEST MODULE - Ready (Java 17)") }
 }

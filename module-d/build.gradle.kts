@@ -24,13 +24,13 @@ android {
 
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_24
-        targetCompatibility = JavaVersion.VERSION_24
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     java {
         toolchain {
-            languageVersion.set(JavaLanguageVersion.of(24))
+            languageVersion.set(JavaLanguageVersion.of(17))
         }
     }
 }
@@ -64,5 +64,5 @@ dependencies {
 
 tasks.register("moduleDStatus") {
     group = "aegenesis"
-    doLast { println("\uD83D\uDCE6 MODULE D - Ready (Java 24)") }
+    doLast { println("\uD83D\uDCE6 MODULE D - Ready (Java 17)") }
 }
