@@ -35,7 +35,7 @@ kotlinComposePlugin = "1.5.12"
 hilt = "2.51"
 hiltAndroidGradlePlugin = "2.51"
 hiltNavigationCompose = "1.2.0"
-hiltWork = "1.2.0"
+hiltWork = "1.3.0"
 
 # Async
 kotlinxCoroutines = "1.8.1"
