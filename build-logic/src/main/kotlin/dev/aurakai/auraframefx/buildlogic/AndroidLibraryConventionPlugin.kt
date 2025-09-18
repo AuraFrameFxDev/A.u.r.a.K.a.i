@@ -11,18 +11,19 @@ import org.gradle.kotlin.dsl.configure
  */
 class AndroidLibraryConventionPlugin : Plugin<Project> {
     /**
-     * Applies Android library conventions to the given Gradle project.
+     * Applies standard Android library conventions to the given Gradle project.
      *
-     * Configures the project as an Android library: applies the Android library plugin,
-     * sets compileSdk to 36, configures defaultConfig with minSdk 34 and the AndroidX
-     * instrumentation test runner, and sets Java source/target compatibility via
-     * compileOptions (JavaVersion.VERSION_24). Also adds packaging exclusion for
-     * "/META-INF/{AL2.0,LGPL2.1}".
+     * Configures the project as an Android library:
+     * - applies the "com.android.library" plugin,
+     * - sets compileSdk to 36,
+     * - sets defaultConfig with minSdk = 34 and testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner",
+     * - sets Java source/target compatibility to JavaVersion.VERSION_24 via compileOptions,
+     * - excludes "/META-INF/{AL2.0,LGPL2.1}" from packaged resources.
      *
-     * If the project exposes the Kotlin Gradle extension (`kotlin`) and it is a
+     * If the project exposes a Kotlin Gradle extension named "kotlin" and it is a
      * KotlinProjectExtension, configures a global Kotlin JVM toolchain with version 24.
      *
-     * @param target The Gradle project to configure.
+     * @param target The Gradle Project to configure.
      */
     override fun apply(target: Project) {
         with(target) {
