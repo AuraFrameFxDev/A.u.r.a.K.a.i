@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
     kotlin("plugin.serialization") version libs.versions.kotlin.get()
-    id("org.jetbrains.kotlin.android")
     alias(libs.plugins.compose.compiler)
 }
 
@@ -87,5 +86,3 @@ android {
         doLast { println("\uD83D\uDCE6 SANDBOX UI - Ready (Java 24)") }
     }
 }
-
-

@@ -5,7 +5,7 @@
 api = "1.0"
 wrapper = "9.1.0-rc-3"
 # ===== GRADLE & KOTLIN =====
-agp = "9.0.0-alpha02"
+agp = "9.0.0-alpha05"
 comGoogleDevtoolsKspGradlePlugin = "2.2.20-2.0.3"
 firebaseUi = "9.0.0"
 googleServices = "4.4.3"

@@ -72,12 +72,5 @@ tasks.register("moduleFStatus") {
     group = "genesis"
     doLast {
         println("📦 MODULE F - ${android.namespace} - Ready!")
-        tasks.register("moduleFStatus") {
-            group = "aegenesis"
-            doLast {
-
-                }
-            }
-        }
     }
-
+}
