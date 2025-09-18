@@ -1,83 +1,8 @@
 plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
-}
-
-rootProject.name = "your-multi-module-project"
-include("module-one")
-include("module-two")
-Use code with caution.
-
-2. Configure toolchains in subproject build.gradle.kts
-Once the resolver is applied, you can specify the required JDK version for your submodules. This can be done in the build.gradle.kts file of the subproject using Gradle's built-in toolchain support. 
-module-one/build.gradle.kts 
-kotlin
-// Apply other plugins needed for this module (e.g., the Java plugin)
-plugins {
     java
 }
 
-// Set the toolchain to a specific Java language version
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(21))
-    }
-}
-Use code with caution.
-
-With this configuration, Gradle will automatically find and provision a compatible JDK 21 runtime for module-one, downloading it from the Foojay repository if necessary. 
-Benefits in a multi-module setup
-In a multi-module project, this setup offers several advantages:
-Centralized management: By applying the plugin in settings.gradle.kts, it's available for all submodules without needing to declare it repeatedly.
-Consistency: All modules can be configured to use the same JDK version, ensuring a consistent build environment across your entire project.
-Simplified builds: Developers don't need to manually install specific JDKs for each project. Gradle handles the downloading and provisioning automatically. 
-If you're using convention plugins to manage your build logic, I can help you with that next. We could put together an example of how to centralize your toolchain configuration even further, so you don't have to repeat it in every submodule. Would you be interested in that? 
-Related video thumbnail
-1 min
-Leveraging Gradle convention plugins to enhance your build ...
-
-GDG Paris Android User Group
-YouTube
-Related video thumbnail
-25:04
-Migrate to Gradle version catalog and convention plugins ...
-
-Android Makers
-YouTube
-Related video thumbnail
-1 min
-the Road to Java: Multi Module Builds with Apache Maven ...
-
-Coffee + Software
-YouTube
-See more
-AI responses may include mistakes. Learn more
-
-
-
-
-What are other benefits of using convention plugins with the Foojay Resolver in multi-module projects?
-
-How does Foojay DiscoAPI determine the JDK to download?
-
-Tell me more about convention plugins for Gradle
-
-undefined
-undefined
-undefined
-15 sites
-Java Toolchain Resolve Plugin based on the foojay DiscoAPI
-Foojay Toolchains Plugin. The org. gradle. toolchains. foojay-resolver plugin provides a repository for downloading JVMs. It is based on the foojay DiscoAPI, th...
-favicon
-GitHub
-Part 3: Multi-Project Builds - Gradle User Manual
-To add lib to the build, update the settings.gradle(.kts) file in the root accordingly: Kotlin Groovy. settings.gradle.kts. plugins { id("org.gradle.toolchains.
-favicon
-Gradle
-Plugin: org.gradle.toolchains.foojay-resolver-convention
-May 19, 2025 — Version 1.0. ... Created 19 May 2025.
-favicon
-Gradle - Plugins
-Show all
+// Set the t
 // build-logic/build.gradle.kts
 
 plugins {
