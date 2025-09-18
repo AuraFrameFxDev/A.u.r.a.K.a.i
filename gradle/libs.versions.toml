@@ -16,7 +16,7 @@ kotlinSerialization = "1.6.21"
 # AndroidX
 coreKtx = "1.17.0"
 appcompat = "1.7.0"
-lifecycle = "2.9.4"
+lifecycle = "2.9.0"
 room = "2.8.0"
 datastore = "1.1.0"
 securityCrypto = "1.2.0-alpha06"
@@ -30,6 +30,7 @@ activityCompose = "1.9.0"
 navigationCompose = "2.8.0-beta02"
 composeGradlePlugin = "1.5.12"
 kotlinComposePlugin = "1.5.12"
+
 
 # Dependency Injection (Hilt)
 hilt = "2.51"
@@ -85,6 +86,7 @@ mockk = "1.14.5"
 # Debug Tools
 leakcanary = "2.13.0"
 
+
 # JSON
 gson = "2.13.2"
 
@@ -132,9 +134,7 @@ kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-multidex = { group = "androidx.multidex", name = "multidex", version.ref = "multidex" }
-androidx-security-crypto = { group = "androidx.security", name = "security-crypto", version.ref = "securityCrypto" }
-
-# Lifecycle
+androidx-security-crypto = { group = "androidx.security", name = "security-crypto", verssecurityCrypsecurityCrsecurityCry
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle" }
@@ -216,9 +216,11 @@ lsposed-api = { group = "org.lsposed.hiddenapibypass", name = "hiddenapibypass",
 junit-jupiter-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junitJupiter" }
 junit-jupiter-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junitJupiter" }
 junit-jupiter-params = { group = "org.junit.jupiter", name = "junit-jupiter-params", version.ref = "junitJupiterParams" }
-junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version.ref = "junitPlatformLauncher" }
+junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version.ref = "junitPlatformLauncher"
+
 junit-bom = { group = "org.junit", name = "junit-bom", version = "5.13.4" }
 slf4j-simple = { group = "org.slf4j", name = "slf4j-simple", version.ref = "slf4j" }
+
 
 # AndroidX Test
 androidx-test-core = { group = "androidx.test", name = "core-ktx", version.ref = "androidxTestCore" }
@@ -317,3 +319,4 @@ google-services = { id = "com.google.gms.google-services", version.ref = "google
 google-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "googleFirebaseCrashlytics" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }

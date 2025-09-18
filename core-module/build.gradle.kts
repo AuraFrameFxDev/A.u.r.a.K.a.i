@@ -34,6 +34,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_24
         targetCompatibility = JavaVersion.VERSION_24
     }
+
     java {
         toolchain {
             languageVersion = JavaLanguageVersion.of(17)

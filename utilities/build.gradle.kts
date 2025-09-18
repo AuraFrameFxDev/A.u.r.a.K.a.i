@@ -47,6 +47,7 @@ spotless {
 dependencies {
     // Kotlin Standard Library
     implementation(kotlin("stdlib-jdk8"))
+
     
     // Coroutines & Serialization
     implementation(libs.bundles.coroutines)
@@ -54,19 +55,19 @@ dependencies {
     implementation(libs.kotlinx.datetime)
 
     // File operations and compression
+
     implementation(libs.commons.io)
     implementation(libs.commons.compress)
     implementation(libs.xz)
+    testRuntimeOnly(libs.junit.platform.launcher)
 
-    // Logging (API only - implementation bound at application level)
-    implementation(libs.slf4j.api)
-    runtimeOnly(libs.slf4j.simple)
-
-    // Testing
-    testImplementation(platform(libs.junit.bom))
-    testImplementation(libs.bundles.testing.unit)
-    testImplementation(kotlin("test-junit5"))
-    testRuntimeOnly(libs.junit.jupiter.engine)
+    // Test AndroidX Dependencies
+    testImplementation("androidx.activity:activity:1.5.1")
+    testImplementation("androidx.annotation:annotation-experimental:1.3.1")
+    testImplementation("androidx.fragment:fragment:1.5.1")
+    testImplementation("androidx.lifecycle:lifecycle-viewmodel:2.5.1")
+    testImplementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1")
+    testImplementation("androidx.savedstate:savedstate:1.2.0")
     testRuntimeOnly(libs.slf4j.simple)
 }
 
