@@ -11,18 +11,25 @@ import org.gradle.kotlin.dsl.configure
  */
 class AndroidApplicationConventionPlugin : Plugin<Project> {
     /**
-     * Applies Android application plugin and configures the Android Application extension
-     * with a standard set of defaults for an application module.
+     * Applies the Android application Gradle plugin and configures the Android ApplicationExtension
+     * with a standard set of defaults for application modules.
      *
-     * Configurations performed:
-     * - Applies plugin: "com.android.application"
-     * - Sets compileSdk to 36 and defaultConfig (minSdk 34, targetSdk 36, AndroidJUnitRunner, support vector drawables).
-     * - Defines release and debug buildTypes (release: minification + proguard files; debug: debuggable with
-     *   applicationId and version name suffixes).
-     * - Reads the Gradle property `java.toolchain` (defaults to 24) and uses it to set Java compileOptions'
-     *   source/target compatibility and the Kotlin JVM toolchain.
-     * - Enables buildConfig generation, includes Android resources for unit tests, and excludes
-     *   "/META-INF/{AL2.0,LGPL2.1}" from packaging resources.
+     * Configured settings:
+     * - Applies plugin "com.android.application".
+     * - compileSdk set to 36.
+     * - defaultConfig: minSdk 34, targetSdk 36, testInstrumentationRunner set to
+     *   "androidx.test.runner.AndroidJUnitRunner", and support for vector drawables enabled.
+     * - buildTypes:
+     *   - release: code minification enabled with the default Android optimize ProGuard file plus
+     *     "proguard-rules.pro".
+     *   - debug: debuggable, adds an applicationIdSuffix ".debug" and versionNameSuffix "-DEBUG".
+     * - Java compileOptions source/target compatibility derived from the Gradle property
+     *   "java.toolchain" (defaults to "24"); value is converted to an integer and mapped to JavaVersion.
+     * - Enables buildConfig generation.
+     * - Includes Android resources during unit tests.
+     * - Excludes "/META-INF/{AL2.0,LGPL2.1}" from packaged resources.
+     *
+     * Side effects: applies a plugin to the project and mutates the Android extension configuration.
      */
     override fun apply(target: Project) {
         with(target) {
