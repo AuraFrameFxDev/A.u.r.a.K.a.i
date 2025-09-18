@@ -27,13 +27,6 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
 
     // AndroidX Dependencies
-    implementation("androidx.activity:activity:1.5.1")
-    implementation("androidx.annotation:annotation-experimental:1.3.1")
-    implementation("androidx.fragment:fragment:1.5.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel:2.5.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1")
-    implementation("androidx.savedstate:savedstate:1.2.0")
-
     // Project dependencies
     api(project(":list"))
 
