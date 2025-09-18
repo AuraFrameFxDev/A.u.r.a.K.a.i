@@ -442,21 +442,12 @@ private fun RomToolActionCard(
 }
 
 /**
-     * Returns the static list of available ROM tool actions shown in the UI.
-     *
-     * Each entry describes a ROM-related operation (type, title, description, icon, color)
-     * and the device capabilities required to enable that action (root, bootloader, recovery, system).
-     * The resulting list is used to render actionable cards in the ROM Tools screen; callers should
-     * consult each action's requirement flags together with the device capabilities to determine
-     * whether the action is enabled for the current device.
-     *
-     * @return A list of predefined RomToolAction instances representing the supported ROM tools.
-     */
  * Returns the predefined list of ROM tool actions displayed in the UI.
- 
- * Each returned RomToolAction describes an available operation (type, title, description,
- * icon, color) and the device capability requirements (requiresRoot, requiresBootloader,
- * requiresRecovery, requiresSystem) used by the UI to determine whether the action is enabled.
+ *
+ * Each entry describes a ROM-related operation (type, title, description, icon, color)
+ * and the device capabilities required to enable that action (root, bootloader, recovery, system).
+ * Callers should consult each action’s requirement flags with the device capabilities to decide
+ * whether the action is enabled for the current device.
  *
  * @return A list of RomToolAction values for: Flash Custom ROM, Create NANDroid Backup,
  * Restore Backup, Unlock Bootloader, Install Custom Recovery, and Genesis AI Optimizations.
