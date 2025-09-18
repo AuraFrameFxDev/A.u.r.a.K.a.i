@@ -282,6 +282,15 @@ private fun CapabilityRow(label: String, hasCapability: Boolean) {
     }
 }
 
+/**
+ * Displays a single labeled piece of information in a horizontal row.
+ *
+ * The `label` is shown on the left in a dimmed style and the `value` is shown on the right with
+ * normal emphasis. Designed for compact key–value pairs (e.g., "Device: Pixel 6").
+ *
+ * @param label Left-side label text (shown with reduced emphasis).
+ * @param value Right-side value text (shown with normal emphasis).
+ */
 @Composable
 private fun InfoRow(label: String, value: String) {
     Row(
@@ -303,15 +312,15 @@ private fun InfoRow(label: String, value: String) {
 }
 
 /**
- * Displays a card showing the current ROM operation name and its progress.
+ * Shows a card with the current ROM operation name and its progress.
  *
- * Renders the operation display name (falls back to empty string when absent), a linear
- * progress bar using `operation.progress` as a percentage (0–100), and a right-aligned
- * textual percentage.
+ * The card displays the operation's display name (or an empty string if absent),
+ * a linear progress bar driven by `operation.progress` interpreted as a percentage
+ * in the 0–100 range, and a right-aligned textual percentage (rounded to an
+ * integer for display).
  *
- * @param operation Current operation state including optional operation type and numeric progress (0–100).
- * @param modifier Modifier to be applied to the root composable.
-
+ * @param operation Current operation state containing an optional operation type and a numeric progress (0–100).
+ * @param modifier Modifier applied to the root composable.
  */
 @Composable
 private fun OperationProgressCard(
@@ -353,6 +362,16 @@ private fun OperationProgressCard(
     }
 }
 
+/**
+ * Shows a card representing a single ROM tool action with icon, title, description and an optional lock.
+ *
+ * The card is clickable only when `isEnabled` is true; when disabled it visually indicates a locked state.
+ *
+ * @param action The RomToolAction shown by the card (provides icon, title, description and accent color).
+ * @param isEnabled When false the card is rendered in a disabled/locked style and is not clickable.
+ * @param onClick Callback invoked when the card is clicked (only called if `isEnabled` is true).
+ * @param modifier Optional Modifier for the card's layout.
+ */
 @Composable
 private fun RomToolActionCard(
     action: RomToolAction,
