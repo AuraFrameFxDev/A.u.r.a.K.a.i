@@ -17,6 +17,15 @@ internal val Project.libs: VersionCatalog
  * Compose-enabled Android library configuration
  */
 class AndroidComposeConventionPlugin : Plugin<Project> {
+    /**
+     * Applies Android Compose configuration to the given Gradle project.
+     *
+     * When the "com.android.base" plugin is present, this enables Jetpack Compose on the Android extension,
+     * sets the Kotlin compiler extension version for Compose, and registers a Compose BOM plus common Compose
+     * dependencies (implementation, debug, and androidTest configurations).
+     *
+     * @param target The Gradle project to configure.
+     */
     override fun apply(target: Project) {
         with(target) {
             pluginManager.withPlugin("com.android.base") {
