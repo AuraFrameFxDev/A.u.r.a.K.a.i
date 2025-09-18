@@ -61,7 +61,7 @@ uiAutomator = "2.3.0"
 benchmarkJunit4 = "1.2.0"
 
 # Debug Tools
-leakcanary = "2.12.1"
+leakcanary = "2.14"
 
 mockk = "1.14.5"
 junit = "5.13.4"
