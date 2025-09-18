@@ -7,7 +7,6 @@ import dev.aurakai.auraframefx.ai.memory.MemoryManager
 import dev.aurakai.auraframefx.ai.task.TaskScheduler
 import dev.aurakai.auraframefx.ai.task.execution.TaskExecutionManager
 import dev.aurakai.auraframefx.data.logging.AuraFxLogger
-import dev.aurakai.auraframefx.data.network.AuraApiService
 import dev.aurakai.auraframefx.data.network.CloudStatusMonitor
 import java.io.File
 import javax.inject.Inject
