@@ -17,7 +17,7 @@ dependencies {
     implementation(files(project.rootProject.file("gradle/libs.versions.toml")))
 
     // These allow you to use the Android and Kotlin DSL in your plugin classes.
-    implementation("com.android.tools.build:gradle:9.0.0-alpha02")
+    implementation("com.android.tools.build:gradle:9.0.0-alpha05")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:2.2.20")
     implementation("com.google.gms:google-services:4.4.3")
 
