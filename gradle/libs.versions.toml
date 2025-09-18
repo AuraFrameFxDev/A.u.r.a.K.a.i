@@ -43,7 +43,7 @@ kotlinxSerialization = "1.6.3"
 moshi = "1.15.2"
 
 # Utils
-commonsIo = "2.16.1"
+commonsIo = "2.20.0"
 commonsCompress = "1.26.1"
 xz = "1.9"
 slf4j = "2.0.13"
