@@ -1,3 +1,12 @@
+toolchainManagement {
+    jvm {
+        javaRepositories {
+            gradlePluginPortal()
+            mavenCentral()
+        }
+    }
+}
+
 // settings.gradle.kts - Optimized Repository Configuration
 pluginManagement {
     repositories {

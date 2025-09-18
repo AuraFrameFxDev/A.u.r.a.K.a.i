@@ -60,7 +60,7 @@ android {
             // Coroutines / serialization / datetime
             implementation(libs.bundles.coroutines)
             implementation(libs.kotlinx.serialization.json)
-            implementation(libs.datetime)
+            implementation(libs.kotlinx.datetime)
 
             // ===== NETWORKING =====
             implementation(libs.bundles.network)
