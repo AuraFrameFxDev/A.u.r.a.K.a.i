@@ -4,100 +4,63 @@ import com.android.build.gradle.LibraryExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.artifacts.VersionCatalogsExtension
-import org.gradle.api.tasks.compile.JavaCompile
-import org.gradle.kotlin.dsl.*
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.gradle.kotlin.dsl.configure
 
 /**
- * Standard Android library configuration for all modules.
- * 
- * Configures:
- * - Android library plugin
- * - Java 17 compatibility
- * - Kotlin JVM toolchain
- * - Basic packaging options
- * - Test instrumentation runner
+ * Standard Android library configuration for all Genesis Protocol modules.
  */
 class AndroidLibraryConventionPlugin : Plugin<Project> {
+    /**
+     * Applies standard Android library conventions to the given Gradle project.
+     *
+     * Configures the project as an Android library:
+     * - applies the "com.android.library" plugin,
+     * - sets compileSdk to 36,
+     * - sets defaultConfig with minSdk = 34 and testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner",
+     * - sets Java source/target compatibility to JavaVersion.VERSION_24 via compileOptions,
+     * - excludes "/META-INF/{AL2.0,LGPL2.1}" from packaged resources.
+     *
+     * If the project exposes a Kotlin Gradle extension named "kotlin" and it is a
+     * KotlinProjectExtension, configures a global Kotlin JVM toolchain with version 24.
+     *
+     * @param target The Gradle Project to configure.
+     */
     override fun apply(target: Project) {
         with(target) {
-            // Apply Android library plugin
             with(pluginManager) {
                 apply("com.android.library")
-                apply("org.jetbrains.kotlin.android")
             }
 
-            // Configure Android extension
             extensions.configure<LibraryExtension> {
-                // SDK Configuration
                 compileSdk = 36
-                
                 defaultConfig {
                     minSdk = 34
                     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-                    
-                    // Enable vector drawable support
-                    vectorDrawables.useSupportLibrary = true
                 }
 
-                // Java/Kotlin compatibility
+                // Use a standard Java version (17) supported by Android.
+                // jvmToolchain will set both source/target compatibility automatically.
                 compileOptions {
-                    sourceCompatibility = JavaVersion.VERSION_17
-                    targetCompatibility = JavaVersion.VERSION_17
-                    isCoreLibraryDesugaringEnabled = true
+                    sourceCompatibility = JavaVersion.VERSION_24
+                    targetCompatibility = JavaVersion.VERSION_24
                 }
 
-                // Build features
-                buildFeatures {
-                    buildConfig = true
-                    viewBinding = true
-                    dataBinding = true
-                }
+                // BuildConfig generation is enabled by default in recent AGP versions.
+                // testOptions { unitTests { isIncludeAndroidResources = true } } is deprecated.
 
-                // Packaging options
                 packaging {
                     resources {
-                        excludes += setOf(
-                            "/META-INF/{AL2.0,LGPL2.1}",
-                            "META-INF/AL2.0",
-                            "META-INF/LGPL2.1"
-                        )
-                        pickFirsts += "**/META-INF/*.version"
-                    }
-                }
-
-                // Test options
-                testOptions {
-                    unitTests.all {
-                        it.useJUnitPlatform()
-                        it.testLogging {
-                            events("passed", "skipped", "failed")
-                        }
+                        excludes += "/META-INF/{AL2.0,LGPL2.1}"
                     }
                 }
             }
 
-            // Configure Kotlin
-            configureKotlin()
-        }
-    }
-
-    private fun Project.configureKotlin() {
-        tasks.withType<KotlinCompile>().configureEach {
-            compilerOptions {
-                jvmTarget.set(JvmTarget.JVM_21)
-                freeCompilerArgs.addAll(
-                    "-opt-in=kotlin.RequiresOptIn",
-                    "-Xjvm-default=all"
-                )
+            // Set the Kotlin toolchain globally for the project (if needed)
+            extensions.findByName("kotlin")?.let { ext ->
+                if (ext is org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension) {
+                    ext.jvmToolchain(24)
+                }
             }
-        }
-        // Configure Java compilation
-        tasks.withType<JavaCompile> {
-            sourceCompatibility = JavaVersion.VERSION_21.toString()
-            targetCompatibility = JavaVersion.VERSION_21.toString()
         }
     }
 }

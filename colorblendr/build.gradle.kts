@@ -27,15 +27,11 @@ android {
         sourceCompatibility = JavaVersion.VERSION_24
         targetCompatibility = JavaVersion.VERSION_24
     }
+
+    // Modern toolchain configuration
     java {
         toolchain {
-            languageVersion = JavaLanguageVersion.of(17)
-        }
-    }
-    // Set Kotlin JVM target using tasks.withType
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-        compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
+            languageVersion = JavaLanguageVersion.of(24)
         }
     }
 }
@@ -59,7 +55,7 @@ dependencies {
 
     // Testing
     testImplementation("junit:junit:4.13.2")
-    testImplementation(libs.mockk.android)
+    testImplementation(libs.mockk)
     testImplementation(kotlin("test"))
 
     // Android Testing

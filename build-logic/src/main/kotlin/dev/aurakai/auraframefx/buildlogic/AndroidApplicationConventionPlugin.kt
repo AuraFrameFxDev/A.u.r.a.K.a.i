@@ -7,48 +7,49 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 
 /**
- * Standard Android application configuration for all application modules.
- * 
- * Configures:
- * - Android application plugin
- * - Java 17 compatibility
- * - Kotlin JVM toolchain
- * - Build types (debug/release)
- * - Build features (BuildConfig, view binding, data binding)
- * - Packaging options
- * - Test configuration
+ * Standard Android application configuration
  */
 class AndroidApplicationConventionPlugin : Plugin<Project> {
+    /**
+     * Applies the Android application Gradle plugin and configures the Android ApplicationExtension
+     * with a standard set of defaults for application modules.
+     *
+     * Configured settings:
+     * - Applies plugin "com.android.application".
+     * - compileSdk set to 36.
+     * - defaultConfig: minSdk 34, targetSdk 36, testInstrumentationRunner set to
+     *   "androidx.test.runner.AndroidJUnitRunner", and support for vector drawables enabled.
+     * - buildTypes:
+     *   - release: code minification enabled with the default Android optimize ProGuard file plus
+     *     "proguard-rules.pro".
+     *   - debug: debuggable, adds an applicationIdSuffix ".debug" and versionNameSuffix "-DEBUG".
+     * - Java compileOptions source/target compatibility derived from the Gradle property
+     *   "java.toolchain" (defaults to "24"); value is converted to an integer and mapped to JavaVersion.
+     * - Enables buildConfig generation.
+     * - Includes Android resources during unit tests.
+     * - Excludes "/META-INF/{AL2.0,LGPL2.1}" from packaged resources.
+     *
+     * Side effects: applies a plugin to the project and mutates the Android extension configuration.
+     */
     override fun apply(target: Project) {
         with(target) {
-            // Apply Android application and Kotlin plugins
-            with(pluginManager) {
-                apply("com.android.application")
-                apply("org.jetbrains.kotlin.android")
-            }
+            pluginManager.apply("com.android.application")
 
-            // Configure Android extension
             extensions.configure<ApplicationExtension> {
-                // SDK Configuration
                 compileSdk = 36
-                
+
                 defaultConfig {
                     minSdk = 34
                     targetSdk = 36
                     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-                    
-                    // Enable vector drawable support
-                    vectorDrawables.useSupportLibrary = true
-                    
-                    // Enable multidex
-                    multiDexEnabled = true
+                    vectorDrawables {
+                        useSupportLibrary = true
+                    }
                 }
 
-                // Build types
                 buildTypes {
                     release {
                         isMinifyEnabled = true
-                        isShrinkResources = true
                         proguardFiles(
                             getDefaultProguardFile("proguard-android-optimize.txt"),
                             "proguard-rules.pro"
@@ -58,70 +59,34 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                         isDebuggable = true
                         applicationIdSuffix = ".debug"
                         versionNameSuffix = "-DEBUG"
-                        
-                        // Enable test coverage in debug builds
-                        enableUnitTestCoverage = true
-                        enableAndroidTestCoverage = true
                     }
                 }
 
-                // Java/Kotlin compatibility
+                val toolchain = providers.gradleProperty("java.toolchain").orElse("24").get().toInt()
+                val javaVer = JavaVersion.toVersion(toolchain)
                 compileOptions {
-                    sourceCompatibility = JavaVersion.VERSION_17
-                    targetCompatibility = JavaVersion.VERSION_17
-                    isCoreLibraryDesugaringEnabled = true
+                    sourceCompatibility = javaVer
+                    targetCompatibility = javaVer
                 }
 
-                // Build features
                 buildFeatures {
                     buildConfig = true
-                    viewBinding = true
-                    dataBinding = true
                 }
 
-                // Packaging options
+                testOptions {
+                    unitTests {
+                        isIncludeAndroidResources = true
+                    }
+                }
+
                 packaging {
                     resources {
-                        excludes += setOf(
-                            "/META-INF/{AL2.0,LGPL2.1}",
-                            "META-INF/AL2.0",
-                            "META-INF/LGPL2.1"
-                        )
-                        pickFirsts += "**/META-INF/*.version"
+                        excludes += "/META-INF/{AL2.0,LGPL2.1}"
                     }
                 }
-
-                // Test options
-                testOptions {
-                    unitTests.all {
-                        it.useJUnitPlatform()
-                        it.testLogging {
-                            events("passed", "skipped", "failed")
-                        }
-                    }
-                    animationsDisabled = true
-                    execution = "ANDROIDX_TEST_ORCHESTRATOR"
-                }
-
-                // Configure Java compatibility
-                compileOptions {
-                    sourceCompatibility = JavaVersion.VERSION_24
-                    targetCompatibility = JavaVersion.VERSION_24
-                }
-                
-                // Kotlin JVM options will be configured after the Kotlin plugin is applied
             }
 
-            // Configure Kotlin toolchain
-            configureKotlin()
-        }
-    }
-
-    private fun Project.configureKotlin() {
-        extensions.findByName("kotlin")?.let { ext ->
-            if (ext is org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension) {
-                ext.jvmToolchain(17)
-            }
+            // JVM toolchain is configured in the Android block's compileOptions
         }
     }
 }

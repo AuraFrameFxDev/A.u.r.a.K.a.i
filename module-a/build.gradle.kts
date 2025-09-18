@@ -27,15 +27,11 @@ android {
         targetCompatibility = JavaVersion.VERSION_24
     }
 
-    kotlinOptions {
-        jvmTarget = "23"
-    }
-
-  java {
-      toolchain {
-          languageVersion.set(JavaLanguageVersion.of(24))
-      }
-  }
+ java {
+     toolchain {
+         languageVersion.set(JavaLanguageVersion.of(24))
+     }
+ }
 }
 
 dependencies {
