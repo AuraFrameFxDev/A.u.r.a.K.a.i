@@ -21,28 +21,13 @@ plugins {
         }
 
         compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_24
-        targetCompatibility = JavaVersion.VERSION_24
+            sourceCompatibility = JavaVersion.VERSION_24
+            targetCompatibility = JavaVersion.VERSION_24
         }
 
-        kotlinOptions {
-            jvmTarget = "23"
-        }
         java {
             toolchain {
                 languageVersion = JavaLanguageVersion.of(24)
-            }
-        }
-        // Set Kotlin JVM target using tasks.withType
-        tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-            compilerOptions {
-                jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
-            }
-        }
-
-        java {
-            toolchain {
-                languageVersion = JavaLanguageVersion.of(17)
 
                 lint {
                     // Disable lint due to oversized test files causing StackOverflow
@@ -79,7 +64,7 @@ plugins {
                 implementation(libs.androidx.activity.compose)
                 implementation(libs.androidx.navigation.compose)
                 debugImplementation(libs.bundles.compose.debug)
-                androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.5.12")
+                androidTestImplementation(libs.androidx.compose.ui.test.junit4)
 
                 // Hilt
                 implementation(libs.hilt.android)

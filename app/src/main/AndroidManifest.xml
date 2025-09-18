@@ -48,12 +48,6 @@
         <meta-data
             android:name="xposedminversion"
             android:value="82" />
-
-        <!-- Hilt Test Activity -->
-        <activity
-            android:name=".ui.settings.HiltTestActivity"
-            android:exported="false"
-            android:theme="@style/Theme.AuraFrameFX" />
         <meta-data
             android:name="xposedscope"
             android:resource="@array/xposed_scope" />

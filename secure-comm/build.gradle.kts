@@ -26,13 +26,13 @@ android {
         compose = true
 
         compileOptions {
-            sourceCompatibility = JavaVersion.VERSION_17
-            targetCompatibility = JavaVersion.VERSION_17
+            sourceCompatibility = JavaVersion.VERSION_24
+            targetCompatibility = JavaVersion.VERSION_24
         }
 
         java {
             toolchain {
-                languageVersion.set(JavaLanguageVersion.of(17))
+                languageVersion.set(JavaLanguageVersion.of(24))
             }
         }
     }
@@ -46,18 +46,13 @@ android {
 
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_24
+        targetCompatibility = JavaVersion.VERSION_24
     }
+
     java {
         toolchain {
-            languageVersion.set(JavaLanguageVersion.of(17))
-        }
-    }
-    // Set Kotlin JVM target using tasks.withType
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-        compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
+            languageVersion.set(JavaLanguageVersion.of(24))
         }
     }
 }
@@ -109,5 +104,5 @@ dependencies {
 
 tasks.register("secureCommStatus") {
     group = "aegenesis"
-    doLast { println("\uD83D\uDCE6 SECURE COMM MODULE - Ready (Java 17)") }
+    doLast { println("\uD83D\uDCE6 SECURE COMM MODULE - Ready (Java 24)") }
 }
