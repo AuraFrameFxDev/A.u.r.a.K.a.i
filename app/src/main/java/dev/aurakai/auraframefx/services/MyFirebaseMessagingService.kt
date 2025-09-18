@@ -341,7 +341,12 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     /**
-     * Handles new FCM token registration and updates
+     * Called when Firebase refreshes the device registration token.
+     *
+     * Stores the new token locally and in-memory, and forwards it to the backend.
+     * The work runs asynchronously on the service's IO coroutine scope; failures are caught and logged.
+     *
+     * @param token The new FCM registration token to persist and send to the server.
      */
     override fun onNewToken(token: String) {
         Timber.d("FCM token refreshed: ${token.take(20)}...")
@@ -368,16 +373,13 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     /**
-     * Submit the FCM registration token to the Genesis backend.
+     * Sends the FCM registration token to the Genesis backend.
      *
-     * This suspend function is intended to deliver the provided FCM token to a remote backend.
-     * In the current placeholder implementation it does not perform network I/O; instead it
-     * records a local marker (stores "fcm_token_sent" and a timestamp) and logs the attempt.
+     * Currently a placeholder: no network I/O is performed. Instead it records local markers
+     * ("fcm_token_sent" and "fcm_token_sent_time") in the DataStore and logs the attempt.
+     * This is a suspend function and failures are caught and logged; it does not propagate exceptions.
      *
-     * Side effects:
-     * - Writes "fcm_token_sent" and "fcm_token_sent_time" to dataStoreManager.
-     *
-     * @param token The FCM registration token to send.
+     * @param token FCM registration token to report.
      */
     private suspend fun sendTokenToServer(token: String) {
         try {

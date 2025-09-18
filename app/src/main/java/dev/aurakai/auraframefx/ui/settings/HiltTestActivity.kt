@@ -11,14 +11,12 @@ class HiltTestActivity : AppCompatActivity() {
     @Inject lateinit var greetingProvider: GreetingProvider
 
     /**
-     * Initializes the activity and logs a greeting provided by the injected GreetingProvider.
+     * Initialize the activity and log a greeting obtained from the injected GreetingProvider.
      *
-     * @param savedInstanceState If non-null, this Activity is being re-constructed from a previous saved state contained in this Bundle.
-     * Logs a debug message with the greeting from the injected `GreetingProvider` when the activity is created.
+     * Requires Hilt to have injected [greetingProvider] before this method is called;
+     * accessing the lateinit property earlier will throw [UninitializedPropertyAccessException].
      *
-     * Hilt must inject `greetingProvider` before this method is invoked; accessing it otherwise will cause a runtime crash.
-     *
-     * @param savedInstanceState The activity's previously saved state, forwarded to `super.onCreate`.
+     * @param savedInstanceState The activity's previously saved state, if any, forwarded to `super.onCreate`.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -136,7 +136,18 @@ override fun isEmpty(): Boolean = head == null
      */
     override fun iterator(): Iterator<String> = object : Iterator<String> {
         private var current = head
-        override fun hasNext() = current != null
+        /**
+ * Returns true if the iterator has at least one remaining element.
+ *
+ * @return `true` when the current node is non-null (there is a next element); otherwise `false`.
+ */
+override fun hasNext() = current != null
+        /**
+         * Returns the next element in the iteration and advances the iterator.
+         *
+         * @return the next String element.
+         * @throws NoSuchElementException if the iteration has no more elements.
+         */
         override fun next(): String {
             val data = current?.data ?: throw NoSuchElementException()
             current = current?.next
