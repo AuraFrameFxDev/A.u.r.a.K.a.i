@@ -173,9 +173,9 @@ override fun hasNext() = current != null
     /**
      * Returns the element at the specified 0-based index.
      *
-     * @param index 0-based position of the element to retrieve.
+     * @param index the 0-based position of the element to retrieve.
      * @return the string stored at the specified index.
-     * @throws IndexOutOfBoundsException if `index` is negative or greater than or equal to the list size.
+     * @throws IndexOutOfBoundsException if [index] is negative or not less than the list size.
      */
     override fun get(index: Int): String {
         if (index < 0) throw IndexOutOfBoundsException("Index: $index")

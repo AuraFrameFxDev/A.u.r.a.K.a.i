@@ -261,6 +261,14 @@ private fun DeviceCapabilitiesCard(
     }
 }
 
+/**
+ * Displays a single capability row with a left-aligned label and a right-aligned status icon.
+ *
+ * The status icon is a green check when `hasCapability` is true and a red cancel icon when false.
+ *
+ * @param label Short text describing the capability (displayed on the left).
+ * @param hasCapability True if the device has the capability; controls the icon and tint. 
+ */
 @Composable
 private fun CapabilityRow(label: String, hasCapability: Boolean) {
     Row(
@@ -283,13 +291,13 @@ private fun CapabilityRow(label: String, hasCapability: Boolean) {
 }
 
 /**
- * Displays a single labeled piece of information in a horizontal row.
+ * Renders a compact two-column information row: a dimmed left label and an emphasized right value.
  *
- * The `label` is shown on the left in a dimmed style and the `value` is shown on the right with
- * normal emphasis. Designed for compact key–value pairs (e.g., "Device: Pixel 6").
+ * The `label` is shown on the left (a trailing colon is appended) with reduced emphasis; the `value`
+ * is shown on the right with normal emphasis. Intended for small key–value displays (e.g., "Device: Pixel 6").
  *
- * @param label Left-side label text (shown with reduced emphasis).
- * @param value Right-side value text (shown with normal emphasis).
+ * @param label Left-side label text; a colon will be appended when displayed.
+ * @param value Right-side value text.
  */
 @Composable
 private fun InfoRow(label: String, value: String) {
@@ -312,15 +320,13 @@ private fun InfoRow(label: String, value: String) {
 }
 
 /**
- * Shows a card with the current ROM operation name and its progress.
+ * Displays a card for the current ROM operation with a linear progress indicator and percentage.
  *
- * The card displays the operation's display name (or an empty string if absent),
- * a linear progress bar driven by `operation.progress` interpreted as a percentage
- * in the 0–100 range, and a right-aligned textual percentage (rounded to an
- * integer for display).
+ * Shows the operation's display name (or an empty string if none), a LinearProgressIndicator driven
+ * by `operation.progress` interpreted as a 0–100 percentage (mapped to 0.0–1.0 for the indicator),
+ * and a right-aligned integer percentage text (e.g., "42%").
  *
- * @param operation Current operation state containing an optional operation type and a numeric progress (0–100).
- * @param modifier Modifier applied to the root composable.
+ * @param operation Current operation state containing an optional operation type and a numeric progress value in the 0–100 range.
  */
 @Composable
 private fun OperationProgressCard(
@@ -363,14 +369,15 @@ private fun OperationProgressCard(
 }
 
 /**
- * Shows a card representing a single ROM tool action with icon, title, description and an optional lock.
+ * Card composable for a single ROM tool action.
  *
- * The card is clickable only when `isEnabled` is true; when disabled it visually indicates a locked state.
+ * Renders the action's icon, title and description and applies a disabled/locked visual
+ * treatment when `isEnabled` is false. The card is only clickable when enabled and shows
+ * a lock icon to indicate the locked state when disabled.
  *
- * @param action The RomToolAction shown by the card (provides icon, title, description and accent color).
- * @param isEnabled When false the card is rendered in a disabled/locked style and is not clickable.
- * @param onClick Callback invoked when the card is clicked (only called if `isEnabled` is true).
- * @param modifier Optional Modifier for the card's layout.
+ * @param isEnabled Controls whether the card is interactive; when false the card uses
+ *        disabled styling and the lock indicator is shown.
+ * @param onClick Invoked when the card is clicked (will only be called if `isEnabled` is true).
  */
 @Composable
 private fun RomToolActionCard(

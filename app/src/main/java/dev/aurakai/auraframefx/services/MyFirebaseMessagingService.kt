@@ -321,7 +321,19 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     /**
-     * Processes collaboration request messages
+     * Handle an incoming collaboration request payload.
+     *
+     * Extracts required fields from the provided data map, persists a timestamped
+     * collaboration request entry to memory, and posts a collaboration notification.
+     *
+     * Expected keys in `data`:
+     * - "request_type": the kind of collaboration requested (required).
+     * - "requester_id": identifier of the requesting agent/entity (required).
+     * - "collaboration_data": auxiliary payload describing the collaboration (required).
+     *
+     * If any required key is missing the function returns without side effects.
+     *
+     * @param data Map containing the collaboration request payload.
      */
     private suspend fun processCollaborationRequest(data: Map<String, String>) {
         val requestType = data["request_type"] ?: return
@@ -341,12 +353,12 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     /**
-     * Called when Firebase refreshes the device registration token.
+     * Handle a refreshed Firebase Cloud Messaging registration token.
      *
-     * Stores the new token locally and in-memory, and forwards it to the backend.
-     * The work runs asynchronously on the service's IO coroutine scope; failures are caught and logged.
+     * Stores the new token in persistent local storage and in-memory cache, then forwards it to the backend.
+     * This work is performed asynchronously on the service's IO coroutine scope; failures are caught and logged and do not propagate.
      *
-     * @param token The new FCM registration token to persist and send to the server.
+     * @param token The new FCM registration token.
      */
     override fun onNewToken(token: String) {
         Timber.d("FCM token refreshed: ${token.take(20)}...")
