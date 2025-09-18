@@ -261,6 +261,16 @@ private fun DeviceCapabilitiesCard(
     }
 }
 
+/**
+ * Displays a single capability as a labeled row with a right-aligned check or cancel icon.
+ *
+ * Shows the provided `label` on the left and an icon on the right: a green check when
+ * `hasCapability` is true, or a red cancel icon when false. Intended for compact capability
+ * summaries in capability lists or cards.
+ *
+ * @param label Human-readable capability name to display.
+ * @param hasCapability True to show a green check icon (capability present); false to show a red cancel icon.
+ */
 @Composable
 private fun CapabilityRow(label: String, hasCapability: Boolean) {
     Row(
@@ -283,13 +293,12 @@ private fun CapabilityRow(label: String, hasCapability: Boolean) {
 }
 
 /**
- * Displays a single labeled piece of information in a horizontal row.
+ * Displays a compact horizontal key–value row.
  *
- * The `label` is shown on the left in a dimmed style and the `value` is shown on the right with
- * normal emphasis. Designed for compact key–value pairs (e.g., "Device: Pixel 6").
+ * Shows `label` on the left (dimmed, with a trailing colon) and `value` on the right (normal emphasis).
  *
- * @param label Left-side label text (shown with reduced emphasis).
- * @param value Right-side value text (shown with normal emphasis).
+ * @param label Left-side label text (displayed with reduced emphasis and a colon).
+ * @param value Right-side value text (displayed with normal emphasis).
  */
 @Composable
 private fun InfoRow(label: String, value: String) {
@@ -363,14 +372,15 @@ private fun OperationProgressCard(
 }
 
 /**
- * Shows a card representing a single ROM tool action with icon, title, description and an optional lock.
+ * Renders a card for a single ROM tool action showing an icon, title, description, and a lock indicator when disabled.
  *
- * The card is clickable only when `isEnabled` is true; when disabled it visually indicates a locked state.
+ * The card is clickable only when `isEnabled` is true; when disabled it is shown in a muted/locked style and the
+ * provided `onClick` will not be invoked.
  *
- * @param action The RomToolAction shown by the card (provides icon, title, description and accent color).
- * @param isEnabled When false the card is rendered in a disabled/locked style and is not clickable.
- * @param onClick Callback invoked when the card is clicked (only called if `isEnabled` is true).
- * @param modifier Optional Modifier for the card's layout.
+ * @param action Action data providing the icon, title, description, and accent color.
+ * @param isEnabled When false the card is displayed as locked and not interactive.
+ * @param onClick Invoked when the card is clicked (only called while `isEnabled` is true).
+ * @param modifier Optional layout modifier applied to the card.
  */
 @Composable
 private fun RomToolActionCard(

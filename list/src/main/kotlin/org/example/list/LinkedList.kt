@@ -137,13 +137,13 @@ override fun isEmpty(): Boolean = head == null
     override fun iterator(): Iterator<String> = object : Iterator<String> {
         private var current = head
         /**
- * Returns true if the iterator has at least one remaining element.
+ * Returns true if the iterator has at least one element remaining.
  *
- * @return `true` when the current node is non-null (there is a next element); otherwise `false`.
+ * @return `true` if there is a next element; otherwise `false`.
  */
 override fun hasNext() = current != null
         /**
-         * Returns the next element in the iteration and advances the iterator.
+         * Return the next element in the iteration and advance the iterator to the following node.
          *
          * @return the next String element.
          * @throws NoSuchElementException if the iteration has no more elements.

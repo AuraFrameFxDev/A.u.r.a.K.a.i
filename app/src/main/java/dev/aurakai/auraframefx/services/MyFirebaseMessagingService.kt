@@ -321,7 +321,16 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     /**
-     * Processes collaboration request messages
+     * Handle an incoming collaboration request payload.
+     *
+     * Expects the `data` map to contain the following keys: `request_type`, `requester_id`, and
+     * `collaboration_data`. If any of these keys are missing the function returns without action.
+     *
+     * Side effects:
+     * - Persists a timestamped memory entry describing the request.
+     * - Posts a collaboration notification to notify relevant agents/UI.
+     *
+     * @param data Map-based FCM data payload containing the collaboration request fields.
      */
     private suspend fun processCollaborationRequest(data: Map<String, String>) {
         val requestType = data["request_type"] ?: return
@@ -341,12 +350,13 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     /**
-     * Called when Firebase refreshes the device registration token.
+     * Handle a refreshed FCM registration token by persisting it locally, storing it in memory,
+     * and forwarding it to the backend.
      *
-     * Stores the new token locally and in-memory, and forwards it to the backend.
-     * The work runs asynchronously on the service's IO coroutine scope; failures are caught and logged.
+     * This work is performed asynchronously on the service's IO coroutine scope; failures are
+     * caught and logged so token processing does not crash the service.
      *
-     * @param token The new FCM registration token to persist and send to the server.
+     * @param token The new FCM registration token.
      */
     override fun onNewToken(token: String) {
         Timber.d("FCM token refreshed: ${token.take(20)}...")
@@ -373,13 +383,13 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     /**
-     * Sends the FCM registration token to the Genesis backend.
+     * Report the FCM registration token to the Genesis backend.
      *
-     * Currently a placeholder: no network I/O is performed. Instead it records local markers
-     * ("fcm_token_sent" and "fcm_token_sent_time") in the DataStore and logs the attempt.
-     * This is a suspend function and failures are caught and logged; it does not propagate exceptions.
+     * Suspends while performing local bookkeeping. Currently a placeholder — no network I/O is performed.
+     * Instead this records local markers ("fcm_token_sent" and "fcm_token_sent_time") in the DataStore
+     * and logs the attempt. Exceptions are caught and logged; they are not propagated.
      *
-     * @param token FCM registration token to report.
+     * @param token The FCM registration token to report.
      */
     private suspend fun sendTokenToServer(token: String) {
         try {
