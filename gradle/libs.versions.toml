@@ -44,7 +44,7 @@ moshi = "1.15.2"
 
 # Utils
 commonsIo = "2.20.0"
-commonsCompress = "1.26.1"
+commonsCompress = "1.28.0"
 xz = "1.9"
 slf4j = "2.0.13"
 timber = "5.0.1"
