@@ -1,12 +1,3 @@
-toolchainManagement {
-    jvm {
-        javaRepositories {
-            gradlePluginPortal()
-            mavenCentral()
-        }
-    }
-}
-
 // settings.gradle.kts - Optimized Repository Configuration
 pluginManagement {
     repositories {
@@ -19,6 +10,10 @@ pluginManagement {
         maven { url = uri("https://jitpack.io") }         // For LSPosed
         maven { url = uri("https://maven.google.com") }   // For AndroidX dependencies
     }
+}
+
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
 }
 
 // Centralize repositories for project dependencies
