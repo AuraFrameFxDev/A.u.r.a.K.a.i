@@ -4,7 +4,7 @@ plugins {
     id("genesis.android.compose")
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
-}
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"}
 
 android {
     namespace = "dev.aurakai.auraframefx.module.e"
@@ -55,9 +55,7 @@ dependencies {
     androidTestImplementation(libs.bundles.testing.android)
     androidTestImplementation(libs.hilt.android.testing)
 }
-
-    tasks.register("moduleEStatus") {
+tasks.register("moduleEStatus") {
         group = "aegenesis"
         doLast { println("\uD83D\uDCE6 MODULE E - Ready (Java 24)") }
     }
-}

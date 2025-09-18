@@ -4,7 +4,7 @@ plugins {
     id("genesis.android.compose")
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
-}
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"}
 
 android {
     namespace = "dev.aurakai.auraframefx.module.a"

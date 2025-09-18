@@ -5,7 +5,8 @@ plugins {
     id("genesis.android.library")
     id("genesis.android.compose")
     alias(libs.plugins.ksp)
-}
+    alias(libs.plugins.hilt) // Added Hilt plugin
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"}
 
 android {
     namespace = "dev.aurakai.auraframefx.securecomm"
@@ -20,11 +21,6 @@ android {
 
     buildFeatures {
         compose = true
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlin {
@@ -55,47 +51,44 @@ dependencies {
     implementation(project(":core-module"))
 
     // Core Android
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation(libs.androidx.work.runtime.ktx)
+    implementation("androidx.core:core-ktx:1.17.0")
+    implementation("androidx.work:work-runtime-ktx:2.10.4")
 
     // Hilt
-    implementation(libs.hilt.android)
-    implementation(libs.androidx.core.ktx)
-    ksp(libs.hilt.compiler)
-    implementation(libs.hilt.work)
-    implementation(libs.androidx.work.runtime.ktx)
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.bundles.coroutines)
-    implementation(libs.bundles.network)
-    implementation(platform(libs.firebase.bom))
+    implementation("com.google.dagger:hilt-android:2.57.1")
+    ksp("com.google.dagger:hilt-compiler:2.57.1")
+    implementation("androidx.hilt:hilt-work:1.3.0")
 
-    implementation(libs.firebase.auth)
-    implementation(libs.firebase.firestore)
-    implementation(libs.firebase.messaging)
-    implementation(libs.firebase.config)
-    implementation(libs.firebase.database)
-    implementation(libs.firebase.storage)
-    implementation(libs.timber)
-    implementation(libs.coil.compose)
+    // Serialization
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
 
-    // Security - BouncyCastle for cryptography
-    implementation(libs.bcprov.jdk18on)
+    // Firebase
+    implementation(platform("com.google.firebase:firebase-bom:34.2.0"))
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-messaging")
+    implementation("com.google.firebase:firebase-config")
+    implementation("com.google.firebase:firebase-database")
+    implementation("com.google.firebase:firebase-storage")
 
-    // Add other module-specific dependencies here
-    implementation(libs.kotlin.stdlib.jdk8)
+    // Utilities
+    implementation("com.jakewharton.timber:timber:5.0.1")
+    implementation("io.coil-kt:coil-compose:2.7.0")
+    implementation("org.bouncycastle:bcprov-jdk18on:1.81")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.2.20")
 
     // Test dependencies
-    testImplementation(platform(libs.junit.bom))
-    testImplementation(libs.junit4)
-    testImplementation(libs.kotlin.test.junit)
-    testImplementation(libs.junit.jupiter.api)
-    testImplementation(libs.junit.jupiter.params)
-    testRuntimeOnly(libs.junit.jupiter.engine)
-    testImplementation(libs.mockk.android)
-    testImplementation(libs.mockk.agent)
-    testImplementation(libs.kotlinx.coroutines.test)
-    androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.hilt.android.testing)
+    testImplementation(platform("org.junit:junit-bom:5.13.4"))
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:2.2.20")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.13.4")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.13.4")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.13.4")
+    testImplementation("io.mockk:mockk-android:1.14.5")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
+    androidTestImplementation("androidx.test.ext:junit:1.3.0")
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.57.1")
 }
 
 tasks.register("secureCommStatus") {

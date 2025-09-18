@@ -1,15 +1,12 @@
 plugins {
-    // Core plugins
-    id("java-library")
-    kotlin("jvm") version libs.versions.kotlin.get()
-    
-    // Version catalog plugins
-    alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.dokka)
-    alias(libs.plugins.spotless)
-    
-    // Custom plugins
-    id("genesis.android.library")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.google.firebase.crashlytics)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.ksp)
+    // ...
 }
 
 group = "dev.aurakai.auraframefx.utilities"
@@ -28,11 +25,11 @@ dependencies {
 
     // Kotlin Standard Library
     implementation(libs.kotlin.stdlib.jdk8)
-    
+
     // Concurrency and coroutines
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
-    
+
     // Serialization
     implementation(libs.kotlinx.serialization.json)
 
@@ -43,17 +40,14 @@ dependencies {
 
     // Logging
     implementation(libs.slf4j.api)
-    
+
+    // Hilt for dependency injection
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+
     // Testing
     testImplementation(libs.junit.jupiter.api)
     testImplementation(libs.junit.jupiter.params)
     testRuntimeOnly(libs.junit.jupiter.engine)
-    testImplementation(libs.mockk.android)
-    testRuntimeOnly(libs.slf4j.simple)
+    testImplementation(libs.mockk)
 }
-
-tasks.test {
-    useJUnitPlatform()
-}
-
-

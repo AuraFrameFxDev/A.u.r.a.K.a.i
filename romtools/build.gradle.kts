@@ -1,14 +1,9 @@
-import org.gradle.accessors.dm.LibrariesForLibs
-
-val libs = the<LibrariesForLibs>()
-
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt)
+    id("com.android.application") version "9.0.0-alpha02"
+    id("org.jetbrains.kotlin.android") version "2.2.20"
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"
+    id("com.google.devtools.ksp") version "2.2.20-2.0.3"
+    id("com.google.dagger.hilt.android") version "2.57.1"
 }
 
 android {
@@ -19,7 +14,7 @@ android {
         minSdk = 34
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_23
+        sourceCompatibility = JavaVersion.VERSION_24
         targetCompatibility = JavaVersion.VERSION_23
     }
 
@@ -40,46 +35,42 @@ val romToolsOutputDirectory: DirectoryProperty =
 dependencies {
     api(project(":core-module"))
     implementation(project(":secure-comm"))
-    implementation(libs.androidx.core.ktx)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.bundles.compose.ui)
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
-    implementation(libs.bundles.coroutines)
-    implementation(libs.bundles.network)
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
+    implementation("androidx.core:core-ktx:1.17.0")
+    implementation(platform("androidx.compose:compose-bom:2025.09.00"))
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.activity:activity-compose:1.11.0")
+    implementation("androidx.navigation:navigation-compose:2.9.4")
+    implementation("com.google.dagger:hilt-android:2.57.1")
+    ksp("com.google.dagger:hilt-compiler:2.57.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
+    implementation("com.squareup.retrofit2:retrofit:2.12.0")
+    implementation("com.squareup.okhttp3:okhttp:5.1.0")
+    implementation("androidx.room:room-runtime:2.8.0")
+    implementation("androidx.room:room-ktx:2.8.0")
     // Room compiler temporarily disabled
-    // ksp(libs.androidx.room.compiler)
-    // Replace with individual Firebase dependencies
-
-    implementation(libs.firebase.performance)
-    implementation(libs.firebase.auth)
-    implementation(libs.firebase.firestore)
-    implementation(libs.firebase.messaging)
-    implementation(libs.firebase.config)
-    implementation(libs.firebase.database)
-    implementation(libs.firebase.storage)
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.timber)
-    implementation(libs.coil.compose)
-    debugImplementation(libs.leakcanary.android)
-    debugImplementation(libs.androidx.compose.ui.tooling)
-    testImplementation(libs.bundles.testing.unit)
-    testImplementation(libs.mockk.android)
-    androidTestImplementation(libs.mockk.android)
-    testImplementation(libs.hilt.android.testing)
-    androidTestImplementation(libs.hilt.android.testing)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    // androidTestImplementation(libs.hilt.android.testing); kspAndroidTest(libs.hilt.compiler)
-    implementation(libs.kotlin.stdlib.jdk8)
-    implementation(libs.androidx.compose.material.icons.extended)
-    implementation(libs.hilt.navigation.compose)
-    implementation(libs.yukihookapi)
-    implementation(libs.lsposed.api)
+    // ksp("androidx.room:room-compiler:2.8.0")
+    implementation("com.google.firebase:firebase-perf")
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-messaging")
+    implementation("com.google.firebase:firebase-config")
+    implementation("com.google.firebase:firebase-database")
+    implementation("com.google.firebase:firebase-storage")
+    implementation(platform("com.google.firebase:firebase-bom:34.2.0"))
+    implementation("com.jakewharton.timber:timber:5.0.1")
+    implementation("io.coil-kt:coil-compose:2.7.0")
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.14")
+    debugImplementation("androidx.compose.ui:ui-tooling")
+    testImplementation("io.mockk:mockk-android:1.14.5")
+    androidTestImplementation("io.mockk:mockk-android:1.14.5")
+    testImplementation("com.google.dagger:hilt-android-testing:2.57.1")
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.57.1")
+    androidTestImplementation(platform("androidx.compose:compose-bom:2025.09.00"))
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.2.20")
+    implementation("androidx.compose.material:material-icons-extended:1.7.8")
+    implementation("androidx.hilt:hilt-navigation-compose:1.3.0")
+    implementation("dev.rikka.yukihookapi:yukihookapi:1.1.23")
+    implementation("org.lsposed.api:api:1.0.0")
 }
 
 // Copy task

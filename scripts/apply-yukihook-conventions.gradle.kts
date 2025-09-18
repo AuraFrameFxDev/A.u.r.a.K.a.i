@@ -14,7 +14,6 @@ subprojects { subproject ->
         with(subproject) {
             // Apply common plugins if not already applied
             pluginManager.apply("com.android.library")
-            pluginManager.apply("org.jetbrains.kotlin.android")
             pluginManager.apply("com.google.devtools.ksp")
             pluginManager.apply("org.lsposed.lsparanoid")
 

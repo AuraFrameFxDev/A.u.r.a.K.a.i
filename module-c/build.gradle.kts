@@ -4,7 +4,7 @@ plugins {
     id("genesis.android.compose")
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
-}
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"}
 
 android {
     namespace = "dev.aurakai.auraframefx.module.c"
@@ -21,13 +21,19 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_24
+        targetCompatibility = JavaVersion.VERSION_24
     }
 
     kotlin {
         jvmToolchain(24)
     }
+}
+
+dependencies {
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    // Add other dependencies as needed
 }
 
 tasks.register("moduleCStatus") {

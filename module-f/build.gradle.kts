@@ -1,12 +1,9 @@
-# A-F modules
-
-// GENESIS PROTOCOL
-        plugins {
-            id("genesis.android.library")
-            id("genesis.android.compose")
-            alias(libs.plugins.ksp)
-            alias(libs.plugins.hilt)
-        }
+plugins {
+     id("genesis.android.library")
+     id("genesis.android.compose")
+     alias(libs.plugins.ksp)
+     alias(libs.plugins.hilt)
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"}
 
 android {
     namespace = "dev.aurakai.auraframefx.module.c"
@@ -33,7 +30,7 @@ android {
 }
 
 
-ependencies {
+dependencies {
     // Module dependencies
     implementation(project(":core-module"))
 
@@ -73,6 +70,12 @@ tasks.register("moduleFStatus") {
     group = "genesis"
     doLast {
         println("📦 MODULE F - ${android.namespace} - Ready!")
-    tasks.register("moduleFStatus") {
-        group = "aegenesis"
-        doLast { println("\uD83D\uDCE6 MODULE F - Ready (Java 24)") }
+        tasks.register("moduleFStatus") {
+            group = "aegenesis"
+            doLast {
+
+                }
+            }
+        }
+    }
+

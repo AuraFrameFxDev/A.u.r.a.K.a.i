@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.compose")
     id("com.google.devtools.ksp")
-    id("com.google.firebase.crashlytics")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.hilt.android)
+
     ksp(libs.hilt.compiler)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
@@ -60,8 +61,8 @@ dependencies {
     implementation(project(":secure-comm"))
     implementation(project(":oracle-drive-integration"))
     androidTestImplementation(libs.androidx.benchmark.junit4)
-    androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.androidx.test.espresso.core)
+    androidTestImplementation(libs.androidx.test.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.test.uiautomator)
     testImplementation(libs.junit4)
     testImplementation(libs.mockk)

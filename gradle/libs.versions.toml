@@ -18,8 +18,9 @@ composeCompiler = "2.2.20"
 googledaggerhilt = "2.57.1"
 # Firebase
 firebaseBom = "34.2.0"
+googleFirebaseCrashlytics = "2.9.9"
 compose-plugin = "2.2.20"
-
+firebase-perf-plugin = "1.4.2"
 # AndroidX Core
 coreKtx = "1.17.0"
 appcompat = "1.7.1"
@@ -74,6 +75,7 @@ mockk = "1.14.5"
 androidxTestJunit = "1.3.0"
 espressoCore = "3.7.0"
 uiAutomator = "2.3.0"
+benchmarkJunit4 = "1.2.4"
 
 # Tooling
 dokka = "2.0.0"
@@ -95,7 +97,6 @@ firebase-auth = { group = "com.google.firebase", name = "firebase-auth" }
 firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging" }
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
-firebase-perf = { group = "com.google.firebase", name = "firebase-perf" }
 firebase-ai = { group = "com.google.firebase", name = "firebase-ai" }
 
 # Firebase UI (not in the main BoM)
@@ -138,6 +139,7 @@ hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-com
 hilt-work = { group = "androidx.hilt", name = "hilt-work", version.ref = "hiltWork" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
 room-paging = { group = "androidx.room", name = "room-paging", version.ref = "room" }
 room-paging-ktx = { group = "androidx.room", name = "room-paging-ktx", version.ref = "room" }
@@ -166,12 +168,18 @@ gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 moshi = { group = "com.squareup.moshi", name = "moshi", version.ref = "moshi" }
 
 # Testing
+junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
 junit-jupiter-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junitJupiter" }
 junit-jupiter-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junitJupiter" }
+junit-jupiter-params = { group = "org.junit.jupiter", name = "junit-jupiter-params", version.ref = "junitJupiter" }
 junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version.ref = "junitJupiter" }
 androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 mockk-android = { group = "io.mockk", name = "mockk-android", version.ref = "mockk" }
+androidx-test-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxTestJunit" }
+androidx-test-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "uiAutomator" }
+androidx-benchmark-junit4 = { group = "androidx.benchmark", name = "benchmark-junit4", version.ref = "benchmarkJunit4" }
 # Removed the original mockk alias to avoid confusion
 
 # UI / images
@@ -183,14 +191,11 @@ leakcanary-android = { group = "com.squareup.leakcanary", name = "leakcanary-and
 commons-io = { group = "commons-io", name = "commons-io", version.ref = "commonsIo" }
 commons-compress = { group = "org.apache.commons", name = "commons-compress", version.ref = "commonsCompress" }
 xz = { group = "org.tukaani", name = "xz", version.ref = "xz" }
-slf4j = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
+slf4j-api = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
+slf4j-simple = { group = "org.slf4j", name = "slf4j-simple", version.ref = "slf4j" }
 desugar-jdk-libs = { group = "com.android.tools", name = "desugar_jdk_libs", version = "2.0.4" }
-androidx-benchmark-junit4 = { group = "androidx.benchmark", name = "benchmark-junit4", version = "1.2.3" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxTestJunit" }
 androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
-androidx-test-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "uiAutomator" }
-junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
-mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 
 [bundles]
 lifecycle = [
@@ -241,12 +246,16 @@ compose-debug = [
     "androidx-compose-ui-tooling",
     "androidx-compose-ui-tooling-preview"
 ]
+compose-ui = [
+    "androidx-compose-ui",
+    "androidx-compose-ui-graphics",
+    "androidx-compose-material3"
+]
 [plugins]
-android-application = { id = "com.android.application", version = "9.0.0-alpha02" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version = "2.2.20" }
-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version = "2.2.20" }
-ksp = { id = "com.google.devtools.ksp", version = "2.2.20-2.0.3" }
-google-services = { id = "com.google.gms.google-services", version = "4.4.3" }
-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "2.9.9" }
-firebase-perf = { id = "com.google.firebase.firebase-perf", version = "1.4.2" }
-hilt = { id = "com.google.dagger.hilt.android", version.ref = "googledaggerhilt" }
+android_application = { id = "com.android.application", version.ref = "agp" }
+jetbrains_kotlin_android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+compose_compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "composeCompiler" }
+google_services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
+google_firebase_crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "googleFirebaseCrashlytics" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

@@ -63,6 +63,42 @@ import kotlin.random.Random
  * @param glitchIntensity Strength of randomized glitch transforms and noise (0 = no glitch).
  * @param edgeGlowIntensity Scalar multiplier for the opacity of edge glow gradients (0..1).
  */
+/**
+ * Renders an animated holographic overlay on top of provided content.
+ *
+ * The overlay includes animated scan lines, a faint grid, edge glows on all sides,
+ * corner brackets, and optional glitch/noise effects. Visibility is animated with
+ * a fade when `visible` changes; scan lines run continuously while composed.
+ *
+ * @param visible Controls whether the holographic overlay is shown.
+ * @param modifier Modifier applied to the outer container.
+ * @param content Composable content rendered beneath the holographic overlay.
+ * @param primaryColor Base color used for glows, grid, brackets, and noise accents.
+ * @param secondaryColor Color used for scan lines and secondary accents.
+ * @param scanLineDensity Vertical density (number) of animated scan lines; larger values produce more closely spaced lines.
+ * @param glitchIntensity Strength of randomized glitch transforms and noise (0 = none, higher values increase distortion and artifact count).
+ * @param edgeGlowIntensity Value (treated as a float multiplier) that scales edge glow opacity.
+ */
+/**
+ * Renders composable content with an animated holographic overlay (scan lines, grid, edge glows,
+ * corner brackets) that fades in/out based on visibility.
+ *
+ * The overlay is drawn on top of `content` and includes:
+ * - a fade transition driven by `visible`,
+ * - continuously animating scan lines,
+ * - an optional glitch/transform and random noise controlled by `glitchIntensity`,
+ * - an edge glow whose strength is scaled by `edgeGlowIntensity`,
+ * - a faint background grid and corner brackets.
+ *
+ * @param visible Controls whether the hologram overlay is shown; drives the show/hide fade animation.
+ * @param modifier Layout modifier applied to the container.
+ * @param content The composable content rendered beneath the holographic overlay.
+ * @param primaryColor Base color used for glows, grid lines, brackets, and noise accents.
+ * @param secondaryColor Color used for scan lines and secondary accents.
+ * @param scanLineDensity Vertical density of scan lines (larger values = more lines).
+ * @param glitchIntensity Strength of glitch transforms and noise (0 = disabled; larger values increase effect).
+ * @param edgeGlowIntensity Scalar multiplier (typically 0..1) that modulates the alpha of edge glow rendering.
+ */
 @Composable
 fun HologramTransition(
     visible: Boolean,

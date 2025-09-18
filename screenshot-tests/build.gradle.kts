@@ -3,20 +3,16 @@
 plugins {
     id("com.android.library")
     alias(libs.plugins.ksp)
-
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"
 }
 
 android {
     namespace = "dev.aurakai.screenshottests"
     compileSdk = 36
 
-    kotlin {
-        jvmToolchain(24)
-    }
-
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-        compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(24)
         }
     }
 }

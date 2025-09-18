@@ -1,17 +1,16 @@
 plugins {
-    // Core Android application plugin must be first
-    alias(libs.plugins.kotlin.android)
-    id("genesis.android.application")
-    // Then apply other core plugins
-    id("genesis.android.compose")
-    id("com.google.gms.google-services") version "4.4.3" apply false
-
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.google.firebase.crashlytics)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.ksp)
     // External plugins
     id("org.openapi.generator") version "7.15.0"
 
     // Kotlin plugins
     kotlin("plugin.serialization") version "2.2.20"
-    kotlin("plugin.compose") version "2.2.20"
 }
 
 android {
@@ -28,9 +27,9 @@ android {
     }
 
     buildFeatures {
+        compose = true
         dataBinding = true
         viewBinding = true
-        dataBinding = true
         aidl = true
     }
 
@@ -122,19 +121,18 @@ dependencies {
     implementation(libs.firebase.storage)
     implementation(libs.firebase.config)
     implementation(libs.firebase.messaging)
-    implementation(libs.firebase.perf)
     implementation(libs.firebase.crashlytics)
     implementation(libs.firebase.ai)
 
     // FirebaseUI (optional)
-    implementation(libs.firebase.ui.auth)
-    implementation(libs.firebase.ui.database)
-    implementation(libs.firebase.ui.firestore)
-    implementation(libs.firebase.ui.storage)
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.database)
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.storage)
 
     // ===== HILT DEPENDENCY INJECTION =====
     implementation(libs.hilt.android)
-    implementation(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
     implementation(libs.hilt.work)
 

@@ -5,65 +5,52 @@ val libs = the<LibrariesForLibs>()
 plugins {
     // JVM library setup
     id("java-library")
-    kotlin("jvm")
-
-    // Additional tooling
     id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"
-    alias(libs.plugins.dokka)
-    alias(libs.plugins.spotless)
+    id("org.jetbrains.dokka") version "1.9.20"
+    id("com.diffplug.spotless") version "6.25.0"
 }
-
 
 group = "dev.aurakai.auraframefx.utilities"
 version = "1.0.0"
 
-// Centralized toolchain version
-val jdkVersion = 24
-
 java {
-    toolchain { languageVersion.set(JavaLanguageVersion.of(jdkVersion)) }
-}
-
-kotlin {
-    jvmToolchain(24)
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(24)
     }
 }
-
 
 dependencies {
     // Module dependency (utilities depends on list)
     api(project(":list"))
 
     // Concurrency and serialization
-    implementation(libs.bundles.coroutines)
-    implementation(libs.kotlinx.serialization.json)
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
 
     // File operations and compression
-    implementation(libs.commons.io)
-    implementation(libs.commons.compress)
-    implementation(libs.xz)
+    implementation("commons-io:commons-io:2.16.1")
+    implementation("org.apache.commons:commons-compress:1.26.2")
+    implementation("org.tukaani:xz:1.9")
 
     // Logging API only (no binding at library runtime)
-    implementation(libs.slf4j.api)
+    implementation("org.slf4j:slf4j-api:2.0.13")
+
+    // Hilt dependencies (explicit coordinates)
+    implementation("com.google.dagger:hilt-android:2.57.1")
+    // No annotation processing needed for pure JVM module
 
     // Testing (JUnit 5)
-    testImplementation(platform(libs.junit.bom))
-    testImplementation(libs.junit.jupiter.api)
-    testImplementation(libs.junit.jupiter.params)
-    testRuntimeOnly(libs.junit.jupiter.engine)
-    testRuntimeOnly(libs.junit.platform.launcher)
-    testImplementation(libs.mockk)
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.2")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.10.2")
+    testImplementation("io.mockk:mockk:1.13.10")
     testImplementation(kotlin("stdlib"))
     // Bind a simple logger only during tests
-    testRuntimeOnly(libs.slf4j.simple)
+    testRuntimeOnly("org.slf4j:slf4j-simple:2.0.13")
     implementation(kotlin("stdlib-jdk8"))
-    implementation(libs.yukihookapi)
-    implementation(libs.lsposed.api)
+    implementation("de.robv.android.xposed:yukihookapi:1.1.6")
+    implementation("org.lsposed.lsposed:api:1.0")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
