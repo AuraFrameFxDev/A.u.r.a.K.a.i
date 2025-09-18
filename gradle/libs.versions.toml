@@ -40,7 +40,7 @@ hiltWork = "1.2.0"
 # Async
 kotlinxCoroutines = "1.8.1"
 kotlinxSerialization = "1.6.3"
-moshi = "1.15.1"
+moshi = "1.15.2"
 
 # Utils
 commonsIo = "2.16.1"
