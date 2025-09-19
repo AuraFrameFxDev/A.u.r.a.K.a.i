@@ -13,11 +13,7 @@ repositories {
 }
 
 // Dependencies for the build-logic module itself
-
 dependencies {
-    // Version catalog access - using the same version catalog as the main project
-    implementation(files(project.rootProject.file("gradle/libs.versions.toml")))
-
     // Android Gradle Plugin
     implementation("com.android.tools.build:gradle:8.4.0")
 
@@ -45,7 +41,6 @@ dependencies {
     testImplementation("com.google.truth:truth:1.1.5")
 
     // Kotlin DSL support
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.0")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.0")
 }
 
@@ -105,34 +100,4 @@ gradlePlugin {
             implementationClass = "dev.aurakai.auraframefx.buildlogic.AndroidNativeConventionPlugin"
         }
 
-        register("statusTask") {
-            id = "genesis.tasks.status"
-            implementationClass = "dev.aurakai.auraframefx.buildlogic.StatusTaskConventionPlugin"
-        }
-    }
-}
-
-// Configure Kotlin settings for build-logic module
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
-        freeCompilerArgs.addAll(
-            "-opt-in=kotlin.RequiresOptIn",
-            "-Xjvm-default=all"
-        )
-    }
-}
-
-// Enable Gradle's configuration cache
-tasks.withType<org.gradle.api.tasks.compile.JavaCompile>().configureEach {
-    options.isIncremental = true
-}
-
-// Enable parallel execution of tests
-tasks.withType<Test> {
-    useJUnitPlatform()
-    maxParallelForks = (Runtime.getRuntime().availableProcessors() / 2).takeIf { it > 0 } ?: 1
-    testLogging {
-        events("passed", "skipped", "failed")
-    }
-}
+        register("statusTask
