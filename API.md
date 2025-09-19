@@ -457,18 +457,6 @@ fun User.toEntity(): UserEntity {
         // ...
     )
 }
-=======
-    
-    override suspend fun findById(id: UserId): User? {
-        return userDao.findById(id.value) ?: run {
-            val networkUser = networkService.getUser(id)
-            networkUser?.let { userDao.insert(it) }
-            networkUser
-        }
-    }
-    
-    // ... other implementations
-}
 ```
 
 ### State Management

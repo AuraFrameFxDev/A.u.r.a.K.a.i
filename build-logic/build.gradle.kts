@@ -4,22 +4,39 @@ plugins {
     `kotlin-dsl`
 }
 
-// NO explicit repositories block here; it will use settings.gradle.kts
-
-// Dependencies required for writing the convention plugins themselves.
-// Using explicit string coordinates as a workaround for libs accessor issue.
-dependencies {
-    implementation("com.android.tools.build:gradle:9.0.0-alpha02") // Changed to 9.0.0-alpha02
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:2.2.20")
-    implementation("com.google.gms:google-services:4.4.3")
-
-    // Re-enable compileOnly dependencies with explicit coordinates
-    compileOnly("com.google.dagger:hilt-android-gradle-plugin:2.57.1")
-    compileOnly("org.openapitools:openapi-generator-gradle-plugin:7.15.0")
-    compileOnly("com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:2.2.20-2.0.3")
+repositories {
+    google()
+    mavenCentral()
+    gradlePluginPortal()
+    maven {
+        url = uri("https://repo.gradle.org/gradle/libs-releases")
+        name = "Gradle Releases"
+    }
+    maven {
+        url = uri("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+        name = "JetBrains Compose Dev"
+    }
 }
 
-// Register your custom convention plugins
+// Dependencies required for the convention plugins themselves.
+dependencies {
+    // Core build plugins
+    implementation("com.android.tools.build:gradle:9.0.0-alpha01")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:2.2.20")
+    implementation("com.google.dagger:hilt-android-gradle-plugin:2.57.1")
+    implementation(libs.com.google.devtools.ksp.gradle.plugin)
+    implementation("org.jetbrains.compose:compose-gradle-plugin:1.8.2")
+    
+    // Gradle API
+    implementation(gradleApi())
+    
+    // Testing libraries for the plugins themselves
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.13.4")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.13.4")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
+    testImplementation("io.mockk:mockk:1.14.5")
+}
+
 gradlePlugin {
     plugins {
         register("androidApplication") {
@@ -28,14 +45,14 @@ gradlePlugin {
         }
         register("androidLibrary") {
             id = "genesis.android.library"
-            implementationClass = "GenesisAndroidLibraryPlugin"
+            implementationClass = "dev.aurakai.auraframefx.buildlogic.AndroidLibraryConventionPlugin"
         }
         register("androidCompose") {
             id = "genesis.android.compose"
             implementationClass = "dev.aurakai.auraframefx.buildlogic.AndroidComposeConventionPlugin"
         }
         register("androidHilt") {
-            id = "genesis.android.dagger.hilt"
+            id = "genesis.android.hilt"
             implementationClass = "dev.aurakai.auraframefx.buildlogic.AndroidHiltConventionPlugin"
         }
         register("androidNative") {
