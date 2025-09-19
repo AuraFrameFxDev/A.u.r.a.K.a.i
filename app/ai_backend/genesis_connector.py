@@ -564,12 +564,11 @@ return mapping.get(severity, "low")
         Args:
             response (dict): The response dictionary to send.
         """
-try:
-    response_json = json.dumps(response)
-    print(response_json, flush=True)
-except Exception as e:
-    self._send_error_response(f"Response serialization failed: {e}")
-
+        try:
+            response_json = json.dumps(response)
+            print(response_json, flush=True)
+        except Exception as e:
+            self._send_error_response(f"Response serialization failed: {e}")
     def _send_error_response(self, error_message):
         """Sends an error response to standard output.
 
