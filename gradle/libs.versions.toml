@@ -51,7 +51,7 @@ coilCompose = "2.7.0"
 timber = "5.0.1"
 leakcanary = "2.14"
 commonsIo = "2.20.0"
-commonsCompress = "1.2.8"
+commonsCompress = "1.28.0"
 xz = "1.10"
 slf4j = "2.0.17"
 
