@@ -23,43 +23,62 @@ import dev.aurakai.auraframefx.romtools.bootloader.BootloaderManager
 import dev.aurakai.auraframefx.romtools.bootloader.BootloaderManagerImpl
 
 /**
- * ROM Tools module - Hilt temporarily disabled.
- * TODO: Re-enable when Hilt plugin configuration is resolved.
+ * Hilt module for providing dependencies for the ROM tools.
+ *
+ * Note: Hilt annotations are temporarily commented out.
  */
 // @Module
 // @InstallIn(SingletonComponent::class)
 class RomToolsModule {
 
+    /**
+     * Binds the [BootloaderManagerImpl] to the [BootloaderManager] interface.
+     */
     // @Binds
     // @Singleton
     fun bindBootloaderManager(
         bootloaderManagerImpl: BootloaderManagerImpl
     ): BootloaderManager = bootloaderManagerImpl
 
+    /**
+     * Binds the [RecoveryManagerImpl] to the [RecoveryManager] interface.
+     */
     // @Binds
     // @Singleton
     fun bindRecoveryManager(
         recoveryManagerImpl: RecoveryManagerImpl
     ): RecoveryManager = recoveryManagerImpl
 
+    /**
+     * Binds the [SystemModificationManagerImpl] to the [SystemModificationManager] interface.
+     */
     // @Binds
     // @Singleton
     fun bindSystemModificationManager(
         systemModificationManagerImpl: SystemModificationManagerImpl
     ): SystemModificationManager = systemModificationManagerImpl
 
+    /**
+     * Binds the [FlashManagerImpl] to the [FlashManager] interface.
+     */
     // @Binds
     // @Singleton
     fun bindFlashManager(
         flashManagerImpl: FlashManagerImpl
     ): FlashManager = flashManagerImpl
 
+    /**
+     * Binds the [RomVerificationManagerImpl] to the [RomVerificationManager] interface.
+     */
     // @Binds
     // @Singleton
     fun bindRomVerificationManager(
         romVerificationManagerImpl: RomVerificationManagerImpl
     ): RomVerificationManager = romVerificationManagerImpl
 
+    /**
+     * Binds the [BackupManagerImpl] to the [BackupManager] interface.
+     */
     // @Binds
     // @Singleton
     fun bindBackupManager(
@@ -68,6 +87,9 @@ class RomToolsModule {
 
     companion object {
 
+        /**
+         * Provides the data directory for the ROM tools.
+         */
         // @Provides
         // @RomToolsDataDir
         fun provideRomToolsDataDirectory(
@@ -77,6 +99,9 @@ class RomToolsModule {
             return "${context.filesDir}/romtools"
         }
 
+        /**
+         * Provides the backup directory for the ROM tools.
+         */
         // @Provides
         // @RomToolsBackupDir
         fun provideRomToolsBackupDirectory(
@@ -86,6 +111,9 @@ class RomToolsModule {
             return "${context.getExternalFilesDir(null)}/backups"
         }
 
+        /**
+         * Provides the download directory for the ROM tools.
+         */
         // @Provides
         // @RomToolsDownloadDir
         fun provideRomToolsDownloadDirectory(
@@ -95,6 +123,9 @@ class RomToolsModule {
             return "${context.getExternalFilesDir(null)}/downloads"
         }
 
+        /**
+         * Provides the temporary directory for the ROM tools.
+         */
         // @Provides
         // @RomToolsTempDir
         fun provideRomToolsTempDirectory(
@@ -106,15 +137,26 @@ class RomToolsModule {
     }
 }
 
-// Qualifier annotations for ROM tools directories
+/**
+ * Qualifier for the data directory for the ROM tools.
+ */
 @Retention(AnnotationRetention.BINARY)
 annotation class RomToolsDataDir
 
+/**
+ * Qualifier for the backup directory for the ROM tools.
+ */
 @Retention(AnnotationRetention.BINARY)
 annotation class RomToolsBackupDir
 
+/**
+ * Qualifier for the download directory for the ROM tools.
+ */
 @Retention(AnnotationRetention.BINARY)
 annotation class RomToolsDownloadDir
 
+/**
+ * Qualifier for the temporary directory for the ROM tools.
+ */
 @Retention(AnnotationRetention.BINARY)
 annotation class RomToolsTempDir

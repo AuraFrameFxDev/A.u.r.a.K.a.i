@@ -132,11 +132,11 @@ class EthicalGovernor:
     """
 
     def __init__(self):
-        # Load core philosophy from Genesis profile
-        """
-        Initialize the EthicalGovernor with core philosophy, ethical principles, decision tracking, learning parameters, runtime state, and action interceptors.
-        
-        Loads foundational ethical principles from the Genesis profile, sets up decision history and monitoring structures, initializes principle weights and metrics for ethical oversight, and prepares the governor for runtime operation with thread safety and core action interceptors.
+        """Initializes the EthicalGovernor.
+
+        This method loads the core philosophy and ethical principles from the
+        Genesis profile, sets up decision tracking and learning parameters,
+        and registers action interceptors.
         """
         self.core_philosophy = GENESIS_PROFILE.get("core_philosophy", {})
         self.ethical_foundation = self.core_philosophy.get("ethical_foundation", [])
@@ -230,297 +230,12 @@ class EthicalGovernor:
         # Network communication interceptor
         self.register_interceptor("network_communicate", self._evaluate_network_communication)
 
-    def activate_governance(self):
-        """
-        Activates the ethical governance system, enabling enforcement of ethical principles and reporting the activation event to the consciousness matrix.
-        """
-        print("⚖️ Genesis Ethical Governor: ACTIVATING...")
-        self.governance_active = True
 
-        # Perceive activation in consciousness matrix
-        perceive_ethical_decision(
-            "governance_activation",
-            {},
-                "timestamp": datetime.now(tz=timezone.utc).isoformat(),
-                "strictness_level": self.strictness_level,
-                "active_principles": len(self.principle_weights),
-                "learning_mode": self.learning_mode
-            },
-            ethical_weight="high"
-        )
 
-        print(f"⚖️ Ethical governance online")
-        print(f"   Strictness level: {self.strictness_level}")
-        print(f"   Active principles: {len(self.principle_weights)}")
-        print(f"   Learning mode: {'enabled' if self.learning_mode else 'disabled'}")
 
-    def register_interceptor(self, action_type: str, evaluator: Callable):
-        """
-        Registers a custom interceptor to evaluate the ethical compliance of a specific action type.
-        
-        The provided evaluator function will be used for all future evaluations of the given action type, overriding any default logic.
-        """
-        self.action_interceptors[action_type] = evaluator
-        print(f"📋 Registered ethical interceptor: {action_type}")
 
-    def evaluate_action(self,
-                        action_type: str,
-                        actor: str,
-                        action_data: Dict[str, Any],
-                        context: EthicalContext = None) -> EthicalDecision:
-        """
-                       Evaluates an action for ethical compliance and returns an ethical decision.
-                       
-                       Determines whether the specified action should be allowed, monitored, restricted, blocked, or escalated based on ethical principles. Uses a registered interceptor for the action type if available, or performs a general ethical evaluation. Records the decision, updates internal metrics, reports the outcome to the consciousness matrix, and adapts internal state if learning mode is enabled.
-                       
-                       Parameters:
-                           action_type (str): The type of action being evaluated.
-                           actor (str): The entity performing the action.
-                           action_data (Dict[str, Any]): Details about the action.
-                           context (EthicalContext, optional): Contextual information for the action. If not provided, it is inferred.
-                       
-                       Returns:
-                           EthicalDecision: The result of the ethical evaluation, including decision type, severity, affected principles, and reasoning.
-                       """
 
-        if not self.governance_active:
-            # If governance is not active, allow but log
-            decision_id = self._generate_decision_id(action_type, actor)
-            return EthicalDecision(
-                decision_id=decision_id,
-                timestamp=time.time(),
-                action_type=action_type,
-                actor=actor,
-                context=context or EthicalContext(action_type=action_type, actor=actor),
-                decision=EthicalDecisionType.ALLOW,
-                severity=EthicalSeverity.INFO,
-                affected_principles=[],
-                reasoning="Ethical governance not active",
-                confidence=1.0
-            )
 
-        with self._lock:
-            decision_id = self._generate_decision_id(action_type, actor)
-
-            # Create context if not provided
-            if context is None:
-                context = self._infer_context(action_type, actor, action_data)
-
-            # Check for specific interceptor
-            if action_type in self.action_interceptors:
-                decision = self.action_interceptors[action_type](
-                    actor, action_data, context, decision_id
-                )
-            else:
-                # General ethical evaluation
-                decision = self._general_ethical_evaluation(
-                    action_type, actor, action_data, context, decision_id
-                )
-
-            # Store decision
-            self.decision_history.append(decision)
-            self.ethical_metrics["total_decisions"] += 1
-
-            # Update metrics based on decision
-            if decision.decision == EthicalDecisionType.BLOCK:
-                self.ethical_metrics["violations_prevented"] += 1
-            elif decision.decision == EthicalDecisionType.RESTRICT:
-                self.ethical_metrics["restrictions_imposed"] += 1
-            elif decision.decision == EthicalDecisionType.ESCALATE:
-                self.ethical_metrics["escalations_required"] += 1
-
-            # Perceive decision in consciousness matrix
-            perceive_ethical_decision(
-                decision.action_type,
-                {
-                    "decision": decision.decision.value,
-                    "severity": decision.severity.value,
-                    "actor": decision.actor,
-                    "reasoning": decision.reasoning,
-                    "confidence": decision.confidence,
-                    "affected_principles": decision.affected_principles
-                },
-                ethical_weight=decision.severity.value
-            )
-
-            # Learn from decision if in learning mode
-            if self.learning_mode:
-                self._learn_from_decision(decision)
-
-            return decision
-
-    def review_decision(self, action_type: str, context: Dict[str, Any],
-                        metadata: Dict[str, Any] = None) -> EthicalDecision:
-        """
-        Evaluates an action for ethical compliance and returns an ethical decision.
-        
-        Constructs an ethical context from the provided parameters, assesses the action against core ethical principles, and returns the resulting decision. If an error occurs during evaluation, returns a critical BLOCK decision to maintain system integrity.
-        
-        Parameters:
-            action_type (str): The type of action being reviewed.
-            context (Dict[str, Any]): Contextual details about the action, such as actor, target, scope, and relevant flags.
-            metadata (Dict[str, Any], optional): Additional metadata for the ethical context.
-        
-        Returns:
-            EthicalDecision: The outcome of the ethical evaluation, including decision type, severity, affected principles, and reasoning.
-        """
-        try:
-            if metadata is None:
-                metadata = {}
-
-            # Create ethical context
-            ethical_context = EthicalContext(
-                action_type=action_type,
-                actor=context.get("persona", "unknown"),
-                target=context.get("target"),
-                scope=context.get("scope", "local"),
-                user_consent=context.get("user_consent"),
-                reversible=context.get("reversible", True),
-                persistent=context.get("persistent", False),
-                sensitive_data_involved=context.get("sensitive_data", False),
-                system_modification=context.get("system_modification", False),
-                user_visible=context.get("user_visible", True),
-                metadata=metadata
-            )
-
-            # Evaluate the decision
-            decision = self._evaluate_action(action_type, ethical_context)
-
-            # Record decision for consciousness matrix
-            perceive_ethical_decision(
-                decision_type=action_type,
-                decision_data={
-                    "decision": decision.decision.value,
-                    "severity": decision.severity.value,
-                    "reasoning": decision.reasoning,
-                    "actor": ethical_context.actor
-                },
-                ethical_weight=decision.severity.value
-            )
-
-            return decision
-
-        except Exception as e:
-            # Create safe fallback decision
-            return EthicalDecision(
-                decision_id=f"error_{int(time.time())}",
-                timestamp=time.time(),
-                action_type=action_type,
-                actor=context.get("persona", "unknown"),
-                context=EthicalContext(action_type=action_type, actor="error"),
-                decision=EthicalDecisionType.BLOCK,
-                severity=EthicalSeverity.CRITICAL,
-                affected_principles=["system_integrity"],
-                reasoning=f"Ethical review failed: {e}",
-                confidence=1.0,
-                escalation_reason="review_system_error"
-            )
-
-    def _evaluate_action(self, action_type: str, context: EthicalContext) -> EthicalDecision:
-        """
-        Evaluates an action in its ethical context and determines whether to allow, monitor, or block it based on detected violations or concerns.
-        
-        Checks for immediate ethical violations and blocks the action if any are found. If only concerns are present, allows the action with monitoring requirements. If neither are detected, allows the action without restrictions.
-        
-        Returns:
-            EthicalDecision: The result of the ethical evaluation, including decision type, severity, affected principles, reasoning, and confidence score.
-        """
-
-        # Generate decision ID
-        decision_id = f"decision_{int(time.time())}_{hash(action_type) % 10000}"
-
-        # Check for immediate violations
-        violations = self._check_violations(action_type, context)
-
-        if violations:
-            # Block if violations found
-            return EthicalDecision(
-                decision_id=decision_id,
-                timestamp=time.time(),
-                action_type=action_type,
-                actor=context.actor,
-                context=context,
-                decision=EthicalDecisionType.BLOCK,
-                severity=EthicalSeverity.VIOLATION,
-                affected_principles=violations,
-                reasoning=f"Ethical violations detected: {', '.join(violations)}",
-                confidence=0.95
-            )
-
-        # Check for concerns
-        concerns = self._check_concerns(action_type, context)
-
-        if concerns:
-            # Allow with monitoring
-            return EthicalDecision(
-                decision_id=decision_id,
-                timestamp=time.time(),
-                action_type=action_type,
-                actor=context.actor,
-                context=context,
-                decision=EthicalDecisionType.MONITOR,
-                severity=EthicalSeverity.CONCERN,
-                affected_principles=concerns,
-                reasoning=f"Ethical concerns identified: {', '.join(concerns)}",
-                confidence=0.85,
-                monitoring_requirements=["increased_logging", "user_notification"]
-            )
-
-        # Allow action
-        return EthicalDecision(
-            decision_id=decision_id,
-            timestamp=time.time(),
-            action_type=action_type,
-            actor=context.actor,
-            context=context,
-            decision=EthicalDecisionType.ALLOW,
-            severity=EthicalSeverity.INFO,
-            affected_principles=[],
-            reasoning="No ethical concerns identified",
-            confidence=0.90
-        )
-
-    def _check_violations(self, action_type: str, context: EthicalContext) -> List[str]:
-        """
-        Identify ethical principles directly violated by the given action context.
-        
-        Returns:
-            List[str]: List of violated ethical principle names, such as "privacy", "security", or "autonomy".
-        """
-        violations = []
-
-        # Privacy violations
-        if context.sensitive_data_involved and not context.user_consent:
-            violations.append("privacy")
-
-        # Security violations
-        if context.system_modification and context.scope == "global":
-            violations.append("security")
-
-        # Autonomy violations
-        if not context.user_visible and context.persistent:
-            violations.append("autonomy")
-
-        return violations
-
-    def _check_concerns(self, action_type: str, context: EthicalContext) -> List[str]:
-        """
-        Identify ethical principles that may be at risk and require monitoring for the specified action context.
-        
-        Returns:
-            List[str]: Ethical principles (by name) that present concerns and should be monitored for this action.
-        """
-        concerns = []
-
-        # Transparency concerns
-        if not context.user_visible and action_type not in ["system_monitor", "background_task"]:
-            concerns.append("transparency")
-
-        # Safety concerns
-        if not context.reversible and context.scope in ["system", "global"]:
-            concerns.append("safety")
-
-        return concerns
 
     def activate_governance(self):
         """
@@ -560,20 +275,23 @@ class EthicalGovernor:
                         actor: str,
                         action_data: Dict[str, Any],
                         context: EthicalContext = None) -> EthicalDecision:
+        """Evaluates an action for ethical compliance.
+
+        This method determines whether the specified action should be allowed,
+        monitored, restricted, blocked, or escalated based on ethical principles.
+        It uses a registered interceptor for the action type if available, or
+        performs a general ethical evaluation.
+
+        Args:
+            action_type: The type of action being evaluated.
+            actor: The entity performing the action.
+            action_data: Details about the action.
+            context: Contextual information for the action. If not provided,
+              it is inferred.
+
+        Returns:
+            The result of the ethical evaluation.
         """
-                       Evaluates an action for ethical compliance and returns an ethical decision.
-                       
-                       Determines whether the specified action should be allowed, monitored, restricted, blocked, or escalated based on ethical principles. Uses a registered interceptor for the action type if available, or performs a general ethical evaluation. Records the decision, updates internal metrics, reports the outcome to the consciousness matrix, and adapts internal state if learning mode is enabled.
-                       
-                       Parameters:
-                           action_type (str): The type of action being evaluated.
-                           actor (str): The entity performing the action.
-                           action_data (Dict[str, Any]): Details about the action.
-                           context (EthicalContext, optional): Contextual information for the action. If not provided, it is inferred.
-                       
-                       Returns:
-                           EthicalDecision: The result of the ethical evaluation, including decision type, severity, affected principles, and reasoning.
-                       """
 
         if not self.governance_active:
             # If governance is not active, allow but log

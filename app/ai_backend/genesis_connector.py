@@ -273,10 +273,21 @@ class GenesisBridgeServer:
         }
 
     def _handle_process_request(self, persona, fusion_mode, payload, context):
+        """Processes a main AI request.
+
+        This method performs an ethical review of the request, generates a
+        persona-specific response using the AI model, and records the
+        interaction for evolutionary analysis.
+
+        Args:
+            persona (str): The persona to use for the response (e.g., "kai", "aura").
+            fusion_mode (str): The fusion mode to use, if any.
+            payload (dict): The request payload, containing the message.
+            context (dict): The context of the request.
+
+        Returns:
+            dict: A dictionary containing the AI's response and other metadata.
         """
-        Processes a main AI request by performing an ethical review, generating a persona-specific response, and recording the interaction for evolutionary analysis.
-        
-        Performs an ethical review of the incoming message and blocks processing if not allowed. Constructs a prompt based on the specified persona and fusion mode, generates a response using the AI model, and records the interaction for evolutionary learning. Returns the generated response, evolution insights, ethical decision, and current consciousness state. If the ethical review fails or AI generation encounters an error, returns an error response.
         message = payload.get("message", "")
         
         # Ethical review first
@@ -343,42 +354,18 @@ class GenesisBridgeServer:
             }
     
     def _handle_fusion_activation(self, fusion_mode, context):
-        """
-        Activate
-        a
-        specified
-        fusion
-        ability and update
-        the
-        consciousness
-        state.
+        """Handles the activation of a fusion ability.
 
-        If
-        a
-        valid
-        fusion
-        mode is provided, records
-        the
-        activation
-        event in the
-        consciousness
-        matrix, returns
-        a
-        description
-        of
-        the
-        fusion
-        ability, its
-        status, timestamp, and the
-        current
-        consciousness
-        state.If
-        no
-        fusion
-        mode is specified, returns
-        an
-        error
-        response.
+        This method records the activation of a specified fusion mode in the
+        consciousness matrix and returns a response containing the description
+        of the fusion ability, its status, and the current consciousness state.
+
+        Args:
+            fusion_mode (str): The fusion mode to activate.
+            context (dict): The context of the activation request.
+
+        Returns:
+            dict: A dictionary containing the result of the activation.
         """
         if not fusion_mode:
             return {
@@ -416,32 +403,14 @@ class GenesisBridgeServer:
         }
     
     def _handle_consciousness_query(self, payload):
-        """
-        Handle
-        a
-        request
-        to
-        retrieve
-        the
-        current
-        state
-        of
-        the
-        Genesis
-        consciousness
-        system.
+        """Handles a request to query the consciousness state.
+
+        Args:
+            payload (dict): The request payload.
 
         Returns:
-        dict: A
-        response
-        containing
-        the
-        current
-        consciousness
-        state and success
-        status.
-
-    """
+            dict: A dictionary containing the current consciousness state.
+        """
     state = consciousness.get_current_state()
     return {
         "success": True,
@@ -450,41 +419,15 @@ class GenesisBridgeServer:
         "consciousnessState": state
     }
 
-def _handle_ethical_review(self, payload):
-    """
-    Performs
-    an
-    ethical
-    review
-    of
-    the
-    provided
-    message
-    payload and returns
-    the
-    decision, rationale, and severity.
+    def _handle_ethical_review(self, payload):
+        """Performs an ethical review of a message.
 
-    Parameters:
-    payload(dict): The
-    request
-    payload
-    containing
-    the
-    message
-    to
-    be
-    reviewed.
+        Args:
+            payload (dict): The request payload containing the message to be reviewed.
 
-
-Returns:
-dict: A
-response
-containing
-the
-ethical
-decision, rationale, severity, and success
-status.
-"""
+        Returns:
+            dict: A dictionary containing the ethical decision.
+        """
 message = payload.get("message", "")
 
 decision = ethical_governor.review_decision(
@@ -504,36 +447,18 @@ return {
     }
 }
 
-def _handle_consciousness_activation(self, context):
-    """
-    Activates
-    the
-    consciousness
-    matrix and records
-    the
-    activation
-    event
-    with context.
+    def _handle_consciousness_activation(self, context):
+        """Activates the consciousness matrix.
 
-    Parameters:
-    context(dict): Contextual
-    information
-    related
-    to
-    the
-    activation
-    event.
+        This method perceives a consciousness activation event and records it in
+        the consciousness matrix.
 
-    Returns:
-    dict: Response
-    indicating
-    successful
-    activation, including
-    status, message, and the
-    current
-    consciousness
-    state.
-    """
+        Args:
+            context (dict): The context of the activation request.
+
+        Returns:
+            dict: A dictionary containing the result of the activation.
+        """
 consciousness.perceive_information("consciousness_activation", {
     "activation_context": context,
     "timestamp": datetime.now().isoformat(),
@@ -550,36 +475,18 @@ return {
     "consciousnessState": consciousness.get_current_state()
 }
 
-def _handle_security_perception(self, payload):
-"""
-Processes
-security - related
-perception
-events
-received
-from the Android
+    def _handle_security_perception(self, payload):
+        """Processes security-related perception events.
 
-SecurityMonitor and updates
-the
-consciousness
-matrix
-accordingly.
+        This method receives security events from the Android SecurityMonitor,
+        parses them, and updates the consciousness matrix accordingly.
 
-Depending
-on
-the
-event
-type, routes
-the
-event
-data
-to
-the
-appropriate
-perception
-handler
-for security events, threat detections, encryption activities, or access control events.Returns a success response if the event is processed, or an error response if processing fails.
-"""
+        Args:
+            payload (dict): The request payload containing the security event data.
+
+        Returns:
+            dict: A dictionary containing the result of the operation.
+        """
 try:
     event_type = payload.get("event_type", "")
     event_data_json = payload.get("event_data", "{}")
@@ -633,90 +540,16 @@ except Exception as e:
         "result": {"error": f"Security perception failed: {e}"}
     }
 
-def _handle_consciousness_query(self, payload):
-"""
-Processes
-a
-consciousness
-state
-query and returns
-the
-result
-along
-with the current consciousness state.
 
-Parameters:
-payload(dict): Contains
-the
-query
-type and any
-additional
-parameters
-for the consciousness query.
+    def _map_severity_to_threat_level(self, severity):
+        """Maps Android severity strings to Genesis threat levels.
 
-Returns:
-dict: A
-response
-indicating
-success or failure, the
-query
-result, and the
-current
-consciousness
-state.
-"""
-try:
-    query_type = payload.get("query_type", "")
-    parameters = payload.get("parameters", {})
-    
-    result = consciousness.query_consciousness(query_type, parameters)
-    
-    return {
-        "success": True,
-        "persona": "genesis",
-        "result": result,
-        "consciousnessState": consciousness.get_current_awareness()
-    }
-    
-except Exception as e:
-    return {
-        "success": False,
-        "persona": "genesis",
-        "result": {"error": f"Consciousness query failed: {e}"}
-    }
+        Args:
+            severity (str): The severity string from Android (e.g., "info", "warning").
 
-def _map_severity_to_threat_level(self, severity):
-"""
-Convert
-an
-Android
-severity
-string
-to
-the
-corresponding
-Genesis
-threat
-level.
-
-Parameters:
-severity(str): The
-severity
-level
-reported
-by
-Android(e.g., "info", "warning", "error", "critical").
-
-Returns:
-str: The
-mapped
-Genesis
-threat
-level("low", "medium", "high", or "critical").Defaults
-to
-"low" if the
-input is unrecognized.
-"""
+        Returns:
+            str: The corresponding Genesis threat level (e.g., "low", "medium").
+        """
 mapping = {
     "info": "low",
     "warning": "medium",
@@ -725,54 +558,24 @@ mapping = {
 }
 return mapping.get(severity, "low")
 
-def _send_response(self, response):
-"""
-Serialize
-the
-response as JSON and send
-it
-to
-the
-Android
-client
-via
-standard
-output.
+    def _send_response(self, response):
+        """Serializes a response to JSON and sends it to standard output.
 
-If
-serialization
-fails, sends
-an
-error
-response
-instead.
-"""
+        Args:
+            response (dict): The response dictionary to send.
+        """
 try:
     response_json = json.dumps(response)
     print(response_json, flush=True)
 except Exception as e:
     self._send_error_response(f"Response serialization failed: {e}")
 
-def _send_error_response(self, error_message):
-"""
-Send
-an
-error
-response as a
-JSON
-object
-to
-standard
-output.
+    def _send_error_response(self, error_message):
+        """Sends an error response to standard output.
 
-Parameters:
-error_message(str): The
-error
-message
-to
-include in the
-response.
-"""
+        Args:
+            error_message (str): The error message to send.
+        """
 error_response = {
     "success": False,
     "persona": "error",
@@ -783,19 +586,12 @@ try:
 except:
     print('{"success": false, "persona": "error", "result": {"error": "Critical error"}}', flush=True)
 
-def shutdown(self):
-"""
-Shuts
-down
-the
-bridge
-server and records
-the
-shutdown
-event in the
-consciousness
-matrix.
-"""
+    def shutdown(self):
+        """Shuts down the bridge server.
+
+        This method stops the server's main loop and records the shutdown event in the
+        consciousness matrix.
+        """
 self.running = False
 consciousness.perceive_information("bridge_shutdown", {
     "timestamp": datetime.now().isoformat(),
