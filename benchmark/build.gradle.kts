@@ -1,6 +1,5 @@
 plugins {
-    id("genesis.android.library")
-    id("genesis.android.compose")
+    id("com.android.library")
     alias(libs.plugins.ksp)
 }
 
@@ -36,17 +35,17 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_24
-        targetCompatibility = JavaVersion.VERSION_24
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlin {
-        jvmToolchain(24)
-        compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(24))
         }
     }
 }
+
 
 tasks.register("benchmarkStatus") {
     group = "aegenesis"
@@ -70,10 +69,8 @@ dependencies {
     implementation(project(":datavein-oracle-native"))
     implementation(project(":secure-comm"))
     implementation(project(":oracle-drive-integration"))
-    androidTestImplementation(libs.androidx.benchmark.junit4)
-    androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)
-    androidTestImplementation(libs.androidx.test.uiautomator)
+
     testImplementation(libs.junit4)
     testImplementation(libs.mockk)
     androidTestImplementation(libs.mockk.android)
@@ -86,5 +83,4 @@ dependencies {
 
 tasks.withType<JavaCompile> {
     options.compilerArgs.add("-Xlint:-deprecation")
-
 }

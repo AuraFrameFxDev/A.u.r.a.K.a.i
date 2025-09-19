@@ -52,12 +52,9 @@ android {
         implementation(libs.commons.io)
         implementation(libs.commons.compress)
         implementation(libs.xz)
-        implementation(libs.slf4j.api)
 
         // YukiHook and LSPosed (corrected coordinates)
-        implementation(libs.yukihook.api)
-        implementation(libs.lsposed.api)
-        ksp(libs.yukihook.ksp)
+
 
         // Force newer AndroidX versions to override Hilt's old dependencies
         implementation(libs.androidx.core.ktx)
@@ -65,29 +62,27 @@ android {
 
         // Testing dependencies
         testImplementation(libs.junit.jupiter.api)
-        testImplementation(libs.junit.jupiter.params)
         testRuntimeOnly(libs.junit.jupiter.engine)
-        testRuntimeOnly(libs.junit.platform.launcher)
         testImplementation(libs.mockk)
         testImplementation(kotlin("test"))
-        testRuntimeOnly(libs.slf4j.simple)
-    }
 
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        // Configure any Kotlin compile options if needed
-        // For example: compilerOptions.jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
-    }
 
-    tasks.register("utilitiesStatus") {
-        group = "aegenesis"
-        description = "Checks the status of the Utilities module"
-        doLast {
-            println("📦 UTILITIES MODULE - Ready (Java 24)")
+        tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+            // Configure any Kotlin compile options if needed
+            // For example: compilerOptions.jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
         }
-    }
-} // End of android block
+
+        tasks.register("utilitiesStatus") {
+            group = "aegenesis"
+            description = "Checks the status of the Utilities module"
+            doLast {
+                println("📦 UTILITIES MODULE - Ready (Java 24)")
+            }
+        }
+    } // End of android block
 
 // Added standard test configuration for JUnit 5
-tasks.withType<Test> {
-    useJUnitPlatform()
+    tasks.withType<Test> {
+        useJUnitPlatform()
+    }
 }

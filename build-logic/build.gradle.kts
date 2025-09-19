@@ -2,14 +2,21 @@
 
 plugins {
     `kotlin-dsl`
-    `kotlin-dsl-precompiled-script-plugins`
 }
 
 repositories {
     google()
     mavenCentral()
     gradlePluginPortal()
-    maven { url = uri("https://repo1.maven.org/maven2") } // For OpenAPI Generator
+    maven { url = uri("https://repo1.maven.org/maven2") }
+    maven {
+        url = uri("https://repo.gradle.org/gradle/libs-releases")
+        name = "Gradle Releases"
+    }
+    maven {
+        url = uri("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+        name = "JetBrains Compose Dev"
+    }
 }
 
 // Dependencies for the build-logic module itself
@@ -34,6 +41,9 @@ dependencies {
     // Compose Compiler
     implementation("org.jetbrains.compose:compose-gradle-plugin:1.5.12")
 
+    // OpenAPI Generator (Example dependency, adjust as needed)
+    implementation("org.openapitools:openapi-generator-gradle-plugin:7.5.0")
+
     // Testing
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.1")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.10.1")
@@ -48,56 +58,13 @@ dependencies {
 java {
     sourceCompatibility = JavaVersion.VERSION_24
     targetCompatibility = JavaVersion.VERSION_24
-
     toolchain {
-        languageVersion = JavaLanguageVersion.of(24)
+        languageVersion.set(JavaLanguageVersion.of(24))
     }
 }
 
-// Configure Kotlin compilation for all tasks
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     compilerOptions {
-        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24
-        freeCompilerArgs.addAll(
-            "-Xjvm-default=all",
-            "-opt-in=kotlin.RequiresOptIn",
-            "-opt-in=kotlin.ExperimentalStdlibApi"
-        )
+        // Your compiler options here
     }
 }
-
-// Configure Java compilation for all tasks
-tasks.withType<JavaCompile>().configureEach {
-    options.compilerArgs.add("--enable-preview")
-    options.isIncremental = true
-}
-
-// Register your custom convention plugins
-gradlePlugin {
-    plugins {
-        register("androidApplication") {
-            id = "genesis.android.application"
-            implementationClass = "dev.aurakai.auraframefx.buildlogic.AndroidApplicationConventionPlugin"
-        }
-
-        register("androidLibrary") {
-            id = "genesis.android.library"
-            implementationClass = "dev.aurakai.auraframefx.buildlogic.AndroidLibraryConventionPlugin"
-        }
-
-        register("androidCompose") {
-            id = "genesis.android.compose"
-            implementationClass = "dev.aurakai.auraframefx.buildlogic.AndroidComposeConventionPlugin"
-        }
-
-        register("androidHilt") {
-            id = "genesis.android.dagger.hilt"
-            implementationClass = "dev.aurakai.auraframefx.buildlogic.AndroidHiltConventionPlugin"
-        }
-
-        register("androidNative") {
-            id = "genesis.android.native"
-            implementationClass = "dev.aurakai.auraframefx.buildlogic.AndroidNativeConventionPlugin"
-        }
-
-        register("statusTask

@@ -7,7 +7,6 @@ plugins {
     alias(libs.plugins.hilt) version "2.57.1" apply false
     alias(libs.plugins.kotlin.serialization) // Use the alias from libs.versions.toml
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.jetbrains.kotlin.android)
 }
 
 android {

@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.android.library) // Changed to use alias from version catalog
-    alias(libs.plugins.jetbrains.kotlin.android) // Assuming you have this alias for consistency
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
 }
@@ -29,8 +28,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_24
-        targetCompatibility = JavaVersion.VERSION_24
+        sourceCompatibility = JavaVersion.VERSION_25
+        targetCompatibility = JavaVersion.VERSION_25
     }
 }
 
@@ -53,9 +52,7 @@ dependencies {
     testImplementation(libs.junit.jupiter.api)
     testImplementation(libs.mockk)
     testImplementation(kotlin("test"))
-    testImplementation(libs.slf4j.simple)
     testRuntimeOnly(libs.junit.jupiter.engine)
-    testRuntimeOnly(libs.junit.platform.launcher)
 }
 
 tasks.register("listStatus") {

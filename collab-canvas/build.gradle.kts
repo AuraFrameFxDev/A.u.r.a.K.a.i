@@ -8,7 +8,6 @@ plugins {
 
     alias(libs.plugins.compose.compiler)          // KEEP: For Jetpack Compose
     alias(libs.plugins.google.services)           // KEEP: For Firebase general setup
-    alias(libs.plugins.google.firebase.crashlytics) // KEEP: For Firebase Crashlytics
     // ...
 }
 
@@ -32,13 +31,13 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_24
-        targetCompatibility = JavaVersion.VERSION_24
+        sourceCompatibility = JavaVersion.VERSION_25
+        targetCompatibility = JavaVersion.VERSION_25
     }
 
     java {
         toolchain {
-            languageVersion = JavaLanguageVersion.of(24)
+            languageVersion = JavaLanguageVersion.of(25)
             // Dependencies block removed from here
         }
     } // End of java block
@@ -94,7 +93,6 @@ dependencies {
     // Testing
     testImplementation(libs.junit.jupiter.api)
     testRuntimeOnly(libs.junit.jupiter.engine)
-    androidTestImplementation(libs.androidx.espresso.core)
     testImplementation(libs.bundles.testing.unit)
     androidTestImplementation(libs.bundles.testing.android)
 }

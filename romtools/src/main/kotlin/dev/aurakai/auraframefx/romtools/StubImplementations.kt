@@ -6,10 +6,21 @@ import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 import javax.inject.Singleton
 
-// Recovery Manager
+/**
+ * Manages custom recovery operations.
+ */
 interface RecoveryManager {
+    /**
+     * Checks if the device has recovery access.
+     */
     fun checkRecoveryAccess(): Boolean
+    /**
+     * Checks if a custom recovery is installed.
+     */
     fun isCustomRecoveryInstalled(): Boolean
+    /**
+     * Installs a custom recovery.
+     */
     suspend fun installCustomRecovery(): Result<Unit>
 }
 
@@ -21,9 +32,18 @@ class RecoveryManagerImpl @Inject constructor() : RecoveryManager {
         Result.failure(Exception("Not implemented"))
 }
 
-// System Modification Manager  
+/**
+ * Manages system modification operations.
+ */
 interface SystemModificationManager {
+    /**
+     * Checks if the system partition has write access.
+     */
     fun checkSystemWriteAccess(): Boolean
+    /**
+     * Installs Genesis AI optimizations.
+     * @param progressCallback A callback to report the progress of the operation.
+     */
     suspend fun installGenesisOptimizations(progressCallback: (Float) -> Unit): Result<Unit>
 }
 
@@ -34,9 +54,20 @@ class SystemModificationManagerImpl @Inject constructor() : SystemModificationMa
         Result.failure(Exception("Not implemented"))
 }
 
-// Flash Manager
+/**
+ * Manages flashing and downloading ROMs.
+ */
 interface FlashManager {
+    /**
+     * Flashes a ROM to the device.
+     * @param romFile The ROM file to flash.
+     * @param progressCallback A callback to report the progress of the operation.
+     */
     suspend fun flashRom(romFile: RomFile, progressCallback: (Float) -> Unit): Result<Unit>
+    /**
+     * Downloads a ROM file.
+     * @param rom The ROM to download.
+     */
     suspend fun downloadRom(rom: AvailableRom): Flow<DownloadProgress>
 }
 
@@ -52,9 +83,18 @@ class FlashManagerImpl @Inject constructor() : FlashManager {
         flowOf(DownloadProgress(0, 0, 0f, 0))
 }
 
-// ROM Verification Manager
+/**
+ * Manages ROM verification operations.
+ */
 interface RomVerificationManager {
+    /**
+     * Verifies the integrity of a ROM file.
+     * @param romFile The ROM file to verify.
+     */
     suspend fun verifyRomFile(romFile: RomFile): Result<Unit>
+    /**
+     * Verifies the installation of a ROM.
+     */
     suspend fun verifyInstallation(): Result<Unit>
 }
 
@@ -67,14 +107,29 @@ class RomVerificationManagerImpl @Inject constructor() : RomVerificationManager 
         Result.failure(Exception("Not implemented"))
 }
 
-// Backup Manager
+/**
+ * Manages backup and restore operations.
+ */
 interface BackupManager {
+    /**
+     * Creates a full backup of the system.
+     */
     suspend fun createFullBackup(): Result<Unit>
+    /**
+     * Creates a NANDroid backup.
+     * @param name The name of the backup.
+     * @param progressCallback A callback to report the progress of the operation.
+     */
     suspend fun createNandroidBackup(
         name: String,
         progressCallback: (Float) -> Unit
     ): Result<BackupInfo>
 
+    /**
+     * Restores a NANDroid backup.
+     * @param backup The backup to restore.
+     * @param progressCallback A callback to report the progress of the operation.
+     */
     suspend fun restoreNandroidBackup(
         backup: BackupInfo,
         progressCallback: (Float) -> Unit

@@ -1,5 +1,8 @@
 package dev.aurakai.auraframefx.romtools
 
+/**
+ * Returns a user-friendly display name for the [RomOperation].
+ */
 fun RomOperation.getDisplayName(): String = when (this) {
     RomOperation.VERIFYING_ROM -> "Verifying ROM"
     RomOperation.CREATING_BACKUP -> "Creating Backup"

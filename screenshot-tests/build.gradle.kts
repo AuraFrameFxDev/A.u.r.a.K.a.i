@@ -4,7 +4,6 @@ plugins {
     id("com.android.library")
     alias(libs.plugins.ksp)
     id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"
-    alias(libs.plugins.jetbrains.kotlin.android)
 }
 
 android {
@@ -13,7 +12,11 @@ android {
 
     java {
         toolchain {
-            languageVersion = JavaLanguageVersion.of(24)
+            languageVersion.set(JavaLanguageVersion.of(24)) // Corrected syntax and version
+        }
+        compileOptions { // Added compileOptions
+            sourceCompatibility = JavaVersion.VERSION_17
+            targetCompatibility = JavaVersion.VERSION_17
         }
     }
 }

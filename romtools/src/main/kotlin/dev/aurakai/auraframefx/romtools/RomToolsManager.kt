@@ -15,15 +15,14 @@ import javax.inject.Inject
 
 /**
  * Main manager for ROM tools operations in Genesis AuraFrameFX.
- * Provides comprehensive ROM manipulation, flashing, and system modification capabilities.
  *
- * Features:
- * - Bootloader unlocking and management
- * - Custom recovery installation
- * - System partition modification
- * - ROM flashing and verification
- * - Backup and restore operations
- * - AI-assisted ROM optimization
+ * This class provides comprehensive ROM manipulation, flashing, and system
+ * modification capabilities. It orchestrates various managers to perform
+ * complex operations like flashing ROMs, creating backups, and applying
+ * optimizations.
+ *
+ * @property romToolsState A [StateFlow] that emits the current state of the ROM tools.
+ * @property operationProgress A [StateFlow] that emits the progress of the current operation.
  */
 @HiltViewModel // Changed from @Singleton
 class RomToolsManager @Inject constructor(
@@ -72,7 +71,13 @@ class RomToolsManager @Inject constructor(
     }
 
     /**
-     * Flash a custom ROM to the device.
+     * Flashes a custom ROM to the device.
+     *
+     * This function performs a series of steps to flash a ROM, including
+     * verification, backup, bootloader unlocking, and recovery installation.
+     *
+     * @param romFile The ROM file to flash.
+     * @return A [Result] indicating the success or failure of the operation.
      */
     suspend fun flashRom(romFile: RomFile): Result<Unit> {
         return try {
@@ -125,7 +130,10 @@ class RomToolsManager @Inject constructor(
     }
 
     /**
-     * Create a NANDroid backup of the current ROM.
+     * Creates a NANDroid backup of the current ROM.
+     *
+     * @param backupName The name for the backup.
+     * @return A [Result] containing the [BackupInfo] on success, or an exception on failure.
      */
     suspend fun createNandroidBackup(backupName: String): Result<BackupInfo> {
         return try {
@@ -150,7 +158,10 @@ class RomToolsManager @Inject constructor(
     }
 
     /**
-     * Restore from a NANDroid backup.
+     * Restores from a NANDroid backup.
+     *
+     * @param backupInfo The backup to restore.
+     * @return A [Result] indicating the success or failure of the operation.
      */
     suspend fun restoreNandroidBackup(backupInfo: BackupInfo): Result<Unit> {
         return try {
@@ -175,7 +186,9 @@ class RomToolsManager @Inject constructor(
     }
 
     /**
-     * Install Genesis AI optimization patches to the system.
+     * Installs Genesis AI optimization patches to the system.
+     *
+     * @return A [Result] indicating the success or failure of the operation.
      */
     suspend fun installGenesisOptimizations(): Result<Unit> {
         return try {
@@ -200,7 +213,9 @@ class RomToolsManager @Inject constructor(
     }
 
     /**
-     * Get list of available custom ROMs for the device.
+     * Gets a list of available custom ROMs for the device.
+     *
+     * @return A [Result] containing a list of [AvailableRom] on success, or an exception on failure.
      */
     suspend fun getAvailableRoms(): Result<List<AvailableRom>> {
         return try {
@@ -215,7 +230,10 @@ class RomToolsManager @Inject constructor(
     }
 
     /**
-     * Download a ROM file with progress tracking.
+     * Downloads a ROM file with progress tracking.
+     *
+     * @param rom The ROM to download.
+     * @return A [Flow] that emits [DownloadProgress] updates.
      */
     suspend fun downloadRom(rom: AvailableRom): Flow<DownloadProgress> {
         return flashManager.downloadRom(rom)
@@ -249,7 +267,15 @@ class RomToolsManager @Inject constructor(
     }
 }
 
-// Data classes for ROM tools state management
+/**
+ * Represents the state of the ROM tools.
+ *
+ * @param capabilities The capabilities of the device.
+ * @param isInitialized Whether the ROM tools have been initialized.
+ * @param settings The current settings for the ROM tools.
+ * @param availableRoms The list of available ROMs.
+ * @param backups The list of available backups.
+ */
 data class RomToolsState(
     val capabilities: RomCapabilities? = null,
     val isInitialized: Boolean = false,
@@ -258,6 +284,18 @@ data class RomToolsState(
     val backups: List<BackupInfo> = emptyList()
 )
 
+/**
+ * Represents the capabilities of the device for ROM operations.
+ *
+ * @param hasRootAccess Whether the device has root access.
+ * @param hasBootloaderAccess Whether the device has bootloader access.
+ * @param hasRecoveryAccess Whether the device has recovery access.
+ * @param hasSystemWriteAccess Whether the device has system write access.
+ * @param supportedArchitectures The list of supported architectures.
+ * @param deviceModel The model of the device.
+ * @param androidVersion The Android version of the device.
+ * @param securityPatchLevel The security patch level of the device.
+ */
 data class RomCapabilities(
     val hasRootAccess: Boolean,
     val hasBootloaderAccess: Boolean,
@@ -269,6 +307,15 @@ data class RomCapabilities(
     val securityPatchLevel: String
 )
 
+/**
+ * Represents the settings for the ROM tools.
+ *
+ * @param autoBackup Whether to automatically create a backup before flashing.
+ * @param verifyRomSignatures Whether to verify ROM signatures before flashing.
+ * @param enableGenesisOptimizations Whether to enable Genesis optimizations.
+ * @param maxBackupCount The maximum number of backups to keep.
+ * @param downloadDirectory The directory to download ROMs to.
+ */
 data class RomToolsSettings(
     val autoBackup: Boolean = true,
     val verifyRomSignatures: Boolean = true,
@@ -277,26 +324,54 @@ data class RomToolsSettings(
     val downloadDirectory: String = "/sdcard/Download/ROMs"
 )
 
+/**
+ * Represents the progress of a ROM operation.
+ *
+ * @param operation The current ROM operation.
+ * @param progress The progress of the operation, from 0.0 to 100.0.
+ */
 data class OperationProgress(
     val operation: RomOperation,
     val progress: Float
 )
 
+/**
+ * Represents the different types of ROM operations.
+ */
 enum class RomOperation {
+    /** Verifying the integrity of a ROM file. */
     VERIFYING_ROM,
+    /** Creating a backup of the current system. */
     CREATING_BACKUP,
+    /** Unlocking the device's bootloader. */
     UNLOCKING_BOOTLOADER,
+    /** Installing a custom recovery. */
     INSTALLING_RECOVERY,
+    /** Flashing a ROM to the device. */
     FLASHING_ROM,
+    /** Verifying the installation of a ROM. */
     VERIFYING_INSTALLATION,
+    /** Restoring a backup. */
     RESTORING_BACKUP,
+    /** Applying Genesis AI optimizations. */
     APPLYING_OPTIMIZATIONS,
+    /** Downloading a ROM file. */
     DOWNLOADING_ROM,
+    /** The operation has completed successfully. */
     COMPLETED,
+    /** The operation has failed. */
     FAILED
 }
 
-// Additional data classes would be defined in separate files
+/**
+ * Represents a ROM file.
+ *
+ * @param name The name of the ROM file.
+ * @param path The path to the ROM file.
+ * @param size The size of the ROM file in bytes.
+ * @param checksum The checksum of the ROM file.
+ * @param type The type of the ROM.
+ */
 data class RomFile(
     val name: String,
     val path: String,
@@ -305,10 +380,31 @@ data class RomFile(
     val type: RomType
 )
 
+/**
+ * Represents the type of a ROM.
+ */
 enum class RomType {
-    STOCK, CUSTOM, RECOVERY, KERNEL, MODIFICATION
+    /** A stock ROM from the device manufacturer. */
+    STOCK,
+    /** A custom ROM from a third-party developer. */
+    CUSTOM,
+    /** A custom recovery image. */
+    RECOVERY,
+    /** A custom kernel image. */
+    KERNEL,
+    /** A modification package. */
+    MODIFICATION
 }
 
+/**
+ * Represents information about the device.
+ *
+ * @param model The model of the device.
+ * @param manufacturer The manufacturer of the device.
+ * @param androidVersion The Android version of the device.
+ * @param securityPatchLevel The security patch level of the device.
+ * @param bootloaderVersion The bootloader version of the device.
+ */
 data class DeviceInfo(
     val model: String,
     val manufacturer: String,
@@ -317,6 +413,11 @@ data class DeviceInfo(
     val bootloaderVersion: String
 ) {
     companion object {
+        /**
+         * Gets the information for the current device.
+         *
+         * @return A [DeviceInfo] object for the current device.
+         */
         fun getCurrentDevice(): DeviceInfo {
             return DeviceInfo(
                 model = android.os.Build.MODEL,
@@ -329,6 +430,17 @@ data class DeviceInfo(
     }
 }
 
+/**
+ * Represents information about a backup.
+ *
+ * @param name The name of the backup.
+ * @param path The path to the backup.
+ * @param size The size of the backup in bytes.
+ * @param createdAt The timestamp when the backup was created.
+ * @param deviceModel The model of the device that the backup was created for.
+ * @param androidVersion The Android version of the device that the backup was created for.
+ * @param partitions The list of partitions included in the backup.
+ */
 data class BackupInfo(
     val name: String,
     val path: String,
@@ -339,6 +451,19 @@ data class BackupInfo(
     val partitions: List<String>
 )
 
+/**
+ * Represents a ROM that is available for download.
+ *
+ * @param name The name of the ROM.
+ * @param version The version of the ROM.
+ * @param androidVersion The Android version of the ROM.
+ * @param downloadUrl The URL to download the ROM from.
+ * @param size The size of the ROM in bytes.
+ * @param checksum The checksum of the ROM.
+ * @param description A description of the ROM.
+ * @param maintainer The maintainer of the ROM.
+ * @param releaseDate The release date of the ROM.
+ */
 data class AvailableRom(
     val name: String,
     val version: String,
@@ -351,6 +476,16 @@ data class AvailableRom(
     val releaseDate: Long
 )
 
+/**
+ * Represents the progress of a download.
+ *
+ * @param bytesDownloaded The number of bytes that have been downloaded.
+ * @param totalBytes The total number of bytes to download.
+ * @param progress The progress of the download, from 0.0 to 1.0.
+ * @param speed The download speed in bytes per second.
+ * @param isCompleted Whether the download is complete.
+ * @param error An error message if the download failed.
+ */
 data class DownloadProgress(
     val bytesDownloaded: Long,
     val totalBytes: Long,
