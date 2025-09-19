@@ -64,7 +64,7 @@ dependencies {
     // Utilities - Using version catalog aliases
     implementation(libs.timber)
     implementation(libs.coil.compose)
-    implementation("org.bouncycastle:bcprov-jdk18on:1.81") // Reverted to explicit version
+    implementation("org.bouncycastle:bcprov-jdk18on:1.82") // Reverted to explicit version
     implementation(libs.kotlin.stdlib.jdk8)
 
     // Test dependencies (commented out to suppress junit-platform-launcher errors) - Using aliases if they were active
