@@ -43,10 +43,13 @@ class GenesisAPI:
         self.start_time = None
 
     async def startup(self):
-        """
-        Start the Genesis Layer backend asynchronously.
-        
-        Initializes the Genesis subsystem; on success sets self.is_running to True and records self.start_time. Returns True when initialization completes successfully, otherwise returns False.
+        """Asynchronously starts the Genesis Layer backend.
+
+        This method initializes the Genesis Layer, updates the API's running state,
+        and records the start time.
+
+        Returns:
+            bool: True if the backend started successfully, False otherwise.
         """
         try:
             logger.info("🚀 Genesis API starting up...")
@@ -348,15 +351,16 @@ def not_found(error):
 
 @app.errorhandler(500)
 def internal_error(error):
-    """
-    Flask 500 error handler that returns a standardized JSON error response.
-    
-    Parameters:
-        error: The exception or error object provided by Flask (not used in the response).
-    
+    """Handles 500 Internal Server errors.
+
+    This function is registered as the error handler for 500 errors. It returns
+    a JSON response indicating that an internal server error occurred.
+
+    Args:
+        error: The error object passed by Flask.
+
     Returns:
-        A tuple (Response, int) where the Response is a JSON object with keys
-        "error" and "message", and the int is the HTTP status code 500.
+        A tuple containing a JSON response and the HTTP status code 500.
     """
     return jsonify({
         "error": "Internal server error",

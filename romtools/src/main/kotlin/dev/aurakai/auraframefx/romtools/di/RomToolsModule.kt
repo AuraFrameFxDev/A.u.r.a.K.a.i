@@ -35,11 +35,7 @@ class RomToolsModule {
      * Binds the [BootloaderManagerImpl] to the [BootloaderManager] interface.
      */
     // @Binds
-    /**
-     * Binds a BootloaderManager implementation to the BootloaderManager interface for dependency injection.
-     *
-     * @return The provided BootloaderManagerImpl as a BootloaderManager.
-     */
+    // @Singleton
     fun bindBootloaderManager(
         bootloaderManagerImpl: BootloaderManagerImpl
     ): BootloaderManager = bootloaderManagerImpl
@@ -48,12 +44,7 @@ class RomToolsModule {
      * Binds the [RecoveryManagerImpl] to the [RecoveryManager] interface.
      */
     // @Binds
-    /**
-     * Binds a concrete RecoveryManagerImpl to the RecoveryManager interface for dependency injection.
-     *
-     * @param recoveryManagerImpl The implementation instance to expose as a RecoveryManager.
-     * @return The provided instance cast to RecoveryManager.
-     */
+    // @Singleton
     fun bindRecoveryManager(
         recoveryManagerImpl: RecoveryManagerImpl
     ): RecoveryManager = recoveryManagerImpl
@@ -62,11 +53,7 @@ class RomToolsModule {
      * Binds the [SystemModificationManagerImpl] to the [SystemModificationManager] interface.
      */
     // @Binds
-    /**
-     * Binds a SystemModificationManagerImpl to the SystemModificationManager interface for dependency injection.
-     *
-     * @return The provided implementation as a SystemModificationManager.
-     */
+    // @Singleton
     fun bindSystemModificationManager(
         systemModificationManagerImpl: SystemModificationManagerImpl
     ): SystemModificationManager = systemModificationManagerImpl
@@ -75,11 +62,7 @@ class RomToolsModule {
      * Binds the [FlashManagerImpl] to the [FlashManager] interface.
      */
     // @Binds
-    /**
-     * Binds a FlashManager implementation to the FlashManager interface for dependency injection.
-     *
-     * @return The provided FlashManagerImpl instance exposed as a FlashManager.
-     */
+    // @Singleton
     fun bindFlashManager(
         flashManagerImpl: FlashManagerImpl
     ): FlashManager = flashManagerImpl
@@ -88,11 +71,7 @@ class RomToolsModule {
      * Binds the [RomVerificationManagerImpl] to the [RomVerificationManager] interface.
      */
     // @Binds
-    /**
-     * Binds a concrete RomVerificationManagerImpl to the RomVerificationManager interface for dependency injection.
-     *
-     * @return The provided RomVerificationManagerImpl as a RomVerificationManager.
-     */
+    // @Singleton
     fun bindRomVerificationManager(
         romVerificationManagerImpl: RomVerificationManagerImpl
     ): RomVerificationManager = romVerificationManagerImpl
@@ -101,14 +80,7 @@ class RomToolsModule {
      * Binds the [BackupManagerImpl] to the [BackupManager] interface.
      */
     // @Binds
-    /**
-     * Binds a BackupManagerImpl to the BackupManager interface for dependency injection.
-     *
-     * Returns the provided implementation instance as its interface type so DI frameworks
-     * can inject BackupManager where BackupManagerImpl is supplied.
-     *
-     * @return The given BackupManagerImpl as a BackupManager.
-     */
+    // @Singleton
     fun bindBackupManager(
         backupManagerImpl: BackupManagerImpl
     ): BackupManager = backupManagerImpl
@@ -119,13 +91,7 @@ class RomToolsModule {
          * Provides the data directory for the ROM tools.
          */
         // @Provides
-        /**
-         * Returns the path to the app-private ROM tools data directory.
-         *
-         * The directory is located under the application's internal files directory as "romtools".
-         *
-         * @return Absolute path to the ROM tools data directory inside the app's internal storage.
-         */
+        // @RomToolsDataDir
         fun provideRomToolsDataDirectory(
             // @ApplicationContext 
             context: Context
@@ -137,16 +103,7 @@ class RomToolsModule {
          * Provides the backup directory for the ROM tools.
          */
         // @Provides
-        /**
-         * Returns the app's external "backups" directory path.
-         *
-         * The returned string is formed by appending "backups" to the value of
-         * `context.getExternalFilesDir(null)`. Note that `getExternalFilesDir(null)` may
-         * return null on some devices; in that case the resulting string will contain
-         * "null/backups" and callers should handle that possibility.
-         *
-         * @return The filesystem path to the backups directory under the app's external files.
-         */
+        // @RomToolsBackupDir
         fun provideRomToolsBackupDirectory(
             // @ApplicationContext 
             context: Context
@@ -158,15 +115,7 @@ class RomToolsModule {
          * Provides the download directory for the ROM tools.
          */
         // @Provides
-        /**
-         * Returns the path to the ROM tools downloads directory located under the app's external files.
-         *
-         * The returned string is formed by appending "/downloads" to Context.getExternalFilesDir(null).
-         * Note: getExternalFilesDir(null) can return null (e.g., if external storage is unavailable); in
-         * that case the resulting string will contain "null/downloads" and callers should handle that scenario.
-         *
-         * @return The downloads directory path as a String.
-         */
+        // @RomToolsDownloadDir
         fun provideRomToolsDownloadDirectory(
             // @ApplicationContext 
             context: Context
@@ -178,16 +127,7 @@ class RomToolsModule {
          * Provides the temporary directory for the ROM tools.
          */
         // @Provides
-        /**
-         * Returns the file-system path for the ROM tools temporary directory.
-         *
-         * The path is built from the application's cache directory with the
-         * "romtools_temp" subdirectory (i.e. `${context.cacheDir}/romtools_temp`).
-         * This location is intended for short-lived temporary files and may be
-         * cleared by the system when storage is low.
-         *
-         * @return Absolute path to the ROM tools temporary directory.
-         */
+        // @RomToolsTempDir
         fun provideRomToolsTempDirectory(
             // @ApplicationContext 
             context: Context

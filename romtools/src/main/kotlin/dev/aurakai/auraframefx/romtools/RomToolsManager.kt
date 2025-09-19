@@ -47,16 +47,7 @@ class RomToolsManager @Inject constructor(
     }
 
     /**
-     * Gathers device information and capability checks, then updates the manager state.
-     *
-     * Performs runtime checks for root, bootloader, recovery, and system write access,
-     * collects supported architectures and device metadata, and writes a RomCapabilities
-     * object into the internal state flow. Also marks the manager as initialized and
-     * emits an informational log entry.
-     *
-     * Side effects:
-     * - Updates _romToolsState with the discovered `capabilities` and sets `isInitialized = true`.
-     * - Logs the resulting capabilities via Timber.
+     * Check available ROM tools capabilities and device compatibility.
      */
     private fun checkRomToolsCapabilities() {
         val deviceInfo = DeviceInfo.getCurrentDevice()
@@ -80,18 +71,13 @@ class RomToolsManager @Inject constructor(
     }
 
     /**
-     * Flash the given ROM file to the device, performing verification and any required preparatory steps.
+     * Flashes a custom ROM to the device.
      *
-     * Performs integrity verification of the ROM, optionally creates a full backup (if autoBackup is enabled),
-     * unlocks the bootloader and installs a custom recovery if required by the device state, flashes the ROM,
-     * and verifies the installation. Progress is reported via the manager's operation progress state and is cleared
-     * when the operation finishes (success or failure).
+     * This function performs a series of steps to flash a ROM, including
+     * verification, backup, bootloader unlocking, and recovery installation.
      *
-     * Side effects: may create backups, change bootloader/recovery state, write system partitions, and update
-     * the public operation progress StateFlow.
-     *
-     * @param romFile ROM file to flash.
-     * @return Result.success(Unit) on success, or Result.failure(exception) if any step fails.
+     * @param romFile The ROM file to flash.
+     * @return A [Result] indicating the success or failure of the operation.
      */
     suspend fun flashRom(romFile: RomFile): Result<Unit> {
         return try {
@@ -144,15 +130,10 @@ class RomToolsManager @Inject constructor(
     }
 
     /**
-     * Creates a NANDroid backup with the given name and reports progress through the manager's operation state.
+     * Creates a NANDroid backup of the current ROM.
      *
-     * This suspending function delegates to the backup manager to perform the NANDroid backup, updating
-     * the RomToolsManager's OperationProgress (RomOperation.CREATING_BACKUP → RomOperation.COMPLETED or RomOperation.FAILED)
-     * as the backup progresses. On success it returns Result.success with the created BackupInfo; on failure it returns
-     * Result.failure with the caught exception. The function does not throw.
-     *
-     * @param backupName The user-visible name to assign to the created backup.
-     * @return A Result containing the created BackupInfo on success, or the failure exception on error.
+     * @param backupName The name for the backup.
+     * @return A [Result] containing the [BackupInfo] on success, or an exception on failure.
      */
     suspend fun createNandroidBackup(backupName: String): Result<BackupInfo> {
         return try {
@@ -177,14 +158,10 @@ class RomToolsManager @Inject constructor(
     }
 
     /**
-     * Restores the device from the provided NANDroid backup.
+     * Restores from a NANDroid backup.
      *
-     * Performs the restore via the BackupManager while publishing operation progress to the manager's
-     * OperationProgress flow. On success the operation progress is set to COMPLETED and then cleared;
-     * on failure the progress is set to FAILED and cleared.
-     *
-     * @param backupInfo The backup metadata to restore.
-     * @return A [Result] that is successful on completion or contains the thrown exception on failure.
+     * @param backupInfo The backup to restore.
+     * @return A [Result] indicating the success or failure of the operation.
      */
     suspend fun restoreNandroidBackup(backupInfo: BackupInfo): Result<Unit> {
         return try {
@@ -209,18 +186,9 @@ class RomToolsManager @Inject constructor(
     }
 
     /**
-     * Applies the Genesis AI optimization patches to the device system.
+     * Installs Genesis AI optimization patches to the system.
      *
-     * This suspending function delegates installation to the systemModificationManager and
-     * reports progress through the manager's callback (mapped to RomOperation.APPLYING_OPTIMIZATIONS).
-     * On completion the operation progress is set to COMPLETED; on failure it is set to FAILED.
-     *
-     * Side effects:
-     * - Modifies device system files (performed by systemModificationManager).
-     * - Updates the RomToolsManager operation progress state.
-     *
-     * @return A [Result] that is successful when optimizations were applied, or contains the thrown
-     * exception on failure.
+     * @return A [Result] indicating the success or failure of the operation.
      */
     suspend fun installGenesisOptimizations(): Result<Unit> {
         return try {
@@ -245,13 +213,9 @@ class RomToolsManager @Inject constructor(
     }
 
     /**
-     * Retrieve available ROMs compatible with the current device.
+     * Gets a list of available custom ROMs for the device.
      *
-     * Queries the internal RomRepository for ROMs compatible with the device model taken from
-     * the current capabilities (falls back to `"unknown"` if capabilities are unavailable).
-     * Any thrown exceptions are caught and returned as a failed Result.
-     *
-     * @return A [Result] wrapping a list of [AvailableRom] on success or the thrown exception on failure.
+     * @return A [Result] containing a list of [AvailableRom] on success, or an exception on failure.
      */
     suspend fun getAvailableRoms(): Result<List<AvailableRom>> {
         return try {
@@ -266,13 +230,10 @@ class RomToolsManager @Inject constructor(
     }
 
     /**
-     * Begins downloading the specified ROM and provides incremental progress updates.
+     * Downloads a ROM file with progress tracking.
      *
-     * The returned [Flow] emits `DownloadProgress` updates from start until completion; transient
-     * errors during the download are reported on emitted `DownloadProgress.error` entries.
-     *
-     * @param rom The ROM metadata to download.
-     * @return A [Flow] that emits `DownloadProgress` updates for the download lifecycle.
+     * @param rom The ROM to download.
+     * @return A [Flow] that emits [DownloadProgress] updates.
      */
     suspend fun downloadRom(rom: AvailableRom): Flow<DownloadProgress> {
         return flashManager.downloadRom(rom)

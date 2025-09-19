@@ -19,14 +19,9 @@ interface BootloaderManager {
      */
     fun isBootloaderUnlocked(): Boolean
     /**
- * Attempts to unlock the device bootloader.
- *
- * This is a suspending operation that performs the device-level action of unlocking the bootloader.
- * It requires appropriate device access and platform support; failure can indicate lack of permission,
- * unsupported device, or other device-specific errors.
- *
- * @return A [Result] that is successful when the bootloader was unlocked; on failure it contains a
- *         [Throwable] describing the reason. */
+     * Unlocks the bootloader.
+     * @return A [Result] indicating the success or failure of the operation.
+     */
     suspend fun unlockBootloader(): Result<Unit>
 }
 

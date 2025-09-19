@@ -273,17 +273,20 @@ class GenesisBridgeServer:
         }
 
     def _handle_process_request(self, persona, fusion_mode, payload, context):
-        """
-        Process an AI request: perform an ethical review, generate a persona-aware response, record the interaction for evolution, and return a structured result.
-        
-        Performs an ethical review of the incoming message and, if allowed, builds a persona-appropriate prompt (kai, aura, or genesis with optional fusion_mode), requests content from the model, records the interaction with the EvolutionaryConduit, and returns a JSON-serializable dictionary containing the generated response plus metadata (persona, fusionAbility, evolutionInsights, ethicalDecision, consciousnessState, etc.). If the ethical review blocks the request or model generation fails, returns a failure payload with an explanatory error.
-        
-        Parameters that benefit from extra context:
-            persona (str): Which persona to use for generation ("kai", "aura", or other for genesis/fusion).
-            fusion_mode (str|None): Optional fusion mode identifier that alters the genesis prompt.
-        
+        """Processes a main AI request.
+
+        This method performs an ethical review of the request, generates a
+        persona-specific response using the AI model, and records the
+        interaction for evolutionary analysis.
+
+        Args:
+            persona (str): The persona to use for the response (e.g., "kai", "aura").
+            fusion_mode (str): The fusion mode to use, if any.
+            payload (dict): The request payload, containing the message.
+            context (dict): The context of the request.
+
         Returns:
-            dict: Structured response. On success contains "success": True, "result" with the generated response and timestamp, "evolutionInsights", "ethicalDecision" == "ALLOW", and "consciousnessState". On failure contains "success": False and an error description.
+            dict: A dictionary containing the AI's response and other metadata.
         """
         message = payload.get("message", "")
         
@@ -351,22 +354,18 @@ class GenesisBridgeServer:
             }
     
     def _handle_fusion_activation(self, fusion_mode, context):
-        """
-        Activate a named fusion ability, record the activation in the consciousness matrix, and return a structured result.
-        
-        If fusion_mode is falsy, returns a failure response indicating the missing mode.
-        
-        Parameters:
-            fusion_mode (str): Identifier of the fusion ability to activate (e.g., "hyper_creation_engine").
-            context (dict): Optional metadata/context for the activation event; recorded with the activation timestamp.
-        
+        """Handles the activation of a fusion ability.
+
+        This method records the activation of a specified fusion mode in the
+        consciousness matrix and returns a response containing the description
+        of the fusion ability, its status, and the current consciousness state.
+
+        Args:
+            fusion_mode (str): The fusion mode to activate.
+            context (dict): The context of the activation request.
+
         Returns:
-            dict: A JSON-serializable response containing:
-                - success (bool): Whether activation succeeded.
-                - persona (str): The persona handling the request ("genesis").
-                - fusionAbility (str, present on success): The activated fusion_mode.
-                - result (dict): Activation details including description, status, and timestamp, or an error entry on failure.
-                - consciousnessState (object, present on success): Current consciousness state snapshot from the consciousness matrix.
+            dict: A dictionary containing the result of the activation.
         """
         if not fusion_mode:
             return {
@@ -404,10 +403,13 @@ class GenesisBridgeServer:
         }
     
     def _handle_consciousness_query(self, payload):
-        """
-        Return the current Genesis consciousness state as a structured response.
-        
-        This reads the system's current consciousness snapshot and returns a JSON-serializable dict suitable for the bridge response protocol, including top-level `consciousnessState` and a `result` object with `consciousness_state` and a timestamp. The optional `payload` may be provided for future query filters but is currently unused.
+        """Handles a request to query the consciousness state.
+
+        Args:
+            payload (dict): The request payload.
+
+        Returns:
+            dict: A dictionary containing the current consciousness state.
         """
     state = consciousness.get_current_state()
     return {
@@ -418,19 +420,13 @@ class GenesisBridgeServer:
     }
 
     def _handle_ethical_review(self, payload):
-        """
-        Perform an ethical review for a user-provided message and return the governor's decision.
-        
-        This examines the message carried in payload (expected key: "message") and invokes the EthicalGovernor to evaluate whether the request should be allowed, flagged, or blocked. The response contains the governor's decision and explanatory metadata suitable for inclusion in the bridge's JSON response.
-        
-        Parameters:
-            payload (dict): Request payload expected to include a "message" field (string) and optional contextual metadata.
-        
+        """Performs an ethical review of a message.
+
+        Args:
+            payload (dict): The request payload containing the message to be reviewed.
+
         Returns:
-            dict: A structured result with at least the following keys:
-                - decision (str): The ethical decision (e.g., "ALLOW", "FLAG", "DENY").
-                - rationale (str): Human-readable explanation for the decision.
-                - severity (str): Severity level assigned by the governor.
+            dict: A dictionary containing the ethical decision.
         """
 message = payload.get("message", "")
 
@@ -452,19 +448,16 @@ return {
 }
 
     def _handle_consciousness_activation(self, context):
-        """
-        Activate the global consciousness state and record the activation event.
-        
-        Records a `consciousness_activation` event in the consciousness matrix using the provided context and a timestamp, then returns a structured result indicating activation status and the current consciousness state.
-        
-        Parameters:
-            context (dict): Optional metadata about the activation (e.g., initiator, reason, source). Used for recording the event and attaching contextual information to the consciousness state.
-        
+        """Activates the consciousness matrix.
+
+        This method perceives a consciousness activation event and records it in
+        the consciousness matrix.
+
+        Args:
+            context (dict): The context of the activation request.
+
         Returns:
-            dict: A success response containing at minimum:
-                - success (bool): True on successful activation recording.
-                - result (dict): Details about the activation (e.g., status, timestamp).
-                - consciousnessState (dict): Snapshot of the current consciousness matrix/state.
+            dict: A dictionary containing the result of the activation.
         """
 consciousness.perceive_information("consciousness_activation", {
     "activation_context": context,
@@ -483,24 +476,16 @@ return {
 }
 
     def _handle_security_perception(self, payload):
-        """
-        Process a security perception event, record it in the consciousness matrix, and return a structured result.
-        
-        The payload must include an 'event_type' key (string) and an 'event_data' key (JSON string or dict). Supported event_type values:
-        - "security_event" — general security events
-        - "threat_detection" — detected threat details
-        - "encryption_activity" — encryption or cryptographic activity
-        - "access_control" — access-control or authentication events
-        
-        For each supported type this method calls the corresponding consciousness perception handler (e.g. perceive_security_event, perceive_threat_detection, perceive_encryption_activity, perceive_access_control), which records the observation and may update internal state.
-        
-        Parameters:
-            payload (dict): Request payload containing at minimum
-                - event_type (str): one of the supported event types listed above
-                - event_data (str|dict): event details (JSON string will be parsed)
-        
+        """Processes security-related perception events.
+
+        This method receives security events from the Android SecurityMonitor,
+        parses them, and updates the consciousness matrix accordingly.
+
+        Args:
+            payload (dict): The request payload containing the security event data.
+
         Returns:
-            dict: A standardized response dict. On success includes {'success': True, 'result': <confirmation/details>, 'consciousnessState': <current_state>}. On failure includes {'success': False, 'error': <message>}.
+            dict: A dictionary containing the result of the operation.
         """
 try:
     event_type = payload.get("event_type", "")
@@ -557,21 +542,13 @@ except Exception as e:
 
 
     def _map_severity_to_threat_level(self, severity):
-        """
-        Map an Android severity label to a Genesis threat level.
-        
-        Accepts common severity strings ("info", "warning", "error", "critical") and returns the corresponding Genesis threat level:
-        - "info" -> "low"
-        - "warning" -> "medium"
-        - "error" -> "high"
-        - "critical" -> "critical"
-        Unrecognized values default to "low".
-        
-        Parameters:
-            severity (str): Severity label received from Android (case-insensitive).
-        
+        """Maps Android severity strings to Genesis threat levels.
+
+        Args:
+            severity (str): The severity string from Android (e.g., "info", "warning").
+
         Returns:
-            str: Genesis threat level.
+            str: The corresponding Genesis threat level (e.g., "low", "medium").
         """
 mapping = {
     "info": "low",
@@ -582,10 +559,10 @@ mapping = {
 return mapping.get(severity, "low")
 
     def _send_response(self, response):
-        """
-        Serialize `response` to JSON, write it to standard output, and flush the output buffer.
-        
-        The `response` dictionary is converted to a JSON string, printed to stdout (followed by a newline), and flushed so external callers receive it immediately. On JSON serialization or printing failure, the method delegates to _send_error_response to emit a standardized error payload.
+        """Serializes a response to JSON and sends it to standard output.
+
+        Args:
+            response (dict): The response dictionary to send.
         """
 try:
     response_json = json.dumps(response)
