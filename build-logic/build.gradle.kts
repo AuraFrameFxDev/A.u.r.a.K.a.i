@@ -22,7 +22,7 @@ repositories {
 // Dependencies for the build-logic module itself
 dependencies {
     // Android Gradle Plugin
-    implementation("com.android.tools.build:gradle:8.4.0")
+    implementation("com.android.tools.build:gradle:8.13.0")
 
     // Kotlin Gradle Plugin
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.0")
