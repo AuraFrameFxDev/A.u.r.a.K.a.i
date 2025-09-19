@@ -41,9 +41,6 @@ android {
         }
     }
 
-    kotlinOptions {
-        jvmTarget = "23"
-    }
 
     tasks.register("collabStatus") {
         group = "genesis"
