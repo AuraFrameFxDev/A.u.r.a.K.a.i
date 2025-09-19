@@ -75,7 +75,7 @@ android {
         androidTestImplementation(libs.androidx.benchmark.junit4)
 
         // Testing dependencies
-        androidTestImplementation("androidx.test.ext:junit:1.1.5")
+        androidTestImplementation("androidx.test.ext:junit:1.3.0")
         androidTestImplementation("androidx.test:runner:1.5.2")
         androidTestImplementation("androidx.test:rules:1.5.0")
         androidTestImplementation(libs.androidx.test.uiautomator)
