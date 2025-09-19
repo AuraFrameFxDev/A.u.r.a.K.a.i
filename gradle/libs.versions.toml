@@ -216,7 +216,6 @@ room = [
 testing-unit = [
 "mockk-android", # Consider 'mockk' for pure unit tests if not Android specific
 "kotlinx-coroutines-test",
-"junit4" # Added junit4 here based on typical unit test bundles
 ]
 
 testing-android = [
