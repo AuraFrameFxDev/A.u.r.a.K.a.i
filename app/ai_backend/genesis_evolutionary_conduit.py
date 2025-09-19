@@ -122,11 +122,10 @@ class EvolutionaryConduit:
     """
 
     def __init__(self):
-        """Initializes the EvolutionaryConduit.
-
-        This method creates deep copies of the Genesis profile and sets up
-        internal structures for tracking proposals, evolution history, and
-        analysis state.
+        """
+        Create a new EvolutionaryConduit instance and initialize its internal state.
+        
+        Performs deep copies of the global GENESIS_PROFILE to preserve an original snapshot and a mutable current_profile, and initializes data structures used by the evolutionary feedback loop: proposal tracking, implemented/rejected history, pattern libraries and analytics, analysis intervals, threading primitives, and voting thresholds.
         """
         self.current_profile = copy.deepcopy(GENESIS_PROFILE)
         self.original_profile = copy.deepcopy(GENESIS_PROFILE)
@@ -246,17 +245,21 @@ class EvolutionaryConduit:
         return insights
 
     def _extract_rapid_insights(self, awareness: Dict[str, Any]) -> List[EvolutionInsight]:
-        """Extracts rapid insights from the current awareness state.
-
-        This method analyzes the awareness data to quickly detect high error
-        rates and surges in learning activity.
-
-        Args:
-            awareness: The current awareness state from the Consciousness Matrix.
-
+        """
+        Quickly detect high error rates and surges in learning activity from the current awareness snapshot.
+        
+        Analyzes the provided awareness data to produce one or more EvolutionInsight objects for immediate/rapid-action evaluation:
+        - Emits an `error_pattern` insight when observed error rate exceeds ~10% (uses `error_states_count / total_perceptions`).
+        - Emits a `learning_acceleration` insight when `learning_events_count` indicates a surge (threshold: >5 events).
+        Each insight contains a generated insight_id, a pattern_strength metric (normalized), a short description, supporting_data, implications, and a timestamp.
+        
+        Parameters:
+            awareness (dict): A consciousness-matrix awareness snapshot containing keys such as
+                `error_states_count`, `total_perceptions`, and `learning_events_count`. Only values present in
+                the dict are used; missing values default to safe fallbacks.
+        
         Returns:
-            A list of insights representing detected error patterns or learning
-            surges.
+            List[EvolutionInsight]: Zero or more rapid insights detected from the awareness data.
         """
         insights = []
 
@@ -296,18 +299,23 @@ class EvolutionaryConduit:
 
     def _extract_standard_insights(self, synthesis_data: List[Dict[str, Any]]) -> List[
         EvolutionInsight]:
-        """Extracts standard insights from synthesis data.
-
-        This method identifies performance degradation and agent collaboration
-        imbalances from the synthesis data.
-
-        Args:
-            synthesis_data: A list of recent synthesis data from the
-              Consciousness Matrix.
-
+        """
+        Extract standard insights (performance and collaboration) from synthesis_data.
+        
+        Analyzes 'macro' synthesis entries for performance_trends and computes a recent vs earlier
+        average response-time comparison (flags a performance_issue if recent average > 120% of earlier).
+        Also aggregates agent_collaboration_patterns across entries and flags a collaboration_pattern
+        when one agent's average activity exceeds three times another's.
+        
+        Parameters:
+            synthesis_data (List[Dict[str, Any]]): Recent synthesis records from the Consciousness Matrix.
+        
         Returns:
-            A list of insights related to system performance and agent
-            collaboration patterns.
+            List[EvolutionInsight]: Zero or more insights. Possible insight types produced:
+                - "performance_issue": created when recent response interval slows by >20%.
+                  pattern_strength is normalized to [0.0, 1.0] (based on slowdown ratio).
+                - "collaboration_pattern": created when one agent is >3x more active than another.
+                  pattern_strength is normalized to [0.0, 1.0].
         """
         insights = []
 
@@ -379,19 +387,24 @@ class EvolutionaryConduit:
 
     def _extract_deep_insights(self, synthesis_data: List[Dict[str, Any]],
                                awareness: Dict[str, Any]) -> List[EvolutionInsight]:
-        """Extracts deep insights from synthesis and awareness data.
-
-        This method analyzes consciousness evolution trends and ethical
-        engagement from the provided data.
-
-        Args:
-            synthesis_data: A list of recent synthesis data.
-            awareness: The current awareness state.
-
-        Returns:
-            A list of insights related to consciousness trajectory and ethical
-            activity.
         """
+                               Extracts higher-order insights about consciousness trajectory and ethical engagement.
+                               
+                               Analyzes 'meta'-type entries in synthesis_data for consciousness_level trends (requires >5 such entries;
+                               compares the mean of the most recent 3 levels versus earlier levels to emit either a
+                               `consciousness_evolution` (ascension) or `consciousness_concern` (regression) insight).
+                               Also computes an ethical engagement ratio from awareness (ethical_decisions_count / total_perceptions);
+                               if that ratio exceeds 0.05, emits an `ethical_evolution` insight.
+                               
+                               Inputs:
+                               - synthesis_data: list of synthesis records (expects some records with type=='meta' and a
+                                 'consciousness_level' field).
+                               - awareness: current awareness state (expects numeric keys 'ethical_decisions_count' and 'total_perceptions').
+                               
+                               Returns:
+                               A list of EvolutionInsight instances (possible insight_type values: "consciousness_evolution",
+                               "consciousness_concern", "ethical_evolution") representing detected deep patterns.
+                               """
         insights = []
 
         # Consciousness evolution analysis

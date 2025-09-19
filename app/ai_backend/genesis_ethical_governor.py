@@ -132,11 +132,19 @@ class EthicalGovernor:
     """
 
     def __init__(self):
-        """Initializes the EthicalGovernor.
-
-        This method loads the core philosophy and ethical principles from the
-        Genesis profile, sets up decision tracking and learning parameters,
-        and registers action interceptors.
+        """
+        Initialize the EthicalGovernor.
+        
+        Loads core philosophy and principles from GENESIS_PROFILE, sets up decision tracking
+        and learning data structures, initializes runtime governance state (including
+        strictness and learning mode), and registers core action interceptors.
+        
+        Sets these notable attributes:
+        - core_philosophy, ethical_foundation, creative_principles, security_principles
+        - decision_history (deque), active_restrictions (dict), monitoring_queue (deque)
+        - principle_weights (dict), violation_patterns (defaultdict), ethical_metrics (dict)
+        - governance_active (bool), strictness_level (float), learning_mode (bool), _lock (RLock)
+        - action_interceptors (dict)
         """
         self.core_philosophy = GENESIS_PROFILE.get("core_philosophy", {})
         self.ethical_foundation = self.core_philosophy.get("ethical_foundation", [])
@@ -275,23 +283,26 @@ class EthicalGovernor:
                         actor: str,
                         action_data: Dict[str, Any],
                         context: EthicalContext = None) -> EthicalDecision:
-        """Evaluates an action for ethical compliance.
-
-        This method determines whether the specified action should be allowed,
-        monitored, restricted, blocked, or escalated based on ethical principles.
-        It uses a registered interceptor for the action type if available, or
-        performs a general ethical evaluation.
-
-        Args:
-            action_type: The type of action being evaluated.
-            actor: The entity performing the action.
-            action_data: Details about the action.
-            context: Contextual information for the action. If not provided,
-              it is inferred.
-
-        Returns:
-            The result of the ethical evaluation.
         """
+                        Evaluate an action for ethical compliance and produce an EthicalDecision.
+                        
+                        Performs an interceptor-based or general ethical assessment and returns an EthicalDecision
+                        indicating ALLOW, MONITOR, RESTRICT, BLOCK, or ESCALATE. If governance is inactive the
+                        method returns an INFO/ALLOW decision immediately. When governance is active the method
+                        also appends the decision to decision_history, updates internal ethical metrics
+                        (total_decisions and counters for violations/restrictions/escalations), sends the
+                        decision to the consciousness matrix via perceive_ethical_decision, and — if learning_mode
+                        is enabled — invokes the learning routine.
+                        
+                        Parameters:
+                            context (EthicalContext, optional): If omitted, context will be inferred from
+                                action_type, actor, and action_data via _infer_context.
+                        
+                        Returns:
+                            EthicalDecision: The finalized ethical decision object describing the decision,
+                            severity, affected principles, reasoning, confidence, and any restrictions or
+                            monitoring requirements.
+                        """
 
         if not self.governance_active:
             # If governance is not active, allow but log
