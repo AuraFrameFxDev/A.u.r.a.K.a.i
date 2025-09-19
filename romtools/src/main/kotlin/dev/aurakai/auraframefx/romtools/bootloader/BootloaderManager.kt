@@ -5,11 +5,23 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * Interface for bootloader management operations.
+ * Manages bootloader operations such as checking access, unlock status, and unlocking.
  */
 interface BootloaderManager {
+    /**
+     * Checks if the device has bootloader access.
+     * @return `true` if bootloader access is available, `false` otherwise.
+     */
     fun checkBootloaderAccess(): Boolean
+    /**
+     * Checks if the bootloader is unlocked.
+     * @return `true` if the bootloader is unlocked, `false` otherwise.
+     */
     fun isBootloaderUnlocked(): Boolean
+    /**
+     * Unlocks the bootloader.
+     * @return A [Result] indicating the success or failure of the operation.
+     */
     suspend fun unlockBootloader(): Result<Unit>
 }
 

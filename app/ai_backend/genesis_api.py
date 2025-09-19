@@ -43,11 +43,13 @@ class GenesisAPI:
         self.start_time = None
 
     async def startup(self):
-        """
-        Asynchronously starts the Genesis Layer backend and updates the running state.
-        
+        """Asynchronously starts the Genesis Layer backend.
+
+        This method initializes the Genesis Layer, updates the API's running state,
+        and records the start time.
+
         Returns:
-            bool: True if the Genesis Layer backend is successfully started; False if initialization fails or an exception occurs.
+            bool: True if the backend started successfully, False otherwise.
         """
         try:
             logger.info("🚀 Genesis API starting up...")
@@ -65,10 +67,10 @@ class GenesisAPI:
             return False
 
     async def shutdown(self):
-        """
-        Asynchronously shuts down the Genesis Layer backend and updates the API status.
-        
-        After shutdown, sets the API's `is_running` attribute to False. Errors encountered during shutdown are logged.
+        """Asynchronously shuts down the Genesis Layer backend.
+
+        This method gracefully shuts down the Genesis Layer and updates the API's
+        running state to False. Any errors during shutdown are logged.
         """
         try:
             logger.info("🌙 Genesis API shutting down...")
@@ -330,11 +332,16 @@ def reset_session():
 
 @app.errorhandler(404)
 def not_found(error):
-    """
-    Handle 404 Not Found errors by returning a JSON response indicating the requested API endpoint does not exist.
-    
+    """Handles 404 Not Found errors.
+
+    This function is registered as the error handler for 404 errors. It returns
+    a JSON response indicating that the requested endpoint does not exist.
+
+    Args:
+        error: The error object passed by Flask.
+
     Returns:
-        tuple: JSON error message and HTTP 404 status code.
+        A tuple containing a JSON response and the HTTP status code 404.
     """
     return jsonify({
         "error": "Endpoint not found",
@@ -344,11 +351,16 @@ def not_found(error):
 
 @app.errorhandler(500)
 def internal_error(error):
-    """
-    Return a JSON response with an error message and HTTP 500 status code for unexpected server errors.
-    
+    """Handles 500 Internal Server errors.
+
+    This function is registered as the error handler for 500 errors. It returns
+    a JSON response indicating that an internal server error occurred.
+
+    Args:
+        error: The error object passed by Flask.
+
     Returns:
-        tuple: A JSON object containing error details and the HTTP 500 status code.
+        A tuple containing a JSON response and the HTTP status code 500.
     """
     return jsonify({
         "error": "Internal server error",

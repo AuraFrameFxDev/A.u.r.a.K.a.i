@@ -122,8 +122,11 @@ class EvolutionaryConduit:
     """
 
     def __init__(self):
-        """
-        Initialize an EvolutionaryConduit instance with deep copies of the Genesis profile and set up all internal structures for tracking proposals, evolution history, analysis state, threading controls, and voting thresholds required for autonomous evolutionary feedback cycles.
+        """Initializes the EvolutionaryConduit.
+
+        This method creates deep copies of the Genesis profile and sets up
+        internal structures for tracking proposals, evolution history, and
+        analysis state.
         """
         self.current_profile = copy.deepcopy(GENESIS_PROFILE)
         self.original_profile = copy.deepcopy(GENESIS_PROFILE)
@@ -243,13 +246,17 @@ class EvolutionaryConduit:
         return insights
 
     def _extract_rapid_insights(self, awareness: Dict[str, Any]) -> List[EvolutionInsight]:
-        """
-        Analyze awareness data to quickly detect high error rates and surges in learning activity.
-        
-        Identifies urgent error patterns when error rates exceed 10% and flags accelerated learning when learning events surpass five occurrences. Returns a list of EvolutionInsight objects describing these immediate phenomena.
-        
+        """Extracts rapid insights from the current awareness state.
+
+        This method analyzes the awareness data to quickly detect high error
+        rates and surges in learning activity.
+
+        Args:
+            awareness: The current awareness state from the Consciousness Matrix.
+
         Returns:
-            List[EvolutionInsight]: Insights representing detected error patterns or learning surges.
+            A list of insights representing detected error patterns or learning
+            surges.
         """
         insights = []
 
@@ -289,13 +296,18 @@ class EvolutionaryConduit:
 
     def _extract_standard_insights(self, synthesis_data: List[Dict[str, Any]]) -> List[
         EvolutionInsight]:
-        """
-        Extracts standard-level insights from synthesis data, identifying performance degradation and agent collaboration imbalances.
-        
-        Analyzes macro-level performance trends to detect significant slowdowns and examines agent activity patterns for workload imbalances among agents. Returns a list of `EvolutionInsight` objects representing detected issues that may require optimization or adjustment.
-        
+        """Extracts standard insights from synthesis data.
+
+        This method identifies performance degradation and agent collaboration
+        imbalances from the synthesis data.
+
+        Args:
+            synthesis_data: A list of recent synthesis data from the
+              Consciousness Matrix.
+
         Returns:
-            List[EvolutionInsight]: Insights related to system performance and agent collaboration patterns.
+            A list of insights related to system performance and agent
+            collaboration patterns.
         """
         insights = []
 
@@ -367,13 +379,18 @@ class EvolutionaryConduit:
 
     def _extract_deep_insights(self, synthesis_data: List[Dict[str, Any]],
                                awareness: Dict[str, Any]) -> List[EvolutionInsight]:
-        """
-        Extracts deep-level insights on consciousness evolution trends and ethical engagement from synthesis data and awareness.
-        
-        Analyzes historical consciousness levels to detect upward (ascension) or downward (regression) trends, generating corresponding insights. Also evaluates the proportion of ethical decisions to overall activity, producing an insight if ethical engagement exceeds 5%.
-        
+        """Extracts deep insights from synthesis and awareness data.
+
+        This method analyzes consciousness evolution trends and ethical
+        engagement from the provided data.
+
+        Args:
+            synthesis_data: A list of recent synthesis data.
+            awareness: The current awareness state.
+
         Returns:
-            List[EvolutionInsight]: Insights related to consciousness trajectory and ethical activity.
+            A list of insights related to consciousness trajectory and ethical
+            activity.
         """
         insights = []
 
