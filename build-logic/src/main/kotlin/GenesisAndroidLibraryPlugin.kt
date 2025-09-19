@@ -23,7 +23,7 @@ class GenesisAndroidLibraryPlugin : Plugin<Project> {
      *  - compileSdk = 36, minSdk = 24.
      *  - testInstrumentationRunner set to "androidx.test.runner.AndroidJUnitRunner".
      *  - Consumer ProGuard rules and release proguard files (minification disabled).
-     *  - Java source/target compatibility and Kotlin jvm toolchain set to Java 24 / JvmTarget.JVM_24.
+     *  - Java source/target compatibility and Kotlin jvm toolchain set to Java 24 / JvmTarget.JVM_25.
      *  - Kotlin compiler free args includes `-opt-in=kotlin.RequiresOptIn`.
      *  - Enables Compose (buildFeatures.compose = true).
      *  - Excludes "/META-INF/{AL2.0,LGPL2.1}" from packaged resources.
@@ -55,8 +55,8 @@ class GenesisAndroidLibraryPlugin : Plugin<Project> {
             }
 
             compileOptions {
-                sourceCompatibility = JavaVersion.VERSION_24
-                targetCompatibility = JavaVersion.VERSION_24
+                sourceCompatibility = JavaVersion.VERSION_25
+                targetCompatibility = JavaVersion.VERSION_25
             }
             // Configure Kotlin options
             (this as org.gradle.api.plugins.ExtensionAware).extensions.configure<org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension> {

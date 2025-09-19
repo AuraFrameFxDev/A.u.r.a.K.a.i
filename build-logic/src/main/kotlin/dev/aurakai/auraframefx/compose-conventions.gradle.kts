@@ -9,14 +9,14 @@ plugins {
 extensions.configure<LibraryExtension>("android") {
     buildFeatures.compose = true
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21 // AGP 9.x supports up to Java 21
-        targetCompatibility = JavaVersion.VERSION_21
+        sourceCompatibility = JavaVersion.VERSION_25
+        targetCompatibility = JavaVersion.VERSION_25
     }
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_25)
         freeCompilerArgs.addAll(
             listOf(
                 "-Xjvm-default=all",
