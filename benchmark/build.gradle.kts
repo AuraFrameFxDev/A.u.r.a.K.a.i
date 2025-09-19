@@ -72,12 +72,12 @@ android {
         implementation(project(":oracle-drive-integration"))
         // Benchmark dependencies
         androidTestImplementation("androidx.benchmark:benchmark-macro-junit4:1.2.4")
-        androidTestImplementation("androidx.benchmark:benchmark-junit4:1.2.4")
+        androidTestImplementation(libs.androidx.benchmark.junit4)
 
         // Testing dependencies
-        androidTestImplementation(libs.androidx.test.ext.junit)
-        androidTestImplementation(libs.androidx.test.runner)
-        androidTestImplementation(libs.androidx.test.rules)
+        androidTestImplementation("androidx.test.ext:junit:1.1.5")
+        androidTestImplementation("androidx.test:runner:1.5.2")
+        androidTestImplementation("androidx.test:rules:1.5.0")
         androidTestImplementation(libs.androidx.test.uiautomator)
 
         // Hilt testing
@@ -89,8 +89,8 @@ android {
         androidTestImplementation(libs.mockk.android)
 
         // JUnit 4 for tests
-        testImplementation("junit:junit:4.13.2")
-        androidTestImplementation("junit:junit:4.13.2")
+        testImplementation(libs.junit4)
+        androidTestImplementation(libs.junit4)
         implementation(libs.kotlin.stdlib.jdk8)
         implementation(libs.kotlinx.serialization.json)
     }

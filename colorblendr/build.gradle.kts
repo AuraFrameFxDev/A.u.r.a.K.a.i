@@ -61,9 +61,9 @@ dependencies {
     // Android Testing
     androidTestImplementation(libs.mockk.android)
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test:runner:1.5.2")
-    androidTestImplementation("androidx.test:rules:1.5.0")
+    androidTestImplementation("androidx.test.ext:junit:1.3.0")
+    androidTestImplementation("androidx.test:runner:1.7.0")
+    androidTestImplementation("androidx.test:rules:1.7.0")
 
     // Hilt Testing
     testImplementation(libs.hilt.android.testing)
