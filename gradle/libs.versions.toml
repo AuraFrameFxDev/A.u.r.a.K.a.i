@@ -8,7 +8,7 @@ firebaseUi = "8.0.2"
 # gradleToolingApi = "9.0.0" # Removed: Usually not needed here
 kotlin = "2.2.20"
 desugar_jdk_libs = "2.1.5"
-firebaseBom = "34.2.0"
+firebaseBom = "34.3.0"
 # compose-plugin = "1.8.2" # Removed: Kotlin Compose plugin version, managed in settings.gradle.kts
 
 # AndroidX Core
