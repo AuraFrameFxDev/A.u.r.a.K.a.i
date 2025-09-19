@@ -5,6 +5,7 @@ plugins {
     id("genesis.android.compose")
     alias(libs.plugins.openapi.generator)
     alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.compose.compiler) // Added this line
 }
 
 android {
@@ -119,8 +120,8 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics)
-    implementation(libs.firebase.vertexai) // Added based on Grand Modernization diff
-    implementation(libs.firebase.ai)
+    // implementation(libs.firebase.vertexai) // Removed this line
+    implementation(libs.firebase.ai) // Kept this line
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.messaging)
