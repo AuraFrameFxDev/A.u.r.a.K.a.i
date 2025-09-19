@@ -31,21 +31,24 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_25
-        targetCompatibility = JavaVersion.VERSION_25
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     java {
         toolchain {
-            languageVersion = JavaLanguageVersion.of(25)
-            // Dependencies block removed from here
+            languageVersion.set(JavaLanguageVersion.of(24))
         }
-    } // End of java block
+    }
+
+    kotlinOptions {
+        jvmTarget = "23"
+    }
 
     tasks.register("collabStatus") {
         group = "genesis"
         doLast {
-            println("🎨 COLLAB CANVAS - ${namespace} - Ready!") // Corrected to use namespace directly
+            println("🎨 COLLAB CANVAS - ${namespace} - Ready (Java 24, JVM 23)!")
         }
     }
 
