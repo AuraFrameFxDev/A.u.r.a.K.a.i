@@ -213,3 +213,108 @@ class LinkedListEdgeCasesTest {
         }
     }
 }
+
+/*
+ * Additional scenario-based tests appended by test generation.
+ * Testing library/framework: JUnit 5 (JUnit Jupiter) with Kotlin.
+ */
+class LinkedListAdditionalScenariosTest {
+
+    @Test
+    fun removeOnlyElementFromSingletonList() {
+        val list = LinkedList()
+        list.add("only")
+        assertTrue(list.remove("only"))
+        assertEquals(0, list.size)
+        assertThrows(IndexOutOfBoundsException::class.java) { list.get(0) }
+    }
+
+    @Test
+    fun interleavedAddRemoveMaintainsCorrectSizeAndOrder() {
+        val list = LinkedList()
+        list.add("a")
+        list.add("b")
+        assertTrue(list.remove("a"))
+        list.add("c")
+        list.add("d")
+        assertTrue(list.remove("c"))
+        list.add("e")
+        assertEquals(3, list.size)
+        assertEquals("b", list.get(0))
+        assertEquals("d", list.get(1))
+        assertEquals("e", list.get(2))
+    }
+
+    @Test
+    fun duplicateRemovalRemovesNextOccurrenceOnSecondCall() {
+        val list = LinkedList()
+        list.add("dup")
+        list.add("x")
+        list.add("dup")
+        assertTrue(list.remove("dup"))
+        assertTrue(list.remove("dup"))
+        assertFalse(list.remove("dup"))
+        assertEquals(1, list.size)
+        assertEquals("x", list.get(0))
+    }
+
+    @Test
+    fun removingEveryTenthFromLargeListKeepsRemainingOrder() {
+        val list = LinkedList()
+        for (i in 0 until 100) list.add(i.toString())
+        // Remove "0","10","20",..."90"
+        for (i in 0 until 100 step 10) {
+            assertTrue(list.remove(i.toString()))
+        }
+        assertEquals(90, list.size)
+        // Spot-check ordering after removals
+        assertEquals("1", list.get(0))
+        assertEquals("2", list.get(1))
+        assertEquals("9", list.get(8))
+        assertEquals("11", list.get(9))
+        assertEquals("99", list.get(89))
+    }
+
+    @Test
+    fun getVeryLargeIndexThrows() {
+        val list = LinkedList()
+        list.add("a")
+        assertThrows(IndexOutOfBoundsException::class.java) { list.get(1000) }
+    }
+
+    @Test
+    fun sizeUnchangedByGetOperations() {
+        val list = LinkedList()
+        list.add("a"); list.add("b"); list.add("c")
+        val sizeBefore = list.size
+        assertEquals("a", list.get(0))
+        assertEquals("b", list.get(1))
+        assertEquals("c", list.get(2))
+        assertEquals(sizeBefore, list.size)
+    }
+
+    @Test
+    fun removeUntilEmptyThenAddAgainWorks() {
+        val list = LinkedList()
+        list.add("a")
+        list.add("b")
+        assertTrue(list.remove("a"))
+        assertTrue(list.remove("b"))
+        assertEquals(0, list.size)
+        // List should be reusable after becoming empty
+        list.add("c")
+        assertEquals(1, list.size)
+        assertEquals("c", list.get(0))
+    }
+
+    @Test
+    fun failedRemoveDoesNotChangeOrderOrSize() {
+        val list = LinkedList()
+        list.add("a")
+        list.add("b")
+        assertFalse(list.remove("ghost"))
+        assertEquals(2, list.size)
+        assertEquals("a", list.get(0))
+        assertEquals("b", list.get(1))
+    }
+}
