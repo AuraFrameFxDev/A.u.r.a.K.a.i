@@ -13,6 +13,14 @@ plugins {
     alias(libs.plugins.google.services) apply false
 }
 
+// Java 25 with auto-provisioning
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(25))
+        // Gradle 9.1.0 will auto-download Java 25 if needed
+    }
+}
+
 // Find version catalog
 val versionCatalog = extensions
     .findByType<VersionCatalogsExtension>()
