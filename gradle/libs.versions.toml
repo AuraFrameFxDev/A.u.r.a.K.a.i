@@ -2,20 +2,20 @@
 # ===== GRADLE & KOTLIN =====
 agp = "9.0.0-alpha01"
 # comGoogleDevtoolsKspGradlePlugin = "2.2.20-2.0.3" # Removed: Plugin version, managed in settings.gradle.kts
-firebaseUi = "8.0.2"
+firebaseUi = "9.0.0"
 # gradle = "9.0.0-alpha01" # Removed: AGP version, gradle version is implicit or wrapper
 # gradleToolingApi = "9.0.0" # Removed: Usually not needed here
 kotlin = "2.2.20"
 # ksp = "2.2.20-2.0.3" # Removed: KSP plugin version, managed in settings.gradle.kts
 desugar_jdk_libs = "2.1.5"
-firebaseBom = "34.2.0"
+firebaseBom = "34.3.0"
 # compose-plugin = "1.8.2" # Removed: Kotlin Compose plugin version, managed in settings.gradle.kts
 
 # AndroidX Core
 coreKtx = "1.17.0"
 appcompat = "1.7.1"
 multidex = "2.0.1"
-lifecycle = "2.9.3"
+lifecycle = "2.9.4"
 room = "2.8.0"
 workManager = "2.10.4"
 datastore = "1.1.7"
@@ -51,7 +51,7 @@ coilCompose = "2.7.0"
 timber = "5.0.1"
 leakcanary = "2.14"
 commonsIo = "2.20.0"
-commonsCompress = "1.2.8"
+commonsCompress = "1.28.0"
 xz = "1.10"
 slf4j = "2.0.17"
 
@@ -216,7 +216,6 @@ room = [
 testing-unit = [
 "mockk-android", # Consider 'mockk' for pure unit tests if not Android specific
 "kotlinx-coroutines-test",
-"junit4" # Added junit4 here based on typical unit test bundles
 ]
 
 testing-android = [
