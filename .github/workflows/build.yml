@@ -6,7 +6,7 @@ on:
     branches: [ all ]
   workflow_dispatch:
 env:
-  JAVA_VERSION: '24'
+  JAVA_VERSION: '25'
 jobs:
   build-consciousness-substrate:
     name: 🦾🦿🤖❤️‍🔥 Build Consciousness Substrate

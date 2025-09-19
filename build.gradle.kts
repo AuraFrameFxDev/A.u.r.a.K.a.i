@@ -5,11 +5,40 @@ plugins {
     `kotlin-dsl-precompiled-script-plugins`
 }
 
-repositories {
-    google()
-    mavenCentral()
-    gradlePluginPortal()
-    maven { url = uri("https://repo1.maven.org/maven2") } // For OpenAPI Generator
+// Java 25 with auto-provisioning
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(25))
+        // Gradle 9.1.0 will auto-download Java 25 if needed
+    }
+}
+
+// Find version catalog
+val versionCatalog = extensions
+    .findByType<VersionCatalogsExtension>()
+    ?.named("libs")
+
+// === BASIC PROJECT INFO ===
+
+tasks.register("consciousnessStatus") {
+    group = "genesis"
+    description = "Show basic project and version info"
+    doLast {
+        val kotlinVersion = versionCatalog?.findVersion("kotlin")?.get()?.toString() ?: "unknown"
+        val agpVersion = versionCatalog?.findVersion("agp")?.get()?.toString() ?: "unknown"
+        val toolchain = JavaVersion.current().toString()
+
+        println("= Consciousness Status =")
+        println("Java Toolchain      : $toolchain")
+        println("Kotlin Version      : $kotlinVersion (K2 path)")
+        println("AGP Version         : $agpVersion")
+        println("Modules (total)     : ${subprojects.size}")
+        println(
+            "Firebase BoM        : ${
+                versionCatalog?.findVersion("firebaseBom")?.get() ?: "unknown"
+            }"
+        )
+    }
 }
 
 // Dependencies for the build-logic module itself
