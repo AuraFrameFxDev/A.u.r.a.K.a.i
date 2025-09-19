@@ -40,24 +40,25 @@ android {
             languageVersion = JavaLanguageVersion.of(25)
         }
     }
-}
 
-dependencies {
-    // Your existing dependencies stay the same
-    api(project(":list"))
-    implementation(libs.kotlin.stdlib.jdk8)
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.commons.io)
-    implementation(libs.commons.compress)
-    implementation(libs.xz)
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
+    dependencies {
+        // Your existing dependencies stay the same
+        api(project(":list"))
+        implementation(libs.kotlin.stdlib.jdk8)
+        implementation(libs.kotlinx.coroutines.core)
+        implementation(libs.kotlinx.coroutines.android)
+        implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlin.reflect)
+        implementation(libs.commons.io)
+        implementation(libs.commons.compress)
+        implementation(libs.xz)
+        implementation(libs.slf4j.api)
+        implementation(libs.hilt.android)
+        ksp(libs.hilt.compiler)
 
-    // Testing dependencies
-    testImplementation(libs.junit.jupiter.api)
-    testRuntimeOnly(libs.junit.jupiter.engine)
-    testImplementation(libs.mockk)
-    implementation(libs.androidx.core.ktx)
-}
+        // Testing dependencies
+        testImplementation(libs.junit.jupiter.api)
+        testImplementation(libs.junit.jupiter.params)
+        testRuntimeOnly(libs.junit.jupiter.engine)
+        testImplementation(libs.mockk)
+    }
