@@ -77,7 +77,7 @@ android {
         // Testing dependencies
         androidTestImplementation("androidx.test.ext:junit:1.1.5")
         androidTestImplementation("androidx.test:runner:1.5.2")
-        androidTestImplementation("androidx.test:rules:1.5.0")
+        androidTestImplementation("androidx.test:rules:1.7.0")
         androidTestImplementation(libs.androidx.test.uiautomator)
 
         // Hilt testing
