@@ -11,13 +11,16 @@ import org.gradle.kotlin.dsl.*
 internal val Project.libs: VersionCatalog
     get() = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
+/**
+ * Convention plugin for Android Library modules, now also applying Hilt and KSP.
+ */
 class GenesisAndroidLibraryPlugin : Plugin<Project> {
     /**
      * Applies the Android library plugin and configures common Android library settings for the project.
      *
      * Configured values:
-     *  - Applies the "com.android.library" plugin.
-     *  - compileSdk = 34, minSdk = 24.
+     *  - Applies "com.android.library", "com.google.dagger.hilt.android", and "com.google.devtools.ksp" plugins.
+     *  - compileSdk = 36, minSdk = 24.
      *  - testInstrumentationRunner set to "androidx.test.runner.AndroidJUnitRunner".
      *  - Consumer ProGuard rules and release proguard files (minification disabled).
      *  - Java source/target compatibility and Kotlin jvm toolchain set to Java 24 / JvmTarget.JVM_24.
@@ -27,10 +30,13 @@ class GenesisAndroidLibraryPlugin : Plugin<Project> {
      */
     override fun apply(project: Project) {
         project.plugins.apply("com.android.library")
+        project.plugins.apply("com.google.dagger.hilt.android") // ADDED Hilt
+        project.plugins.apply("com.google.devtools.ksp")       // ADDED KSP
+        // project.plugins.apply("org.jetbrains.kotlin.android") // REMOVED as per AGP 9.0+ guidance
 
         // Apply common Android library configuration here
         project.extensions.configure<LibraryExtension>("android") {
-            compileSdk = 34
+            compileSdk = 36 
 
             defaultConfig {
                 minSdk = 24

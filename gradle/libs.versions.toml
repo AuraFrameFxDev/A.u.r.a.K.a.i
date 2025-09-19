@@ -3,13 +3,14 @@
 # =========================
 [versions]
 api = "1.0"
+openapiGeneratorGradlePlugin = "7.15.0"
 wrapper = "9.1.0-rc-3"
 # ===== GRADLE & KOTLIN =====
-agp = "9.0.0-alpha01"
+agp = "9.0.0-alpha05"  # Updated to 9.0.0-alpha05
 comGoogleDevtoolsKspGradlePlugin = "2.2.20-2.0.3"
 firebaseUi = "9.0.0"
 googleServices = "4.4.3"
-gradle = "9.0.0-alpha05"
+gradle = "9.0.0-alpha05"  # Updated to 9.0.0-alpha05
 gradleToolingApi = "9.0.0"
 hiltAndroidGradlePlugin = "2.57.1"
 kotlin = "2.2.20"
@@ -103,10 +104,11 @@ firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
 firebase-ai = { group = "com.google.firebase", name = "firebase-ai" }
 
-# YukiHookAPI and LSPosed API
-yukihook-api = { module = "com.github.HighCapable.YukiHookAPI:api", version.ref = "yukihook-api" }
-yukihook-ksp = { module = "com.github.HighCapable.YukiHookAPI:ksp-xposed", version.ref = "yukihook-api" }
-lsposed-api = { module = "com.github.LSPosed:LSPosed-API", version.ref = "lsposed-api" }
+# YukiHookAPI and LSPosed API (CORRECTED MAVEN COORDINATES)
+openapi-generator-gradle-plugin = { module = "org.openapitools:openapi-generator-gradle-plugin", version.ref = "openapiGeneratorGradlePlugin" }
+yukihook-api = { module = "com.highcapable.yukihookapi:api", version.ref = "yukihook-api" }
+yukihook-ksp = { module = "com.highcapable.yukihookapi:ksp-xposed", version.ref = "yukihook-api" }
+lsposed-api = { module = "org.lsposed:api", version.ref = "lsposed-api" }
 
 # Firebase UI (not in the main BoM)
 firebase-ui-auth = { group = "com.firebaseui", name = "firebase-ui-auth", version.ref = "firebaseUi" }
@@ -180,6 +182,7 @@ junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
 junit-jupiter-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junitJupiter" }
 junit-jupiter-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junitJupiter" }
 junit-jupiter-params = { group = "org.junit.jupiter", name = "junit-jupiter-params", version.ref = "junitJupiter" }
+junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version.ref = "junitPlatformLauncher" }
 androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }

@@ -1,7 +1,8 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.android.library) // Changed to use alias from version catalog
+    alias(libs.plugins.jetbrains.kotlin.android) // Assuming you have this alias for consistency
     alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 group = "dev.aurakai.auraframefx.list"
@@ -15,13 +16,6 @@ android {
         minSdk = 34
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-    }
-
-    testOptions {
-        targetSdk = 36
-    }
-    lint {
-        targetSdk = 36
     }
 
     buildTypes {
@@ -38,28 +32,36 @@ android {
         sourceCompatibility = JavaVersion.VERSION_24
         targetCompatibility = JavaVersion.VERSION_24
     }
+}
 
-
-    dependencies {
-        implementation(libs.kotlin.stdlib.jdk8)
-        implementation(libs.kotlinx.serialization.json)
-        implementation(libs.kotlinx.coroutines.core)
-        implementation(libs.hilt.android)
-        ksp(libs.hilt.compiler)
-        // Test dependencies
-        testImplementation(libs.junit.jupiter.api)
-        testImplementation(libs.mockk)
-        testImplementation(kotlin("test"))
-        testImplementation(libs.slf4j.simple)
-        testRuntimeOnly(libs.junit.jupiter.engine)
+// Java 24 toolchain
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(24))
     }
+}
 
 
-    tasks.register("listStatus") {
-        group = "aegenesis"
-        description = "Displays the status of the List Module"
-        doLast {
-            println("📦 LIST MODULE - $group - Ready (Java 24)")
-        }
+dependencies {
+    implementation(libs.kotlin.stdlib.jdk8)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    
+    // Test dependencies
+    testImplementation(libs.junit.jupiter.api)
+    testImplementation(libs.mockk)
+    testImplementation(kotlin("test"))
+    testImplementation(libs.slf4j.simple)
+    testRuntimeOnly(libs.junit.jupiter.engine)
+    testRuntimeOnly(libs.junit.platform.launcher)
+}
+
+tasks.register("listStatus") {
+    group = "aegenesis"
+    description = "Displays the status of the List Module"
+    doLast {
+        println("📦 LIST MODULE - $group - Ready (Java 24)")
     }
 }

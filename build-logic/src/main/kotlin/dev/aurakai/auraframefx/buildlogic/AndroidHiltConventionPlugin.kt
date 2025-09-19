@@ -5,20 +5,23 @@ import org.gradle.api.Project
 
 class AndroidHiltConventionPlugin : Plugin<Project> {
     /**
-     * Applies Hilt and KSP Gradle plugins to Android application or library modules.
-     *
-     * When the project has the `com.android.application` or `com.android.library` plugin applied,
-     * this method applies `com.google.dagger.hilt.android` and `com.google.devtools.ksp`.
-     * If neither Android plugin is present, no plugins are applied.
+     * This plugin is DEPRECATED.
+     * Its functionality (applying Hilt and KSP) has been moved to
+     * AndroidApplicationConventionPlugin and GenesisAndroidLibraryPlugin.
+     * Modules should no longer apply this convention plugin (dev.aurakai.auraframefx.buildlogic.android.hilt).
      */
     override fun apply(project: Project) = with(project) {
-        pluginManager.withPlugin("com.android.application") {
-            pluginManager.apply("com.google.dagger.hilt.android")
-            pluginManager.apply("com.google.devtools.ksp")
-        }
-        pluginManager.withPlugin("com.android.library") {
-            pluginManager.apply("com.google.dagger.hilt.android")
-            pluginManager.apply("com.google.devtools.ksp")
-        }
+        // This plugin's functionality (applying Hilt and KSP) has been moved to
+        // AndroidApplicationConventionPlugin and GenesisAndroidLibraryPlugin.
+        // This convention plugin (dev.aurakai.auraframefx.buildlogic.android.hilt)
+        // should ideally no longer be applied by modules.
+        // Leaving this as a no-op for now to avoid breaking existing module plugin blocks
+        // that might still reference it via alias(libs.plugins.hilt).
+        // Consider removing alias(libs.plugins.hilt) from module plugin blocks.
+        project.logger.warn(
+            "The convention plugin 'dev.aurakai.auraframefx.buildlogic.android.hilt' " +
+            "is deprecated and its functionality has been merged into the main Android " +
+            "application/library convention plugins. Please remove its application from your modules."
+        )
     }
 }

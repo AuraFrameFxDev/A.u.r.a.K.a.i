@@ -3,55 +3,91 @@ import org.gradle.accessors.dm.LibrariesForLibs
 val libs = the<LibrariesForLibs>()
 
 plugins {
-    id("java-library")
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"
-    id("org.jetbrains.dokka") version "2.0.0"
-    id("com.diffplug.spotless") version "7.2.1"
+    alias(libs.plugins.android.library)       // Correct Android plugin for a library, applied first
+    // alias(libs.plugins.jetbrains.kotlin.android) // REMOVED
+    alias(libs.plugins.hilt)                  // Hilt applied after Android
+    alias(libs.plugins.ksp)                   // KSP applied after Hilt
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20" // Keep, version managed here
+    id("org.jetbrains.dokka") version "2.0.0"                     // Keep
+    id("com.diffplug.spotless") version "7.2.1"                 // Keep
 }
 
-group = "dev.aurakai.auraframefx.utilities"
-version = "1.0.0"
+android {
+    namespace = "dev.aurakai.auraframefx.utilities" // Changed namespace to .utilities
+    compileSdk = 36
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(24)
+    defaultConfig {
+        minSdk = 34
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro") // Added for library module
     }
-}
 
-// utilities/build.gradle.kts - CORRECTED DEPENDENCIES
-dependencies {
-    // All your existing dependencies (keep as-is)
-    api(project(":list"))
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.commons.io)
-    implementation(libs.commons.compress)
-    implementation(libs.xz)
-    implementation(libs.slf4j.api)
-    implementation(libs.hilt.android)
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(24))
+        }
+    }
 
-    // Kotlin stdlib and coroutines
-    implementation(kotlin("stdlib-jdk8"))
-    implementation(libs.kotlinx.coroutines.core)
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            // proguardFiles(...) removed as it's typically for applications
+        }
+    }
 
-    // Testing dependencies (keep as-is)
-    testImplementation(libs.junit.jupiter.api)
-    testImplementation(libs.junit.jupiter.params)
-    testRuntimeOnly(libs.junit.jupiter.engine)
-    testImplementation(libs.mockk)
-    testImplementation(kotlin("stdlib"))
-    testRuntimeOnly(libs.slf4j.simple)
-    implementation(kotlin("stdlib-jdk8"))
-}
+    dependencies {
+        // Module dependencies
+        api(project(":list"))
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-}
+        // Kotlin and coroutines
+        implementation(libs.kotlin.stdlib.jdk8)
+        implementation(libs.kotlinx.coroutines.core)
+        implementation(libs.kotlinx.serialization.json)
 
-tasks.test {
+        // Hilt dependency injection
+        implementation(libs.hilt.android)
+        ksp(libs.hilt.compiler)
+
+        // Utilities
+        implementation(libs.commons.io)
+        implementation(libs.commons.compress)
+        implementation(libs.xz)
+        implementation(libs.slf4j.api)
+
+        // YukiHook and LSPosed (corrected coordinates)
+        implementation(libs.yukihook.api)
+        implementation(libs.lsposed.api)
+        ksp(libs.yukihook.ksp)
+
+        // Force newer AndroidX versions to override Hilt's old dependencies
+        implementation(libs.androidx.core.ktx)
+        implementation(libs.bundles.lifecycle)
+
+        // Testing dependencies
+        testImplementation(libs.junit.jupiter.api)
+        testImplementation(libs.junit.jupiter.params)
+        testRuntimeOnly(libs.junit.jupiter.engine)
+        testRuntimeOnly(libs.junit.platform.launcher)
+        testImplementation(libs.mockk)
+        testImplementation(kotlin("test"))
+        testRuntimeOnly(libs.slf4j.simple)
+    }
+
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+        // Configure any Kotlin compile options if needed
+        // For example: compilerOptions.jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+    }
+
+    tasks.register("utilitiesStatus") {
+        group = "aegenesis"
+        description = "Checks the status of the Utilities module"
+        doLast {
+            println("📦 UTILITIES MODULE - Ready (Java 24)")
+        }
+    }
+} // End of android block
+
+// Added standard test configuration for JUnit 5
+tasks.withType<Test> {
     useJUnitPlatform()
-}
-
-tasks.register("utilitiesStatus") {
-    group = "aegenesis"
-    doLast { println("\uD83D\uDCE6 UTILITIES MODULE - Ready (Java 24)") }
 }
