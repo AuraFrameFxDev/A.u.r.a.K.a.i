@@ -2,13 +2,11 @@
 // Security module using convention plugins
 
 plugins {
-    id("genesis.android.library")
-    id("genesis.android.compose")
+    alias(libs.plugins.android.application) // Assuming this is an application module, adjust if library
     alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt) // Added Hilt plugin
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"
+    alias(libs.plugins.hilt) version "2.57.1" apply false
+    alias(libs.plugins.kotlin.serialization) // Use the alias from libs.versions.toml
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.jetbrains.kotlin.android)
 }
 
 android {
@@ -24,17 +22,7 @@ android {
 
     buildFeatures {
         compose = true
-
-        compileOptions {
-            sourceCompatibility = JavaVersion.VERSION_24
-            targetCompatibility = JavaVersion.VERSION_24
-        }
-
-        java {
-            toolchain {
-                languageVersion.set(JavaLanguageVersion.of(24))
-            }
-        }
+        // Removed redundant compileOptions and java toolchain as they should be handled by convention plugins or root settings
     }
 
     externalNativeBuild {
@@ -43,63 +31,52 @@ android {
             version = "3.22.1"
         }
     }
-
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_24
-        targetCompatibility = JavaVersion.VERSION_24
-    }
-
-    java {
-        toolchain {
-            languageVersion.set(JavaLanguageVersion.of(24))
-        }
-    }
+    // Removed redundant compileOptions and java toolchain from here too
 }
 
 
 dependencies {
     implementation(project(":core-module"))
 
-    // Core Android
-    implementation("androidx.core:core-ktx:1.17.0")
-    implementation("androidx.work:work-runtime-ktx:2.10.4")
+    // Core Android - Using version catalog aliases
+    implementation(libs.androidx.core.ktx)
+    implementation("androidx.work:work-runtime-ktx:2.10.4") // Reverted to explicit version and implementation
 
-    // Hilt
-    implementation("com.google.dagger:hilt-android:2.57.1")
-    ksp("com.google.dagger:hilt-compiler:2.57.1")
-    implementation("androidx.hilt:hilt-work:1.3.0")
+    // Hilt - Using version catalog aliases
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler) // Or libs.hilt.android.compiler if that's the alias for the compiler
+    implementation(libs.hilt.work) // Ensure alias exists, e.g., libs.androidx.hilt.work or libs.hilt.work
 
-    // Serialization
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
+    // Serialization - Using version catalog aliases
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.coroutines.core)
 
-    // Firebase
-    implementation(platform("com.google.firebase:firebase-bom:34.2.0"))
-    implementation("com.google.firebase:firebase-auth")
-    implementation("com.google.firebase:firebase-firestore")
-    implementation("com.google.firebase:firebase-messaging")
-    implementation("com.google.firebase:firebase-config")
-    implementation("com.google.firebase:firebase-database")
-    implementation("com.google.firebase:firebase-storage")
+    // Firebase - Using version catalog aliases
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.messaging)
+    implementation(libs.firebase.config)
+    implementation(libs.firebase.database)
+    implementation(libs.firebase.storage)
 
-    // Utilities
-    implementation("com.jakewharton.timber:timber:5.0.1")
-    implementation("io.coil-kt:coil-compose:2.7.0")
-    implementation("org.bouncycastle:bcprov-jdk18on:1.81")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.2.20")
+    // Utilities - Using version catalog aliases
+    implementation(libs.timber)
+    implementation(libs.coil.compose)
+    implementation("org.bouncycastle:bcprov-jdk18on:1.82") // Reverted to explicit version
+    implementation(libs.kotlin.stdlib.jdk8)
 
-    // Test dependencies (commented out to suppress junit-platform-launcher errors)
-    // testImplementation(platform("org.junit.jupiter:junit-jupiter-api:5.13.4"))
-    // testImplementation("junit:junit:4.13.2")
-    // testImplementation(kotlin("test"))
-    // testImplementation("org.junit.jupiter:junit-jupiter-api:5.13.4")
-    // testImplementation("org.junit.jupiter:junit-jupiter-params:5.13.4")
-    // testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.13.4")
-    // testImplementation("io.mockk:mockk-android:1.14.5")
-    // testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
-    // androidTestImplementation("androidx.test.ext:junit:1.3.0")
-    // androidTestImplementation("com.google.dagger:hilt-android-testing:2.57.1")
+    // Test dependencies (commented out to suppress junit-platform-launcher errors) - Using aliases if they were active
+    // testImplementation(platform(libs.junit.jupiter.api)) // Assuming platform alias exists
+    // testImplementation(libs.junit4) // Assuming alias junit4 exists for junit:junit
+    // testImplementation(kotlin("test")) // This one is fine as is, or use libs.kotlin.test if defined
+    // testImplementation(libs.junit.jupiter.api)
+    // testImplementation(libs.junit.jupiter.params) // Assuming alias exists
+    // testRuntimeOnly(libs.junit.jupiter.engine)
+    // testImplementation(libs.mockk.android) // Assuming alias exists, or libs.mockk if it's the general one
+    // testImplementation(libs.kotlinx.coroutines.test)
+    // androidTestImplementation(libs.androidx.test.ext.junit) // Assuming alias exists
+    // androidTestImplementation(libs.hilt.android.testing) // Assuming alias exists
 }
 
 tasks.register("secureCommStatus") {

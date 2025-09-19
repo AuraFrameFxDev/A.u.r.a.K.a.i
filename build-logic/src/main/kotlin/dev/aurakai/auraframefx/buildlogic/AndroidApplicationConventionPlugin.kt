@@ -5,28 +5,18 @@ import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.getByType
 
 /**
- * Standard Android application configuration
+ * Standard Android application configuration, now including Hilt and KSP.
  */
 class AndroidApplicationConventionPlugin : Plugin<Project> {
-    /**
-     * Applies Android application plugin and configures the Android Application extension
-     * with a standard set of defaults for an application module.
-     *
-     * Configurations performed:
-     * - Applies plugin: "com.android.application"
-     * - Sets compileSdk to 36 and defaultConfig (minSdk 34, targetSdk 36, AndroidJUnitRunner, support vector drawables).
-     * - Defines release and debug buildTypes (release: minification + proguard files; debug: debuggable with
-     *   applicationId and version name suffixes).
-     * - Reads the Gradle property `java.toolchain` (defaults to 24) and uses it to set Java compileOptions'
-     *   source/target compatibility and the Kotlin JVM toolchain.
-     * - Enables buildConfig generation, includes Android resources for unit tests, and excludes
-     *   "/META-INF/{AL2.0,LGPL2.1}" from packaging resources.
-     */
     override fun apply(target: Project) {
         with(target) {
             pluginManager.apply("com.android.application")
+            pluginManager.apply("com.google.dagger.hilt.android") // ADDED Hilt
+            pluginManager.apply("com.google.devtools.ksp")       // ADDED KSP
+            // pluginManager.apply("org.jetbrains.kotlin.android") // REMOVED as per AGP 9.0+ guidance
 
             extensions.configure<ApplicationExtension> {
                 compileSdk = 36
@@ -55,11 +45,17 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                     }
                 }
 
-                val toolchain = providers.gradleProperty("java.toolchain").orElse("24").get().toInt()
-                val javaVer = JavaVersion.toVersion(toolchain)
+                val toolchainVersion = providers.gradleProperty("java.toolchain").orElse("24").get().toInt()
+                val javaCompatibilityVersion = JavaVersion.toVersion(toolchainVersion)
+                
                 compileOptions {
-                    sourceCompatibility = javaVer
-                    targetCompatibility = javaVer
+                    sourceCompatibility = javaCompatibilityVersion
+                    targetCompatibility = javaCompatibilityVersion
+                }
+
+                // Configure Kotlin JVM toolchain to match Java compatibility
+                extensions.getByType(org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension::class.java).apply {
+                    jvmToolchain(toolchainVersion)
                 }
 
                 buildFeatures {
@@ -78,8 +74,6 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                     }
                 }
             }
-
-            // JVM toolchain is configured in the Android block's compileOptions
         }
     }
 }

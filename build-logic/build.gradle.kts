@@ -4,44 +4,67 @@ plugins {
     `kotlin-dsl`
 }
 
-// Dependencies required for writing the convention plugins themselves.
-dependencies {
-    // Add the version catalog as a dependency to access its entries
-    implementation(files(project.rootProject.file("gradle/libs.versions.toml")))
-
-    // These allow you to use the Android and Kotlin DSL in your plugin classes.
-    implementation("com.android.tools.build:gradle:9.0.0-alpha05")
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:2.2.20")
-    implementation("com.google.gms:google-services:4.4.3")
-
-    // Compile-only dependencies (build-time only)
-    compileOnly("com.google.dagger:hilt-android-gradle-plugin:2.57.1")
-    compileOnly("com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:2.2.20-2.0.3")
-    compileOnly("org.openapitools:openapi-generator-gradle-plugin:7.15.0")
+repositories {
+    google()
+    mavenCentral()
+    gradlePluginPortal()
+    maven { url = uri("https://repo1.maven.org/maven2") }
+    maven {
+        url = uri("https://repo.gradle.org/gradle/libs-releases")
+        name = "Gradle Releases"
+    }
+    maven {
+        url = uri("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+        name = "JetBrains Compose Dev"
+    }
 }
 
-// Register your custom convention plugins
-gradlePlugin {
-    plugins {
-        register("androidApplication") {
-            id = "genesis.android.application"
-            implementationClass = "dev.aurakai.auraframefx.buildlogic.AndroidApplicationConventionPlugin"
-        }
-        register("androidLibrary") {
-            id = "genesis.android.library"
-            implementationClass = "dev.aurakai.auraframefx.buildlogic.AndroidLibraryConventionPlugin"
-        }
-        register("androidCompose") {
-            id = "genesis.android.compose"
-            implementationClass = "dev.aurakai.auraframefx.buildlogic.AndroidComposeConventionPlugin"
-        }
-        register("androidHilt") {
-            id = "genesis.android.dagger.hilt"
-            implementationClass = "dev.aurakai.auraframefx.buildlogic.AndroidHiltConventionPlugin"
-        }
-        register("androidNative") {
-            id = "genesis.android.native"
-            implementationClass = "dev.aurakai.auraframefx.buildlogic.AndroidNativeConventionPlugin"
-        }
+// Dependencies for the build-logic module itself
+dependencies {
+    // Android Gradle Plugin
+    implementation("com.android.tools.build:gradle:8.4.0")
+
+    // Kotlin Gradle Plugin
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.0")
+    implementation("org.jetbrains.kotlin:kotlin-serialization:2.0.0")
+
+    // Google Services and Firebase
+    implementation("com.google.gms:google-services:4.4.2")
+    implementation("com.google.firebase:firebase-crashlytics-gradle:3.0.2")
+
+    // Hilt
+    implementation("com.google.dagger:hilt-android-gradle-plugin:2.51")
+
+    // KSP
+    implementation("com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:2.0.0-1.0.21")
+
+    // Compose Compiler
+    implementation("org.jetbrains.compose:compose-gradle-plugin:1.5.12")
+
+    // OpenAPI Generator (Example dependency, adjust as needed)
+    implementation("org.openapitools:openapi-generator-gradle-plugin:7.5.0")
+
+    // Testing
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.1")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.10.1")
+    testImplementation("io.mockk:mockk:1.13.8")
+    testImplementation("com.google.truth:truth:1.1.5")
+
+    // Kotlin DSL support
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.0")
+}
+
+// Configure Java toolchain for build-logic module
+java {
+    sourceCompatibility = JavaVersion.VERSION_24
+    targetCompatibility = JavaVersion.VERSION_24
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(24))
+    }
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    compilerOptions {
+        // Your compiler options here
     }
 }

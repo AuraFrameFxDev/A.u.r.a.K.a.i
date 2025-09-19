@@ -1,11 +1,10 @@
 // ==== GENESIS PROTOCOL - SANDBOX UI ====
 plugins {
-    id("com.android.library")
+    alias(libs.plugins.android.application)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
     kotlin("plugin.serialization") version libs.versions.kotlin.get()
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.jetbrains.kotlin.android)
 }
 
 android {
@@ -22,19 +21,13 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_24
-        targetCompatibility = JavaVersion.VERSION_24
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     java {
         toolchain {
-            languageVersion = JavaLanguageVersion.of(24) // Specify your desired Java version here
+            languageVersion.set(JavaLanguageVersion.of(24))
         }
-    }
-
-
-
-    buildFeatures {
-        compose = true
     }
 
     dependencies {
@@ -50,19 +43,19 @@ android {
         implementation(libs.androidx.compose.material.icons.extended)
         implementation(libs.androidx.compose.ui.tooling.preview)
         debugImplementation(libs.androidx.compose.ui.tooling)
-        implementation(libs.hilt.android); ksp(libs.hilt.compiler)
-        implementation("androidx.compose.ui:ui-tooling-preview:1.9.1")
+        implementation(libs.hilt.android); ksp(libs.hilt.compiler) // Combined for brevity
+        implementation("androidx.compose.ui:ui-tooling-preview:1.9.1") // Consider aliasing or BOM
         debugImplementation(libs.bundles.compose.debug)
         androidTestImplementation(libs.androidx.compose.ui.test.junit4)
 
-        // Hilt
-        implementation(libs.hilt.android)
-        ksp(libs.hilt.compiler)
+        // Hilt (already declared above, this is a duplicate)
+        // implementation(libs.hilt.android)
+        // ksp(libs.hilt.compiler)
 
         // Coroutines
         implementation(libs.bundles.coroutines)
-        implementation(libs.timber); implementation(libs.coil.compose)
-        // Testing
+        implementation(libs.timber); implementation(libs.coil.compose) // Combined for brevity
+        
         // Testing
         testImplementation(libs.junit4)
         testImplementation(libs.mockk)
@@ -70,7 +63,6 @@ android {
 
         // Android Testing
         androidTestImplementation(libs.mockk.android)
-
         androidTestImplementation(platform(libs.androidx.compose.bom))
         androidTestImplementation(libs.androidx.compose.ui.test.junit4)
 
@@ -87,6 +79,4 @@ android {
         doLast { println("\uD83D\uDCE6 SANDBOX UI - Ready (Java 24)") }
     }
 }
-dependencies {
-    implementation(libs.androidx.core.ktx)
-}
+// Removed duplicate dependencies block below

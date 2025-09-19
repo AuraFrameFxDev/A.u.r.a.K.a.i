@@ -1,71 +1,76 @@
+// In settings.gradle.kts
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
+// settings.gradle.kts
+
+// settings.gradle.kts
+
+
 pluginManagement {
-    plugins {
-        id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
-    }
     repositories {
+        gradlePluginPortal()
         google()
         mavenCentral()
-        gradlePluginPortal()
-        maven { url = uri("https://repo.gradle.org/gradle/libs-releases") }
-        maven { url = uri("https://maven.pkg.jetbrains.space/public/p/compose/dev") }
-        maven { url = uri("https://api.xposed.info/") }  // For YukiHookAPI
-        maven { url = uri("https://jitpack.io") }         // For LSPosed
-        maven { url = uri("https://maven.google.com") }   // For AndroidX dependencies
+        maven { url = uri("https://s01.oss.sonatype.org/content/repositories/releases/") }
+        maven { url = uri("https://s01.oss.sonatype.org/content/groups/public/") }
+    }
+    plugins {
+        id("com.android.application") version "9.0.0-alpha02" apply false
+        id("com.android.library") version "9.0.0-alpha02" apply false
+        id("org.jetbrains.kotlin.android") version "2.2.20" apply false
+        id("org.jetbrains.kotlin.jvm") version "2.2.20" apply false
+        id("com.google.devtools.ksp") version "2.2.20-2.0.3" apply false
+        id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
+        id("com.google.gms.google-services") version "4.4.3" apply false
+        id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin") version ("2.0.1") apply false
+        id("org.lsposed.lsparanoid") version ("1.0.0") apply false
+        id("com.google.firebase.crashlytics") version "3.0.1" apply false
+        id("org.openapi.generator") version "7.1.0" apply false
+        id("org.jetbrains.kotlin.plugin.compose") version "2.2.20" apply false
     }
 }
-
 plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention")
+    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
-// Centralize repositories for project dependencies
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
-        maven { url = uri("https://api.xposed.info/") }  // For YukiHookAPI
-        maven { url = uri("https://jitpack.io") }         // For LSPosed
-        maven { url = uri("https://maven.google.com") }   // For AndroidX dependencies
-        
-        // Explicitly declare JitPack repository with content filter
-        exclusiveContent {
-            forRepository {
-                maven { url = uri("https://jitpack.io") }
-            }
-            filter {
-                includeGroup("com.github.HighCapable.YukiHookAPI")
-                includeGroup("com.github.LSPosed")
-            }
-        }
+        maven { url = uri("https://androidx.dev/storage/compose-compiler/repository/") }
+        maven { url = uri("https://maven.pkg.jetbrains.space/public/p/compose/dev") }
+        maven { url = uri("https://s01.oss.sonatype.org/content/repositories/releases/") }
+        maven { url = uri("https://s01.oss.sonatype.org/content/groups/public/") }
     }
+
 }
 
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "ReGenesis"
-includeBuild("build-logic")
 
-// Include all modules (keep your existing includes)
 include(
     ":app",
     ":core-module",
     ":feature-module",
-    ":benchmark",
-    ":collab-canvas",
-    ":colorblendr",
     ":datavein-oracle-native",
     ":oracle-drive-integration",
-    ":romtools",
     ":secure-comm",
+    ":sandbox-ui",
+    ":collab-canvas",
+    ":colorblendr",
+    ":romtools",
     ":module-a",
     ":module-b",
     ":module-c",
     ":module-d",
     ":module-e",
     ":module-f",
-    ":sandbox-ui",
+    ":benchmark",
     ":screenshot-tests",
-    ":utilities",
+    ":jvm-test",
     ":list",
-    ":jvm-test"
+    ":utilities"
 )
+
+includeBuild("build-logic")

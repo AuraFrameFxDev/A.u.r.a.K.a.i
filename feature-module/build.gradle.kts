@@ -6,8 +6,7 @@ plugins {
     alias(libs.plugins.compose.compiler)  // CRITICAL: Add Compose Compiler Plugin
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.google.firebase.crashlytics)
-    alias(libs.plugins.jetbrains.kotlin.android)
+
 }
 
 android {
@@ -25,14 +24,14 @@ android {
 
     // Configure Java compilation
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_24
-        targetCompatibility = JavaVersion.VERSION_24
+        sourceCompatibility = JavaVersion.VERSION_25
+        targetCompatibility = JavaVersion.VERSION_25
     }
 
     // Configure Kotlin compilation
     java {
         toolchain {
-            languageVersion = JavaLanguageVersion.of(24)
+            languageVersion = JavaLanguageVersion.of(25)
 
             dependencies {
                 // Module dependencies
@@ -65,7 +64,6 @@ android {
 
                 // Room Database
                 implementation(libs.bundles.room)
-                ksp(libs.room.compiler)
                 implementation(libs.hilt.android)
 
                 // Firebase

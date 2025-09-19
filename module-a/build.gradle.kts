@@ -1,12 +1,9 @@
 // GENESIS PROTOCOL - MODULE A
 plugins {
-    id("genesis.android.library")
-    id("genesis.android.compose")
+    alias(libs.plugins.android.application)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.jetbrains.kotlin.android)
 }
 
 android {
@@ -23,8 +20,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_24
-        targetCompatibility = JavaVersion.VERSION_24
+        sourceCompatibility = JavaVersion.VERSION_25
+        targetCompatibility = JavaVersion.VERSION_25
     }
 
  java {
@@ -36,12 +33,16 @@ android {
 
 dependencies {
     implementation(project(":core-module"))
-    implementation("androidx.core:core-ktx:1.17.0")
-    // Hilt
-    implementation("com.google.dagger:hilt-android:2.57.1")
-    ksp("com.google.dagger:hilt-compiler:2.57.1")
+    implementation(libs.androidx.core.ktx)
+
+    implementation(libs.kotlin.stdlib.jdk8)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+
     // Add other module-specific dependencies here
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.2.20")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
 }
 
 tasks.register("moduleAStatus") {

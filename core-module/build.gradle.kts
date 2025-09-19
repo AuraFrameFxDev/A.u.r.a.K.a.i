@@ -3,10 +3,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.compose.compiler)  // ✅ This is already correct
     alias(libs.plugins.google.services)
-    alias(libs.plugins.google.firebase.crashlytics)
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.jetbrains.kotlin.android)
 }
 
 android {
@@ -31,17 +29,15 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_24
-        targetCompatibility = JavaVersion.VERSION_24
+        sourceCompatibility = JavaVersion.VERSION_25
+        targetCompatibility = JavaVersion.VERSION_25
     }
 
-    kotlin {
-        jvmToolchain(24)
-    }
+
 
     java {
         toolchain {
-            languageVersion = JavaLanguageVersion.of(24)
+            languageVersion = JavaLanguageVersion.of(25)
         }
     }
 
@@ -66,7 +62,3 @@ android {
         testRuntimeOnly(libs.junit.jupiter.engine)
         testImplementation(libs.mockk)
     }
-}
-dependencies {
-    implementation(libs.androidx.core.ktx)
-}

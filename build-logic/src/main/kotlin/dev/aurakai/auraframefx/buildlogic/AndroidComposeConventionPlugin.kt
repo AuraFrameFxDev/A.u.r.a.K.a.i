@@ -1,49 +1,66 @@
 package dev.aurakai.auraframefx.buildlogic
 
+import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.CommonExtension
-import com.android.build.api.dsl.CommonExtension
+import com.android.build.api.dsl.LibraryExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
-import org.gradle.kotlin.dsl.withType
 
+// Make libs accessible in convention plugins
 internal val Project.libs: VersionCatalog
     get() = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
-/**
- * Compose-enabled Android library configuration
- */
 class AndroidComposeConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            pluginManager.withPlugin("com.android.base") {
-                val androidExtension = extensions.getByName("android")
-                if (androidExtension is BaseExtension) {
-                    // Enable Compose
-                    androidExtension.buildFeatures.compose = true
-                    
-                    // Configure Compose options
-                    androidExtension.composeOptions {
-                        kotlinCompilerExtensionVersion = "1.5.1" // This should match your Kotlin version
-                    }
-                }
+            // Apply to Android Application projects
+            pluginManager.withPlugin("com.android.application") {
+                val extension = extensions.getByType<ApplicationExtension>()
+                configureCompose(extension)
+            }
+            // Apply to Android Library projects
+            pluginManager.withPlugin("com.android.library") {
+                val extension = extensions.getByType<LibraryExtension>()
+                configureCompose(extension)
+            }
+        }
+    }
 
-                // Add Compose dependencies
-                dependencies {
-                    val bom = platform("androidx.compose:compose-bom:2025.09.00")
-                    add("implementation", bom)
-                    add("androidTestImplementation", bom)
-                    add("implementation", "androidx.compose.ui:ui")
-                    add("implementation", "androidx.compose.ui:ui-graphics")
-                    add("implementation", "androidx.compose.material3:material3")
-                    add("implementation", "androidx.compose.ui:ui-tooling-preview")
-                    add("debugImplementation", "androidx.compose.ui:ui-tooling")
-                    add("debugImplementation", "androidx.compose.ui:ui-test-manifest")
-                    add("androidTestImplementation", "androidx.compose.ui:ui-test-junit4")
-                }
+    private fun Project.configureCompose(
+        commonExtension: CommonExtension<*, *, *, *, *, *>,
+    ) {
+        commonExtension.apply {
+            buildFeatures {
+                compose = true
+            }
+
+            composeOptions {
+                kotlinCompilerExtensionVersion = libs.versions.compose.compiler.extension.get()
+            }
+
+            dependencies {
+                val bom = platform(libs.androidx.compose.bom)
+                add("implementation", bom)
+                add("androidTestImplementation", bom) // For UI tests
+
+                // Core Compose UI
+                add("implementation", libs.androidx.compose.ui)
+                add("implementation", libs.androidx.compose.ui.graphics)
+
+                // Material Design 3
+                add("implementation", libs.androidx.compose.material3)
+
+                // Tooling support (Previews, etc.)
+                add("implementation", libs.androidx.compose.ui.tooling.preview)
+                add("debugImplementation", libs.androidx.compose.ui.tooling) // For Layout Inspector, etc.
+
+                // Test dependencies for Compose
+                add("debugImplementation", libs.androidx.compose.ui.test.manifest)
+                add("androidTestImplementation", libs.androidx.compose.ui.test.junit4)
             }
         }
     }
