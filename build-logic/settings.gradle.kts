@@ -1,23 +1,19 @@
-import org.gradle.api.Plugin
-import org.gradle.api.Project
-import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.the
+/**
+ * Settings for the build-logic module of AOSP-Re-Genesis.
+ * Configures the version catalog for shared dependency management across convention plugins.
+ */
+rootProject.name = "build-logic"
 
-class AndroidApplicationConventionPlugin : Plugin<Project> {
-    override fun apply(target: Project) {
-        with(target) {
-            // Retrieve the version catalog extension
-            val libs = the<org.gradle.accessors.dm.LibrariesForLibs>()
-            
-            // Example usage:
-            dependencies {
-                // Apply a dependency from the catalog
-                implementation(libs.androidx.core)
-                
-                // Use a version from the catalog
-                // For a version reference like `libs.versions.composeCompiler`, use .get()
-                // val composeVersion = libs.versions.composeCompiler.get()
-            }
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+        maven { url = uri("https://repo1.maven.org/maven2") }
+    }
+    versionCatalogs {
+        create("libs") {
+            from(files("../gradle/libs.versions.toml"))
         }
     }
 }

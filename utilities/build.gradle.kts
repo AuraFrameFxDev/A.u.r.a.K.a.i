@@ -1,10 +1,12 @@
-// build.gradle.kts for the 'utilities' module
+import org.gradle.accessors.dm.LibrariesForLibs
+
+val libs = the<LibrariesForLibs>()
 
 plugins {
-    alias(libs.plugins.kotlin.jvm) // Use kotlin-jvm for a standard JVM module
-    alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.spotless)
+    id("java-library")
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"
+    id("org.jetbrains.dokka") version "2.0.0"
+    id("com.diffplug.spotless") version "7.2.1"
 }
 
 group = "dev.aurakai.auraframefx.utilities"
@@ -12,69 +14,45 @@ version = "1.0.0"
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(24))
+        languageVersion = JavaLanguageVersion.of(24)
     }
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
-    testLogging {
-        events("passed", "skipped", "failed")
-    }
-}
-
-spotless {
-    kotlin {
-        target("**/*.kt")
-        ktlint(libs.versions.ktlint.get())
-            .editorConfigOverride(
-                mapOf(
-                    "indent_size" to "4",
-                    "max_line_length" to "120"
-                )
-            )
-    }
-    kotlinGradle {
-        target("*.gradle.kts")
-        ktlint(libs.versions.ktlint.get())
-    }
-}
-
+// utilities/build.gradle.kts - CORRECTED DEPENDENCIES
 dependencies {
-    // Coroutines & Serialization
-    implementation(libs.bundles.coroutines)
+    // All your existing dependencies (keep as-is)
+    api(project(":list"))
+    implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.serialization.json)
-    implementation(libs.kotlinx.datetime)
-
-    // File operations and compression
     implementation(libs.commons.io)
     implementation(libs.commons.compress)
     implementation(libs.xz)
-    runtimeOnly(libs.slf4j.simple)
+    implementation(libs.slf4j.api)
+    implementation(libs.hilt.android)
 
-    // Testing
-    testImplementation(platform(libs.junit.bom))
-    testImplementation(libs.bundles.testing.unit)
-    testImplementation(libs.kotlin.test.junit5)
+    // Kotlin stdlib and coroutines
+    implementation(kotlin("stdlib-jdk8"))
+    implementation(libs.kotlinx.coroutines.core)
+
+    // Testing dependencies (keep as-is)
+    testImplementation(libs.junit.jupiter.api)
+    testImplementation(libs.junit.jupiter.params)
     testRuntimeOnly(libs.junit.jupiter.engine)
+    testRuntimeOnly(libs.junit.platform.launcher)
+    testImplementation(libs.mockk)
+    testImplementation(kotlin("stdlib"))
     testRuntimeOnly(libs.slf4j.simple)
+    implementation(kotlin("stdlib-jdk8"))
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+}
+
+tasks.test {
+    useJUnitPlatform()
 }
 
 tasks.register("utilitiesStatus") {
     group = "aegenesis"
-    doLast {
-        println("""
-        \uD83D\uDCE6 UTILITIES MODULE STATUS
-        ============================
-        • Kotlin: ${libs.versions.kotlin.get()}
-        • Java: ${java.toolchain.languageVersion.get()}
-        • JVM Target: 24
-        • Version: $version
-        ============================
-        """.trimIndent())
-    }
-}
-
-tasks.named("build") {
-    dependsOn("utilitiesStatus")
+    doLast { println("\uD83D\uDCE6 UTILITIES MODULE - Ready (Java 24)") }
 }

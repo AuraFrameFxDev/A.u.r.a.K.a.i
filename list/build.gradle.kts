@@ -1,70 +1,66 @@
- import org.gradle.accessors.dm.LibrariesForLibs
-import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-
 plugins {
-    `kotlin-dsl`
+    id("com.android.library")
+    id("org.jetbrains.kotlin.android")
     alias(libs.plugins.ksp)
-    id("com.diffplug.spotless") version "7.2.1"
-    kotlin("plugin.serialization") version "2.0.0"
 }
-
-val libs = the<LibrariesForLibs>()
 
 group = "dev.aurakai.auraframefx.list"
 version = "1.0.0"
 
-// Configure Kotlin Multiplatform
-configure<KotlinMultiplatformExtension> {
-    jvmToolchain(24)
+android {
+    namespace = "dev.aurakai.auraframefx.list"
+    compileSdk = 36
 
-    jvm {
-        compilations.all {
-            compileTaskProvider.configure {
-                compilerOptions {
-                    jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
-                    freeCompilerArgs.addAll(
-                        "-Xjvm-default=all",
-                        "-opt-in=kotlin.RequiresOptIn"
-                    )
-                }
-            }
+    defaultConfig {
+        minSdk = 34
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
+    }
+
+    testOptions {
+        targetSdk = 36
+    }
+    lint {
+        targetSdk = 36
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
-}
 
-// Configure KSP
-ksp {
-    // Add any KSP-specific configurations here
-}
-
-dependencies {
-    // Kotlin Standard Library
-    implementation(kotlin("stdlib-jdk8"))
-    implementation(libs.kotlinx.serialization.json)
-
-    // Coroutines
-    implementation(libs.kotlinx.coroutines.core)
-
-    // Hilt for JVM
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_24
+        targetCompatibility = JavaVersion.VERSION_24
+    }
 
 
-    // Testing
-    testImplementation(platform(libs.junit.bom))
-    testImplementation(libs.junit.jupiter.api)
-    testImplementation(libs.mockk)
-    testImplementation(kotlin("test"))
-    testRuntimeOnly(libs.junit.jupiter.engine)
-    testRuntimeOnly(libs.junit.platform.launcher)
+    dependencies {
+        implementation(libs.kotlin.stdlib.jdk8)
+        implementation(libs.kotlinx.serialization.json)
+        implementation(libs.kotlinx.coroutines.core)
+        implementation(libs.hilt.android)
+        ksp(libs.hilt.compiler)
+        // Test dependencies
+        testImplementation(libs.junit.jupiter.api)
+        testImplementation(libs.mockk)
+        testImplementation(kotlin("test"))
+        testImplementation(libs.slf4j.simple)
+        testRuntimeOnly(libs.junit.jupiter.engine)
+        testRuntimeOnly(libs.junit.platform.launcher)
+    }
 
-    // Logging for tests
-    testRuntimeOnly(libs.slf4j.simple)
-}
 
-tasks.test {
-    useJUnitPlatform()
-}
-
-tasks.register("listStatus") {
-    group = "aegenesis"
-    doLast { println("\uD83D\uDCE6 LIST MODULE - Ready (Java 24)") }
+    tasks.register("listStatus") {
+        group = "aegenesis"
+        description = "Displays the status of the List Module"
+        doLast {
+            println("📦 LIST MODULE - $group - Ready (Java 24)")
+        }
+    }
 }
