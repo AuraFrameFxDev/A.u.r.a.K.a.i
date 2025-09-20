@@ -31,34 +31,35 @@ android {
         sourceCompatibility = JavaVersion.VERSION_25
         targetCompatibility = JavaVersion.VERSION_25
     }
-}
 
-// Java 24 toolchain
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(24))
+
+// Java 25 toolchain // Updated
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(25)) // Updated
+        }
     }
-}
 
 
-dependencies {
-    implementation(libs.kotlin.stdlib.jdk8)
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
-    
-    // Test dependencies
-    testImplementation(libs.junit.jupiter.api)
-    testImplementation(libs.mockk)
-    testImplementation(kotlin("test"))
-    testRuntimeOnly(libs.junit.jupiter.engine)
-}
+    dependencies {
+        implementation(libs.kotlin.stdlib.jdk8)
+        implementation(libs.kotlinx.serialization.json)
+        implementation(libs.kotlinx.coroutines.core)
+        implementation(libs.hilt.android)
+        ksp(libs.hilt.compiler)
 
-tasks.register("listStatus") {
-    group = "aegenesis"
-    description = "Displays the status of the List Module"
-    doLast {
-        println("📦 LIST MODULE - $group - Ready (Java 24)")
+        // Test dependencies
+        testImplementation(libs.junit.jupiter.api)
+        testImplementation(libs.mockk)
+        testImplementation(kotlin("test"))
+        testRuntimeOnly(libs.junit.jupiter.engine)
+    }
+
+    tasks.register("listStatus") {
+        group = "aegenesis"
+        description = "Displays the status of the List Module"
+        doLast {
+            println("📦 LIST MODULE - $group - Ready (Java 25, JVM 25)") // Updated
+        }
     }
 }

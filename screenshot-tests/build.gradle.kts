@@ -1,5 +1,5 @@
 // Placeholder module for screenshot-tests to satisfy task paths like :screenshot-tests:assemble.
-// This applies the 'base' plugin which provides the 'assemble' lifecycle task without requiring Android/Java configuration.
+// This applies the 'com.android.library' plugin.
 plugins {
     id("com.android.library")
     alias(libs.plugins.ksp)
@@ -10,16 +10,28 @@ android {
     namespace = "dev.aurakai.screenshottests"
     compileSdk = 36
 
+    defaultConfig { // ADDED for standard library setup
+        minSdk = 34
+    }
+
+    compileOptions { // MOVED and Updated
+        sourceCompatibility = JavaVersion.VERSION_25
+        targetCompatibility = JavaVersion.VERSION_25
+    }
+
     java {
         toolchain {
-            languageVersion.set(JavaLanguageVersion.of(24)) // Corrected syntax and version
-        }
-        compileOptions { // Added compileOptions
-            sourceCompatibility = JavaVersion.VERSION_17
-            targetCompatibility = JavaVersion.VERSION_17
+            languageVersion.set(JavaLanguageVersion.of(25)) // Updated
         }
     }
+
 }
+
 dependencies {
     implementation(libs.androidx.core.ktx)
+}
+
+tasks.register("screenshotTestsStatus") { // ADDED
+    group = "aegenesis"
+    doLast { println("📸 SCREENSHOT TESTS - Ready (Java 25, JVM 25)") }
 }

@@ -28,7 +28,7 @@ android {
 
     java {
         toolchain {
-            languageVersion.set(JavaLanguageVersion.of(24))
+            languageVersion.set(JavaLanguageVersion.of(25)) // Updated
         }
     }
 }
@@ -41,8 +41,8 @@ dependencies {
 }
 
 tasks.register("moduleCStatus") {
-    group = "genesis"
+    group = "aegenesis" // Updated for consistency
     doLast { 
-        println("📦 MODULE C - ${android.namespace} - Ready!") 
+        println("📦 MODULE C - Ready (Java 25, JVM 25)") // Updated
     }
 }

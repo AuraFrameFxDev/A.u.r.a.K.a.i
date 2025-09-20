@@ -1,6 +1,6 @@
 plugins {
     // Android and Kotlin plugins first
-    // alias(libs.plugins.kotlin.android) // REMOVED THIS LINE
+    // alias(libs.plugins.kotlin.android) // REMOVED to resolve conflict
     id("com.android.application")
     // Compose plugins
     alias(libs.plugins.compose.compiler)
@@ -51,8 +51,8 @@ android {
         }
 
         compileOptions {
-            sourceCompatibility = JavaVersion.VERSION_17
-            targetCompatibility = JavaVersion.VERSION_17
+            sourceCompatibility = JavaVersion.VERSION_25 // Updated
+            targetCompatibility = JavaVersion.VERSION_25 // Updated
         }
 
         // Source set for generated OpenAPI
@@ -63,14 +63,7 @@ android {
         }
     }
 
-
-// Java toolchain should be handled by convention plugin or Foojay resolver at root settings
-// java {
-//     toolchain {
-//         languageVersion.set(JavaLanguageVersion.of(24))
-//     }
-// }
-
+}
     tasks.named<org.openapitools.generator.gradle.plugin.tasks.GenerateTask>("openApiGenerate") {
         generatorName.set("kotlin")
         inputSpec.set(file("${'$'}{project.projectDir}/api/system-api.yml").path)
@@ -172,4 +165,4 @@ android {
         coreLibraryDesugaring(libs.desugar.jdk.libs)
 
     }
-}
+

@@ -77,5 +77,5 @@ dependencies {
 // Move the tasks registration block outside the dependencies block
 tasks.register("colorblendrStatus") {
     group = "aegenesis"
-    doLast { println("\uD83D\uDCE6 COLORBLENDR MODULE - Ready (Java 24)") }
+    doLast { println("\uD83D\uDCE6 COLORBLENDR MODULE - Ready (Java 25, JVM 25)") } // Updated
 }

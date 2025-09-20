@@ -1,13 +1,13 @@
 plugins {
-     id("com.android.library")
-     alias(libs.plugins.ksp)
-     alias(libs.plugins.hilt)
+    id("com.android.library")
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
     id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"
     alias(libs.plugins.compose.compiler)
 }
 
 android {
-    namespace = "dev.aurakai.auraframefx.module.c"
+    namespace = "dev.aurakai.auraframefx.module.f" // Corrected namespace
     compileSdk = 36
 
     defaultConfig {
@@ -28,40 +28,43 @@ android {
 
     java {
         toolchain {
-            languageVersion.set(JavaLanguageVersion.of(24))
+            languageVersion.set(JavaLanguageVersion.of(25)) // Updated
         }
     }
-}
-dependencies {
-    // Module dependencies
-    implementation(project(":core-module"))
-
-    // Core Android
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.bundles.lifecycle)
-
-    // Compose
-    val composeBom = platform(libs.androidx.compose.bom)
-    implementation(composeBom)
-    implementation(libs.bundles.compose.ui)
-    debugImplementation(libs.bundles.compose.debug)
-
-    // Hilt
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
-
-    // Utilities
-    implementation(libs.kotlin.stdlib.jdk8)
 
 
-    // Testing
-    testImplementation(libs.bundles.testing.unit)
-    androidTestImplementation(libs.bundles.testing.android)
-    androidTestImplementation(libs.hilt.android.testing)
-}
-tasks.register("moduleFStatus") {
-    group = "genesis"
-    doLast {
-        println("📦 MODULE F - ${android.namespace} - Ready!")
+    dependencies {
+        // Module dependencies
+        implementation(project(":core-module"))
+
+        // Core Android
+        implementation(libs.androidx.core.ktx)
+        implementation(libs.bundles.lifecycle)
+
+        // Compose
+        val composeBom = platform(libs.androidx.compose.bom)
+        implementation(composeBom)
+        implementation(libs.bundles.compose.ui)
+        debugImplementation(libs.bundles.compose.debug)
+
+        // Hilt
+        implementation(libs.hilt.android)
+        ksp(libs.hilt.compiler)
+
+        // Utilities
+        implementation(libs.kotlin.stdlib.jdk8)
+
+
+        // Testing
+        testImplementation(libs.bundles.testing.unit)
+        androidTestImplementation(libs.bundles.testing.android)
+        androidTestImplementation(libs.hilt.android.testing)
+    }
+
+    tasks.register("moduleFStatus") {
+        group = "aegenesis" // Updated for consistency
+        doLast {
+            println("📦 MODULE F - ${android.namespace} - Ready (Java 25, JVM 25)") // Updated
+        }
     }
 }

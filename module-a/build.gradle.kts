@@ -24,11 +24,11 @@ android {
         targetCompatibility = JavaVersion.VERSION_25
     }
 
- java {
-     toolchain {
-         languageVersion.set(JavaLanguageVersion.of(24))
-     }
- }
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(25)) // Updated
+        }
+    }
 }
 
 dependencies {
@@ -47,5 +47,5 @@ dependencies {
 
 tasks.register("moduleAStatus") {
     group = "aegenesis"
-    doLast { println("📦 MODULE A - Ready (Java 24)") }
+    doLast { println("📦 MODULE A - Ready (Java 25, JVM 25)") } // Updated
 }

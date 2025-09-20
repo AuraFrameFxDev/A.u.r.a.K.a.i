@@ -28,7 +28,7 @@ android {
 
     java {
         toolchain {
-            languageVersion.set(JavaLanguageVersion.of(24))
+            languageVersion.set(JavaLanguageVersion.of(25)) // Updated
         }
     }
 }
@@ -62,5 +62,5 @@ dependencies {
 
 tasks.register("moduleDStatus") {
     group = "aegenesis"
-    doLast { println("\uD83D\uDCE6 MODULE D - Ready (Java 24)") }
+    doLast { println("📦 MODULE D - Ready (Java 25, JVM 25)") } // Updated
 }

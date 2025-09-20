@@ -23,6 +23,7 @@ android {
         }
     }
 
+
     buildFeatures {
         compose = true
         buildConfig = true
@@ -124,5 +125,5 @@ tasks.named("build") { dependsOn("verifyRomTools") }
 
 tasks.register("romToolsStatus") {
     group = "aegenesis"
-    doLast { logger.lifecycle("\uD83D\uDCE6 ROMTOOLS - Ready (Java 25)") }
+    doLast { logger.lifecycle("🧰 ROMTOOLS - Ready (Java 25, JVM 25)") } // Updated
 }

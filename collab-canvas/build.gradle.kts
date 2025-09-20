@@ -1,7 +1,6 @@
 // ==== GENESIS PROTOCOL - COLLAB CANVAS MODULE ====
 // Collaborative canvas module for real-time drawing
 plugins {
-    // alias(libs.plugins.kotlin.android) // REMOVED
     alias(libs.plugins.android.application)       // Your convention plugin (applies app, Hilt, KSP)
     alias(libs.plugins.ksp)                       // KEEP: Makes 'ksp(...)' available in dependencies
     // alias(libs.plugins.jetbrains.kotlin.android) // Stays Removed
@@ -18,7 +17,7 @@ android {
 
     defaultConfig {
         minSdk = 34
-        targetSdk = 36 // ADDED
+        targetSdk = 36
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -33,19 +32,16 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_25 // Updated
+        targetCompatibility = JavaVersion.VERSION_25 // Updated
     }
 
     java {
         toolchain {
-            languageVersion.set(JavaLanguageVersion.of(25)) // Updated
+            languageVersion.set(JavaLanguageVersion.of(25)) // Already correct
         }
     }
 
-    kotlinOptions { // ADDED
-        jvmTarget = "25"
-    }
 
     tasks.register("collabStatus") {
         group = "genesis"

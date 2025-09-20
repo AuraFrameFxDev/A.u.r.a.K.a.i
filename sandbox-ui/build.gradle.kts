@@ -21,15 +21,14 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_25 // Updated
+        targetCompatibility = JavaVersion.VERSION_25 // Updated
     }
     java {
         toolchain {
-            languageVersion.set(JavaLanguageVersion.of(24))
+            languageVersion.set(JavaLanguageVersion.of(25)) // Updated
         }
     }
-
     dependencies {
         api(project(":core-module"))
         implementation(libs.androidx.core.ktx)
@@ -76,7 +75,7 @@ android {
 
     tasks.register("sandboxStatus") {
         group = "aegenesis"
-        doLast { println("\uD83D\uDCE6 SANDBOX UI - Ready (Java 24)") }
+        doLast { println("\uD83D\uDCE6 SANDBOX UI - Ready (Java 25, JVM 25)") } // Updated
     }
 }
 // Removed duplicate dependencies block below

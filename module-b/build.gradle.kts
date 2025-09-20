@@ -9,7 +9,7 @@ plugins {
 
 android {
     namespace = "dev.aurakai.auraframefx.module.b"
-    compileSdk = 35
+    compileSdk = 36 // Updated for consistency
 
     defaultConfig {
         minSdk = 34
@@ -27,17 +27,17 @@ android {
 
     java {
         toolchain {
-            languageVersion.set(JavaLanguageVersion.of(24))
+            languageVersion.set(JavaLanguageVersion.of(25)) // Updated
         }
     }
 
 
-    dependencies {
+    dependencies { // MOVED to root level
         // Module dependencies
         implementation(project(":core-module"))
 
         // Core Android
-        implementation(libs.androidx.core.ktx)
+        implementation(libs.androidx.core.ktx) // This was duplicated at the end, now only here
         implementation(libs.bundles.lifecycle)
 
         // Compose
@@ -59,18 +59,10 @@ android {
         androidTestImplementation(libs.hilt.android.testing)
     }
 
-    tasks.register("moduleBStatus") {
-        group = "genesis"
-        doLast {
-            println("📦 MODULE B - ${android.namespace} - Ready!")
-        }
-
+    tasks.register("moduleBStatus") { // MOVED to root level, cleaned up, and Updated
         group = "aegenesis"
-        doLast { println("📦 MODULE B - Ready (Java 24)") }
-        group = "aegenesis"
-        doLast { println("\uD83D\uDCE6 MODULE B - Ready (Java 24)") }
+        doLast { println("📦 MODULE B - Ready (Java 25, JVM 25)") }
     }
 }
-dependencies {
-    implementation(libs.androidx.core.ktx)
-}
+
+// Duplicate dependencies block at the end is removed.
