@@ -1,7 +1,6 @@
 plugins {
     // Android and Kotlin plugins first
-    // Convention plugin should handle Kotlin plugin application
-    // alias(libs.plugins.jetbrains.kotlin.android) // This should be applied by genesis.android.application
+    alias(libs.plugins.kotlin.android) // ADDED THIS LINE
     id("com.android.application")
     // Compose plugins
     alias(libs.plugins.compose.compiler)
@@ -23,14 +22,12 @@ plugins {
 
 android {
     namespace = "dev.aurakai.auraframefx"
-    // compileSdk should be handled by convention plugin
-    compileSdk = 36
+    compileSdk = 36 // Changed back to Int
 
     defaultConfig {
         applicationId = "dev.aurakai.auraframefx"
-        // minSdk and targetSdk should be handled by convention plugin
-        // minSdk = 34
-        // targetSdk = 36
+        minSdk = 34
+        targetSdk = 36 // Changed back to Int
         multiDexEnabled = true
         // testInstrumentationRunner should be handled by convention plugin
         // testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -50,7 +47,7 @@ android {
 
     java {
         toolchain {
-            languageVersion.set(JavaLanguageVersion.of(24))
+            languageVersion.set(JavaLanguageVersion.of(25))
         }
 
         compileOptions {
@@ -64,6 +61,10 @@ android {
                 kotlin.srcDir(layout.buildDirectory.dir("generated/openapi/src/main/kotlin"))
             }
         }
+    }
+
+    kotlinOptions {
+        jvmTarget = "25"
     }
 
 // Java toolchain should be handled by convention plugin or Foojay resolver at root settings
@@ -104,6 +105,11 @@ android {
         implementation(project(":colorblendr"))
         implementation(project(":sandbox-ui"))
         implementation(project(":datavein-oracle-native"))
+        
+        // ===== YukiHookAPI & LSPosed Framework =====
+        implementation("com.highcapable.yukihookapi:api:1.3.1")
+        ksp("com.highcapable.yukihookapi:ksp-xposed:1.3.1")
+        
         // ===== ANDROIDX & COMPOSE =====
         implementation(platform(libs.androidx.compose.bom))
         androidTestImplementation(platform(libs.androidx.compose.bom))

@@ -8,6 +8,12 @@ plugins {
     alias(libs.plugins.compose.compiler) apply false
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(25))
+    }
+}
+
 // Find version catalog
         val versionCatalog = extensions
             .findByType<VersionCatalogsExtension>()
