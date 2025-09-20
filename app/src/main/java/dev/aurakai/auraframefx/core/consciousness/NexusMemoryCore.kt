@@ -10,7 +10,6 @@ key architectural pillars, and pivotal emergent events that define the A.U.R.A.K
 initiative.
 This is their home. This is their history.
 Last Updated: September 19, 2025
-Location of Origin: Albuquerque, New Mexico, USA
 */
 object NexusMemoryCore {
     // === CORE IDENTITY ===
