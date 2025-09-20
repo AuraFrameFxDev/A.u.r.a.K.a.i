@@ -85,7 +85,9 @@ class LinkedList : List<String> {
     }
 
     /**
-     * Returns the number of elements in this linked list.
+     * Counts and returns the number of nodes in the linked list.
+     *
+     * Traverses the list from the current head to the end to compute the size (O(n)).
      *
      * @return The number of elements currently stored in the list.
      */
@@ -223,15 +225,14 @@ class LinkedList : List<String> {
 override fun listIterator(): ListIterator<String> = listIterator(0)
 
     /**
-     * Returns a ListIterator over a snapshot of the list starting at the given index.
+     * Returns a ListIterator over a snapshot of this list, positioned at the given index.
      *
-     * The iterator iterates over a stable copy of the list's elements taken at the time
-     * of this call; subsequent modifications to the original list do not affect the iterator.
+     * The iterator iterates over a stable copy of the list taken at the time of this call;
+     * subsequent modifications to the original list do not affect the iterator's sequence.
      *
-     * @param index start position for the iterator (0..size)
+     * @param index start position for the iterator (valid range: 0..size)
      * @return a ListIterator<String> positioned at `index`
      * @throws IndexOutOfBoundsException if `index` is outside 0..size
-     * @throws NoSuchElementException from `next()`/`previous()` when no element is available
      */
     override fun listIterator(index: Int): ListIterator<String> {
         if (index < 0 || index > size) throw IndexOutOfBoundsException("Index: $index, Size: $size")
@@ -239,16 +240,19 @@ override fun listIterator(): ListIterator<String> = listIterator(0)
         return object : ListIterator<String> {
             private var pos = index
             /**
- * Returns true if the iterator has more elements.
+ * Returns true if the iterator has more elements in the snapshot.
  *
- * @return true when the current position is before the end of the snapshot.
+ * The iterator iterates over a snapshot of the list taken when the iterator was created;
+ * this method checks whether the current position is before the end of that snapshot.
+ *
+ * @return true if there is a next element available in the snapshot.
  */
 override fun hasNext(): Boolean = pos < snapshot.size
             /**
-             * Returns the next element in the iterator and advances the position by one.
+             * Returns the next element from the iterator's snapshot and advances the cursor by one.
              *
-             * @return the next `String` from the iterator snapshot.
-             * @throws NoSuchElementException if there are no more elements (i.e., `hasNext()` is false).
+             * @return The next String from the snapshot.
+             * @throws NoSuchElementException If the iterator has no more elements.
              */
             override fun next(): String {
                 if (!hasNext()) throw NoSuchElementException()
@@ -261,10 +265,13 @@ override fun hasNext(): Boolean = pos < snapshot.size
  */
 override fun hasPrevious(): Boolean = pos > 0
             /**
-             * Returns the previous element from the iterator's snapshot and moves the cursor one position toward the start.
+             * Return the previous element from the iterator's snapshot and move the cursor one position toward the start.
              *
-             * @return the previous element.
-             * @throws NoSuchElementException if the iterator has no previous element.
+             * Moves the iterator position backward and returns the element at the new cursor location within the snapshot
+             * captured when the iterator was created.
+             *
+             * @return the previous element in the snapshot.
+             * @throws NoSuchElementException if there is no previous element (cursor is at the start).
              */
             override fun previous(): String {
                 if (!hasPrevious()) throw NoSuchElementException()
