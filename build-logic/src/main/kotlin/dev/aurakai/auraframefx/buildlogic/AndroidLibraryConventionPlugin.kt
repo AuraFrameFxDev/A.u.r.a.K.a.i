@@ -11,6 +11,24 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 class AndroidLibraryConventionPlugin : Plugin<Project> {
+    /**
+     * Applies a standardized Android library convention to the given Gradle project.
+     *
+     * Configures:
+     * - Applies the "com.android.library" and "org.jetbrains.kotlin.android" plugins.
+     * - Android LibraryExtension:
+     *   - compileSdk = 36
+     *   - defaultConfig: minSdk = 34, testInstrumentationRunner set, and consumer proguard file added
+     *   - release build type with minification disabled
+     *   - Java toolchain and compile options: selects a toolchain version and sets source/target compatibility
+     *     - If the CI environment variable `CI` is present, the toolchain version is pinned to 25.
+     *     - Otherwise, the Gradle property `java.toolchain` (integer) is used when present, defaulting to 24.
+     * - Kotlin configuration:
+     *   - Sets the Kotlin Android JVM toolchain to the selected toolchain version.
+     *   - Configures all KotlinCompile tasks to target JVM 2.4 (JvmTarget.JVM_24).
+     *
+     * Side effects: applies plugins, mutates the project's Android extension and task configuration.
+     */
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
