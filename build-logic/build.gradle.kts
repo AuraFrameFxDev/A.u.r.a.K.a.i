@@ -29,7 +29,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-serialization:2.0.0")
 
     // Google Services and Firebase
-    implementation("com.google.gms:google-services:4.4.2")
+    implementation("com.google.gms:google-services:4.4.3")
     implementation("com.google.firebase:firebase-crashlytics-gradle:3.0.2")
 
     // Hilt
