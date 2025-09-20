@@ -25,8 +25,8 @@ dependencies {
     implementation("com.android.tools.build:gradle:8.4.0")
 
     // Kotlin Gradle Plugin
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.0")
-    implementation("org.jetbrains.kotlin:kotlin-serialization:2.0.0")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:2.2.20")
+    implementation("org.jetbrains.kotlin:kotlin-serialization:2.2.20")
 
     // Google Services and Firebase
     implementation("com.google.gms:google-services:4.4.2")
@@ -51,7 +51,7 @@ dependencies {
     testImplementation("com.google.truth:truth:1.1.5")
 
     // Kotlin DSL support
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.2.20")
 }
 
 // Configure Java toolchain for build-logic module
