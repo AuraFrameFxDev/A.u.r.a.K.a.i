@@ -48,7 +48,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.1")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.10.1")
     testImplementation("io.mockk:mockk:1.13.8")
-    testImplementation("com.google.truth:truth:1.1.5")
+    testImplementation("com.google.truth:truth:1.4.5")
 
     // Kotlin DSL support
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.0")
