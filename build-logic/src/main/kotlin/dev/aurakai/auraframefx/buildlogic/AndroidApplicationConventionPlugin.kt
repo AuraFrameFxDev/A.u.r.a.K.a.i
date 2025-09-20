@@ -13,6 +13,21 @@ import org.gradle.kotlin.dsl.getByType
  * Standard Android application configuration, now including Hilt and KSP.
  */
 class AndroidApplicationConventionPlugin : Plugin<Project> {
+    /**
+     * Applies a standard Android application convention to the given Gradle project.
+     *
+     * Configures the project by:
+     * - Applying required plugins in the correct order: Android application, Kotlin Android, Hilt, and KSP.
+     * - Setting Android ApplicationExtension values (compileSdk 36, minSdk 34, targetSdk 36, test runner, vector drawables).
+     * - Defining release and debug build types (release minification + ProGuard; debug suffixes and debuggable).
+     * - Reading `java.toolchain` (defaults to "21" when absent) and using it for Java compileOptions and the Kotlin JVM toolchain.
+     * - Setting Kotlin JVM bytecode target to JVM_24.
+     * - Enabling BuildConfig generation and including Android resources in unit tests.
+     * - Excluding AL2.0 and LGPL2.1 license files from packaging resources.
+     * - Adding Hilt implementation and KSP compiler dependencies from the version catalog ("libs").
+     *
+     * Side effects: applies plugins, mutates the Android extension and dependencies of the target project.
+     */
     override fun apply(target: Project) {
         with(target) {
             // Define libs accessor
