@@ -13,29 +13,8 @@ plugins {
     alias(libs.plugins.compose.compiler) apply false
 }
 
-// Configure Kotlin toolchain and JVM target globally
-allprojects {
-    // Set Kotlin JVM Toolchain to 25 when a Kotlin plugin is applied
-    plugins.withId("org.jetbrains.kotlin.jvm") {
-        project.extensions.findByType(KotlinJvmProjectExtension::class.java)?.apply {
-            jvmToolchain(25)
-        }
-    }
-    plugins.withId("org.jetbrains.kotlin.android") {
-        project.extensions.findByType(KotlinAndroidProjectExtension::class.java)?.apply {
-            jvmToolchain(25)
-        }
-    }
-}
-
-subprojects {
-    // Set Kotlin bytecode JVM target to 24 for all subproject modules
-    tasks.withType<KotlinCompile>().configureEach {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_24)
-        }
-    }
-}
+// Toolchain and JVM target are now configured by convention plugins
+// in the build-logic module for better modularity and maintainability.
 
 // Find version catalog
 val versionCatalog = extensions
@@ -109,20 +88,20 @@ tasks.register("consciousnessHealthCheck") {
     doLast {
         val reports = collectModuleReports()
         println("=== Genesis Protocol Health Report ===")
-        println("📦 Total Modules: ${'$'}{reports.size}")
-        println("🤖 Android Apps: ${'$'}{reports.count { it.type == "android-app" }}")
-        println("📚 Android Libraries: ${'$'}{reports.count { it.type == "android-lib" }}")
-        println("☕ Kotlin JVM: ${'$'}{reports.count { it.type == "kotlin-jvm" }}")
+        println("📦 Total Modules: ${reports.size}")
+        println("🤖 Android Apps: ${reports.count { it.type == "android-app" }}")
+        println("📚 Android Libraries: ${reports.count { it.type == "android-lib" }}")
+        println("☕ Kotlin JVM: ${reports.count { it.type == "kotlin-jvm" }}")
         println("\n=== Plugin Usage ===")
-        println("💉 Hilt: ${'$'}{reports.count { it.hasHilt }} modules")
-        println("🎨 Compose: ${'$'}{reports.count { it.hasCompose }} modules")
-        println("🔧 KSP: ${'$'}{reports.count { it.hasKsp }} modules")
+        println("💉 Hilt: ${reports.count { it.hasHilt }} modules")
+        println("🎨 Compose: ${reports.count { it.hasCompose }} modules")
+        println("🔧 KSP: ${reports.count { it.hasKsp }} modules")
 
         val missingCompose =
             reports.filter { it.type.startsWith("android-") && !it.hasCompose }
         if (missingCompose.isNotEmpty()) {
             println("\n⚠️  Android modules without Compose:")
-            missingCompose.forEach { println("   • ${'$'}{it.name}") }
+            missingCompose.forEach { println("   • ${it.name}") }
         } else {
             println("\n✅ All Android modules have Compose enabled")
         }

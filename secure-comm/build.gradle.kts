@@ -2,41 +2,24 @@
 // Security module using convention plugins
 
 plugins {
-    alias(libs.plugins.android.application) // Assuming this is an application module, adjust if library
+    alias(libs.plugins.android.library)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt) // CORRECTED - Hilt plugin applied directly
-    alias(libs.plugins.kotlin.serialization) // Use the alias from libs.versions.toml
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.compose.compiler)
 }
 
 android {
     namespace = "dev.aurakai.auraframefx.securecomm"
-    compileSdk = 36
+    // compileSdk is now handled by the convention plugin
 
     defaultConfig {
-        minSdk = 34
-
-        // For testing and linting
+        // minSdk is now handled by the convention plugin
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    // ADDED Java 25 compile options
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_25
-        targetCompatibility = JavaVersion.VERSION_25
-    }
-
-    // ADDED Java 25 toolchain
-    java {
-        toolchain {
-            languageVersion.set(JavaLanguageVersion.of(25))
-        }
     }
 
     buildFeatures {
         compose = true
-        // Comments about convention plugins handling compileOptions/javaToolchain are noted,
-        // but we are applying them explicitly for now as part of the alignment.
     }
 
     externalNativeBuild {

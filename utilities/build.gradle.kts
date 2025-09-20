@@ -22,17 +22,7 @@ android {
         consumerProguardFiles("consumer-rules.pro") // Added for library module
     }
 
-    // ADDED Java 25 compile options
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_25
-        targetCompatibility = JavaVersion.VERSION_25
-    }
-
-    java {
-        toolchain {
-            languageVersion.set(JavaLanguageVersion.of(25)) // Updated to Java 25
-        }
-    }
+    // Java toolchain and compile options are now handled by the convention plugin.
 
     buildTypes {
         release {
