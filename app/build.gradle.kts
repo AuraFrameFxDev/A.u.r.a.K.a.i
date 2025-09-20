@@ -42,10 +42,7 @@ android {
     compileSdk = 36
     buildToolsVersion = "36.1.0-rc1"
     ndkVersion = "29.0.14033849-rc4"
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_24
-        targetCompatibility = JavaVersion.VERSION_24
-    }
+    // Rely on Java toolchain and Kotlin jvmTarget set below
 
     java {
         toolchain {
