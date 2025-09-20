@@ -1,9 +1,9 @@
-
+// GENESIS PROTOCOL - MODULE A
 plugins {
-    id("com.android.library")
+    alias(libs.plugins.android.application)
     alias(libs.plugins.ksp)
-    id("org.jetbrains.kotlin.plugin.compose")
-
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -20,8 +20,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
+        sourceCompatibility = JavaVersion.VERSION_25
+        targetCompatibility = JavaVersion.VERSION_25
     }
 
     java {

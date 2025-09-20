@@ -19,6 +19,28 @@ repositories {
     }
 }
 
+gradlePlugin {
+    plugins {
+        register("androidApplication") {
+            id = "genesis.android.application"
+            implementationClass = "dev.aurakai.auraframefx.buildlogic.AndroidApplicationConventionPlugin"
+        }
+        register("androidLibrary") {
+            id = "genesis.android.library"
+            implementationClass = "dev.aurakai.auraframefx.buildlogic.AndroidLibraryConventionPlugin"
+        }
+        register("androidHilt") {
+            id = "genesis.android.hilt"
+            implementationClass = "dev.aurakai.auraframefx.buildlogic.AndroidHiltConventionPlugin"
+        }
+        register("androidCompose") {
+            id = "genesis.android.compose"
+            implementationClass = "dev.aurakai.auraframefx.buildlogic.AndroidComposeConventionPlugin"
+        }
+    }
+}
+
+
 // Dependencies for the build-logic module itself
 dependencies {
     // Android Gradle Plugin
@@ -56,14 +78,10 @@ dependencies {
 
 // Configure Java toolchain for build-logic module
 java {
-    sourceCompatibility = JavaVersion.VERSION_21 // UPDATED
-    targetCompatibility = JavaVersion.VERSION_21 // UPDATED
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(21))
-    }
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
-// ADDED this block:
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(24)
 }

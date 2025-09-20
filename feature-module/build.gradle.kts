@@ -1,14 +1,12 @@
 // ==== GENESIS PROTOCOL - FEATURE MODULE ====
 // Primary feature module using convention plugins
 
-
 plugins {
-    id("com.android.library")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
-    id("org.jetbrains.kotlin.plugin.compose")
-
 }
-
 
 android {
     namespace = "dev.aurakai.auraframefx.feature"
@@ -25,13 +23,14 @@ android {
 
     // Configure Java compilation
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
+        sourceCompatibility = JavaVersion.VERSION_25
+        targetCompatibility = JavaVersion.VERSION_25
     }
 
-    java {
+    // Configure Kotlin compilation
+    java { // This block should primarily contain toolchain configuration
         toolchain {
-            languageVersion = JavaLanguageVersion.of(21)
+            languageVersion = JavaLanguageVersion.of(25)
         }
     }
 
@@ -94,10 +93,6 @@ android {
 
         // Debug tools
         debugImplementation(libs.leakcanary.android)
-
-        // YukiHook / LSPosed
-        implementation(libs.yukihookapi.api.lsposed)
-        ksp(libs.yukihookapi.processor.lsposed)
     }
 
     tasks.register("featureStatus") { // MOVED to root level and Updated
@@ -106,8 +101,4 @@ android {
     }
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
-    }
-}
+// Duplicate dependencies block at the end is removed.

@@ -1,9 +1,7 @@
-
 plugins {
-    id("com.android.library")
+    alias(libs.plugins.android.library) // Changed to use alias from version catalog
     alias(libs.plugins.ksp)
-    id("org.jetbrains.kotlin.plugin.compose")
-
+    alias(libs.plugins.hilt)
 }
 
 group = "dev.aurakai.auraframefx.list"
@@ -30,38 +28,38 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
+        sourceCompatibility = JavaVersion.VERSION_25
+        targetCompatibility = JavaVersion.VERSION_25
+    }
 
 
 // Java 25 toolchain // Updated
-        java {
-            toolchain {
-                languageVersion.set(JavaLanguageVersion.of(25)) // Updated
-            }
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(25)) // Updated
         }
-    } // End of android block
-
-    dependencies { // MOVED to root level
-        implementation(libs.kotlin.stdlib.jdk8)
-        implementation(libs.kotlinx.serialization.json)
-        implementation(libs.kotlinx.coroutines.core)
-        implementation(libs.hilt.android)
-        implementation(libs.androidx.core.ktx)
-        ksp(libs.hilt.compiler)
-
-        // Test dependencies
-        testImplementation(libs.junit.jupiter.api)
-        testImplementation(libs.mockk)
-        testImplementation(libs.kotlin.test) // MODIFIED
-        testRuntimeOnly(libs.junit.jupiter.engine)
     }
+} // End of android block
 
-    tasks.register("listStatus") { // MOVED to root level
-        group = "aegenesis"
-        description = "Displays the status of the List Module"
-        doLast {
-            println("📦 LIST MODULE - $group - Ready (Java 25, JVM 25)") // Updated
-        }
+dependencies { // MOVED to root level
+    implementation(libs.kotlin.stdlib.jdk8)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.core.ktx)
+    ksp(libs.hilt.compiler)
+
+    // Test dependencies
+    testImplementation(libs.junit.jupiter.api)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlin.test) // MODIFIED
+    testRuntimeOnly(libs.junit.jupiter.engine)
+}
+
+tasks.register("listStatus") { // MOVED to root level
+    group = "aegenesis"
+    description = "Displays the status of the List Module"
+    doLast {
+        println("📦 LIST MODULE - $group - Ready (Java 25, JVM 25)") // Updated
     }
 }

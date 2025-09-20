@@ -1,107 +1,62 @@
 plugins {
-    id("com.android.application") // TODO: Replace this with your AndroidApplicationConventionPlugin alias
-    // Compose plugins
-    alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.ksp) // Added KSP plugin for ksp() support
-
-    // Google services
+    id("genesis.android.application")
+    id("genesis.android.compose")
+    id("genesis.android.hilt")
     alias(libs.plugins.google.services)
-
-    // External plugins
     id("org.openapi.generator") version "7.15.0"
-
-    // Kotlin serialization
     alias(libs.plugins.kotlin.serialization)
 }
 
 android {
     namespace = "dev.aurakai.auraframefx"
-    compileSdkPreview = "CANARY"
-    // Changed back to Int
 
     defaultConfig {
         applicationId = "dev.aurakai.auraframefx"
-        minSdk = 34
-        targetSdkPreview = "CANARY"
-        // Changed back to Int
         multiDexEnabled = true
-        // testInstrumentationRunner should be handled by convention plugin
-        // testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildFeatures {
-        // These should ideally be set by convention plugins if they are common
-        // across all application/library modules with compose, databinding etc.
-        // For now, keeping them here for clarity in the :app module.
-        compose = true
         dataBinding = true
         viewBinding = true
         aidl = true
-        // buildConfig should be handled by convention plugin
-    }
-    compileSdk = 36
-    buildToolsVersion = "36.1.0-rc1"
-    ndkVersion = "29.0.14033849-rc4"
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_24
-        targetCompatibility = JavaVersion.VERSION_24
     }
 
-    java {
-        toolchain {
-            languageVersion.set(JavaLanguageVersion.of(25))
-        }
-
-        // Source set for generated OpenAPI and Xposed assets
-        sourceSets {
-            getByName("main") {
-                kotlin.srcDir(layout.buildDirectory.dir("generated/openapi/src/main/kotlin"))
-                assets.srcDirs("src/main/assets", "xposed")  // MODIFIED to include xposed
-            }
-        }
-    }
-
-    // Kotlin JVM target is now set by AndroidApplicationConventionPlugin
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-        compilerOptions {
-            // Explicitly set to 24 to match the current Kotlin compiler's max supported target
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
+    sourceSets {
+        getByName("main") {
+            kotlin.srcDir(layout.buildDirectory.dir("generated/openapi/src/main/kotlin"))
+            assets.srcDirs("src/main/assets", "xposed")
         }
     }
 }
-    tasks.named<org.openapitools.generator.gradle.plugin.tasks.GenerateTask>("openApiGenerate") {
-        generatorName.set("kotlin")
-        inputSpec.set(file("${'$'}{project.projectDir}/api/system-api.yml").path)
-        outputDir.set(layout.buildDirectory.dir("generated/openapi").get().asFile.absolutePath)
-        apiPackage.set("dev.aurakai.auraframefx.openapi.api")
-        modelPackage.set("dev.aurakai.auraframefx.openapi.model")
-        invokerPackage.set("dev.aurakai.auraframefx.openapi.invoker")
-        configOptions.set(
-            mapOf(
-                "dateLibrary" to "java8",
-                "library" to "jvm-ktor"
-            )
+
+tasks.named<org.openapitools.generator.gradle.plugin.tasks.GenerateTask>("openApiGenerate") {
+    generatorName.set("kotlin")
+    inputSpec.set(file("${project.projectDir}/api/system-api.yml").path)
+    outputDir.set(layout.buildDirectory.dir("generated/openapi").get().asFile.absolutePath)
+    apiPackage.set("dev.aurakai.auraframefx.openapi.api")
+    modelPackage.set("dev.aurakai.auraframefx.openapi.model")
+    invokerPackage.set("dev.aurakai.auraframefx.openapi.invoker")
+    configOptions.set(
+        mapOf(
+            "dateLibrary" to "java8",
+            "library" to "jvm-ktor"
         )
-    }
+    )
+}
 
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        dependsOn(tasks.named("openApiGenerate"))
-        // The following might be redundant if the convention plugin handles Kotlin options comprehensively
-        // compilerOptions {
-        //    jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
-        // }
-    }
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    dependsOn(tasks.named("openApiGenerate"))
+}
 
-    dependencies {
-        // ===== MODULE DEPENDENCIES =====
-        implementation(project(":core-module"))
-        implementation(project(":feature-module"))
-        implementation(project(":oracle-drive-integration"))
-        implementation(project(":romtools"))
-        implementation(project(":secure-comm"))
+dependencies {
+    // ===== MODULE DEPENDENCIES =====
+    implementation(project(":core-module"))
+    implementation(project(":feature-module"))
+    implementation(project(":oracle-drive-integration"))
+    implementation(project(":romtools"))
+    implementation(project(":secure-comm"))
 
-        // YukiHookAPI - The CORRECT implementation
-        implementation(libs.yukihookapi.api.lsposed)
-        implementation(libs.androidx.core.ktx)
-        ksp(libs.yukihookapi.processor.lsposed)
-    }
+    // Firebase
+    implementation(platform(libs.firebase.bom))
+    // implementation(libs.bundles.firebase) // Assuming a firebase bundle exists
+}

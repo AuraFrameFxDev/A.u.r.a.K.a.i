@@ -1,11 +1,12 @@
 // ==== GENESIS PROTOCOL - SANDBOX UI ====
-
 plugins {
-    id("com.android.library")
+    alias(libs.plugins.android.application)
     alias(libs.plugins.ksp)
-    id("org.jetbrains.kotlin.plugin.compose")
-
+    alias(libs.plugins.hilt)
+    kotlin("plugin.serialization") version libs.versions.kotlin.get()
+    alias(libs.plugins.compose.compiler)
 }
+
 android {
     namespace = "dev.aurakai.auraframefx.sandboxui"
     compileSdk = 36
@@ -20,8 +21,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21 // Updated
-        targetCompatibility = JavaVersion.VERSION_21 // Updated
+        sourceCompatibility = JavaVersion.VERSION_25 // Updated
+        targetCompatibility = JavaVersion.VERSION_25 // Updated
     }
     java {
         toolchain {
@@ -57,7 +58,7 @@ android {
         // Testing
         testImplementation(libs.junit4)
         testImplementation(libs.mockk)
-        testImplementation(libs.kotlin.test)
+        testImplementation(kotlin("test"))
 
         // Android Testing
         androidTestImplementation(libs.mockk.android)
@@ -75,13 +76,9 @@ android {
     tasks.register("sandboxStatus") {
         group = "aegenesis"
         doLast { println("\uD83D\uDCE6 SANDBOX UI - Ready (Java 25, JVM 25)") } // Updated
-
-    }
-    dependencies {
-        implementation(libs.androidx.core.ktx) {
-            version {
-                strictly("1.12.0") // Enforce a specific version
-            }
-        }
     }
 }
+dependencies {
+    implementation(libs.androidx.core.ktx)
+}
+// Removed duplicate dependencies block below

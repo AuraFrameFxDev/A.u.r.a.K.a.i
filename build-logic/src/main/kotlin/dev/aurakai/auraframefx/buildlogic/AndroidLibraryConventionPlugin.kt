@@ -5,10 +5,7 @@ import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.getByType
-import org.gradle.kotlin.dsl.withType
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 
 class AndroidLibraryConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -19,38 +16,31 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             }
 
             extensions.configure<LibraryExtension> {
-                compileSdk = 36
+                namespace = "dev.aurakai.auraframefx"
+                compileSdk = 34
 
                 defaultConfig {
                     minSdk = 34
                     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-                    consumerProguardFiles("consumer-rules.pro")
                 }
 
                 buildTypes {
                     release {
-                        isMinifyEnabled = false // Libraries shouldn't typically minify themselves
+                        isMinifyEnabled = true
+                        proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
                     }
                 }
 
-                val toolchainVersion = providers.gradleProperty("java.toolchain").orElse("24").get().toInt()
-                val javaCompatibilityVersion = JavaVersion.toVersion(toolchainVersion)
-
                 compileOptions {
-                    sourceCompatibility = javaCompatibilityVersion
-                    targetCompatibility = javaCompatibilityVersion
-                }
-
-                // Configure Kotlin JVM toolchain
-                extensions.getByType(org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension::class.java).apply {
-                    jvmToolchain(toolchainVersion)
+                    sourceCompatibility = JavaVersion.VERSION_17
+                    targetCompatibility = JavaVersion.VERSION_17
                 }
             }
 
-            // Configure Kotlin JVM target
-            tasks.withType<KotlinCompile>().configureEach {
+            extensions.configure<KotlinAndroidProjectExtension> {
+                jvmToolchain(24)
                 compilerOptions {
-                    jvmTarget.set(JvmTarget.JVM_24)
+                    jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
                 }
             }
         }

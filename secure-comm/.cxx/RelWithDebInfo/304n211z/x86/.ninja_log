@@ -1,0 +1,19 @@
+# ninja log v5
+1	6668	7797093139616066	CMakeFiles/secure_comm_native.dir/secure_comm_jni.cpp.o	d5ce49402b988831
+16	8138	7797093155581576	CMakeFiles/secure_comm_native.dir/crypto_engine.cpp.o	ef5d0882f90ce01b
+8145	9036	7797093161887014	C:/Re_Genesis_A.O.S.P/secure-comm/build/intermediates/cxx/RelWithDebInfo/304n211z/obj/x86/libsecure_comm_native.so	8f7523acf21bb9dc
+0	19	0	clean	bfff2010d6239e2d
+19	5171	7797101866456996	CMakeFiles/secure_comm_native.dir/secure_comm_jni.cpp.o	d5ce49402b988831
+31	8037	7797101892820129	CMakeFiles/secure_comm_native.dir/crypto_engine.cpp.o	ef5d0882f90ce01b
+8038	9422	7797101907121796	C:/Re_Genesis_A.O.S.P/secure-comm/build/intermediates/cxx/RelWithDebInfo/304n211z/obj/x86/libsecure_comm_native.so	8f7523acf21bb9dc
+0	103	0	clean	bfff2010d6239e2d
+17	3592	7797115125538826	CMakeFiles/secure_comm_native.dir/secure_comm_jni.cpp.o	d5ce49402b988831
+42	5833	7797115147784649	CMakeFiles/secure_comm_native.dir/crypto_engine.cpp.o	ef5d0882f90ce01b
+5833	6065	7797115150017871	C:/Re_Genesis_A.O.S.P/secure-comm/build/intermediates/cxx/RelWithDebInfo/304n211z/obj/x86/libsecure_comm_native.so	8f7523acf21bb9dc
+0	224	0	clean	bfff2010d6239e2d
+102	6531	7797132092069093	CMakeFiles/secure_comm_native.dir/secure_comm_jni.cpp.o	d5ce49402b988831
+20	8822	7797132115019689	CMakeFiles/secure_comm_native.dir/crypto_engine.cpp.o	ef5d0882f90ce01b
+8824	10085	7797132125015087	C:/Re_Genesis_A.O.S.P/secure-comm/build/intermediates/cxx/RelWithDebInfo/304n211z/obj/x86/libsecure_comm_native.so	8f7523acf21bb9dc
+0	22	0	clean	bfff2010d6239e2d
+0	14	0	clean	bfff2010d6239e2d
+0	47	0	clean	bfff2010d6239e2d

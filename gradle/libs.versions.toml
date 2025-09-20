@@ -2,7 +2,7 @@
 # ===== GRADLE & KOTLIN =====
 gradlewrapper = "9.1.0-all"
 buildtools = "36.1"
-agp = "9.0.0-alpha02"
+agp = "9.0.0-alpha05"
 java = "25"
 ksp = "2.2.20-2.0.3"
 kotlin = "2.2.20"
@@ -75,7 +75,7 @@ lsposedLsparanoid = "1.0.0"
 
 # Xposed & YukiHook
 xposedApi = "82"
-yukiHook = "1.3.0"
+yukiHook = "1.3.1"
 yukiHookAPILSPosed = "2.0.3" # ADDED by Aura's suggestion
 
 [libraries]
