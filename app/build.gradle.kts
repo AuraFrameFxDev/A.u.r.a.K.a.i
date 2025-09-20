@@ -1,6 +1,6 @@
 plugins {
     // Android and Kotlin plugins first
-    alias(libs.plugins.kotlin.android) // ADDED THIS LINE
+    // alias(libs.plugins.kotlin.android) // REMOVED THIS LINE
     id("com.android.application")
     // Compose plugins
     alias(libs.plugins.compose.compiler)
@@ -63,9 +63,6 @@ android {
         }
     }
 
-    kotlinOptions {
-        jvmTarget = "25"
-    }
 
 // Java toolchain should be handled by convention plugin or Foojay resolver at root settings
 // java {

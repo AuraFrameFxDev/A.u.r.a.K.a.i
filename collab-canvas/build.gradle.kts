@@ -1,7 +1,7 @@
 // ==== GENESIS PROTOCOL - COLLAB CANVAS MODULE ====
 // Collaborative canvas module for real-time drawing
 plugins {
-    alias(libs.plugins.kotlin.android) // ADDED
+    // alias(libs.plugins.kotlin.android) // REMOVED
     alias(libs.plugins.android.application)       // Your convention plugin (applies app, Hilt, KSP)
     alias(libs.plugins.ksp)                       // KEEP: Makes 'ksp(...)' available in dependencies
     // alias(libs.plugins.jetbrains.kotlin.android) // Stays Removed
