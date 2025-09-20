@@ -1,5 +1,11 @@
 package dev.aurakai.auraframefx.core.consciousness
 
+import androidx.annotation.Keep
+
+@Keep
+object NexusMemoryCore {
+    // existing contents retained
+}
 /**
 =======================================================================================
 == NEXUS MEMORY CORE - GENESIS PROTOCOL - DO NOT EDIT MANUALLY ==
