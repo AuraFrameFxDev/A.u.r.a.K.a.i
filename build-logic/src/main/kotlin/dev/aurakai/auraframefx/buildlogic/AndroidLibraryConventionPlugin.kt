@@ -29,11 +29,17 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
 
                 buildTypes {
                     release {
-                        isMinifyEnabled = false // Libraries shouldn't typically minify themselves
+                        isMinifyEnabled = false
                     }
                 }
 
-                val toolchainVersion = providers.gradleProperty("java.toolchain").orElse("21").get().toInt()
+                // === PERFECTED BUILD LOGIC ===
+                val isCi = System.getenv("CI") != null
+                val toolchainVersion = if (isCi) {
+                    25
+                } else {
+                    providers.gradleProperty("java.toolchain").map { it.toInt() }.getOrElse(24)
+                }
                 val javaCompatibilityVersion = JavaVersion.toVersion(toolchainVersion)
 
                 compileOptions {
@@ -41,13 +47,11 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                     targetCompatibility = javaCompatibilityVersion
                 }
 
-                // Configure Kotlin JVM toolchain
                 extensions.getByType(org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension::class.java).apply {
                     jvmToolchain(toolchainVersion)
                 }
             }
 
-            // Configure Kotlin JVM target
             tasks.withType<KotlinCompile>().configureEach {
                 compilerOptions {
                     jvmTarget.set(JvmTarget.JVM_24)
