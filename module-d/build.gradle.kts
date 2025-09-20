@@ -1,12 +1,10 @@
-// GENESIS PROTOCOL - MODULE D
+
 plugins {
     id("com.android.library")
     alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt)
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"
-    alias(libs.plugins.compose.compiler)
-}
+    id("org.jetbrains.kotlin.plugin.compose")
 
+}
 android {
     namespace = "dev.aurakai.auraframefx.module.d"
     compileSdk = 36
@@ -22,8 +20,8 @@ android {
 
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_25
-        targetCompatibility = JavaVersion.VERSION_25
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 
     java {

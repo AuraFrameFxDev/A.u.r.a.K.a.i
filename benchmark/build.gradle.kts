@@ -35,8 +35,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_25 // Updated
-        targetCompatibility = JavaVersion.VERSION_25 // Updated
+        sourceCompatibility = JavaVersion.VERSION_21 // UPDATED
+        targetCompatibility = JavaVersion.VERSION_21 // UPDATED
     }
 
     java {

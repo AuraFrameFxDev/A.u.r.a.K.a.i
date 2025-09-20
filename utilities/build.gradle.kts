@@ -2,14 +2,12 @@ import org.gradle.accessors.dm.LibrariesForLibs
 
 val libs = the<LibrariesForLibs>()
 
+
 plugins {
-    alias(libs.plugins.android.library)       // Correct Android plugin for a library, applied first
-    // alias(libs.plugins.kotlin.android)     // REMOVED as it's likely included by android.library convention
-    alias(libs.plugins.hilt)                  // Hilt applied after Android
-    alias(libs.plugins.ksp)                   // KSP applied after Hilt
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20" // Keep, version managed here
-    id("org.jetbrains.dokka") version "2.0.0"                     // Keep
-    id("com.diffplug.spotless") version "7.2.1"
+    id("com.android.library")
+    alias(libs.plugins.ksp)
+    id("org.jetbrains.kotlin.plugin.compose")
+
 }
 
 android {
@@ -50,8 +48,12 @@ dependencies { // MOVED to root level
     implementation(libs.commons.compress)
     implementation(libs.xz)
 
-    // YukiHook and LSPosed (corrected coordinates)
-    // Dependencies related to these seem to be missing here, ensure they are added if needed.
+    // Xposed & YukiHook & LSPosed
+    implementation(libs.xposed.api)
+    implementation(libs.yukihook.api)
+    ksp(libs.yukihook.ksp)
+    implementation(libs.yukihookapi.api.lsposed)
+    ksp(libs.yukihookapi.processor.lsposed)
 
     // Force newer AndroidX versions to override Hilt's old dependencies
     implementation(libs.androidx.core.ktx)

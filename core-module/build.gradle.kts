@@ -1,10 +1,9 @@
 // core-module/build.gradle.kts - COMPLETE FIX
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.compose.compiler)  // ✅ This is already correct
-    alias(libs.plugins.google.services)
-    alias(libs.plugins.hilt)
+    id("com.android.library")
     alias(libs.plugins.ksp)
+    id("org.jetbrains.kotlin.plugin.compose")
+
 }
 
 android {
@@ -14,9 +13,7 @@ android {
 
     defaultConfig {
         minSdk = 34      // Your required minimum
-        targetSdk = 36   // Your target
-        versionCode = 1
-        versionName = "1.0"
+
         // If this is an application module and you want its applicationId to be specific,
         // you might need to set it explicitly, e.g.:
         // applicationId = "dev.aurakai.auraframefx.coremodule" 
@@ -34,8 +31,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_25
-        targetCompatibility = JavaVersion.VERSION_25
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 
 

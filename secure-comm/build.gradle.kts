@@ -2,11 +2,10 @@
 // Security module using convention plugins
 
 plugins {
-    alias(libs.plugins.android.library)
+    id("com.android.library")
     alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt)
-    alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.compose.compiler)
+    id("org.jetbrains.kotlin.plugin.compose")
+
 }
 
 android {

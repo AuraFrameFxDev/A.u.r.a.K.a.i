@@ -1,9 +1,11 @@
+
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.hilt)
+    id("com.android.library")
     alias(libs.plugins.ksp)
+    id("org.jetbrains.kotlin.plugin.compose")
+
 }
+
 
 android {
     namespace = "dev.aurakai.auraframefx.datavein"
@@ -19,8 +21,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_25
-        targetCompatibility = JavaVersion.VERSION_25
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 
     java { // This block should primarily contain toolchain configuration

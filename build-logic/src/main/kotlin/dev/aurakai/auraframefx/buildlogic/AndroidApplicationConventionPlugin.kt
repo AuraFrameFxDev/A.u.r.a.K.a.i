@@ -51,7 +51,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                     }
                 }
 
-                val toolchainVersion = providers.gradleProperty("java.toolchain").orElse("21").get().toInt()
+                val toolchainVersion = providers.gradleProperty("java.toolchain").orElse("24").get().toInt()
                 val javaCompatibilityVersion = JavaVersion.toVersion(toolchainVersion)
                 
                 compileOptions {

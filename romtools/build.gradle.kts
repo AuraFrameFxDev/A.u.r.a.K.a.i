@@ -1,9 +1,9 @@
+
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.google.services)
-    alias(libs.plugins.hilt)
+    id("com.android.library")
     alias(libs.plugins.ksp)
+    id("org.jetbrains.kotlin.plugin.compose")
+
 }
 
 android {
@@ -14,8 +14,8 @@ android {
         minSdk = 34
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_25
-        targetCompatibility = JavaVersion.VERSION_25
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     java {
         toolchain {

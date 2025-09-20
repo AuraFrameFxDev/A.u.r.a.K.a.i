@@ -44,8 +44,8 @@ android {
         }
 
         compileOptions {
-            sourceCompatibility = JavaVersion.VERSION_25 // Updated
-            targetCompatibility = JavaVersion.VERSION_25 // Updated
+            sourceCompatibility = JavaVersion.VERSION_21 // Updated
+            targetCompatibility = JavaVersion.VERSION_21 // Updated
         }
 
         // Source set for generated OpenAPI and Xposed assets

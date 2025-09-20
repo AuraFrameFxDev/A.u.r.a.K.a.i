@@ -1,7 +1,9 @@
+
 plugins {
-    alias(libs.plugins.android.library) // Changed to use alias from version catalog
+    id("com.android.library")
     alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt)
+    id("org.jetbrains.kotlin.plugin.compose")
+
 }
 
 group = "dev.aurakai.auraframefx.list"
@@ -28,8 +30,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_25
-        targetCompatibility = JavaVersion.VERSION_25
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 
 

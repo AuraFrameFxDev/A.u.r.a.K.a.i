@@ -1,12 +1,14 @@
 // ==== GENESIS PROTOCOL - FEATURE MODULE ====
 // Primary feature module using convention plugins
 
+
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.hilt)
+    id("com.android.library")
     alias(libs.plugins.ksp)
+    id("org.jetbrains.kotlin.plugin.compose")
+
 }
+
 
 android {
     namespace = "dev.aurakai.auraframefx.feature"
@@ -23,14 +25,19 @@ android {
 
     // Configure Java compilation
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_25
-        targetCompatibility = JavaVersion.VERSION_25
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 
-    // Configure Kotlin compilation
-    java { // This block should primarily contain toolchain configuration
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
+        }
+    }
+
+    java {
         toolchain {
-            languageVersion = JavaLanguageVersion.of(25)
+            languageVersion = JavaLanguageVersion.of(21)
         }
     }
 

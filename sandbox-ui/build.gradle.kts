@@ -1,12 +1,11 @@
 // ==== GENESIS PROTOCOL - SANDBOX UI ====
-plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt)
-    kotlin("plugin.serialization") version libs.versions.kotlin.get()
-    alias(libs.plugins.compose.compiler)
-}
 
+plugins {
+    id("com.android.library")
+    alias(libs.plugins.ksp)
+    id("org.jetbrains.kotlin.plugin.compose")
+
+}
 android {
     namespace = "dev.aurakai.auraframefx.sandboxui"
     compileSdk = 36
@@ -21,8 +20,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_25 // Updated
-        targetCompatibility = JavaVersion.VERSION_25 // Updated
+        sourceCompatibility = JavaVersion.VERSION_21 // Updated
+        targetCompatibility = JavaVersion.VERSION_21 // Updated
     }
     java {
         toolchain {

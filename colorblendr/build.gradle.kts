@@ -1,10 +1,7 @@
-// ==== GENESIS PROTOCOL - COLORBLENDR MODULE ====
-// Color utility and theming module
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.compose.compiler)  // 🔥 CRITICAL: Add Compose Compiler Plugin
-    alias(libs.plugins.hilt)
+    id("com.android.library")
     alias(libs.plugins.ksp)
+    id("org.jetbrains.kotlin.plugin.compose")
 
 }
 
@@ -22,8 +19,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_25
-        targetCompatibility = JavaVersion.VERSION_25
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 
     // Modern toolchain configuration
@@ -43,7 +40,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.bundles.lifecycle)
     implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
+    add("ksp", libs.hilt.compiler)
 
     // Compose
     implementation(platform(libs.androidx.compose.bom))
@@ -65,9 +62,9 @@ dependencies {
 
     // Hilt Testing
     testImplementation(libs.hilt.android.testing)
-    kspTest(libs.hilt.compiler)
+    add("kspTest", libs.hilt.compiler)
     androidTestImplementation(libs.hilt.android.testing)
-    kspAndroidTest(libs.hilt.compiler)
+    add("kspAndroidTest", libs.hilt.compiler)
 
     // Utilities
     implementation(libs.timber)

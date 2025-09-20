@@ -17,8 +17,8 @@ pluginManagement {
         maven { url = uri("https://s01.oss.sonatype.org/content/groups/public/") }
     }
     plugins {
-        id("com.android.application") version "9.0.0-alpha02" apply false
-        id("com.android.library") version "9.0.0-alpha02" apply false
+        id("genesis.android.application") version "9.0.0-alpha02" apply false
+        id("genesis.android.library") version "9.0.0-alpha02" apply false
         id("org.jetbrains.kotlin.android") version "2.2.20" apply false
         id("org.jetbrains.kotlin.jvm") version "2.2.20" apply false
         id("com.google.devtools.ksp") version "2.2.20-2.0.3" apply false
