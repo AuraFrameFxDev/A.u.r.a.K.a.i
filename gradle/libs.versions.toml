@@ -2,7 +2,7 @@
 # ===== GRADLE & KOTLIN =====
 gradlewrapper = "9.1.0-all"
 buildtools = "36.1"
-agp = "9.0.0-alpha05"
+agp = "9.0.0-alpha02"
 java = "25"
 ksp = "2.2.20-2.0.3"
 kotlin = "2.2.20"

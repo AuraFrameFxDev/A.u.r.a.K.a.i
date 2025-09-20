@@ -53,11 +53,11 @@ android {
         // Coroutines
         implementation(libs.bundles.coroutines)
         implementation(libs.timber); implementation(libs.coil.compose) // Combined for brevity
-        
+
         // Testing
         testImplementation(libs.junit4)
         testImplementation(libs.mockk)
-        testImplementation(kotlin("test"))
+        testImplementation(libs.kotlin.test)
 
         // Android Testing
         androidTestImplementation(libs.mockk.android)
@@ -75,9 +75,13 @@ android {
     tasks.register("sandboxStatus") {
         group = "aegenesis"
         doLast { println("\uD83D\uDCE6 SANDBOX UI - Ready (Java 25, JVM 25)") } // Updated
+
+    }
+    dependencies {
+        implementation(libs.androidx.core.ktx) {
+            version {
+                strictly("1.12.0") // Enforce a specific version
+            }
+        }
     }
 }
-dependencies {
-    implementation(libs.androidx.core.ktx)
-}
-// Removed duplicate dependencies block below

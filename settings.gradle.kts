@@ -19,7 +19,7 @@ pluginManagement {
     plugins {
         id("genesis.android.application") version "9.0.0-alpha02" apply false
         id("genesis.android.library") version "9.0.0-alpha02" apply false
-        id("org.jetbrains.kotlin.android") version "2.2.20" apply false
+        id("org.jetbrains.kotlin.android") version "2.2.0" apply false
         id("org.jetbrains.kotlin.jvm") version "2.2.20" apply false
         id("com.google.devtools.ksp") version "2.2.20-2.0.3" apply false
         id("com.google.gms.google-services") version "4.4.3" apply false

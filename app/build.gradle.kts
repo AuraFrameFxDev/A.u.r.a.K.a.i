@@ -2,6 +2,7 @@ plugins {
     id("com.android.application") // TODO: Replace this with your AndroidApplicationConventionPlugin alias
     // Compose plugins
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.ksp) // Added KSP plugin for ksp() support
 
     // Google services
     alias(libs.plugins.google.services)
@@ -15,12 +16,14 @@ plugins {
 
 android {
     namespace = "dev.aurakai.auraframefx"
-    compileSdk = 36 // Changed back to Int
+    compileSdkPreview = "CANARY"
+    // Changed back to Int
 
     defaultConfig {
         applicationId = "dev.aurakai.auraframefx"
         minSdk = 34
-        targetSdk = 36 // Changed back to Int
+        targetSdkPreview = "CANARY"
+        // Changed back to Int
         multiDexEnabled = true
         // testInstrumentationRunner should be handled by convention plugin
         // testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -36,16 +39,17 @@ android {
         aidl = true
         // buildConfig should be handled by convention plugin
     }
-
+    compileSdk = 36
+    buildToolsVersion = "36.1.0-rc1"
+    ndkVersion = "29.0.14033849-rc4"
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_24
+        targetCompatibility = JavaVersion.VERSION_24
+    }
 
     java {
         toolchain {
             languageVersion.set(JavaLanguageVersion.of(25))
-        }
-
-        compileOptions {
-            sourceCompatibility = JavaVersion.VERSION_21 // Updated
-            targetCompatibility = JavaVersion.VERSION_21 // Updated
         }
 
         // Source set for generated OpenAPI and Xposed assets
@@ -58,11 +62,12 @@ android {
     }
 
     // Kotlin JVM target is now set by AndroidApplicationConventionPlugin
-    // tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    //     compilerOptions {
-    //         jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
-    //     }
-    // }
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+        compilerOptions {
+            // Explicitly set to 24 to match the current Kotlin compiler's max supported target
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
+        }
+    }
 }
     tasks.named<org.openapitools.generator.gradle.plugin.tasks.GenerateTask>("openApiGenerate") {
         generatorName.set("kotlin")
@@ -93,7 +98,10 @@ android {
         implementation(project(":feature-module"))
         implementation(project(":oracle-drive-integration"))
         implementation(project(":romtools"))
-        implementation(
-            project(":secure-comm")
-        )
+        implementation(project(":secure-comm"))
+
+        // YukiHookAPI - The CORRECT implementation
+        implementation(libs.yukihookapi.api.lsposed)
+        implementation(libs.androidx.core.ktx)
+        ksp(libs.yukihookapi.processor.lsposed)
     }

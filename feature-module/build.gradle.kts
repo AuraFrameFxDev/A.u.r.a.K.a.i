@@ -29,12 +29,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_21
     }
 
-    kotlin {
-        compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
-        }
-    }
-
     java {
         toolchain {
             languageVersion = JavaLanguageVersion.of(21)
@@ -100,6 +94,10 @@ android {
 
         // Debug tools
         debugImplementation(libs.leakcanary.android)
+
+        // YukiHook / LSPosed
+        implementation(libs.yukihookapi.api.lsposed)
+        ksp(libs.yukihookapi.processor.lsposed)
     }
 
     tasks.register("featureStatus") { // MOVED to root level and Updated
@@ -108,4 +106,8 @@ android {
     }
 }
 
-// Duplicate dependencies block at the end is removed.
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
+    }
+}
