@@ -22,7 +22,6 @@ pluginManagement {
         id("org.jetbrains.kotlin.android") version "2.2.20" apply false
         id("org.jetbrains.kotlin.jvm") version "2.2.20" apply false
         id("com.google.devtools.ksp") version "2.2.20-2.0.3" apply false
-        id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
         id("com.google.gms.google-services") version "4.4.3" apply false
         id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin") version ("2.0.1") apply false
         id("org.lsposed.lsparanoid") version ("1.0.0") apply false
@@ -30,9 +29,6 @@ pluginManagement {
         id("org.openapi.generator") version "7.1.0" apply false
         id("org.jetbrains.kotlin.plugin.compose") version "2.2.20" apply false
     }
-}
-plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
 dependencyResolutionManagement {
