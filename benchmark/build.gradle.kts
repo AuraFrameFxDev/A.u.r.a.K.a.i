@@ -1,5 +1,7 @@
 plugins {
     id("com.android.library")
+    // alias(libs.plugins.kotlin.android) // REMOVED as it's automatically applied by com.android.library
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ksp)
 }
 
@@ -35,13 +37,13 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_25 // Updated
-        targetCompatibility = JavaVersion.VERSION_25 // Updated
+        sourceCompatibility = JavaVersion.VERSION_24
+        targetCompatibility = JavaVersion.VERSION_24
     }
 
     java {
         toolchain {
-            languageVersion.set(JavaLanguageVersion.of(25)) // Updated
+            languageVersion.set(JavaLanguageVersion.of(24))
         }
     }
 }
@@ -49,7 +51,7 @@ android {
 
 tasks.register("benchmarkStatus") {
     group = "aegenesis"
-    doLast { println("\uD83D\uDCE6 BENCHMARK MODULE - Ready (Java 25, JVM 25)") } //Updated
+    doLast { println("\uD83D\uDCE6 BENCHMARK MODULE - Ready (Java 24, JVM 24)") }
 }
 
 dependencies {

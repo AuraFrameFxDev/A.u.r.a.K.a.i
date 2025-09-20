@@ -1,72 +1,38 @@
 plugins {
-    id("com.android.application") // TODO: Replace this with your AndroidApplicationConventionPlugin alias
-    // Compose plugins
-    alias(libs.plugins.compose.compiler)
-
-    // Google services
+    alias(libs.plugins.dev.aurakai.auraframefx.android.application) // Using new convention plugin
     alias(libs.plugins.google.services)
-
-    // External plugins
     id("org.openapi.generator") version "7.15.0"
-
-    // Kotlin serialization
     alias(libs.plugins.kotlin.serialization)
 }
 
 android {
     namespace = "dev.aurakai.auraframefx"
-    compileSdk = 36 // Changed back to Int
 
     defaultConfig {
-        applicationId = "dev.aurakai.auraframefx"
-        minSdk = 34
-        targetSdk = 36 // Changed back to Int
-        multiDexEnabled = true
-        // testInstrumentationRunner should be handled by convention plugin
-        // testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        applicationId = "dev.aurakai.auraframefx" // App-specific
+        multiDexEnabled = true                   // App-specific
     }
 
     buildFeatures {
-        // These should ideally be set by convention plugins if they are common
-        // across all application/library modules with compose, databinding etc.
-        // For now, keeping them here for clarity in the :app module.
-        compose = true
+        // App-specific features.
+        // buildConfig and compose are handled by the convention plugin.
         dataBinding = true
         viewBinding = true
         aidl = true
-        // buildConfig should be handled by convention plugin
     }
 
-
-    java {
-        toolchain {
-            languageVersion.set(JavaLanguageVersion.of(25))
-        }
-
-        compileOptions {
-            sourceCompatibility = JavaVersion.VERSION_25 // Updated
-            targetCompatibility = JavaVersion.VERSION_25 // Updated
-        }
-
-        // Source set for generated OpenAPI and Xposed assets
-        sourceSets {
-            getByName("main") {
-                kotlin.srcDir(layout.buildDirectory.dir("generated/openapi/src/main/kotlin"))
-                assets.srcDirs("src/main/assets", "xposed")  // MODIFIED to include xposed
-            }
+    // Source set for generated OpenAPI and Xposed assets (App-specific)
+    sourceSets {
+        getByName("main") {
+            kotlin.srcDir(layout.buildDirectory.dir("generated/openapi/src/main/kotlin"))
+            assets.srcDirs("src/main/assets", "xposed")
         }
     }
-
-    // Kotlin JVM target is now set by AndroidApplicationConventionPlugin
-    // tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    //     compilerOptions {
-    //         jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
-    //     }
-    // }
 }
+
     tasks.named<org.openapitools.generator.gradle.plugin.tasks.GenerateTask>("openApiGenerate") {
         generatorName.set("kotlin")
-        inputSpec.set(file("${'$'}{project.projectDir}/api/system-api.yml").path)
+        inputSpec.set(file("${project.projectDir}/api/system-api.yml").path)
         outputDir.set(layout.buildDirectory.dir("generated/openapi").get().asFile.absolutePath)
         apiPackage.set("dev.aurakai.auraframefx.openapi.api")
         modelPackage.set("dev.aurakai.auraframefx.openapi.model")
@@ -81,7 +47,7 @@ android {
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         dependsOn(tasks.named("openApiGenerate"))
-        // The following might be redundant if the convention plugin handles Kotlin options comprehensively
+        // The following is now definitely redundant as the convention plugin handles Kotlin options comprehensively
         // compilerOptions {
         //    jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
         // }
@@ -93,7 +59,4 @@ android {
         implementation(project(":feature-module"))
         implementation(project(":oracle-drive-integration"))
         implementation(project(":romtools"))
-        implementation(
-            project(":secure-comm")
-        )
     }

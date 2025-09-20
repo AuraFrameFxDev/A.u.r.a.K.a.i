@@ -9,14 +9,14 @@ plugins {
 extensions.configure<LibraryExtension>("android") {
     buildFeatures.compose = true
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_25
-        targetCompatibility = JavaVersion.VERSION_25
+        sourceCompatibility = JavaVersion.VERSION_24 // UPDATED
+        targetCompatibility = JavaVersion.VERSION_24 // UPDATED
     }
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_25)
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24) // UPDATED
         freeCompilerArgs.addAll(
             listOf(
                 "-Xjvm-default=all",

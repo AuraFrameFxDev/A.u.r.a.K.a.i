@@ -1,36 +1,20 @@
 // ==== GENESIS PROTOCOL - COLORBLENDR MODULE ====
 // Color utility and theming module
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.compose.compiler)  // 🔥 CRITICAL: Add Compose Compiler Plugin
-    alias(libs.plugins.hilt)
-    alias(libs.plugins.ksp)
-
+    alias(libs.plugins.dev.aurakai.auraframefx.android.library) // Using new convention plugin
 }
 
 android {
-    namespace = "dev.aurakai.auraframefx.colorblendr"
-    compileSdk = 36
+    namespace = "dev.aurakai.auraframefx.colorblendr" // Module-specific
 
     defaultConfig {
-        minSdk = 34
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        minSdk = 34 // Specific override for this module (convention plugin default is 24)
     }
 
     buildFeatures {
+        // buildConfig is true for this module.
+        // compose = true is handled by the convention plugin.
         buildConfig = true
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_25
-        targetCompatibility = JavaVersion.VERSION_25
-    }
-
-    // Modern toolchain configuration
-    java {
-        toolchain {
-            languageVersion = JavaLanguageVersion.of(25)
-        }
     }
 }
 
@@ -77,5 +61,5 @@ dependencies {
 // Move the tasks registration block outside the dependencies block
 tasks.register("colorblendrStatus") {
     group = "aegenesis"
-    doLast { println("\uD83D\uDCE6 COLORBLENDR MODULE - Ready (Java 25, JVM 25)") } // Updated
+    doLast { println("\uD83D\uDCE6 COLORBLENDR MODULE - Ready (Java 24, JVM 24)") } // UPDATED
 }

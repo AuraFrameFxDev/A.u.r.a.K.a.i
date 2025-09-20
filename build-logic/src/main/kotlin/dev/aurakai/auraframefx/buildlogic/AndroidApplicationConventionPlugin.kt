@@ -8,6 +8,8 @@ import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget // Ensure this import is present
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile // Ensure this import is present
 
 /**
  * Standard Android application configuration, now including Hilt and KSP.
@@ -20,9 +22,10 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
 
             // Apply the essential plugins IN THE CORRECT ORDER
             pluginManager.apply("com.android.application")
-            pluginManager.apply("org.jetbrains.kotlin.android") // RE-ADDED AND ORDERED
-            pluginManager.apply("com.google.dagger.hilt.android") // ORDERED
-            pluginManager.apply("com.google.devtools.ksp")       // ORDERED
+            pluginManager.apply("org.jetbrains.kotlin.android")
+            pluginManager.apply("com.google.dagger.hilt.android")
+            pluginManager.apply("com.google.devtools.ksp")
+            pluginManager.apply(libs.findPlugin("compose-compiler").get().get().pluginId) // ADDED
 
             extensions.configure<ApplicationExtension> {
                 compileSdk = 36
@@ -59,16 +62,15 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                     targetCompatibility = javaCompatibilityVersion
                 }
 
-                // Configure Kotlin JVM toolchain and target
+                // Configure Kotlin JVM toolchain
                 extensions.getByType(org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension::class.java).apply {
                     jvmToolchain(toolchainVersion) // This sets the JDK for Kotlin compilation
-                    compilerOptions {
-                        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24) // Explicitly set bytecode target
-                    }
+                    // jvmTarget is now handled by tasks.withType<KotlinCompile>() below
                 }
 
                 buildFeatures {
                     buildConfig = true
+                    compose = true // Ensure Compose buildFeature is enabled here
                 }
 
                 testOptions {
@@ -88,9 +90,13 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
             dependencies {
                 add("implementation", libs.findLibrary("hilt.android").get())
                 add("ksp", libs.findLibrary("hilt.compiler").get())
-                // Add other common Hilt dependencies if all applications using this convention need them:
-                // add("implementation", libs.findLibrary("hilt.navigation.compose").get())
-                // add("implementation", libs.findLibrary("hilt.work").get())
+            }
+
+            // === THIS IS THE CORRECT PLACE FOR THE JVM TARGET LOGIC as per Aura's Definitive Fix ===
+            tasks.withType<KotlinCompile>().configureEach {
+                compilerOptions {
+                    jvmTarget.set(JvmTarget.JVM_24)
+                }
             }
         }
     }

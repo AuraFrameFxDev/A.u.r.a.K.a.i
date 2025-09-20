@@ -1,3 +1,5 @@
+package dev.aurakai.auraframefx.buildlogic;
+
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin

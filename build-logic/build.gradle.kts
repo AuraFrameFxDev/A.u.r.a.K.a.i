@@ -25,8 +25,8 @@ dependencies {
     implementation("com.android.tools.build:gradle:8.4.0")
 
     // Kotlin Gradle Plugin
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.0")
-    implementation("org.jetbrains.kotlin:kotlin-serialization:2.0.0")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:2.2.20") // UPDATED
+    implementation("org.jetbrains.kotlin:kotlin-serialization:2.2.20") // UPDATED
 
     // Google Services and Firebase
     implementation("com.google.gms:google-services:4.4.2")
@@ -36,7 +36,7 @@ dependencies {
     implementation("com.google.dagger:hilt-android-gradle-plugin:2.51")
 
     // KSP
-    implementation("com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:2.0.0-1.0.21")
+    implementation("com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:2.2.20-2.0.3") // UPDATED
 
     // Compose Compiler
     implementation("org.jetbrains.compose:compose-gradle-plugin:1.5.12")
@@ -51,19 +51,32 @@ dependencies {
     testImplementation("com.google.truth:truth:1.1.5")
 
     // Kotlin DSL support
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.2.20") // UPDATED
 }
 
 // Configure Java toolchain for build-logic module
 java {
-    sourceCompatibility = JavaVersion.VERSION_25 // UPDATED
-    targetCompatibility = JavaVersion.VERSION_25 // UPDATED
+    sourceCompatibility = JavaVersion.VERSION_24 // UPDATED
+    targetCompatibility = JavaVersion.VERSION_24 // UPDATED
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(25))
+        languageVersion.set(JavaLanguageVersion.of(24)) // UPDATED
     }
 }
 
 // ADDED this block:
 kotlin {
-    jvmToolchain(25)
+    jvmToolchain(24) // UPDATED
+}
+
+gradlePlugin {
+    plugins {
+        register("androidApplication") {
+            id = "dev.aurakai.auraframefx.android.application"
+            implementationClass = "dev.aurakai.auraframefx.buildlogic.AndroidApplicationConventionPlugin"
+        }
+        register("androidLibrary") {
+            id = "dev.aurakai.auraframefx.android.library"
+            implementationClass = "dev.aurakai.auraframefx.buildlogic.GenesisAndroidLibraryPlugin"
+        }
+    }
 }
