@@ -56,14 +56,13 @@ dependencies {
 
 // Configure Java toolchain for build-logic module
 java {
-    sourceCompatibility = JavaVersion.VERSION_21 // UPDATED
-    targetCompatibility = JavaVersion.VERSION_21 // UPDATED
+    sourceCompatibility = JavaVersion.VERSION_24
+    targetCompatibility = JavaVersion.VERSION_24
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(21))
+        languageVersion.set(JavaLanguageVersion.of(24))
     }
 }
 
-// ADDED this block:
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(24)
 }
