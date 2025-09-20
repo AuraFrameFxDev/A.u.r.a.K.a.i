@@ -12,6 +12,7 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
+        maven { url = uri("https://maven.lsposed.org/releases") } // ADDED
         maven { url = uri("https://s01.oss.sonatype.org/content/repositories/releases/") }
         maven { url = uri("https://s01.oss.sonatype.org/content/groups/public/") }
     }
@@ -39,6 +40,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url = uri("https://maven.lsposed.org/releases") } // ADDED
         maven { url = uri("https://api.xposed.info/") } 
         maven { url = uri("https://jitpack.io") } // CORRECTED URL
         maven { url = uri("https://androidx.dev/storage/compose-compiler/repository/") }

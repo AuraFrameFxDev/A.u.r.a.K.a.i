@@ -9,7 +9,7 @@ plugins {
 
 android {
     // 🔥 ADD THESE MISSING CONFIGURATIONS 🔥
-    namespace = "dev.aurakai.auraframefx.coremodule"
+    namespace = "dev.aurakai.auraframefx" // CHANGED
     compileSdk = 36  // Match your bleeding-edge setup
 
     defaultConfig {
@@ -17,6 +17,11 @@ android {
         targetSdk = 36   // Your target
         versionCode = 1
         versionName = "1.0"
+        // If this is an application module and you want its applicationId to be specific,
+        // you might need to set it explicitly, e.g.:
+        // applicationId = "dev.aurakai.auraframefx.coremodule" 
+        // However, for the google-services.json to match, it needs to align with an entry in that file.
+        // Since we're aligning with "dev.aurakai.auraframefx", we'll let namespace define it.
     }
 
     // 🔥 ENABLE COMPOSE FEATURES 🔥
