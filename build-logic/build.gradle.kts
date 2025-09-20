@@ -36,7 +36,7 @@ dependencies {
     implementation("com.google.dagger:hilt-android-gradle-plugin:2.51")
 
     // KSP
-    implementation("com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:2.0.0-1.0.21")
+    implementation("com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:2.2.20-2.0.3")
 
     // Compose Compiler
     implementation("org.jetbrains.compose:compose-gradle-plugin:1.5.12")
