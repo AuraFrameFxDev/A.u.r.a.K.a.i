@@ -1,7 +1,7 @@
 plugins {
     // JVM library setup
     id("java-library")
-    kotlin("jvm")
+    id("org.jetbrains.kotlin.jvm")
     alias(libs.plugins.kotlin.serialization) version "2.2.20"
     alias(libs.plugins.dokka)
     alias(libs.plugins.spotless)
