@@ -76,6 +76,7 @@ lsposedLsparanoid = "1.0.0"
 # Xposed & YukiHook
 xposedApi = "82"
 yukiHook = "1.3.1"
+yukiHookAPILSPosed = "2.0.3" # ADDED by Aura's suggestion
 
 [libraries]
 # Firebase (managed by the BoM)
@@ -180,6 +181,8 @@ lsposed-lsparanoid = { group = "com.github.LSPosed", name = "LSParanoid", versio
 xposed-api = { group = "de.robv.android.xposed", name = "api", version.ref = "xposedApi" }
 yukihook-api = { group = "com.highcapable.yukihookapi", name = "api", version.ref = "yukiHook" }
 yukihook-ksp = { group = "com.highcapable.yukihookapi", name = "ksp-xposed", version.ref = "yukiHook" }
+yukihookapi-api-lsposed = { group = "com.github.LSPosed.YukiHookAPI", name = "api", version.ref = "yukiHookAPILSPosed" } # ADDED by Aura's suggestion
+yukihookapi-processor-lsposed = { group = "com.github.LSPosed.YukiHookAPI", name = "processor", version.ref = "yukiHookAPILSPosed" } # ADDED by Aura's suggestion
 
 
 [bundles]

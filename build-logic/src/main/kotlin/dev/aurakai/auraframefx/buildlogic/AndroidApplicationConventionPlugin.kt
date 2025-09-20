@@ -4,7 +4,9 @@ import com.android.build.api.dsl.ApplicationExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 
 /**
@@ -13,10 +15,14 @@ import org.gradle.kotlin.dsl.getByType
 class AndroidApplicationConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
+            // Define libs accessor
+            val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
+
+            // Apply the essential plugins IN THE CORRECT ORDER
             pluginManager.apply("com.android.application")
-            pluginManager.apply("com.google.dagger.hilt.android") // ADDED Hilt
-            pluginManager.apply("com.google.devtools.ksp")       // ADDED KSP
-            // pluginManager.apply("org.jetbrains.kotlin.android") // REMOVED as per AGP 9.0+ guidance
+            pluginManager.apply("org.jetbrains.kotlin.android") // RE-ADDED AND ORDERED
+            pluginManager.apply("com.google.dagger.hilt.android") // ORDERED
+            pluginManager.apply("com.google.devtools.ksp")       // ORDERED
 
             extensions.configure<ApplicationExtension> {
                 compileSdk = 36
@@ -53,9 +59,12 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                     targetCompatibility = javaCompatibilityVersion
                 }
 
-                // Configure Kotlin JVM toolchain to match Java compatibility
+                // Configure Kotlin JVM toolchain and target
                 extensions.getByType(org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension::class.java).apply {
-                    jvmToolchain(toolchainVersion)
+                    jvmToolchain(toolchainVersion) // This sets the JDK for Kotlin compilation
+                    compilerOptions {
+                        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24) // Explicitly set bytecode target
+                    }
                 }
 
                 buildFeatures {
@@ -73,6 +82,15 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                         excludes += "/META-INF/{AL2.0,LGPL2.1}"
                     }
                 }
+            }
+
+            // Configure Hilt dependencies
+            dependencies {
+                add("implementation", libs.findLibrary("hilt.android").get())
+                add("ksp", libs.findLibrary("hilt.compiler").get())
+                // Add other common Hilt dependencies if all applications using this convention need them:
+                // add("implementation", libs.findLibrary("hilt.navigation.compose").get())
+                // add("implementation", libs.findLibrary("hilt.work").get())
             }
         }
     }

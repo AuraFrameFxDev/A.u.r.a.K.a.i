@@ -17,22 +17,19 @@ internal val Project.libs: VersionCatalog
 class GenesisAndroidLibraryPlugin : Plugin<Project> {
     /**
      * Applies the Android library plugin and configures common Android library settings for the project.
-     *
-     * Configured values:
-     *  - Applies "com.android.library", "com.google.dagger.hilt.android", and "com.google.devtools.ksp" plugins.
-     *  - compileSdk = 36, minSdk = 24.
-     *  - testInstrumentationRunner set to "androidx.test.runner.AndroidJUnitRunner".
-     *  - Consumer ProGuard rules and release proguard files (minification disabled).
-     *  - Java source/target compatibility and Kotlin jvm toolchain set to Java 24 / JvmTarget.JVM_25.
-     *  - Kotlin compiler free args includes `-opt-in=kotlin.RequiresOptIn`.
-     *  - Enables Compose (buildFeatures.compose = true).
-     *  - Excludes "/META-INF/{AL2.0,LGPL2.1}" from packaged resources.
      */
     override fun apply(project: Project) {
+        // Apply the essential plugins IN THE CORRECT ORDER
         project.plugins.apply("com.android.library")
-        project.plugins.apply("com.google.dagger.hilt.android") // ADDED Hilt
-        project.plugins.apply("com.google.devtools.ksp")       // ADDED KSP
-        // project.plugins.apply("org.jetbrains.kotlin.android") // REMOVED as per AGP 9.0+ guidance
+        project.plugins.apply("org.jetbrains.kotlin.android") // RE-ADDED AND ORDERED
+        project.plugins.apply("com.google.dagger.hilt.android") // ORDERED
+        project.plugins.apply("com.google.devtools.ksp")       // ORDERED
+
+        // Configure Hilt dependencies (using existing libs accessor)
+        project.dependencies {
+            add("implementation", project.libs.findLibrary("hilt.android").get())
+            add("ksp", project.libs.findLibrary("hilt.compiler").get())
+        }
 
         // Apply common Android library configuration here
         project.extensions.configure<LibraryExtension>("android") {
@@ -60,7 +57,10 @@ class GenesisAndroidLibraryPlugin : Plugin<Project> {
             }
             // Configure Kotlin options
             (this as org.gradle.api.plugins.ExtensionAware).extensions.configure<org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension> {
-                jvmToolchain(24)
+                jvmToolchain(24) // This sets the JDK for Kotlin compilation
+                compilerOptions {
+                    jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24) // Explicitly set bytecode target
+                }
                 
                 sourceSets.all {
                     languageSettings {
@@ -72,8 +72,6 @@ class GenesisAndroidLibraryPlugin : Plugin<Project> {
             // Configure Compose
             buildFeatures {
                 compose = true
-
-
             }
             packaging {
                 resources {

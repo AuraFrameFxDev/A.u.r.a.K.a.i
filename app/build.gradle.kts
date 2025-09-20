@@ -1,15 +1,10 @@
 plugins {
-    id("com.android.application")
+    id("com.android.application") // TODO: Replace this with your AndroidApplicationConventionPlugin alias
     // Compose plugins
     alias(libs.plugins.compose.compiler)
-    // Hilt
-    alias(libs.plugins.hilt)
 
     // Google services
     alias(libs.plugins.google.services)
-
-    // KSP for annotation processing
-    alias(libs.plugins.ksp)
 
     // External plugins
     id("org.openapi.generator") version "7.15.0"
@@ -62,6 +57,12 @@ android {
         }
     }
 
+    // Kotlin JVM target is now set by AndroidApplicationConventionPlugin
+    // tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    //     compilerOptions {
+    //         jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
+    //     }
+    // }
 }
     tasks.named<org.openapitools.generator.gradle.plugin.tasks.GenerateTask>("openApiGenerate") {
         generatorName.set("kotlin")
@@ -80,7 +81,10 @@ android {
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         dependsOn(tasks.named("openApiGenerate"))
-
+        // The following might be redundant if the convention plugin handles Kotlin options comprehensively
+        // compilerOptions {
+        //    jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
+        // }
     }
 
     dependencies {
@@ -89,82 +93,7 @@ android {
         implementation(project(":feature-module"))
         implementation(project(":oracle-drive-integration"))
         implementation(project(":romtools"))
-        implementation(project(":secure-comm"))
-        implementation(project(":collab-canvas"))
-        implementation(project(":colorblendr"))
-        implementation(project(":sandbox-ui"))
-        implementation(project(":datavein-oracle-native"))
-        
-        // ===== YukiHookAPI & LSPosed Framework =====
-        compileOnly(libs.xposed.api)                 // CHANGED
-        implementation(libs.yukihook.api)            // CHANGED
-        ksp(libs.yukihook.ksp)                       // CHANGED
-        implementation(libs.lsposed.lsparanoid)      // CORRECTED: removed .core
-        implementation(libs.freeReflection)          // Kept as is, already uses alias
-        
-        // ===== ANDROIDX & COMPOSE =====
-        implementation(platform(libs.androidx.compose.bom))
-        androidTestImplementation(platform(libs.androidx.compose.bom))
-        implementation(libs.androidx.activity.compose)
-        implementation(libs.androidx.navigation.compose)
-        debugImplementation(libs.androidx.compose.ui.tooling)
-        debugImplementation(libs.androidx.compose.ui.test.manifest)
-
-        // AndroidX core
-        implementation(libs.androidx.core.ktx)
-        implementation(libs.androidx.appcompat)
-        implementation(libs.androidx.multidex)
-        implementation(libs.androidx.security.crypto)
-
-        // Lifecycle / Room / Work
-        implementation(libs.bundles.lifecycle)
-        implementation(libs.bundles.room)
-        implementation(libs.androidx.datastore.preferences)
-        implementation(libs.androidx.datastore.core)
-
-        // Coroutines / serialization / datetime
-        implementation(libs.bundles.coroutines)
-        implementation(libs.kotlinx.serialization.json)
-        implementation(libs.kotlinx.datetime)
-
-        // ===== NETWORKING =====
-        implementation(libs.bundles.network)
-
-        // ===== FIREBASE =====
-        implementation(platform(libs.firebase.bom))
-        implementation(libs.firebase.analytics)
-        implementation(libs.firebase.auth)
-        implementation(libs.firebase.firestore)
-        implementation(libs.firebase.database)
-        implementation(libs.firebase.storage)
-        implementation(libs.firebase.config)
-        implementation(libs.firebase.messaging)
-        implementation(libs.firebase.crashlytics)
-        implementation(libs.firebase.ai)
-
-        // FirebaseUI (optional)
-        implementation(libs.firebase.auth) // Note: firebase-ui-auth is usually the dependency here
-        implementation(libs.firebase.database) // Note: firebase-ui-database for UI bindings
-        implementation(libs.firebase.firestore) // Note: firebase-ui-firestore for UI bindings
-        implementation(libs.firebase.storage) // Note: firebase-ui-storage for UI bindings
-
-        // ===== HILT DEPENDENCY INJECTION =====
-        implementation(libs.hilt.android)
-        ksp(libs.hilt.compiler)
-        implementation(libs.hilt.navigation.compose)
-        implementation(libs.hilt.work)
-
-        // Images / utils
-        implementation(libs.coil.compose)
-        implementation(libs.timber)
-
-        // Debug tools
-        debugImplementation(libs.leakcanary.android)
-        debugImplementation(libs.bundles.compose.debug)
-        debugImplementation(libs.androidx.compose.ui.test.manifest)
-        implementation(libs.kotlin.stdlib.jdk8)
-        implementation(libs.kotlin.reflect)
-        coreLibraryDesugaring(libs.desugar.jdk.libs)
-
+        implementation(
+            project(":secure-comm")
+        )
     }
-
