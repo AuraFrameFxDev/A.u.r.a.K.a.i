@@ -54,7 +54,7 @@ dependencies {
     // Testing
     testImplementation("junit:junit:4.13.2")
     testImplementation(libs.mockk)
-    testImplementation(kotlin("test"))
+    testImplementation(libs.kotlin.test) // MODIFIED
 
     // Android Testing
     androidTestImplementation(libs.mockk.android)

@@ -69,6 +69,14 @@ benchmark = "1.4.1"
 # Bouncy Castle
 bouncycastle = "1.81"
 
+# Added for app module
+freeReflection = "3.1.0"
+lsposedLsparanoid = "1.0.0"
+
+# Xposed & YukiHook
+xposedApi = "82"
+yukiHook = "1.3.1"
+
 [libraries]
 # Firebase (managed by the BoM)
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
@@ -92,6 +100,7 @@ kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlin-stdlib-jdk8 = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version.ref = "kotlin" }
 kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect", version.ref = "kotlin" }
+kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
 
 # AndroidX Core & Datastore
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -151,7 +160,7 @@ commons-compress = { group = "org.apache.commons", name = "commons-compress", ve
 xz = { group = "org.tukaani", name = "xz", version.ref = "xz" }
 slf4j = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
 
-# ... other libraries
+# Testing
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxTestJunit" }
 junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
 androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
@@ -160,13 +169,17 @@ junit-jupiter-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", v
 junit-jupiter-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junitJupiter" }
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 mockk-android = { group = "io.mockk", name = "mockk-android", version.ref = "mockk" }
-
-# Add the missing Espresso library reference
 androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "uiAutomator" }
 
-# ... other libraries
+# Added for app module
+freeReflection = { group = "com.github.tiann", name = "FreeReflection", version.ref = "freeReflection" }
+lsposed-lsparanoid = { group = "com.github.LSPosed", name = "LSParanoid", version.ref = "lsposedLsparanoid" } # CHANGED
 
+# Xposed & YukiHook
+xposed-api = { group = "de.robv.android.xposed", name = "api", version.ref = "xposedApi" }
+yukihook-api = { group = "com.highcapable.yukihookapi", name = "api", version.ref = "yukiHook" }
+yukihook-ksp = { group = "com.highcapable.yukihookapi", name = "ksp-xposed", version.ref = "yukiHook" }
 
 
 [bundles]
@@ -205,6 +218,7 @@ room = [
 ]
 
 testing-unit = [
+    "kotlin-test",
     "mockk-android",
     "kotlinx-coroutines-test",
 ]
@@ -225,6 +239,8 @@ common = [
     "kotlin-stdlib-jdk8",
     "gson"
 ]
+
+xposed = ["xposed-api", "yukihook-api"] # ADDED
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

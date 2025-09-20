@@ -39,6 +39,8 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url = uri("https://api.xposed.info/") } 
+        maven { url = uri("https://jitpack.io") } // CORRECTED URL
         maven { url = uri("https://androidx.dev/storage/compose-compiler/repository/") }
         maven { url = uri("https://maven.pkg.jetbrains.space/public/p/compose/dev") }
         maven { url = uri("https://s01.oss.sonatype.org/content/repositories/releases/") }

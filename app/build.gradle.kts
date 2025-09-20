@@ -1,6 +1,4 @@
 plugins {
-    // Android and Kotlin plugins first
-    // alias(libs.plugins.kotlin.android) // REMOVED to resolve conflict
     id("com.android.application")
     // Compose plugins
     alias(libs.plugins.compose.compiler)
@@ -55,10 +53,11 @@ android {
             targetCompatibility = JavaVersion.VERSION_25 // Updated
         }
 
-        // Source set for generated OpenAPI
+        // Source set for generated OpenAPI and Xposed assets
         sourceSets {
             getByName("main") {
                 kotlin.srcDir(layout.buildDirectory.dir("generated/openapi/src/main/kotlin"))
+                assets.srcDirs("src/main/assets", "xposed")  // MODIFIED to include xposed
             }
         }
     }
@@ -97,8 +96,11 @@ android {
         implementation(project(":datavein-oracle-native"))
         
         // ===== YukiHookAPI & LSPosed Framework =====
-        implementation("com.highcapable.yukihookapi:api:1.3.1")
-        ksp("com.highcapable.yukihookapi:ksp-xposed:1.3.1")
+        compileOnly(libs.xposed.api)                 // CHANGED
+        implementation(libs.yukihook.api)            // CHANGED
+        ksp(libs.yukihook.ksp)                       // CHANGED
+        implementation(libs.lsposed.lsparanoid)      // CORRECTED: removed .core
+        implementation(libs.freeReflection)          // Kept as is, already uses alias
         
         // ===== ANDROIDX & COMPOSE =====
         implementation(platform(libs.androidx.compose.bom))

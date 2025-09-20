@@ -4,7 +4,7 @@
 plugins {
     alias(libs.plugins.android.application) // Assuming this is an application module, adjust if library
     alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt) version "2.57.1" apply false
+    alias(libs.plugins.hilt) // CORRECTED - Hilt plugin applied directly
     alias(libs.plugins.kotlin.serialization) // Use the alias from libs.versions.toml
     alias(libs.plugins.compose.compiler)
 }
@@ -20,9 +20,23 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    // ADDED Java 25 compile options
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_25
+        targetCompatibility = JavaVersion.VERSION_25
+    }
+
+    // ADDED Java 25 toolchain
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(25))
+        }
+    }
+
     buildFeatures {
         compose = true
-        // Removed redundant compileOptions and java toolchain as they should be handled by convention plugins or root settings
+        // Comments about convention plugins handling compileOptions/javaToolchain are noted,
+        // but we are applying them explicitly for now as part of the alignment.
     }
 
     externalNativeBuild {
@@ -31,7 +45,6 @@ android {
             version = "3.22.1"
         }
     }
-    // Removed redundant compileOptions and java toolchain from here too
 }
 
 
@@ -81,5 +94,5 @@ dependencies {
 
 tasks.register("secureCommStatus") {
     group = "aegenesis"
-    doLast { println("\uD83D\uDCE6 SECURE COMM MODULE - Ready (Java 24)") }
+    doLast { println("🛡️ SECURE COMM MODULE - Ready (Java 25, JVM 25)") } // Updated
 }

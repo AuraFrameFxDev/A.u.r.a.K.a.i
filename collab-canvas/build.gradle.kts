@@ -7,7 +7,7 @@ plugins {
     // alias(libs.plugins.hilt)                   // REMOVE: Deprecated Hilt convention plugin
 
     alias(libs.plugins.compose.compiler)          // KEEP: For Jetpack Compose
-    alias(libs.plugins.google.services)           // KEEP: For Firebase general setup
+    alias(libs.plugins.google.services)
     // ...
 }
 

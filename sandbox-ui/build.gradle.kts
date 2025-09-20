@@ -78,4 +78,7 @@ android {
         doLast { println("\uD83D\uDCE6 SANDBOX UI - Ready (Java 25, JVM 25)") } // Updated
     }
 }
+dependencies {
+    implementation(libs.androidx.core.ktx)
+}
 // Removed duplicate dependencies block below

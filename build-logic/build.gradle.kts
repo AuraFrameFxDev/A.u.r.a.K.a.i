@@ -56,16 +56,14 @@ dependencies {
 
 // Configure Java toolchain for build-logic module
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_25 // UPDATED
+    targetCompatibility = JavaVersion.VERSION_25 // UPDATED
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(25))
     }
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17) // Corrected
-        // Your compiler options here
-    }
+// ADDED this block:
+kotlin {
+    jvmToolchain(25)
 }
