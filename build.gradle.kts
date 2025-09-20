@@ -29,10 +29,10 @@ allprojects {
 }
 
 subprojects {
-    // Set Kotlin bytecode JVM target to 24 for all subproject modules
+    // Set Kotlin bytecode JVM target to 17 for all subproject modules
     tasks.withType<KotlinCompile>().configureEach {
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_24)
+            jvmTarget.set(JvmTarget.JVM_17)
         }
     }
 }
