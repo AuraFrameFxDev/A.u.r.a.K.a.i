@@ -30,7 +30,7 @@ dependencies {
 
     // Google Services and Firebase
     implementation("com.google.gms:google-services:4.4.2")
-    implementation("com.google.firebase:firebase-crashlytics-gradle:3.0.2")
+    implementation("com.google.firebase:firebase-crashlytics-gradle:3.0.6")
 
     // Hilt
     implementation("com.google.dagger:hilt-android-gradle-plugin:2.51")
