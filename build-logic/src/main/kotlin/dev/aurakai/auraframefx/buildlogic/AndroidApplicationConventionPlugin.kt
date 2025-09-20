@@ -13,6 +13,21 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 class AndroidApplicationConventionPlugin : Plugin<Project> {
+    /**
+     * Applies the Android application convention to the given Gradle project.
+     *
+     * Configures the project as an Android application module with standard settings:
+     * - Applies plugins: Android application, Kotlin Android, Hilt, and KSP.
+     * - Sets compileSdk (36), defaultConfig (minSdk 34, targetSdk 36, test runner, vector drawable support).
+     * - Configures build types: release (minification, ProGuard files) and debug (debuggable, id/version suffixes).
+     * - Selects a Java toolchain version (CI-aware: uses Java 25 on CI, otherwise reads `java.toolchain` project property with default 24)
+     *   and applies the corresponding Java compatibility and Kotlin JVM toolchain.
+     * - Enables buildConfig generation, includes Android resources in unit tests, and excludes specific META-INF resources.
+     * - Sets Kotlin compilation JVM target to JVM_24 for all KotlinCompile tasks.
+     * - Adds Hilt implementation and KSP compiler dependencies from the version catalog.
+     *
+     * @param target The Gradle project to configure.
+     */
     override fun apply(target: Project) {
         with(target) {
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
