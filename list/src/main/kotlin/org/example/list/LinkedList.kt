@@ -68,13 +68,13 @@ class LinkedList : List<String> {
     }
 
     /**
-     * Remove `currentIt` from the list by relinking its predecessor or updating `head`.
+     * Unlink a node from the list by updating the predecessor or the head.
      *
-     * If `currentIt` is the current head, `head` is set to `currentIt.next`; otherwise
-     * `previousIt.next` is updated to skip `currentIt`.
+     * If `currentIt` is the head, updates `head` to `currentIt.next`; otherwise sets
+     * `previousIt.next` to `currentIt.next` to remove `currentIt` from the chain.
      *
-     * @param previousIt The node immediately before `currentIt`, or null when `currentIt` is the head.
-     * @param currentIt The node to unlink from the list.
+     * @param previousIt Node immediately before `currentIt`, or null when `currentIt` is the head.
+     * @param currentIt The node to remove from the list.
      */
     private fun unlink(previousIt: Node?, currentIt: Node) {
         if (currentIt == head) {
@@ -131,12 +131,12 @@ class LinkedList : List<String> {
         get() = calculateSize()
 
     /**
-     * Returns true if this list contains the specified element.
+     * Returns true if the list contains an element equal to [element].
      *
-     * The comparison is case-sensitive and uses String equality.
+     * Performs a case-sensitive equality check and stops at the first match.
      *
      * @param element element to search for
-     * @return `true` if the element is present in the list, `false` otherwise
+     * @return `true` if an equal element is found, `false` otherwise
      */
     override fun contains(element: String): Boolean {
         throw UnsupportedOperationException("Not yet implemented")
@@ -158,9 +158,8 @@ class LinkedList : List<String> {
     /**
      * Returns the element at the specified zero-based index.
      *
-     * @param index The zero-based position of the element to retrieve.
-     * @return The string stored at the given index.
-     * @throws IndexOutOfBoundsException If the index is negative or not less than the list size.
+     * @return The string at the given index.
+     * @throws IndexOutOfBoundsException if the index is negative or not less than the list size.
      */
     override fun get(index: Int): String {
         val node = getNodeAt(index) ?: throw IndexOutOfBoundsException("Index: $index")
@@ -280,9 +279,9 @@ override fun hasPrevious(): Boolean = pos > 0
             /**
  * Returns the index of the element that would be returned by a subsequent `next()` call.
  *
- * For the snapshot-based list iterator this is the current cursor position (`pos`), in the range `0..size`.
+ * For this snapshot-based iterator, this is the current cursor position (`pos`), in the range `0..size`.
  *
- * @return the next element's index (equal to the cursor position)
+ * @return the index of the next element (equal to the iterator's cursor position)
  */
 override fun nextIndex(): Int = pos
             /**

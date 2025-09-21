@@ -10,13 +10,18 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 class GenesisAndroidComposePlugin : Plugin<Project> {
     /**
-     * Applies Android library and Compose conventions to the given Gradle project.
+     * Applies Android library and Jetpack Compose conventions to the given Gradle project.
      *
-     * Enables Jetpack Compose for the project's Android library module, sets Java and Kotlin
-     * compilation targets to Java/JVM 24, configures minSdk to 34, and adds common Compose
-     * dependencies (using the Compose BOM plus core UI, tooling, foundation, Material3,
-     * Activity Compose, and lifecycle ViewModel Compose integrations). Also sets Kotlin compiler
-     * free arguments for JVM default methods and opt-in annotations.
+     * Configures the target project by applying the Android library plugin, enabling Jetpack
+     * Compose for the library extension, setting Java source/target compatibility and Kotlin
+     * jvmTarget to Java/JVM 24, and setting the library minSdk to 34. It also adds common
+     * Compose dependencies using the Compose BOM (version 2025.09.00) and core libraries
+     * (UI, tooling-preview, tooling (debug), foundation, material3), activity-compose (1.11.0),
+     * and lifecycle-viewmodel-compose (2.9.3). Kotlin compiler free arguments
+     * `-Xjvm-default=all` and `-opt-in=kotlin.RequiresOptIn` are added to KotlinCompile tasks.
+     *
+     * This function mutates the Gradle Project by applying plugins, configuring the Android
+     * library extension and Kotlin compilation tasks, and adding dependencies.
      */
     override fun apply(target: Project) {
         with(target) {
